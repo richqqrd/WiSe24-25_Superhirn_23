@@ -1,13 +1,16 @@
 # example.py
 import os
 
-def greet(name):   # Funktion definiert, aber die Konventionen ignoriert
+
+def greet(name):
     print("Hello, " + name)
 
-def add_numbers(a,b):  # Parameter ohne Leerzeichen
-    result=a+b   # Variablen ohne Leerzeichen
+
+def add_numbers(a, b):
+    result = a + b
     print(result)
+
 
 if __name__ == "__main__":
     greet("World")
-    add_numbers(3,4)  # Testaufruf ohne Leerzeichen
+    add_numbers(3, 4)
