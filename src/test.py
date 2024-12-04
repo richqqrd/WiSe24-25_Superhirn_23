@@ -1,6 +1,7 @@
 # example.py
 # Dieses Skript zeigt einfache Funktionen für Begrüßung und Addition.
 
+
 def greet(name):
     """
     Gibt eine Begrüßung für den angegebenen Namen aus.
