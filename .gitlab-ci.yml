@@ -1,0 +1,24 @@
+default:
+  image: python:3.9
+  before_script:
+    - pip install -r requirements.txt
+  cache:
+    paths:
+      - .cache/pip
+  
+stages:
+  - lint
+  - test
+  - deploy
+
+flake8:
+  stage: lint
+  script:
+    - flake8 src/
+  allow_failure: false
+  only:
+    - merge_requests
+    - branches
+  tags:
+    - linux
+    - python
