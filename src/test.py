@@ -1,9 +1,6 @@
 # example.py
 # Dieses Skript zeigt einfache Funktionen für Begrüßung und Addition.
 
- # Importieren des os-Moduls, derzeit nicht verwendet
-
-
 def greet(name):
     """
     Gibt eine Begrüßung für den angegebenen Namen aus.
