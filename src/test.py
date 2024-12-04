@@ -16,7 +16,7 @@ def greet(name):
 
 def add_numbers(a, b):
     """
-    Addiert zwei Zahlen und gibt das Ergebnis aus.
+    Addiert zwei Zahlen und gibt das Ergebnis aus..
 
     Args:
         a (int or float): Die erste Zahl.
