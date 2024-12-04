@@ -1,7 +1,7 @@
 # example.py
 # Dieses Skript zeigt einfache Funktionen für Begrüßung und Addition.
 
-import os  # Importieren des os-Moduls, derzeit nicht verwendet
+ # Importieren des os-Moduls, derzeit nicht verwendet
 
 
 def greet(name):
