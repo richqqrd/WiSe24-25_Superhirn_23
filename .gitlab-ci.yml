@@ -5,13 +5,6 @@ default:
   cache:
     paths:
       - .cache/pip
-  
-
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
 
 stages:
   - lint
@@ -21,7 +14,26 @@ flake8:
   stage: lint
   script:
     - flake8 src/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   allow_failure: false
+  tags:
+    - linux
+    - python
+
+run_tests:
+  stage: test
+  script:
+    - export PYTHONPATH=$CI_PROJECT_DIR
+    - pytest tests/ --junitxml=test-reports/report.xml --cov=src --cov-report=xml --cov-report=html
+  artifacts:
+    when: always
+    paths:
+      - test-reports/         
+      - htmlcov/              
+      - coverage.xml        
+    reports:
+      junit: test-reports/report.xml 
   tags:
     - linux
     - python
