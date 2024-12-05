@@ -25,3 +25,20 @@ flake8:
   tags:
     - linux
     - python
+
+
+pytest:
+  stage: test
+  script:
+    - pytest --cov=src --cov-report=xml --cov-report=html --junitxml=test-reports/report.xml
+  artifacts:
+    when: always
+    paths:
+      - test-reports/
+      - htmlcov/
+      - coverage.xml
+    reports:
+      junit: test-reports/report.xml
+  tags:
+    - linux
+    - python
