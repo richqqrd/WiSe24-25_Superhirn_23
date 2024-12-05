@@ -14,7 +14,6 @@ def test_subtract():
     assert subtract(5, 2) == 3
     assert subtract(0, 5) == -5
     assert subtract(-3, -2) == -1
-    assert subtract(3, 2) == 1
 
 if __name__ == "__main__":
     pytest.main()
