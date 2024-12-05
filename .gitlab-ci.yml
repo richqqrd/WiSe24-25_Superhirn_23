@@ -6,19 +6,22 @@ default:
     paths:
       - .cache/pip
   
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+
 stages:
   - lint
   - test
-  - deploy
 
 flake8:
   stage: lint
   script:
     - flake8 src/
   allow_failure: false
-  only:
-    - merge_requests
-    - branches
   tags:
     - linux
     - python
