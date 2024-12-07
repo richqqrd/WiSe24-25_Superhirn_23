@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from src.CLI.input_handler.input_handler import InputHandler
 
+
 class TestInputHandler(unittest.TestCase):
 
     def test_get_user_input(self):

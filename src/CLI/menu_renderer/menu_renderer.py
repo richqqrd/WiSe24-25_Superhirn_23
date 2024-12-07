@@ -22,8 +22,6 @@ class MenuRenderer:
         print("5. Save Game")
         print("6. Resume Interrupted Game")
 
-
-
     def start_offline_game(self) -> None:
         """
         Handles the start game option.

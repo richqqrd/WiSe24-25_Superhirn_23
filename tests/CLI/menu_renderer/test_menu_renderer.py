@@ -78,5 +78,5 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("Game started as Coder.", output)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,11 +1,13 @@
 # src/util/ColorCode.py
 from enum import Enum
 
+
 class ColorCode(Enum):
     """
     Enum representing various color codes with their respective integer values and ANSI color codes.
     Provides methods to check if a color is primary or has a rating.
     """
+
     RED = (1, "\033[31m")
     GREEN = (2, "\033[32m")
     YELLOW = (3, "\033[33m")

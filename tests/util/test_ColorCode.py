@@ -1,6 +1,7 @@
 # tests/util/test_ColorCode.py
 from src.util.ColorCode import ColorCode
 
+
 def test_enum_values():
     """
     Test that the enum values are correctly assigned to the colors.
@@ -13,6 +14,7 @@ def test_enum_values():
     assert ColorCode.BROWN.value == 6
     assert ColorCode.WHITE.value == 7
     assert ColorCode.BLACK.value == 8
+
 
 def test_get_ansi_code():
     """

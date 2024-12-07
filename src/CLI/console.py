@@ -1,5 +1,6 @@
 from src.CLI.input_handler.input_handler import InputHandler
 
+
 class Console:
     """
     Represents a console-based user interface.
@@ -7,6 +8,7 @@ class Console:
     This class handles the interaction with the user via the console,
     relying on an InputHandler to process user inputs.
     """
+
     def __init__(self, inputHandler: InputHandler):
         """
         Initializes the Console instance.

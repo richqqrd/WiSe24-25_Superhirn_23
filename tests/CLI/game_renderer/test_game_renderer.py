@@ -69,5 +69,5 @@ class TestGameRenderer(unittest.TestCase):
         self.assertIn("WARNING: Test Warning", output)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

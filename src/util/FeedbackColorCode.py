@@ -1,10 +1,12 @@
 # src/util/FeedbackColorCode.py
 from enum import Enum
 
+
 class FeedbackColorCode(Enum):
     """
     Enum representing feedback color codes with their respective integer values and ANSI color codes.
     """
+
     WHITE = (7, "\033[97m")
     BLACK = (8, "\033[90m")
 

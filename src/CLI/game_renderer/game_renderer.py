@@ -3,6 +3,7 @@ import os
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
+
 class GameRenderer:
     """
     Responsible for rendering the game state and feedback in the CLI.
@@ -15,7 +16,7 @@ class GameRenderer:
         """
         Clears the console screen.
         """
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("cls" if os.name == "nt" else "clear")
 
     def colorize(self, pins) -> str:
         """
@@ -24,7 +25,9 @@ class GameRenderer:
         :param pins: List of ColorCode or FeedbackColorCode enums.
         :return: Colored string representation of the code.
         """
-        return ''.join([pin.get_ansi_code() + str(pin.value) + '\033[0m' for pin in pins])
+        return "".join(
+            [pin.get_ansi_code() + str(pin.value) + "\033[0m" for pin in pins]
+        )
 
     def render_game_state(self, game_state) -> None:
         """
@@ -58,8 +61,9 @@ class GameRenderer:
         """
         print(f"WARNING: {warning}\n")
 
+
 # Example usage
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    renderer = GameRenderer()
 #    renderer.clear_screen()
 #    game_state = {
