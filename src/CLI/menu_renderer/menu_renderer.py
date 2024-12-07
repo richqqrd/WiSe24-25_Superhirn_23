@@ -21,6 +21,12 @@ class MenuRenderer:
         print("4. Save Game")
         print("5. Resume Interrupted Game")
 
+    def start_game(self):
+        """
+        Handles the start game option.
+        """
+        print("Game started.")
+
     def change_language(self):
         """
         Handles the change language option.
@@ -38,12 +44,6 @@ class MenuRenderer:
         Handles the save game option.
         """
         print("Game saved.")
-
-    def start_game(self):
-        """
-        Handles the start game option.
-        """
-        print("Game started.")
 
     def resume_interrupted_game(self):
         """
