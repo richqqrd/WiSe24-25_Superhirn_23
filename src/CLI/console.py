@@ -16,7 +16,7 @@ class Console:
         """
         self.inputHandler = inputHandler
 
-    def run(self):
+    def run(self) -> None:
         """
         Starts the main loop for the console interface.
 

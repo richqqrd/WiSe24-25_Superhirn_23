@@ -1,5 +1,4 @@
 # tests/util/test_FeedbackColorCode.py
-import pytest
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 def test_enum_values():

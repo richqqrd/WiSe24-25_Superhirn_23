@@ -11,13 +11,13 @@ class GameRenderer:
     def __init__(self):
         pass
 
-    def clear_screen(self):
+    def clear_screen(self) -> None:
         """
         Clears the console screen.
         """
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def colorize(self, pins):
+    def colorize(self, pins) -> str:
         """
         Converts a list of ColorCode or FeedbackColorCode enums into a string with colored digits.
 
@@ -26,7 +26,7 @@ class GameRenderer:
         """
         return ''.join([pin.get_ansi_code() + str(pin.value) + '\033[0m' for pin in pins])
 
-    def render_game_state(self, game_state):
+    def render_game_state(self, game_state) -> None:
         """
         Renders the game state, showing round number, feedback, and guesses.
 
@@ -42,7 +42,7 @@ class GameRenderer:
             guess_str = self.colorize(guesses)  # Guess pins in colors
             print(f" {round_number:<5} | {feedback_str:<10} | {guess_str}")
 
-    def render_message(self, message):
+    def render_message(self, message) -> None:
         """
         Renders a general message to the user.
 
@@ -50,7 +50,7 @@ class GameRenderer:
         """
         print(f"\n{message}\n")
 
-    def render_warning(self, warning):
+    def render_warning(self, warning) -> None:
         """
         Renders a warning message to the user.
 
@@ -59,13 +59,13 @@ class GameRenderer:
         print(f"WARNING: {warning}\n")
 
 # Example usage
-if __name__ == "__main__":
-    renderer = GameRenderer()
-    renderer.clear_screen()
-    game_state = {
-        1: ([ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE], [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]),
-        2: ([ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN], [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK])
-    }
-    renderer.render_game_state(game_state)
-    renderer.render_message("Test Message")
-    renderer.render_warning("Test Warning")
+#if __name__ == "__main__":
+#    renderer = GameRenderer()
+#    renderer.clear_screen()
+#    game_state = {
+#        1: ([ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE], [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]),
+#        2: ([ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN], [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK])
+#    }
+#    renderer.render_game_state(game_state)
+#    renderer.render_message("Test Message")
+#    renderer.render_warning("Test Warning")
