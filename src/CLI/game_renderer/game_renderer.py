@@ -1,5 +1,6 @@
 import os
 from src.util.ColorCode import ColorCode
+from src.util.FeedbackColorCode import FeedbackColorCode
 
 class GameRenderer:
     """
@@ -7,14 +8,16 @@ class GameRenderer:
     """
 
     COLORS = {
-        ColorCode.RED.value: '\033[31m',  # Red
-        ColorCode.GREEN.value: '\033[32m',  # Green
-        ColorCode.YELLOW.value: '\033[33m',  # Yellow
-        ColorCode.BLUE.value: '\033[34m',  # Blue
-        ColorCode.ORANGE.value: '\033[38;5;214m',  # Orange
-        ColorCode.BROWN.value: '\033[38;5;94m',  # Brown
-        ColorCode.WHITE.value: '\033[97m',  # Bright White
-        ColorCode.BLACK.value: '\033[90m',  # Bright Black
+        ColorCode.RED.value: ColorCode.RED.get_ansi_code(),  # Red
+        ColorCode.GREEN.value: ColorCode.GREEN.get_ansi_code(),  # Green
+        ColorCode.YELLOW.value: ColorCode.YELLOW.get_ansi_code(),  # Yellow
+        ColorCode.BLUE.value: ColorCode.BLUE.get_ansi_code(),  # Blue
+        ColorCode.ORANGE.value: ColorCode.ORANGE.get_ansi_code(),  # Orange
+        ColorCode.BROWN.value: ColorCode.BROWN.get_ansi_code(),  # Brown
+        ColorCode.WHITE.value: ColorCode.WHITE.get_ansi_code(),  # Bright White
+        ColorCode.BLACK.value: ColorCode.BLACK.get_ansi_code(),  # Bright Black
+        FeedbackColorCode.WHITE.value: ColorCode.WHITE.get_ansi_code(),  # Feedback White
+        FeedbackColorCode.BLACK.value: ColorCode.BLACK.get_ansi_code(),  # Feedback Black
         'reset': '\033[0m'  # Reset
     }
 
@@ -29,32 +32,29 @@ class GameRenderer:
 
     def colorize(self, pins):
         """
-        Converts a numeric code into a string with colored digits.
+        Converts a list of ColorCode or FeedbackColorCode enums into a string with colored digits.
 
-        :param pins: String representing the code or guess.
+        :param pins: List of ColorCode or FeedbackColorCode enums.
         :return: Colored string representation of the code.
         """
-        return ''.join([self.COLORS.get(int(char), self.COLORS['reset']) + char + self.COLORS['reset'] for char in pins])
+        return ''.join([self.COLORS.get(pin.value, self.COLORS['reset']) + str(pin.value) + self.COLORS['reset'] for pin in pins])
 
-    def render_game_state(self, round_number, guesses, feedback):
+    def render_game_state(self, game_state):
         """
         Renders the game state, showing round number, feedback, and guesses.
 
-        :param round_number: Current round number.
-        :param guesses: List of guesses made by the player.
-        :param feedback: List of feedback corresponding to each guess.
+        :param game_state: Dictionary with round number as key and a tuple of lists (guesses, feedback) as value.
         """
         print("Super Superhirn")
         print("=================")
         print("Round | Feedback | Guess")
         print("--------------------------")
 
-        for rnd, guess, fb in zip(range(1, round_number + 1), guesses, feedback):
-            feedback_str = self.colorize(fb)  # Feedback pins in black/white
-            guess_str = self.colorize(guess)  # Guess pins in colors
-            print(f" {rnd:<5} | {feedback_str:<10} | {guess_str}")
+        for round_number, (guesses, feedback) in game_state.items():
+            feedback_str = self.colorize(feedback)  # Feedback pins in black/white
+            guess_str = self.colorize(guesses)  # Guess pins in colors
+            print(f" {round_number:<5} | {feedback_str:<10} | {guess_str}")
 
-        print("\nMake your next guess!")
 
     def render_message(self, message):
         """
@@ -72,12 +72,14 @@ class GameRenderer:
         """
         print(f"WARNING: {warning}\n")
 
-    # Example usage
-
-
+# Example usage
 if __name__ == "__main__":
     renderer = GameRenderer()
     renderer.clear_screen()
-    renderer.render_game_state(3, ["12345", "56781", "23456"], ["887", "888", "8888"])
+    game_state = {
+        1: ([ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE], [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]),
+        2: ([ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN], [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK])
+    }
+    renderer.render_game_state(game_state)
     renderer.render_message("Test Message")
     renderer.render_warning("Test Warning")
