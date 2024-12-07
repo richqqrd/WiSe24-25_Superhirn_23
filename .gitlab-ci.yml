@@ -2,9 +2,6 @@ default:
   image: python:3.9
   before_script:
     - pip install -r requirements.txt
-  cache:
-    paths:
-      - .cache/pip
 
 stages:
   - lint
@@ -14,6 +11,7 @@ flake8:
   stage: lint
   script:
     - flake8 src/
+    - flake8 tests/
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   allow_failure: false
