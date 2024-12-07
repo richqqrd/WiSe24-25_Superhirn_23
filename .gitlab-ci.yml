@@ -11,6 +11,7 @@ flake8:
   stage: lint
   script:
     - flake8 src/
+    - flake8 tests/
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   allow_failure: false
