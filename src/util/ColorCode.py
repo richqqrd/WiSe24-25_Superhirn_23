@@ -1,10 +1,10 @@
-# src/util/ColorCode.py
 from enum import Enum
 
 
 class ColorCode(Enum):
     """
-    Enum representing various color codes with their respective integer values and ANSI color codes.
+    Enum representing various color codes with their
+    respective integer values and ANSI color codes.
     Provides methods to check if a color is primary or has a rating.
     """
 

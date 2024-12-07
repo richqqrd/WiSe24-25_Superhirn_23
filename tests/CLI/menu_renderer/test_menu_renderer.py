@@ -54,25 +54,29 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("2. Play as Coder", output)
 
     def test_start_online_game(self):
-        """Test the start_online_game method to ensure it correctly handles the option."""
+        """Test the start_online_game method to ensure it
+        correctly handles the option."""
         self.renderer.start_online_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game started.", output)
 
     def test_resume_interrupted_game(self):
-        """Test the resume_interrupted_game method to ensure it correctly handles the option."""
+        """Test the resume_interrupted_game method to ensure it
+        correctly handles the option."""
         self.renderer.resume_interrupted_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Resumed interrupted game.", output)
 
     def test_start_offline_game_as_guesser(self):
-        """Test the start_offline_game method to ensure it correctly handles the option."""
+        """Test the start_offline_game method to ensure it
+        correctly handles the option."""
         self.renderer.start_offline_game_as_guesser()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game started as Guesser.", output)
 
     def test_start_offline_game_as_coder(self):
-        """Test the start_offline_game method to ensure it correctly handles the option."""
+        """Test the start_offline_game method to ensure it
+        correctly handles the option."""
         self.renderer.start_offline_game_as_coder()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game started as Coder.", output)

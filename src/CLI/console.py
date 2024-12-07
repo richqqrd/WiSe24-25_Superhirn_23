@@ -14,7 +14,8 @@ class Console:
         Initializes the Console instance.
 
         Args:
-            inputHandler (InputHandler): An instance responsible for handling user input.
+            inputHandler (InputHandler): An instance responsible
+            for handling user input.
         """
         self.inputHandler = inputHandler
 
@@ -22,7 +23,8 @@ class Console:
         """
         Starts the main loop for the console interface.
 
-        Continuously prompts the user for input, processes the input using the InputHandler,
+        Continuously prompts the user for input,
+        processes the input using the InputHandler,
         and prints the result to the console.
         """
         while True:

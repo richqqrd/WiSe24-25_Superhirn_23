@@ -4,7 +4,7 @@ from enum import Enum
 
 class FeedbackColorCode(Enum):
     """
-    Enum representing feedback color codes with their respective integer values and ANSI color codes.
+    Enum representing feedback color codes with their integer values and ANSI codes.
     """
 
     WHITE = (7, "\033[97m")
@@ -23,8 +23,7 @@ class FeedbackColorCode(Enum):
 
     def __str__(self):
         """
-        Returns the string representation of the feedback color with the ANSI color code applied.
-
+        Returns the string representation of the feedback color with the ANSI code.
         Returns:
             str: The feedback color name with the ANSI color code.
         """
