@@ -12,8 +12,8 @@ class ColorCode(Enum):
     BLUE = (4, "\033[34m")
     ORANGE = (5, "\033[38;5;214m")
     BROWN = (6, "\033[38;5;94m")
-    WHITE = (7, "\033[37m")
-    BLACK = (8, "\033[30m")
+    WHITE = (7, "\033[97m")
+    BLACK = (8, "\033[90m")
 
     def __init__(self, value, ansi_code):
         """
