@@ -1,3 +1,4 @@
+# src/CLI/game_renderer/game_renderer.py
 import os
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
@@ -6,20 +7,6 @@ class GameRenderer:
     """
     Responsible for rendering the game state and feedback in the CLI.
     """
-
-    COLORS = {
-        ColorCode.RED.value: ColorCode.RED.get_ansi_code(),  # Red
-        ColorCode.GREEN.value: ColorCode.GREEN.get_ansi_code(),  # Green
-        ColorCode.YELLOW.value: ColorCode.YELLOW.get_ansi_code(),  # Yellow
-        ColorCode.BLUE.value: ColorCode.BLUE.get_ansi_code(),  # Blue
-        ColorCode.ORANGE.value: ColorCode.ORANGE.get_ansi_code(),  # Orange
-        ColorCode.BROWN.value: ColorCode.BROWN.get_ansi_code(),  # Brown
-        ColorCode.WHITE.value: ColorCode.WHITE.get_ansi_code(),  # Bright White
-        ColorCode.BLACK.value: ColorCode.BLACK.get_ansi_code(),  # Bright Black
-        FeedbackColorCode.WHITE.value: ColorCode.WHITE.get_ansi_code(),  # Feedback White
-        FeedbackColorCode.BLACK.value: ColorCode.BLACK.get_ansi_code(),  # Feedback Black
-        'reset': '\033[0m'  # Reset
-    }
 
     def __init__(self):
         pass
@@ -37,7 +24,7 @@ class GameRenderer:
         :param pins: List of ColorCode or FeedbackColorCode enums.
         :return: Colored string representation of the code.
         """
-        return ''.join([self.COLORS.get(pin.value, self.COLORS['reset']) + str(pin.value) + self.COLORS['reset'] for pin in pins])
+        return ''.join([pin.get_ansi_code() + str(pin.value) + '\033[0m' for pin in pins])
 
     def render_game_state(self, game_state):
         """
@@ -54,7 +41,6 @@ class GameRenderer:
             feedback_str = self.colorize(feedback)  # Feedback pins in black/white
             guess_str = self.colorize(guesses)  # Guess pins in colors
             print(f" {round_number:<5} | {feedback_str:<10} | {guess_str}")
-
 
     def render_message(self, message):
         """
