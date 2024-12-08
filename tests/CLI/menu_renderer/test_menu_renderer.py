@@ -1,3 +1,4 @@
+# tests/CLI/menu_renderer/test_menu_renderer.py
 import unittest
 from io import StringIO
 import sys
@@ -28,58 +29,45 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("5. Save Game", output)
         self.assertIn("6. Resume Interrupted Game", output)
 
-    def test_change_language(self):
-        """Test the change_language method to ensure it correctly handles the option."""
-        self.renderer.change_language()
+    def test_display_role_menu(self):
+        """Test the display_role_menu method to ensure it correctly displays the role menu."""
+        self.renderer.display_role_menu()
         output = self.held_output.getvalue().strip()
-        self.assertIn("Language changed.", output)
+        self.assertIn("Select your role:", output)
+        self.assertIn("1. Guesser", output)
+        self.assertIn("2. Coder", output)
 
-    def test_end_game(self):
-        """Test the end_game method to ensure it correctly handles the option."""
-        self.renderer.end_game()
+    def test_display_languages(self):
+        """Test the display_languages method to ensure it correctly displays the language menu."""
+        self.renderer.display_languages()
+        output = self.held_output.getvalue().strip()
+        self.assertIn("Select a language:", output)
+        self.assertIn("1. German", output)
+        self.assertIn("2. English", output)
+
+    def test_display_end_game(self):
+        """Test the display_end_game method to ensure it correctly displays the end game message."""
+        self.renderer.display_end_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game ended.", output)
 
-    def test_save_game(self):
-        """Test the save_game method to ensure it correctly handles the option."""
-        self.renderer.save_game()
+    def test_display_save_game(self):
+        """Test the display_save_game method to ensure it correctly displays the save game message."""
+        self.renderer.display_save_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game saved.", output)
 
-    def test_start_game(self):
-        """Test the start_game method to ensure it correctly handles the option."""
-        self.renderer.start_offline_game()
+    def test_display_resume_game(self):
+        """Test the display_resume_game method to ensure it correctly displays the resume game message."""
+        self.renderer.display_resume_game()
         output = self.held_output.getvalue().strip()
-        self.assertIn("1. Play as Guesser", output)
-        self.assertIn("2. Play as Coder", output)
+        self.assertIn("loads resumed game", output)
 
-    def test_start_online_game(self):
-        """Test the start_online_game method to ensure it
-        correctly handles the option."""
-        self.renderer.start_online_game()
+    def test_display_start_game(self):
+        """Test the display_start_game method to ensure it correctly displays the start game message."""
+        self.renderer.display_start_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game started.", output)
-
-    def test_resume_interrupted_game(self):
-        """Test the resume_interrupted_game method to ensure it
-        correctly handles the option."""
-        self.renderer.resume_interrupted_game()
-        output = self.held_output.getvalue().strip()
-        self.assertIn("Resumed interrupted game.", output)
-
-    def test_start_offline_game_as_guesser(self):
-        """Test the start_offline_game method to ensure it
-        correctly handles the option."""
-        self.renderer.start_offline_game_as_guesser()
-        output = self.held_output.getvalue().strip()
-        self.assertIn("Game started as Guesser.", output)
-
-    def test_start_offline_game_as_coder(self):
-        """Test the start_offline_game method to ensure it
-        correctly handles the option."""
-        self.renderer.start_offline_game_as_coder()
-        output = self.held_output.getvalue().strip()
-        self.assertIn("Game started as Coder.", output)
 
 
 if __name__ == "__main__":
