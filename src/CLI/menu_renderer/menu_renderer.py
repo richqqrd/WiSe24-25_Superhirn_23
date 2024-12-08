@@ -1,7 +1,7 @@
 # src/CLI/menu_renderer/menu_renderer.py
 class MenuRenderer:
     """
-    Responsible for rendering the menu and handling menu options.
+    Responsible for rendering the menu
     """
 
     def __init__(self):
@@ -22,46 +22,43 @@ class MenuRenderer:
         print("5. Save Game")
         print("6. Resume Interrupted Game")
 
-    def start_offline_game(self) -> None:
+    def display_role_menu(self) -> None:
         """
-        Handles the start game option.
+        Displays the role selection menu.
         """
-        print("1. Play as Guesser")
-        print("2. Play as Coder")
+        print("Select your role:")
+        print("1. Guesser")
+        print("2. Coder")
 
-    def start_offline_game_as_guesser(self) -> None:
-        print("Game started as Guesser.")
+    def display_languages(self) -> None:
+        """
+        Displays the language selection menu.
+        """
+        print("Select a language:")
+        print("1. German")
+        print("2. English")
 
-    def start_offline_game_as_coder(self) -> None:
-        print("Game started as Coder.")
-
-    def start_online_game(self) -> None:
+    def display_end_game(self) -> None:
         """
-        Handles the start online game option.
-        :return:
-        """
-        print("Game started.")
-
-    def change_language(self) -> None:
-        """
-        Handles the change language option.
-        """
-        print("Language changed.")
-
-    def end_game(self) -> None:
-        """
-        Handles the end game option.
+        Displays the end game message.
         """
         print("Game ended.")
 
-    def save_game(self) -> None:
+    def display_save_game(self) -> None:
         """
-        Handles the save game option.
+        Displays the save game message.
         """
         print("Game saved.")
 
-    def resume_interrupted_game(self) -> None:
+    def display_resume_game(self) -> None:
         """
-        Handles resuming an interrupted game.
+        Displays the resume game message.
         """
-        print("Resumed interrupted game.")
+        print("loads resumed game")
+
+
+    def display_start_game(self) -> None:
+        """
+        Displays the start game message.
+        """
+        print("Game started.")
