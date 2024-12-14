@@ -30,7 +30,8 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("6. Resume Interrupted Game", output)
 
     def test_display_role_menu(self):
-        """Test the display_role_menu method to ensure it correctly displays the role menu."""
+        """Test the display_role_menu method to ensure it
+        correctly displays the role menu."""
         self.renderer.display_role_menu()
         output = self.held_output.getvalue().strip()
         self.assertIn("Select your role:", output)
@@ -38,7 +39,8 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("2. Coder", output)
 
     def test_display_languages(self):
-        """Test the display_languages method to ensure it correctly displays the language menu."""
+        """Test the display_languages method to ensure it
+        correctly displays the language menu."""
         self.renderer.display_languages()
         output = self.held_output.getvalue().strip()
         self.assertIn("Select a language:", output)
@@ -46,25 +48,29 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("2. English", output)
 
     def test_display_end_game(self):
-        """Test the display_end_game method to ensure it correctly displays the end game message."""
+        """Test the display_end_game method to ensure it
+        correctly displays the end game message."""
         self.renderer.display_end_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game ended.", output)
 
     def test_display_save_game(self):
-        """Test the display_save_game method to ensure it correctly displays the save game message."""
+        """Test the display_save_game method to ensure it
+        correctly displays the save game message."""
         self.renderer.display_save_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game saved.", output)
 
     def test_display_resume_game(self):
-        """Test the display_resume_game method to ensure it correctly displays the resume game message."""
+        """Test the display_resume_game method to ensure it
+        correctly displays the resume game message."""
         self.renderer.display_resume_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("loads resumed game", output)
 
     def test_display_start_game(self):
-        """Test the display_start_game method to ensure it correctly displays the start game message."""
+        """Test the display_start_game method to ensure it
+        correctly displays the start game message."""
         self.renderer.display_start_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("Game started.", output)
