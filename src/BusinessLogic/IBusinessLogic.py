@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class IBusinessLogic(ABC):
     """
     Interface for the business logic related to the game operations.

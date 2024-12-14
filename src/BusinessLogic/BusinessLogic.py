@@ -5,6 +5,7 @@ class BusinessLogic(IBusinessLogic):
     """
     Concrete implementation of the IBusinessLogic interface.
     """
+
     def __init__(self):
         """
         Initializes the BusinessLogic instance.
@@ -15,7 +16,7 @@ class BusinessLogic(IBusinessLogic):
             "3": self.change_language,
             "4": self.end_game,
             "5": self.save_game,
-            "6": self.resume_interrupted_game
+            "6": self.resume_interrupted_game,
         }
 
     def handle(self, command: str) -> str:
@@ -24,7 +25,6 @@ class BusinessLogic(IBusinessLogic):
             return action()
         else:
             return "Invalid command."
-
 
     def start_offline_game(self) -> str:
         return "choose_role"
@@ -44,9 +44,8 @@ class BusinessLogic(IBusinessLogic):
     def resume_interrupted_game(self) -> str:
         return "resume_interrupted_game"
 
-    def start_offline_game_as_guesser(self) -> str:
+    def start_offline_game_as_guesser(self) -> None:
         print("Game started as Guesser.")
 
-    def start_offline_game_as_coder(self) -> str:
+    def start_offline_game_as_coder(self) -> None:
         print("Game started as Coder.")
-

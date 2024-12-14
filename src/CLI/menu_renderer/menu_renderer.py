@@ -56,7 +56,6 @@ class MenuRenderer:
         """
         print("loads resumed game")
 
-
     def display_start_game(self) -> None:
         """
         Displays the start game message.
