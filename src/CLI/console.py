@@ -1,6 +1,8 @@
+from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.CLI.input_handler.input_handler import InputHandler
 from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 from src.BusinessLogic.BusinessLogic import BusinessLogic
+from src.GameLogic import IGameLogic
 
 
 class Console:
@@ -11,7 +13,7 @@ class Console:
     relying on an InputHandler to process user inputs.
     """
 
-    def __init__(self, inputHandler: InputHandler, menuRenderer: MenuRenderer):
+    def __init__(self, inputHandler: InputHandler, menuRenderer: MenuRenderer, business_logic: IBusinessLogic):
         """
         Initializes the Console instance.
 
@@ -21,7 +23,7 @@ class Console:
         """
         self.inputHandler = inputHandler
         self.menuRenderer = menuRenderer
-        self.businessLogic = BusinessLogic()
+        self.businessLogic = business_logic
 
     def run(self) -> None:
         """
@@ -33,16 +35,33 @@ class Console:
         """
         while True:
             self.menuRenderer.display_menu()
-            user_input = self.inputHandler.handle_user_input("Enter command: ")
+            user_input = self.inputHandler.handle_menu_input()
             next_action = self.businessLogic.handle(user_input)
 
             if next_action == "choose_role":
                 self.menuRenderer.display_role_menu()
-                user_input = self.inputHandler.handle_user_input("Enter command: ")
-                break
+                role_input = self.inputHandler.handle_role_input()
+                next_action = self.businessLogic.handle_role_choice(role_input, "offline")
+
+                if next_action == "need_code_input":
+                    self.menuRenderer.display_code_input()
+                    code_input = self.inputHandler.handle_code_input()
+                    next_action = self.businessLogic.handle_code_input(code_input)
+                    print(next_action)
+
+                    if  next_action == "wait_for_computer_guess":
+                        next_action = self.businessLogic.handle_computer_guess()
+                        game_state = self.businessLogic.get_game_state()
+                        self.game_renderer.render_game_state(game_state)
+
+            elif next_action == "choose_role_online":
+                self.menuRenderer.display_role_menu()
+                role_input = self.inputHandler.handle_role_input()
+                next_action = self.businessLogic.handle_role_choice(role_input, "online")
+
             elif next_action == "choose_language":
                 self.menuRenderer.display_languages()
-                user_input = self.inputHandler.handle_user_input("Enter command: ")
+                user_input = self.inputHandler.handle_language_input()
                 break
             elif next_action == "end_game":
                 self.menuRenderer.display_end_game()

@@ -1,4 +1,7 @@
 # src/CLI/menu_renderer/menu_renderer.py
+from src.util.ColorCode import ColorCode
+
+
 class MenuRenderer:
     """
     Responsible for rendering the menu
@@ -61,3 +64,19 @@ class MenuRenderer:
         Displays the start game message.
         """
         print("Game started.")
+
+    def display_code_input(self) -> None:
+        """
+        Displays the available colors and their codes.
+        """
+        print("\nAvailable colors and their codes:")
+        for color in ColorCode:
+            print(f"{color.value} : {color}")
+
+    def display_guess_input(self) -> None:
+        """
+        Displays the available colors and their codes.
+        """
+        print("\nAvailable colors and their codes:")
+        for color in ColorCode:
+            print(f"{color.value} : {color}")

@@ -1,4 +1,6 @@
 import os
+
+from src.GameLogic.GameState import GameState
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 from typing import List, Dict, Tuple, Union
@@ -28,23 +30,23 @@ class GameRenderer:
         )
 
     def render_game_state(
-        self, game_state: Dict[int, Tuple[List[ColorCode], List[FeedbackColorCode]]]
-    ) -> None:
+        self, game_state: GameState) -> None:
         """
         Renders the game state, showing round number, feedback, and guesses.
 
         :param game_state: Dict with round number as key and a tuple of lists
         (guesses, feedback).
         """
+        self.clear_screen()
         print("Super Superhirn")
         print("=================")
         print("Round | Feedback | Guess")
         print("--------------------------")
 
-        for round_number, (guesses, feedback) in game_state.items():
-            feedback_str = self.colorize(feedback)  # Feedback pins in black/white
-            guess_str = self.colorize(guesses)  # Guess pins in colors
-            print(f" {round_number:<5} | {feedback_str:<10} | {guess_str}")
+        for round_num, turn in enumerate(game_state.get_turns(), 1):
+            feedback_str = self.colorize(turn.feedback) if turn.feedback else " " * 5
+            guess_str = self.colorize(turn.guesses)
+            print(f" {round_num:<5} | {feedback_str:<10} | {guess_str}")
 
     def render_message(self, message: str) -> None:
         """
