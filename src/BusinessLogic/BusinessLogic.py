@@ -19,11 +19,18 @@ class BusinessLogic(IBusinessLogic):
             return False
         return all(c in "12345678" for c in code)
 
+    def _convert_to_color_code(self, number: int) -> ColorCode:
+        """Convert a number to its corresponding ColorCode enum value."""
+        for color in ColorCode:
+            if color.value == number:  # Jetzt einfacher Vergleich mit Integer
+                return color
+        raise ValueError(f"No ColorCode found for number {number}")
+
     def handle_code_input(self, code_input: str) -> str:
         if not self._is_valid_code(code_input):
             return "need_code_input"
         try:
-            code_list = [ColorCode(int(c)) for c in code_input]
+            code_list = [self._convert_to_color_code(int(c)) for c in code_input]
             return self.game_logic.set_secret_code(code_list)
         except ValueError:
             return "need_code_input"

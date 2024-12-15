@@ -13,7 +13,7 @@ def main():
     linked with an InputHandler to process inputs,
     and starts the application's main runtime loop.
     """
-    ui = Console(InputHandler(), MenuRenderer(),  BusinessLogic(GameLogic()))
+    ui = Console(BusinessLogic(GameLogic()))
     ui.run()
 
 

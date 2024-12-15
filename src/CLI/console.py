@@ -1,4 +1,5 @@
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
+from src.CLI.game_renderer.game_renderer import GameRenderer
 from src.CLI.input_handler.input_handler import InputHandler
 from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 from src.BusinessLogic.BusinessLogic import BusinessLogic
@@ -13,7 +14,7 @@ class Console:
     relying on an InputHandler to process user inputs.
     """
 
-    def __init__(self, inputHandler: InputHandler, menuRenderer: MenuRenderer, business_logic: IBusinessLogic):
+    def __init__(self,business_logic: IBusinessLogic):
         """
         Initializes the Console instance.
 
@@ -21,8 +22,9 @@ class Console:
             inputHandler (InputHandler): An instance responsible
             for handling user input.
         """
-        self.inputHandler = inputHandler
-        self.menuRenderer = menuRenderer
+        self.inputHandler = InputHandler()
+        self.menuRenderer = MenuRenderer()
+        self.game_renderer = GameRenderer()
         self.businessLogic = business_logic
 
     def run(self) -> None:
@@ -47,7 +49,6 @@ class Console:
                     self.menuRenderer.display_code_input()
                     code_input = self.inputHandler.handle_code_input()
                     next_action = self.businessLogic.handle_code_input(code_input)
-                    print(next_action)
 
                     if  next_action == "wait_for_computer_guess":
                         next_action = self.businessLogic.handle_computer_guess()
