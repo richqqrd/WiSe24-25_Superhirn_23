@@ -37,7 +37,7 @@ class HTTPHandler:
         except ValidationError as err:
             logging.error(f"Validation error: {err.message}")
             logging.error(f"Validation details: {err}")
-            return False
+            return false
 
     def send_json_via_post(self, url, json_data):
         """

@@ -1,11 +1,10 @@
 import unittest
-from unittest.mock import patch, Mock
 import requests
 import os
 import subprocess
 import time
 from src.Network.HttpHandler import HTTPHandler
-from jsonschema.exceptions import ValidationError
+
 
 class TestHTTPHandlerWithServer(unittest.TestCase):
 
@@ -23,12 +22,12 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         cls.server_process.wait()
 
     def test_start_new_game_success(self):
-        response = self.handler.start_new_game('player1', 4, 6)
+        response = self.handler.start_new_game('player1', 5, 8)
         expected_response = {
             "gameid": 1,
             "gamerid": 'player1',
-            "positions": 4,
-            "colors": 6,
+            "positions": 5,
+            "colors": 8,
             "value": ""
         }
         self.assertIsNotNone(response)
@@ -67,6 +66,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
     def test_request_error(self):
         with self.assertRaises(requests.exceptions.RequestException):
             self.handler.send_json_via_post(f'http://{self.server_ip}:{self.server_port}', {})
+
 
 if __name__ == '__main__':
     unittest.main()
