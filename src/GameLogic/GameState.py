@@ -1,7 +1,7 @@
 # src/util/GameState.py
 
 from typing import List
-from src.GameLogic import GameTurn
+from src.GameLogic.GameTurn import GameTurn
 from src.util.ColorCode import ColorCode
 
 
