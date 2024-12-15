@@ -51,9 +51,17 @@ class Console:
                     next_action = self.businessLogic.handle_code_input(code_input)
 
                     if  next_action == "wait_for_computer_guess":
-                        next_action = self.businessLogic.handle_computer_guess()
-                        game_state = self.businessLogic.get_game_state()
-                        self.game_renderer.render_game_state(game_state)
+                        while True:
+                            next_action = self.businessLogic.handle_computer_guess()
+                            game_state = self.businessLogic.get_game_state()
+                            self.game_renderer.render_game_state(game_state)
+                            self.menuRenderer.display_feedback_input()
+                            feedback_input = self.inputHandler.handle_feedback_input()
+                            next_action = self.businessLogic.handle_feedback_input(feedback_input)
+
+                            if next_action == "game_over":
+                                break
+
 
             elif next_action == "choose_role_online":
                 self.menuRenderer.display_role_menu()

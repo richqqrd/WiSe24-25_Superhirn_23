@@ -33,3 +33,9 @@ class InputHandler:
         Handles input for code guessing.
         """
         return self.handle_user_input("Enter your guess (5 digits): ")
+
+    def handle_feedback_input(self) -> str:
+        """
+        Handles input for feedback generation.
+        """
+        return self.handle_user_input("Enter feedback (5 digits): ")

@@ -1,12 +1,27 @@
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.GameLogic.IGameLogic import IGameLogic
 from src.util.ColorCode import ColorCode
+from src.util.FeedbackColorCode import FeedbackColorCode
 
 
 class BusinessLogic(IBusinessLogic):
     """
     Concrete implementation of the IBusinessLogic interface.
     """
+
+    def _is_valid_feedback(self, feedback: str) -> bool:
+        if not feedback:
+            return False
+        return all(c in "78" for c in feedback)
+
+    def handle_feedback_input(self, feedback_input: str) -> str:
+        if not self._is_valid_feedback(feedback_input):
+            return "need_feedback_input"
+        try:
+            feedback_list = [FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE for c in feedback_input]
+            return self.game_logic.set_feedback(feedback_list)
+        except ValueError:
+            return "need_feedback_input"
 
     def get_game_state(self):
         return self.game_logic.get_game_state()
