@@ -6,7 +6,7 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 @dataclass
-class Turn:
+class GameTurn:
     """
     Represents a single turn in the game.
 
@@ -16,3 +16,4 @@ class Turn:
     """
     guesses: List[ColorCode]
     feedback: List[FeedbackColorCode]
+
