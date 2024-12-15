@@ -21,7 +21,7 @@ class Console:
         """
         self.inputHandler = inputHandler
         self.menuRenderer = menuRenderer
-        self.game_service = BusinessLogic()
+        self.businessLogic = BusinessLogic()
 
     def run(self) -> None:
         """
@@ -34,7 +34,7 @@ class Console:
         while True:
             self.menuRenderer.display_menu()
             user_input = self.inputHandler.handle_user_input("Enter command: ")
-            next_action = self.game_service.handle(user_input)
+            next_action = self.businessLogic.handle(user_input)
 
             if next_action == "choose_role":
                 self.menuRenderer.display_role_menu()
