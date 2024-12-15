@@ -21,6 +21,19 @@ class GameLogic(IGameLogic):
         self.game_state = None
         self.max_round = 12
 
+    def make_guess(self, guess_list: List[ColorCode]) -> str:
+        try:
+            guess_list = [ColorCode(int(c)) for c in guess_list]
+
+            turn = GameTurn(guess_list, [])
+            self.game_state.add_turn(turn)
+
+            feedback = self.computer_coder.give_feedback(guess_list)
+            turn.feedback = feedback
+
+            return self.is_game_over(feedback)
+        except ValueError:
+            return "need_guess_input"
 
     def is_game_over(self, feedback_list: List[FeedbackColorCode]) -> str:
         if len(feedback_list) == 5 and all([f == FeedbackColorCode.BLACK for f in feedback_list]):
@@ -29,7 +42,10 @@ class GameLogic(IGameLogic):
         if len(self.game_state.get_turns()) >= self.max_round:
             return "game_over"
 
-        return "wait_for_computer_guess"
+        if isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return "need_guess_input"
+        else:
+            return "wait_for_computer_guess"
 
     def set_feedback(self, feedback_list: List[FeedbackColorCode]) -> str:
         try:
@@ -52,11 +68,16 @@ class GameLogic(IGameLogic):
         return "need_code_input"
 
     def start_as_guesser(self) -> str:
-        return "need_guess_input"
+        try:
+            secret_code = self.computer_coder.generate_code()
+            self.game_state = GameState(secret_code, self.max_round, self.player_guesser)
+            return "need_guess_input"
+        except ValueError:
+            return "need_guess_input"
 
     def set_secret_code(self, code_list: List[ColorCode]) -> str:
         try:
-            self.game_state = GameState(code_list, self.max_round)
+            self.game_state = GameState(code_list, self.max_round, self.computer_guesser)
             return "wait_for_computer_guess"
         except ValueError:
             return "need_code_input"

@@ -51,7 +51,7 @@ class Console:
                     next_action = self.businessLogic.handle_code_input(code_input)
 
                     if  next_action == "wait_for_computer_guess":
-                        while next_action not in ["game_over", "end_game"]:  # Spielschleife
+                        while True:
                             next_action = self.businessLogic.handle_computer_guess()
                             game_state = self.businessLogic.get_game_state()
                             self.game_renderer.render_game_state(game_state)
@@ -63,6 +63,19 @@ class Console:
                                 self.menuRenderer.display_end_game()
                                 break
                         break
+
+                elif next_action == "need_guess_input":
+                    while True:
+                        self.menuRenderer.display_guess_input()
+                        guess_input = self.inputHandler.handle_guess_input()
+                        next_action = self.businessLogic.handle_guess_input(guess_input)
+                        game_state = self.businessLogic.get_game_state()
+                        self.game_renderer.render_game_state(game_state)
+
+                        if next_action == "game_over":
+                            self.menuRenderer.display_end_game()
+                            break
+                break
 
             elif next_action == "choose_role_online":
                 self.menuRenderer.display_role_menu()

@@ -38,6 +38,8 @@ class GameRenderer:
         (guesses, feedback).
         """
         self.clear_screen()
+        secret_code_str = self.colorize(game_state.secret_code)
+        print(f"Secret Code: {secret_code_str}")
         print("Super Superhirn")
         print("=================")
         print("Round | Feedback | Guess")

@@ -2,6 +2,7 @@
 
 from typing import List
 from src.GameLogic.GameTurn import GameTurn
+from src.GameLogic.Guesser.IGuesser import IGuesser
 from src.util.ColorCode import ColorCode
 
 
@@ -15,7 +16,7 @@ class GameState:
         max_rounds (int): The maximum number of rounds allowed in the game.
     """
 
-    def __init__(self, secret_code: List[ColorCode], max_rounds: int):
+    def __init__(self, secret_code: List[ColorCode], max_rounds: int, current_guesser: IGuesser = None):
         """
         Initializes the GameState with a secret code and maximum rounds.
 
@@ -26,6 +27,7 @@ class GameState:
         self.secret_code: List[ColorCode] = secret_code
         self.turns: List[GameTurn] = []  # Empty list of turns
         self.max_rounds = max_rounds
+        self.current_guesser = current_guesser
 
     def add_turn(self, turn: GameTurn) -> None:
         """
