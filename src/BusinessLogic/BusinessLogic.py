@@ -10,9 +10,9 @@ class BusinessLogic(IBusinessLogic):
     """
 
     def _is_valid_feedback(self, feedback: str) -> bool:
-        if not feedback:
+        if feedback is None or len(feedback) > 5:
             return False
-        return all(c in "78" for c in feedback)
+        return feedback == "" or all(c in "78" for c in feedback)
 
     def handle_feedback_input(self, feedback_input: str) -> str:
         if not self._is_valid_feedback(feedback_input):
@@ -53,7 +53,11 @@ class BusinessLogic(IBusinessLogic):
     def handle_guess_input(self, guess_input: str) -> str:
         if not self._is_valid_code(guess_input):
             return "need_guess_input"
-        return self.game_logic.make_guess(guess_input)
+        try:
+            guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
+            return self.game_logic.make_guess(guess_list)
+        except ValueError:
+            return "need_guess_input"
 
     def handle_role_choice(self, role_input: str, game_mode: str) -> str:
         if role_input not in ["1", "2"]:

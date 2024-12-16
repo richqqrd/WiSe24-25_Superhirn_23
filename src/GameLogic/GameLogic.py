@@ -55,9 +55,6 @@ class GameLogic(IGameLogic):
         except (IndexError, ValueError):
             return "need_feedback_input"
 
-
-
-
     def startgame(self, playerRole: str) -> str:
         if playerRole == "guesser":
             return self.start_as_guesser()
