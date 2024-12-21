@@ -1,6 +1,11 @@
+
+
+from src.BusinessLogic.IBusinessLogic import IBusinessLogic
+from src.CLI.game_renderer.game_renderer import GameRenderer
 from src.CLI.input_handler.input_handler import InputHandler
 from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 from src.BusinessLogic.BusinessLogic import BusinessLogic
+from src.GameLogic import IGameLogic
 
 
 class Console:
@@ -11,7 +16,7 @@ class Console:
     relying on an InputHandler to process user inputs.
     """
 
-    def __init__(self, inputHandler: InputHandler, menuRenderer: MenuRenderer):
+    def __init__(self, business_logic: IBusinessLogic):
         """
         Initializes the Console instance.
 
@@ -19,10 +24,12 @@ class Console:
             inputHandler (InputHandler): An instance responsible
             for handling user input.
         """
-        self.inputHandler = inputHandler
-        self.menuRenderer = menuRenderer
-        self.game_service = BusinessLogic()
+        self.inputHandler = InputHandler()
+        self.menuRenderer = MenuRenderer()
+        self.game_renderer = GameRenderer()
+        self.businessLogic = business_logic
 
+    # flake8: noqa: C901
     def run(self) -> None:
         """
         Starts the main loop for the console interface.
@@ -33,16 +40,60 @@ class Console:
         """
         while True:
             self.menuRenderer.display_menu()
-            user_input = self.inputHandler.handle_user_input("Enter command: ")
-            next_action = self.game_service.handle(user_input)
+            user_input = self.inputHandler.handle_menu_input()
+            next_action = self.businessLogic.handle(user_input)
 
             if next_action == "choose_role":
                 self.menuRenderer.display_role_menu()
-                user_input = self.inputHandler.handle_user_input("Enter command: ")
+                role_input = self.inputHandler.handle_role_input()
+                next_action = self.businessLogic.handle_role_choice(
+                    role_input, "offline"
+                )
+
+                if next_action == "need_code_input":
+                    self.menuRenderer.display_code_input()
+                    code_input = self.inputHandler.handle_code_input()
+                    next_action = self.businessLogic.handle_code_input(code_input)
+
+                    if next_action == "wait_for_computer_guess":
+                        while True:
+                            next_action = self.businessLogic.handle_computer_guess()
+                            game_state = self.businessLogic.get_game_state()
+                            self.game_renderer.render_game_state(game_state)
+                            self.menuRenderer.display_feedback_input()
+                            feedback_input = self.inputHandler.handle_feedback_input()
+                            next_action = self.businessLogic.handle_feedback_input(
+                                feedback_input
+                            )
+
+                            if next_action == "game_over":
+                                self.menuRenderer.display_end_game()
+                                break
+                        break
+
+                elif next_action == "need_guess_input":
+                    while True:
+                        self.menuRenderer.display_guess_input()
+                        guess_input = self.inputHandler.handle_guess_input()
+                        next_action = self.businessLogic.handle_guess_input(guess_input)
+                        game_state = self.businessLogic.get_game_state()
+                        self.game_renderer.render_game_state(game_state)
+
+                        if next_action == "game_over":
+                            self.menuRenderer.display_end_game()
+                            break
                 break
+
+            elif next_action == "choose_role_online":
+                self.menuRenderer.display_role_menu()
+                role_input = self.inputHandler.handle_role_input()
+                next_action = self.businessLogic.handle_role_choice(
+                    role_input, "online"
+                )
+
             elif next_action == "choose_language":
                 self.menuRenderer.display_languages()
-                user_input = self.inputHandler.handle_user_input("Enter command: ")
+                user_input = self.inputHandler.handle_language_input()
                 break
             elif next_action == "end_game":
                 self.menuRenderer.display_end_game()

@@ -1,6 +1,6 @@
 from CLI.console import Console
-from CLI.input_handler.input_handler import InputHandler
-from CLI.menu_renderer.menu_renderer import MenuRenderer
+from src.BusinessLogic.BusinessLogic import BusinessLogic
+from src.GameLogic.GameLogic import GameLogic
 
 
 def main():
@@ -11,7 +11,7 @@ def main():
     linked with an InputHandler to process inputs,
     and starts the application's main runtime loop.
     """
-    ui = Console(InputHandler(), MenuRenderer())
+    ui = Console(BusinessLogic(GameLogic()))
     ui.run()
 
 
