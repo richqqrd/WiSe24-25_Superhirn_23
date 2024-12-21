@@ -9,8 +9,7 @@ from src.util.FeedbackColorCode import FeedbackColorCode
 class ComputerCoder(ICoder):
 
     def __init__(self):
-        def __init__(self):
-            self.__secret_code = []
+        self.__secret_code = []
 
     def give_feedback(self, guess: List[ColorCode]) -> List[FeedbackColorCode]:
         feedback = []
