@@ -22,18 +22,17 @@ class GameLogic(IGameLogic):
         self.max_round = 12
 
     def make_guess(self, guess_list: List[ColorCode]) -> str:
-        try:
-            guess_list = [ColorCode(int(c)) for c in guess_list]
+        self.player_guesser.set_guess(guess_list)
 
-            turn = GameTurn(guess_list, [])
-            self.game_state.add_turn(turn)
+        guess = self.player_guesser.make_guess()
 
-            feedback = self.computer_coder.give_feedback(guess_list)
-            turn.feedback = feedback
+        turn = GameTurn(guess_list, [])
+        self.game_state.add_turn(turn)
 
-            return self.is_game_over(feedback)
-        except ValueError:
-            return "need_guess_input"
+        feedback = self.computer_coder.give_feedback(guess)
+        turn.feedback = feedback
+
+        return self.is_game_over(feedback)
 
     def is_game_over(self, feedback_list: List[FeedbackColorCode]) -> str:
         if len(feedback_list) == 5 and all([f == FeedbackColorCode.BLACK for f in feedback_list]):

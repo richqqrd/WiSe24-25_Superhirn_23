@@ -55,6 +55,8 @@ class BusinessLogic(IBusinessLogic):
             return "need_guess_input"
         try:
             guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
+            if not guess_list:
+                return "need_guess_input"
             return self.game_logic.make_guess(guess_list)
         except ValueError:
             return "need_guess_input"
