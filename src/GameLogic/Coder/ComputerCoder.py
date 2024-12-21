@@ -13,6 +13,10 @@ class ComputerCoder(ICoder):
 
     def give_feedback(self, guess: List[ColorCode]) -> List[FeedbackColorCode]:
         feedback = []
+
+        if len(guess) != len(self.secret_code):
+            return feedback
+
         secret_code = self.secret_code.copy()
         guess_code = guess.copy()
 
