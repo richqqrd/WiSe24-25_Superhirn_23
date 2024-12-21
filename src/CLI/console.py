@@ -1,5 +1,4 @@
-# pylint: disable=too-many-branches
-# Complexity is justified by the game state machine implementation
+
 
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.CLI.game_renderer.game_renderer import GameRenderer
@@ -30,6 +29,7 @@ class Console:
         self.game_renderer = GameRenderer()
         self.businessLogic = business_logic
 
+    # flake8: noqa: C901
     def run(self) -> None:
         """
         Starts the main loop for the console interface.
