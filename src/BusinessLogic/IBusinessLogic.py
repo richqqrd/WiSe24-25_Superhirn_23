@@ -102,3 +102,27 @@ class IBusinessLogic(ABC):
             guess_input (str): The guess input provided by the user.
         """
         pass
+
+    @abstractmethod
+    def handle_computer_guess(self) -> str:
+        """
+        Handle the computer's guess in the game.
+        """
+        pass
+
+    @abstractmethod
+    def get_game_state(self):
+        """
+        Get the current game state.
+        """
+        pass
+
+    @abstractmethod
+    def handle_feedback_input(self, feedback_input: str) -> str:
+        """
+        Handle the feedback input provided by the user.
+
+        Args:
+            feedback_input (str): The feedback input provided by the user.
+        """
+        pass

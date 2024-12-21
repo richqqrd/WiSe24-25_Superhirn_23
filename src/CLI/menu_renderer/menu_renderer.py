@@ -82,6 +82,9 @@ class MenuRenderer:
             print(f"{color.value} : {color}")
 
     def display_feedback_input(self) -> None:
+        """
+        Displays the feedback input options.
+        """
         print("\nGive feedback for the guess:")
         print("8: Black (correct color in correct position)")
         print("7: White (correct color in wrong position)")

@@ -29,8 +29,7 @@ class GameRenderer:
             [pin.get_ansi_code() + str(pin.value) + "\033[0m" for pin in pins]
         )
 
-    def render_game_state(
-        self, game_state: GameState) -> None:
+    def render_game_state(self, game_state: GameState) -> None:
         """
         Renders the game state, showing round number, feedback, and guesses.
 

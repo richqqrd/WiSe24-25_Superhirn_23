@@ -14,7 +14,7 @@ class Console:
     relying on an InputHandler to process user inputs.
     """
 
-    def __init__(self,business_logic: IBusinessLogic):
+    def __init__(self, business_logic: IBusinessLogic):
         """
         Initializes the Console instance.
 
@@ -43,21 +43,25 @@ class Console:
             if next_action == "choose_role":
                 self.menuRenderer.display_role_menu()
                 role_input = self.inputHandler.handle_role_input()
-                next_action = self.businessLogic.handle_role_choice(role_input, "offline")
+                next_action = self.businessLogic.handle_role_choice(
+                    role_input, "offline"
+                )
 
                 if next_action == "need_code_input":
                     self.menuRenderer.display_code_input()
                     code_input = self.inputHandler.handle_code_input()
                     next_action = self.businessLogic.handle_code_input(code_input)
 
-                    if  next_action == "wait_for_computer_guess":
+                    if next_action == "wait_for_computer_guess":
                         while True:
                             next_action = self.businessLogic.handle_computer_guess()
                             game_state = self.businessLogic.get_game_state()
                             self.game_renderer.render_game_state(game_state)
                             self.menuRenderer.display_feedback_input()
                             feedback_input = self.inputHandler.handle_feedback_input()
-                            next_action = self.businessLogic.handle_feedback_input(feedback_input)
+                            next_action = self.businessLogic.handle_feedback_input(
+                                feedback_input
+                            )
 
                             if next_action == "game_over":
                                 self.menuRenderer.display_end_game()
@@ -80,7 +84,9 @@ class Console:
             elif next_action == "choose_role_online":
                 self.menuRenderer.display_role_menu()
                 role_input = self.inputHandler.handle_role_input()
-                next_action = self.businessLogic.handle_role_choice(role_input, "online")
+                next_action = self.businessLogic.handle_role_choice(
+                    role_input, "online"
+                )
 
             elif next_action == "choose_language":
                 self.menuRenderer.display_languages()
