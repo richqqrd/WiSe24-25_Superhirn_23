@@ -1,3 +1,6 @@
+# pylint: disable=too-many-branches
+# Complexity is justified by the game state machine implementation
+
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.CLI.game_renderer.game_renderer import GameRenderer
 from src.CLI.input_handler.input_handler import InputHandler
