@@ -89,7 +89,8 @@ class test_game_state(unittest.TestCase):
         Verifies that the string representation of GameState contains
         all relevant information in the expected format.
         """
-        expected_repr = f"GameState(secret_code={self.secret_code}, turns=[], max_rounds={self.max_rounds})"
+        expected_repr = (f"GameState(secret_code={self.secret_code}, "
+                         f"turns=[], max_rounds={self.max_rounds})")
         self.assertEqual(repr(self.game_state), expected_repr)
 
     def test_initialization_with_computer_guesser(self):

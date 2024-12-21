@@ -63,7 +63,8 @@ class test_computer_coder(unittest.TestCase):
 
     def test_give_feedback_mixed(self):
         """
-        Test the give_feedback method to ensure it returns a mix of black and white feedback
+        Test the give_feedback method to ensure it returns a mix of
+        black and white feedback
         when the guess is partially correct.
         """
         self.coder.secret_code = [

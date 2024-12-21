@@ -1,9 +1,7 @@
 import unittest
-from unittest.mock import Mock
 from src.GameLogic.GameLogic import GameLogic
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
-from src.GameLogic.GameState import GameState
 from src.GameLogic.GameTurn import GameTurn
 
 
