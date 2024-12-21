@@ -12,16 +12,21 @@ class TestServerRequestHandler(BaseHTTPRequestHandler):
 
         try:
             data = json.loads(post_data)
-            if 'gameid' in data and 'gamerid' in data and 'positions' in data and 'colors' in data and 'value' in data:
-                if data['positions'] > 9 or data['colors'] > 8:
+            if 'gameid' in data and 'gamerid' in data and 'positions' in data and 'colors' in data and 'value' in data: # valid JSON
+                if data['positions'] > 9 or data['colors'] > 8: # invalid positions or colors
                     self.send_response(400)
                     response = {"error": "Invalid JSON"}
                 else:
-                    if data['gameid'] == 0:
+                    if data['gameid'] == 0: # start new game
                         self.send_response(200)
                         response = data
                         response['gameid'] = self.last_game_id + 1
                         self.last_game_id = self.last_game_id + 1
+
+                    if data['gameid'] > 0 and data['value'] != "": # make move
+                        self.send_response(200)
+                        response = data
+                        response['value'] = "7788"
             else:
                 self.send_response(400)
                 response = {"error": "Invalid JSON"}

@@ -2,7 +2,6 @@ import json
 import os
 import logging
 import requests
-import jsonschema
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 
@@ -37,7 +36,7 @@ class HTTPHandler:
         except ValidationError as err:
             logging.error(f"Validation error: {err.message}")
             logging.error(f"Validation details: {err}")
-            return false
+            return False
 
     def send_json_via_post(self, url, json_data):
         """
