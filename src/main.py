@@ -1,6 +1,4 @@
 from CLI.console import Console
-from CLI.input_handler.input_handler import InputHandler
-from CLI.menu_renderer.menu_renderer import MenuRenderer
 from src.BusinessLogic.BusinessLogic import BusinessLogic
 from src.GameLogic.GameLogic import GameLogic
 

@@ -3,7 +3,7 @@ import os
 from src.GameLogic.GameState import GameState
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
-from typing import List, Dict, Tuple, Union
+from typing import List, Union
 
 
 class GameRenderer:
