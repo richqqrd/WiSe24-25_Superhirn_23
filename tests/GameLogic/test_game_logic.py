@@ -7,7 +7,7 @@ from src.GameLogic.GameState import GameState
 from src.GameLogic.GameTurn import GameTurn
 
 
-class TestGameLogic(unittest.TestCase):
+class test_game_logic(unittest.TestCase):
     """Test suite for the GameLogic class.
 
     This class tests the core game logic functionality including game initialization,

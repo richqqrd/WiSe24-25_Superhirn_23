@@ -3,7 +3,7 @@ from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
 from src.util.ColorCode import ColorCode
 
 
-class TestPlayerGuesser(unittest.TestCase):
+class test_player_guesser(unittest.TestCase):
     """Test suite for the PlayerGuesser class.
 
     This test suite verifies the functionality of the PlayerGuesser class,

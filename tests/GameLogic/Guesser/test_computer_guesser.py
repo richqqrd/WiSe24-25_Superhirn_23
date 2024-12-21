@@ -3,7 +3,7 @@ from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.util.ColorCode import ColorCode
 
 
-class TestComputerGuesser(unittest.TestCase):
+class test_computer_guesser(unittest.TestCase):
     """Test suite for the ComputerGuesser class.
 
     This test suite verifies the functionality of the ComputerGuesser class,

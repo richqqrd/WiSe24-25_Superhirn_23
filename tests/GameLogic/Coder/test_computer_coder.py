@@ -4,7 +4,7 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 
-class TestComputerCoder(unittest.TestCase):
+class test_computer_coder(unittest.TestCase):
     """
     Unit tests for the ComputerCoder class.
     """

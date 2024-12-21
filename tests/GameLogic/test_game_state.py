@@ -6,7 +6,7 @@ from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
 from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 
 
-class TestGameState(unittest.TestCase):
+class test_game_state(unittest.TestCase):
     """Test suite for the GameState class.
 
     This test suite verifies the functionality of the GameState class,

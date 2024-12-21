@@ -4,7 +4,7 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 
-class TestPlayerCoder(unittest.TestCase):
+class test_player_coder(unittest.TestCase):
     """Test cases for the PlayerCoder class.
 
     This test suite verifies the functionality of the PlayerCoder class,

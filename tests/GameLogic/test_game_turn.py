@@ -5,7 +5,7 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 
-class TestGameTurn(unittest.TestCase):
+class test_game_turn(unittest.TestCase):
 
     def setUp(self):
         """Set up the test environment."""
