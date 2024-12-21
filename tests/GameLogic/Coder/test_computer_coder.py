@@ -31,7 +31,13 @@ class test_computer_coder(unittest.TestCase):
         Test the give_feedback method to ensure it returns all black feedback
         when the guess is completely correct.
         """
-        self.coder.secret_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4), ColorCode(5)]
+        self.coder.secret_code = [
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(3),
+            ColorCode(4),
+            ColorCode(5),
+        ]
         guess = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4), ColorCode(5)]
 
         feedback = self.coder.give_feedback(guess)
@@ -43,7 +49,13 @@ class test_computer_coder(unittest.TestCase):
         Test the give_feedback method to ensure it returns no feedback
         when the guess is completely incorrect.
         """
-        self.coder.secret_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4), ColorCode(5)]
+        self.coder.secret_code = [
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(3),
+            ColorCode(4),
+            ColorCode(5),
+        ]
         guess = [ColorCode(6), ColorCode(7), ColorCode(8), ColorCode(6), ColorCode(7)]
 
         feedback = self.coder.give_feedback(guess)
@@ -54,7 +66,13 @@ class test_computer_coder(unittest.TestCase):
         Test the give_feedback method to ensure it returns a mix of black and white feedback
         when the guess is partially correct.
         """
-        self.coder.secret_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4), ColorCode(5)]
+        self.coder.secret_code = [
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(3),
+            ColorCode(4),
+            ColorCode(5),
+        ]
         guess = [ColorCode(1), ColorCode(3), ColorCode(2), ColorCode(6), ColorCode(4)]
 
         feedback = self.coder.give_feedback(guess)
@@ -67,5 +85,5 @@ class test_computer_coder(unittest.TestCase):
         self.assertEqual(white_count, 3)  # 2 and 3 are in wrong positions
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

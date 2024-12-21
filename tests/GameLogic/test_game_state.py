@@ -20,10 +20,17 @@ class test_game_state(unittest.TestCase):
         Creates a new GameState instance with test data including
         a secret code and maximum rounds.
         """
-        self.secret_code = [ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW]
+        self.secret_code = [
+            ColorCode.RED,
+            ColorCode.BLUE,
+            ColorCode.GREEN,
+            ColorCode.YELLOW,
+        ]
         self.max_rounds = 10
         self.player_guesser = PlayerGuesser()
-        self.game_state = GameState(self.secret_code, self.max_rounds, self.player_guesser)
+        self.game_state = GameState(
+            self.secret_code, self.max_rounds, self.player_guesser
+        )
 
     def test_initialization(self):
         """Test the initialization of GameState.
@@ -96,5 +103,5 @@ class test_game_state(unittest.TestCase):
         self.assertEqual(game_state.current_guesser, computer_guesser)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

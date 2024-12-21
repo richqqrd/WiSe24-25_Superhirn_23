@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List
 from src.util.ColorCode import ColorCode
 
+
 class IGuesser(ABC):
     """
     Interface for the guesser in the game logic.

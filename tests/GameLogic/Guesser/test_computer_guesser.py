@@ -64,5 +64,5 @@ class test_computer_guesser(unittest.TestCase):
                 self.assertIsInstance(color, ColorCode)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

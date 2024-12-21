@@ -28,9 +28,9 @@ class ComputerCoder(ICoder):
 
         for i in range(len(guess_code)):
             if guess_code[i] is not None:
-             if guess_code[i] in secret_code:
-                feedback.append(FeedbackColorCode.WHITE)
-                secret_code[secret_code.index(guess_code[i])] = None
+                if guess_code[i] in secret_code:
+                    feedback.append(FeedbackColorCode.WHITE)
+                    secret_code[secret_code.index(guess_code[i])] = None
 
         return feedback
 

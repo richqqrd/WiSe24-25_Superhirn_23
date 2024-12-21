@@ -61,5 +61,5 @@ class test_player_guesser(unittest.TestCase):
         self.assertEqual(self.guesser.make_guess(), second_guess)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

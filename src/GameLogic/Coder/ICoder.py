@@ -3,6 +3,7 @@ from typing import List
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
+
 class ICoder(ABC):
     """
     Interface for the coder in the game logic.

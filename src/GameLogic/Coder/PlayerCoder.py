@@ -9,7 +9,6 @@ class PlayerCoder(ICoder):
     def __init__(self):
         self.code: List[ColorCode] = []
 
-
     def generate_code(self) -> List[ColorCode]:
         if not self.code:
             raise ValueError("Code is not set")

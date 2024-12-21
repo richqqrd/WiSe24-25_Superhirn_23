@@ -41,14 +41,18 @@ class TestGameRenderer(unittest.TestCase):
         """Test the render_game_state method to ensure it
         correctly renders the game state."""
         game_state = GameState([ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE], 12)
-        game_state.add_turn(GameTurn(
-            [ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE],
-            [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]
-        ))
-        game_state.add_turn(GameTurn(
-            [ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN],
-            [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK]
-        ))
+        game_state.add_turn(
+            GameTurn(
+                [ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE],
+                [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE],
+            )
+        )
+        game_state.add_turn(
+            GameTurn(
+                [ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN],
+                [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK],
+            )
+        )
 
         self.renderer.render_game_state(game_state)
         output = self.held_output.getvalue().strip()

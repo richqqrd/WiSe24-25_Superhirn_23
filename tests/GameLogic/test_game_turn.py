@@ -9,7 +9,12 @@ class test_game_turn(unittest.TestCase):
 
     def setUp(self):
         """Set up the test environment."""
-        self.guesses = [ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW]
+        self.guesses = [
+            ColorCode.RED,
+            ColorCode.BLUE,
+            ColorCode.GREEN,
+            ColorCode.YELLOW,
+        ]
         self.feedback = [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]
         self.game_turn = GameTurn(guesses=self.guesses, feedback=self.feedback)
 

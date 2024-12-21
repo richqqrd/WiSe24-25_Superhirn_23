@@ -16,7 +16,12 @@ class GameState:
         max_rounds (int): The maximum number of rounds allowed in the game.
     """
 
-    def __init__(self, secret_code: List[ColorCode], max_rounds: int, current_guesser: IGuesser = None):
+    def __init__(
+        self,
+        secret_code: List[ColorCode],
+        max_rounds: int,
+        current_guesser: IGuesser = None,
+    ):
         """
         Initializes the GameState with a secret code and maximum rounds.
 

@@ -18,7 +18,10 @@ class BusinessLogic(IBusinessLogic):
         if not self._is_valid_feedback(feedback_input):
             return "need_feedback_input"
         try:
-            feedback_list = [FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE for c in feedback_input]
+            feedback_list = [
+                FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE
+                for c in feedback_input
+            ]
             return self.game_logic.set_feedback(feedback_list)
         except ValueError:
             return "need_feedback_input"
@@ -71,17 +74,13 @@ class BusinessLogic(IBusinessLogic):
             elif role_input == "2":
                 return self.game_logic.startgame("coder")
 
-
-        elif(game_mode == "online"):
+        elif game_mode == "online":
             if role_input == "1":
                 self.start_online_game_as_guesser()
             else:
                 self.start_online_game_as_coder()
 
     def __init__(self, game_logic: IGameLogic):
-
-
-
         """
         Initializes the BusinessLogic instance.
         """

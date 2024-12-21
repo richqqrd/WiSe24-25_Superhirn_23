@@ -23,7 +23,6 @@ class IGameLogic(ABC):
         """
         pass
 
-
     @abstractmethod
     def start_as_guesser(self) -> str:
         """

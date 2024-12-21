@@ -1,10 +1,12 @@
 from enum import Enum
 
+
 class ColorCode(Enum):
     """
     Enum representing various color codes with their
     respective integer values and ANSI color codes.
     """
+
     RED = 1
     GREEN = 2
     YELLOW = 3
@@ -21,14 +23,14 @@ class ColorCode(Enum):
         self._value_ = value
         # Map values to ANSI codes
         self._ansi_codes = {
-            1: "\033[31m",      # RED
-            2: "\033[32m",      # GREEN
-            3: "\033[33m",      # YELLOW
-            4: "\033[34m",      # BLUE
-            5: "\033[38;5;214m",# ORANGE
-            6: "\033[38;5;94m", # BROWN
-            7: "\033[97m",      # WHITE
-            8: "\033[90m"       # BLACK
+            1: "\033[31m",  # RED
+            2: "\033[32m",  # GREEN
+            3: "\033[33m",  # YELLOW
+            4: "\033[34m",  # BLUE
+            5: "\033[38;5;214m",  # ORANGE
+            6: "\033[38;5;94m",  # BROWN
+            7: "\033[97m",  # WHITE
+            8: "\033[90m",  # BLACK
         }
         self.ansi_code = self._ansi_codes[value]
 

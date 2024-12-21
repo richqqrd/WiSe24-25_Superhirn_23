@@ -58,7 +58,9 @@ class test_game_logic(unittest.TestCase):
         Verifies that invalid guesses are properly handled and error state is returned.
         """
         self.game_logic.startgame("guesser")
-        result = self.game_logic.make_guess(["invalid"])  # Ungültiger Input statt leere Liste
+        result = self.game_logic.make_guess(
+            ["invalid"]
+        )  # Ungültiger Input statt leere Liste
         self.assertEqual(result, "need_guess_input")
 
     def test_set_secret_code_valid(self):
@@ -95,5 +97,5 @@ class test_game_logic(unittest.TestCase):
         self.assertEqual(result, "game_over")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
