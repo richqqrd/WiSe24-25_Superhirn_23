@@ -71,7 +71,10 @@ class HTTPHandler:
             "colors": colors,
             "value": ""
         }
-        return self.send_json_via_post(self.base_url, json_data)
+        response = self.send_json_via_post(self.base_url, json_data)
+
+        #return gameid from response
+        return response['gameid']
 
     def make_move(self, gameid, gamerid, positions, colors, value):
         """
@@ -84,4 +87,7 @@ class HTTPHandler:
             "colors": colors,
             "value": value
         }
-        return self.send_json_via_post(self.base_url, json_data)
+
+        #return value from response
+        response = self.send_json_via_post(self.base_url, json_data)
+        return response['value']
