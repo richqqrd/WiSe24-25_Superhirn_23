@@ -2,7 +2,6 @@ import unittest
 from src.BusinessLogic.BusinessLogic import BusinessLogic
 from src.GameLogic.GameLogic import GameLogic
 from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
 
 
 class TestBusinessLogic(unittest.TestCase):
