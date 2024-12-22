@@ -7,6 +7,7 @@ from src.GameLogic.GameTurn import GameTurn
 from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
 from src.GameLogic.IGameLogic import IGameLogic
+from src.Network.network_service import NetworkService
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
@@ -18,22 +19,48 @@ class GameLogic(IGameLogic):
         self.player_coder = PlayerCoder()
         self.computer_guesser = ComputerGuesser()
         self.computer_coder = ComputerCoder()
-
+        self.network_service = None
         self.game_state = None
         self.max_round = 12
 
+    def startgame(self, playerRole: str) -> str:
+        if playerRole == "guesser":
+            return self.start_as_guesser()
+        elif playerRole == "coder":
+            return self.start_as_coder()
+        elif playerRole == "online_guesser":
+            return self.start_as_online_guesser()
+        return "invalid_role"
+
+    def start_as_online_guesser(self) -> str:
+        self.network_service = NetworkService("localhost", 5000)
+        if self.network_service.start_game("player1"):
+            self.game_state = GameState(None, self.max_round, self.player_guesser)
+            return "need_guess_input"
+        return "error"
+
+
     def make_guess(self, guess_list: List[ColorCode]) -> str:
         self.player_guesser.set_guess(guess_list)
-
         guess = self.player_guesser.make_guess()
-
         turn = GameTurn(guess_list, [])
         self.game_state.add_turn(turn)
 
-        feedback = self.computer_coder.give_feedback(guess)
-        turn.feedback = feedback
-
-        return self.is_game_over(feedback)
+        if self.network_service:
+            guess_str = "".join(str(color.value) for color in guess_list)
+            feedback_str = self.network_service.make_move(guess_str)
+            if feedback_str is None:
+                return "error"
+            feedback_list = [
+                FeedbackColorCode.BLACK if c == '8' else FeedbackColorCode.WHITE
+                for c in feedback_str
+            ]
+            turn.feedback = feedback_list
+            return self.is_game_over(feedback_list)
+        else:
+            feedback = self.computer_coder.give_feedback(guess)
+            turn.feedback = feedback
+            return self.is_game_over(feedback)
 
     def is_game_over(self, feedback_list: List[FeedbackColorCode]) -> str:
         if len(feedback_list) == 5 and all(
@@ -57,11 +84,6 @@ class GameLogic(IGameLogic):
         except (IndexError, ValueError):
             return "need_feedback_input"
 
-    def startgame(self, playerRole: str) -> str:
-        if playerRole == "guesser":
-            return self.start_as_guesser()
-        elif playerRole == "coder":
-            return self.start_as_coder()
 
     def start_as_coder(self) -> str:
         return "need_code_input"

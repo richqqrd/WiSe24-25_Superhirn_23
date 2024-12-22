@@ -23,13 +23,13 @@ class HTTPHandler:
             raise ValueError("Invalid JSON data.")
         return self.http_client.post('', json_data)
 
-    def start_new_game(self, gamerid: str, positions: int, colors: int) -> int:
+    def start_new_game(self, gameid: str, positions: int, colors: int) -> int:
         """
-        Start a new game with the given gamer ID, positions, and colors.
+        Start a new game with the given game ID, positions, and colors.
         """
         json_data = {
             "gameid": 0,
-            "gamerid": gamerid,
+            "gamerid": gameid,
             "positions": positions,
             "colors": colors,
             "value": ""
