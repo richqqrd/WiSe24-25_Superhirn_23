@@ -14,7 +14,8 @@ class HTTPHandler:
         self.server_ip = server_ip
         self.server_port = server_port
         self.base_url = f'http://{self.server_ip}:{self.server_port}'
-        schema_path = os.path.join(os.path.dirname(__file__), '..', 'util', 'schema.json')
+        schema_path = os.path.join(os.path.dirname(__file__),
+                                   '..', 'util', 'schema.json')
         self.schema = self.load_schema(schema_path)
 
     def load_schema(self, schema_path):
@@ -73,12 +74,12 @@ class HTTPHandler:
         }
         response = self.send_json_via_post(self.base_url, json_data)
 
-        #return gameid from response
         return response['gameid']
 
     def make_move(self, gameid, gamerid, positions, colors, value):
         """
-        Make a move in the game with the given game ID, gamer ID, positions, colors, and value.
+        Make a move in the game with the given game ID,
+        gamer ID, positions, colors, and value.
         """
         json_data = {
             "gameid": gameid,
@@ -88,6 +89,5 @@ class HTTPHandler:
             "value": value
         }
 
-        #return value from response
         response = self.send_json_via_post(self.base_url, json_data)
         return response['value']
