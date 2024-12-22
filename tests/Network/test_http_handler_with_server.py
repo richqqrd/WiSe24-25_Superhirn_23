@@ -2,8 +2,6 @@ import unittest
 
 import requests
 import os
-import subprocess
-import time
 from src.Network.HttpHandler import HTTPHandler
 
 
@@ -76,7 +74,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
             "colors": 8,
             "value": "",
         }
-        with self.assertLogs(level="ERROR") as log:
+        with self.assertLogs(level="ERROR"):
             with self.assertRaises(requests.exceptions.HTTPError):
                 response = self.handler.send_json_via_post(
                     f"http://{self.server_ip}:{self.server_port}", invalid_json
