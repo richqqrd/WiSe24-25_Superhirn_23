@@ -34,7 +34,7 @@ class JsonValidator:
         try:
             with open(schema_path) as file:
                 schema = json.load(file)
-                return json.load(file)
+                return schema
         except (FileNotFoundError, json.JSONDecodeError) as e:
             logging.error(f"Failed to load schema: {e}")
             raise

@@ -12,14 +12,14 @@ class HTTPHandler:
         self.base_url = f'http://{server_ip}:{server_port}'
         self.http_client = HttpClient(self.base_url)
 
-        schema_path = os.path.join(os.path.dirname(__file__), '..', 'util', 'schema.json')
+        schema_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../util/schema.json'))
         self.validate = JsonValidator(schema_path)
 
     def send_json_via_post(self, json_data: Dict[str, Any]) -> [Dict[str, Any]]:
         """
         Send the given JSON data via a POST request to the specified URL.
         """
-        if not self.validator.validate(json_data):
+        if not self.validate.validate(json_data):
             raise ValueError("Invalid JSON data.")
         return self.http_client.post('', json_data)
 

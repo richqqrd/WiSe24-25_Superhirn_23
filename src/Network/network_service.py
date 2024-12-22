@@ -7,8 +7,8 @@ from src.Network.HttpHandler import HTTPHandler
 class NetworkService:
     def __init__(self, server_ip: str, server_port: int):
         self.http_handler = HTTPHandler(server_ip, server_port)
-        self.current_game_id = Optional[int] = None
-        self.current_player_id = Optional[str] = None
+        self.current_game_id: Optional[int] = None
+        self.current_player_id: Optional[str] = None
         self.positions: int = 5
         self.colors: int = 8
 
