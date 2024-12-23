@@ -58,4 +58,4 @@ class JsonValidator:
             return True
         except ValidationError as err:
             logging.error(f"Validation error: {err.message}")
-            raise False
+            return False
