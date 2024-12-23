@@ -1,15 +1,14 @@
 from typing import List
-
-from src.GameLogic.Coder.ComputerCoder import ComputerCoder
-from src.GameLogic.Coder.PlayerCoder import PlayerCoder
-from src.GameLogic.GameState import GameState
-from src.GameLogic.GameTurn import GameTurn
-from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
-from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
-from src.GameLogic.IGameLogic import IGameLogic
-from src.Network.network_service import NetworkService
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from GameLogic.Coder.ComputerCoder import ComputerCoder
+from GameLogic.Coder.PlayerCoder import PlayerCoder
+from GameLogic.GameState import GameState
+from GameLogic.GameTurn import GameTurn
+from GameLogic.Guesser.ComputerGuesser import ComputerGuesser
+from GameLogic.Guesser.PlayerGuesser import PlayerGuesser
+from GameLogic.IGameLogic import IGameLogic
+from Network.network_service import NetworkService
+from util.ColorCode import ColorCode
+from util.FeedbackColorCode import FeedbackColorCode
 
 
 # asd
@@ -39,7 +38,6 @@ class GameLogic(IGameLogic):
             return "need_guess_input"
         return "error"
 
-
     def make_guess(self, guess_list: List[ColorCode]) -> str:
         self.player_guesser.set_guess(guess_list)
         guess = self.player_guesser.make_guess()
@@ -52,7 +50,7 @@ class GameLogic(IGameLogic):
             if feedback_str is None:
                 return "error"
             feedback_list = [
-                FeedbackColorCode.BLACK if c == '8' else FeedbackColorCode.WHITE
+                FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE
                 for c in feedback_str
             ]
             turn.feedback = feedback_list
@@ -78,12 +76,15 @@ class GameLogic(IGameLogic):
 
     def set_feedback(self, feedback_list: List[FeedbackColorCode]) -> str:
         try:
-            curret_turn = self.game_state.get_turns()[-1]
-            curret_turn.feedback = feedback_list
+            current_turn = self.game_state.get_turns()[-1]
+            current_turn.feedback = feedback_list
+
+            if isinstance(self.game_state.current_guesser, ComputerGuesser):
+                self.game_state.current_guesser.process_feedback(feedback_list)
+
             return self.is_game_over(feedback_list)
         except (IndexError, ValueError):
             return "need_feedback_input"
-
 
     def start_as_coder(self) -> str:
         return "need_code_input"

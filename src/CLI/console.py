@@ -1,7 +1,7 @@
-from src.BusinessLogic.IBusinessLogic import IBusinessLogic
-from src.CLI.game_renderer.game_renderer import GameRenderer
-from src.CLI.input_handler.input_handler import InputHandler
-from src.CLI.menu_renderer.menu_renderer import MenuRenderer
+from BusinessLogic.IBusinessLogic import IBusinessLogic
+from CLI.game_renderer.game_renderer import GameRenderer
+from CLI.input_handler.input_handler import InputHandler
+from CLI.menu_renderer.menu_renderer import MenuRenderer
 
 
 class Console:
