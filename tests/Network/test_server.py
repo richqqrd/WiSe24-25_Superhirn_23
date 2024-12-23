@@ -3,9 +3,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
 class TestServerRequestHandler(BaseHTTPRequestHandler):
+    """
+    Request handler for the test server.
+    """
     last_game_id = 0
 
     def do_POST(self):
+        """
+        Handle POST requests.
+        """
         content_length = int(self.headers["Content-Length"])
         post_data = self.rfile.read(content_length)
         response = {}
@@ -48,6 +54,9 @@ class TestServerRequestHandler(BaseHTTPRequestHandler):
 
 
 def run(server_class=HTTPServer, handler_class=TestServerRequestHandler, port=8000):
+    """
+    Run the test server.
+    """
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting test server on port {port}...")
@@ -55,4 +64,7 @@ def run(server_class=HTTPServer, handler_class=TestServerRequestHandler, port=80
 
 
 if __name__ == "__main__":
+    """
+    Main program execution.
+    """
     run()
