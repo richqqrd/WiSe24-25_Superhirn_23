@@ -53,6 +53,18 @@ class JsonValidator:
             ValidationError: If the data does not conform to the schema.
         """
         try:
+
+            if not isinstance(data.get("gameid"), int):
+                return False
+            if not isinstance(data.get("gamerid"), str):
+                return False
+            if not isinstance(data.get("positions"), int):
+                return False
+            if not isinstance(data.get("colors"), int):
+                return False
+            if not isinstance(data.get("value"), str):
+                return False
+
             validate(data, self.schema)
             logging.info("JSON validation successful.")
             return True
