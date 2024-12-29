@@ -1,6 +1,6 @@
 from CLI.console import Console
-from src.BusinessLogic.BusinessLogic import BusinessLogic
-from src.GameLogic.GameLogic import GameLogic
+from BusinessLogic.BusinessLogic import BusinessLogic
+from GameLogic.GameLogic import GameLogic
 
 
 def main():

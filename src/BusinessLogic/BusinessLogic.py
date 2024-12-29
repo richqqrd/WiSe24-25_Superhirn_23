@@ -9,6 +9,33 @@ class BusinessLogic(IBusinessLogic):
     Concrete implementation of the IBusinessLogic interface.
     """
 
+    def __init__(self, game_logic: IGameLogic):
+        """
+        Initializes the BusinessLogic instance.
+        """
+        self.game_logic = game_logic
+        self.commands = {
+            "1": self.start_offline_game,
+            "2": self.start_online_game,
+            "3": self.change_language,
+            "4": self.end_game,
+            "5": self.save_game,
+            "6": self.resume_interrupted_game,
+        }
+
+    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
+        if role_input not in ["1", "2"]:
+            return "Invalid role."
+
+        if game_mode == "offline":
+            if role_input == "1":
+                return self.game_logic.startgame("guesser")
+            elif role_input == "2":
+                return self.game_logic.startgame("coder")
+        elif game_mode == "online":
+            if role_input == "1":
+                return self.game_logic.startgame("online_guesser")
+
     def _is_valid_feedback(self, feedback: str) -> bool:
         if feedback is None or len(feedback) > 5:
             return False
@@ -63,36 +90,6 @@ class BusinessLogic(IBusinessLogic):
             return self.game_logic.make_guess(guess_list)
         except ValueError:
             return "need_guess_input"
-
-    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
-        if role_input not in ["1", "2"]:
-            return "Invalid role."
-
-        if game_mode == "offline":
-            if role_input == "1":
-                return self.game_logic.startgame("guesser")
-            elif role_input == "2":
-                return self.game_logic.startgame("coder")
-
-        elif game_mode == "online":
-            if role_input == "1":
-                self.start_online_game_as_guesser()
-            else:
-                self.start_online_game_as_coder()
-
-    def __init__(self, game_logic: IGameLogic):
-        """
-        Initializes the BusinessLogic instance.
-        """
-        self.game_logic = game_logic
-        self.commands = {
-            "1": self.start_offline_game,
-            "2": self.start_online_game,
-            "3": self.change_language,
-            "4": self.end_game,
-            "5": self.save_game,
-            "6": self.resume_interrupted_game,
-        }
 
     def handle(self, command: str) -> str:
         action = self.commands.get(command)

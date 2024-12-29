@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 from src.util.ColorCode import ColorCode
+from src.util.FeedbackColorCode import FeedbackColorCode
 
 
 class IGuesser(ABC):
@@ -15,5 +16,15 @@ class IGuesser(ABC):
 
         Returns:
             List[ColorCode]: The guessed color code.
+        """
+        pass
+
+    @abstractmethod
+    def process_feedback(self, feedback: List[FeedbackColorCode]) -> None:
+        """
+        Processes the feedback from the last guess.
+
+        Args:
+            feedback: List[FeedbackColorCode]: The feedback for the last guess
         """
         pass

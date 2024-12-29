@@ -1,11 +1,22 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from typing import Any, ClassVar
 
 
-class TestServerRequestHandler(BaseHTTPRequestHandler):
-    last_game_id = 0
+class MockServerRequestHandler(BaseHTTPRequestHandler):
+    """
+    Request handler for the test server.
+    """
+
+    last_game_id: ClassVar[int] = 0
+
+    def __init__(self, request: Any, client_address: Any, server: HTTPServer) -> None:
+        super().__init__(request, client_address, server)
 
     def do_POST(self):
+        """
+        Handle POST requests.
+        """
         content_length = int(self.headers["Content-Length"])
         post_data = self.rfile.read(content_length)
         response = {}
@@ -47,7 +58,10 @@ class TestServerRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(response).encode("utf-8"))
 
 
-def run(server_class=HTTPServer, handler_class=TestServerRequestHandler, port=8000):
+def run(server_class=HTTPServer, handler_class=MockServerRequestHandler, port=8000):
+    """
+    Run the test server.
+    """
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting test server on port {port}...")
@@ -55,4 +69,7 @@ def run(server_class=HTTPServer, handler_class=TestServerRequestHandler, port=80
 
 
 if __name__ == "__main__":
+    """
+    Main program execution.
+    """
     run()

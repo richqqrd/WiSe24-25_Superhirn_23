@@ -73,5 +73,7 @@ class GameState:
         Returns:
             str: The string representation of the game state.
         """
-        return (f"GameState(secret_code={self.secret_code}, "
-                f"turns={self.turns}, max_rounds={self.max_rounds})")
+        return (
+            f"GameState(secret_code={self.secret_code}, "
+            f"turns={self.turns}, max_rounds={self.max_rounds})"
+        )

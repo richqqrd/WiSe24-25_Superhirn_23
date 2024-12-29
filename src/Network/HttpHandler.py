@@ -1,82 +1,47 @@
-import json
 import os
-import logging
-import requests
-from jsonschema.exceptions import ValidationError
-from jsonschema.validators import validate
+from typing import Dict, Any
+from src.Network.HttpClient import HttpClient
+from src.Network.JsonValidator import JsonValidator
 
 
 class HTTPHandler:
-    def __init__(self, server_ip, server_port):
+    def __init__(self, server_ip: str, server_port: int):
         """
         Initialize the HTTPHandler with server IP and port.
         """
-        self.server_ip = server_ip
-        self.server_port = server_port
-        self.base_url = f'http://{self.server_ip}:{self.server_port}'
-        schema_path = os.path.join(os.path.dirname(__file__),
-                                   '..', 'util', 'schema.json')
-        self.schema = self.load_schema(schema_path)
+        self.base_url = f"http://{server_ip}:{server_port}"
+        self.http_client = HttpClient(self.base_url)
 
-    def load_schema(self, schema_path):
-        """
-        Load the JSON schema from the given file path.
-        """
-        with open(schema_path) as file:
-            schema = json.load(file)
-            return schema
+        schema_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../util/schema.json")
+        )
+        self.validate = JsonValidator(schema_path)
 
-    def validate_json(self, data):
-        """
-        Validate the given JSON data against the loaded schema.
-        """
-        try:
-            validate(instance=data, schema=self.schema)
-            logging.info("JSON validation successful.")
-            return True
-        except ValidationError as err:
-            logging.error(f"Validation error: {err.message}")
-            logging.error(f"Validation details: {err}")
-            return False
-
-    def send_json_via_post(self, url, json_data):
+    def send_json_via_post(self, json_data: Dict[str, Any]) -> [Dict[str, Any]]:
         """
         Send the given JSON data via a POST request to the specified URL.
         """
-        if not self.validate_json(json_data):
-            logging.error("Invalid JSON data. Aborting POST request.")
-            return None
+        if not self.validate.validate(json_data):
+            raise ValueError("Invalid JSON data.")
+        return self.http_client.post("", json_data)
 
-        url = f"{self.base_url}"
-        headers = {'Content-Type': 'application/json'}
-
-        try:
-            response = requests.post(url, headers=headers, json=json_data)
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.HTTPError as err:
-            logging.error(f"HTTP error occurred: {err}")
-            raise
-        except requests.exceptions.RequestException as err:
-            logging.error(f"Request error occurred: {err}")
-            raise
-
-    def start_new_game(self, gamerid, positions, colors):
+    def start_new_game(self, gameid: str, positions: int, colors: int) -> int:
         """
-        Start a new game with the given gamer ID, positions, and colors.
+        Start a new game with the given game ID, positions, and colors.
         """
         json_data = {
             "gameid": 0,
-            "gamerid": gamerid,
+            "gamerid": gameid,
             "positions": positions,
             "colors": colors,
-            "value": ""
+            "value": "",
         }
-        response = self.send_json_via_post(self.base_url, json_data)
+        response = self.send_json_via_post(json_data)
+        return response["gameid"]
 
-        return response['gameid']
-
-    def make_move(self, gameid, gamerid, positions, colors, value):
+    def make_move(
+        self, gameid: int, gamerid: str, positions: int, colors: int, value: str
+    ) -> str:
         """
         Make a move in the game with the given game ID,
         gamer ID, positions, colors, and value.
@@ -86,8 +51,7 @@ class HTTPHandler:
             "gamerid": gamerid,
             "positions": positions,
             "colors": colors,
-            "value": value
+            "value": value,
         }
-
-        response = self.send_json_via_post(self.base_url, json_data)
-        return response['value']
+        response = self.send_json_via_post(json_data)
+        return response["value"]

@@ -1,67 +1,124 @@
 import unittest
 from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.util.ColorCode import ColorCode
+from src.util.FeedbackColorCode import FeedbackColorCode
 
 
-class test_computer_guesser(unittest.TestCase):
-    """Test suite for the ComputerGuesser class.
-
-    This test suite verifies the functionality of the ComputerGuesser class,
-    which implements the IGuesser interface and represents the computer's
-    guessing strategy in the game.
-    """
-
+class TestComputerGuesser(unittest.TestCase):
     def setUp(self):
-        """Set up test fixtures before each test method.
-
-        Creates a new ComputerGuesser instance for testing.
-        """
+        """Set up the test case with a ComputerGuesser instance."""
         self.guesser = ComputerGuesser()
 
-    def test_make_guess_length(self):
-        """Test that make_guess returns correct length.
+    def test_first_guess(self):
+        """Test that the first guess is the predefined pattern"""
+        expected = [
+            ColorCode(1),
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(2),
+            ColorCode(3),
+        ]
+        result = self.guesser.make_guess()
+        self.assertEqual(result, expected)
+        self.assertFalse(self.guesser.first_guess)
 
-        Verifies that the computer's guess is always 5 colors long,
-        which is the standard length for a Mastermind code.
-        """
+    def test_process_feedback_reduces_possible_codes(self):
+        """Test that processing feedback reduces the set of possible codes"""
+        # Make first guess
+        self.guesser.make_guess()
+        initial_size = len(self.guesser.possible_codes)
+
+        # Give some feedback (2 black, 1 white)
+        feedback = [
+            FeedbackColorCode.BLACK,
+            FeedbackColorCode.BLACK,
+            FeedbackColorCode.WHITE,
+        ]
+        self.guesser.process_feedback(feedback)
+
+        # Check that possible codes were reduced
+        self.assertLess(len(self.guesser.possible_codes), initial_size)
+
+    def test_make_guess_after_feedback(self):
+        """Test that subsequent guesses are influenced by feedback"""
+        # Make first guess and process feedback
+        first_guess = self.guesser.make_guess()
+        feedback = [FeedbackColorCode.BLACK]  # Only one correct position
+        self.guesser.process_feedback(feedback)
+
+        # Make second guess
+        second_guess = self.guesser.make_guess()
+
+        # Verify it's different from first guess
+        self.assertNotEqual(first_guess, second_guess)
+        self.assertEqual(len(second_guess), 5)
+
+    def test_would_give_same_feedback(self):
+        """Test the feedback comparison logic"""
+        self.guesser.last_guess = [
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(3),
+            ColorCode(4),
+            ColorCode(5),
+        ]
+        test_code = [
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(3),
+            ColorCode(5),
+            ColorCode(4),
+        ]
+        target_feedback = [
+            FeedbackColorCode.BLACK,
+            FeedbackColorCode.BLACK,
+            FeedbackColorCode.BLACK,
+            FeedbackColorCode.WHITE,
+            FeedbackColorCode.WHITE,
+        ]
+
+        result = self.guesser._would_give_same_feedback(test_code, target_feedback)
+        self.assertTrue(result)
+
+    def test_calculate_feedback(self):
+        """Test feedback calculation"""
+        guess = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4), ColorCode(5)]
+        code = [ColorCode(1), ColorCode(2), ColorCode(5), ColorCode(3), ColorCode(4)]
+
+        feedback = self.guesser._calculate_feedback(guess, code)
+
+        # Should have 2 black (positions 1,2) and 3 white (positions 3,4,5)
+        black_count = sum(1 for f in feedback if f == FeedbackColorCode.BLACK)
+        white_count = sum(1 for f in feedback if f == FeedbackColorCode.WHITE)
+
+        self.assertEqual(black_count, 2)
+        self.assertEqual(white_count, 3)
+
+    def test_empty_feedback(self):
+        """Test processing empty feedback"""
+        self.guesser.make_guess()  # Make first guess
+        self.guesser.process_feedback([])
+
+        # Should still be able to make a valid guess
         guess = self.guesser.make_guess()
         self.assertEqual(len(guess), 5)
+        self.assertTrue(all(isinstance(color, ColorCode) for color in guess))
 
-    def test_make_guess_valid_colors(self):
-        """Test that make_guess returns valid colors.
-
-        Verifies that each color in the computer's guess is a valid
-        ColorCode instance with a value between 1 and 8.
-        """
+    def test_all_possible_codes_exhausted(self):
+        """Test behavior when all possible codes are eliminated"""
+        self.guesser.possible_codes = set()
         guess = self.guesser.make_guess()
-        for color in guess:
-            self.assertIsInstance(color, ColorCode)
-            self.assertTrue(1 <= color.value <= 8)
 
-    def test_make_guess_randomness(self):
-        """Test that make_guess generates different guesses.
-
-        Verifies that multiple calls to make_guess don't always return
-        the same sequence, ensuring some randomness in the guessing.
-        """
-        guesses = [self.guesser.make_guess() for _ in range(5)]
-        # Convert guesses to tuples of values for comparison
-        guess_values = [tuple(color.value for color in guess) for guess in guesses]
-        # Check if all guesses are the same
-        all_same = all(guess == guess_values[0] for guess in guess_values)
-        self.assertFalse(all_same, "All guesses were identical")
-
-    def test_make_guess_multiple_calls(self):
-        """Test that make_guess can be called multiple times.
-
-        Verifies that the method can be called repeatedly without
-        errors or state-related issues.
-        """
-        for _ in range(10):
-            guess = self.guesser.make_guess()
-            self.assertEqual(len(guess), 5)
-            for color in guess:
-                self.assertIsInstance(color, ColorCode)
+        # Should return the first guess pattern
+        expected = [
+            ColorCode(1),
+            ColorCode(1),
+            ColorCode(2),
+            ColorCode(2),
+            ColorCode(3),
+        ]
+        self.assertEqual(len(guess), 5)
+        self.assertEqual(guess, expected)
 
 
 if __name__ == "__main__":
