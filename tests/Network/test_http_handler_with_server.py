@@ -4,8 +4,7 @@ from http.server import HTTPServer
 
 import requests
 from src.Network.HttpHandler import HTTPHandler
-from tests.Network.test_server import TestServerRequestHandler
-
+from tests.Network.server_mock import MockServerRequestHandler
 
 class TestHTTPHandlerWithServer(unittest.TestCase):
 
@@ -14,7 +13,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         """
         Set up the test server and HTTPHandler instance.
         """
-        cls.server = HTTPServer(("localhost", 0), TestServerRequestHandler)
+        cls.server = HTTPServer(("localhost", 0), MockServerRequestHandler)
         cls.server_port = cls.server.server_address[1]
 
         cls.server_thread = threading.Thread(target=cls.server.serve_forever)
