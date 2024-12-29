@@ -1,7 +1,5 @@
 import unittest
 import os
-import json
-from jsonschema.exceptions import ValidationError
 from src.Network.JsonValidator import JsonValidator
 
 

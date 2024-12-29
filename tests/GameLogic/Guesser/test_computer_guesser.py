@@ -25,7 +25,7 @@ class TestComputerGuesser(unittest.TestCase):
     def test_process_feedback_reduces_possible_codes(self):
         """Test that processing feedback reduces the set of possible codes"""
         # Make first guess
-        first_guess = self.guesser.make_guess()
+        self.guesser.make_guess()
         initial_size = len(self.guesser.possible_codes)
 
         # Give some feedback (2 black, 1 white)

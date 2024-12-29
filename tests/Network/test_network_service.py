@@ -1,6 +1,5 @@
 import unittest
-from unittest.mock import patch, Mock
-import logging
+from unittest.mock import patch
 from src.Network.network_service import NetworkService
 
 
