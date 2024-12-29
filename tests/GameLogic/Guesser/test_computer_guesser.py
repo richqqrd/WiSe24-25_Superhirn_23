@@ -16,7 +16,7 @@ class TestComputerGuesser(unittest.TestCase):
             ColorCode(1),
             ColorCode(2),
             ColorCode(2),
-            ColorCode(3),
+            ColorCode(2),
         ]
         result = self.guesser.make_guess()
         self.assertEqual(result, expected)

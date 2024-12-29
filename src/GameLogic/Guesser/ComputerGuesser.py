@@ -1,5 +1,7 @@
 import time
+from collections import Counter
 from itertools import product
+import random
 from typing import List, Set
 from src.GameLogic.Guesser.IGuesser import IGuesser
 from src.util.ColorCode import ColorCode
@@ -45,44 +47,66 @@ class ComputerGuesser(IGuesser):
             return self.last_guess
 
         if not self.possible_codes:
+            print("\nERROR: No possible codes remaining!")
+            print("The feedback provided must have been incorrect.")
+            print("Please check your feedback and try again.\n")
             return [ColorCode(1) for _ in range(5)]
 
         start_time_total = time.time()  # Gesamtdauer des Guess
 
         # Minimax-Strategie
         best_guess = None
-        min_max_remaining = float("inf")
+        min_max_remaining = float('inf')
 
+        """
         # Optimierung: Verwende nur eine Stichprobe der möglichen Codes
-        sample_size = min(len(self.possible_codes), 100)
+        sample_size = min(1000, len(self.possible_codes))
         sample_codes = set(list(self.possible_codes)[:sample_size])
+        
+        """
 
-        for guess in sample_codes:
+
+        for guess in self.possible_codes: #new
             start_time_guess = time.time()  # Zeit für diese Vermutung
 
             max_remaining = 0
 
+            score_counts = {}  #new
+
             # Optimierung: Verwende auch hier nur eine Stichprobe
-            for possible_code in sample_codes:
+            for possible_code in self.possible_codes: #new
                 start_time_feedback = time.time()  # Zeit für Feedback-Berechnung
 
                 feedback = self._calculate_feedback(list(guess), list(possible_code))
+                score = tuple(feedback)  #new
+                score_counts[score] = score_counts.get(score, 0) + 1  #new
+                max_score = max(max_remaining, score_counts[score])  #new
                 feedback_time = time.time() - start_time_feedback
                 print(f"Feedback calculation time: {feedback_time:.4f} seconds")
                 # Zähle wie viele Codes nach diesem Feedback übrig bleiben würden
                 start_time_remaining = time.time()
+
+                """
                 remaining = sum(
                     1
                     for code in self.possible_codes
                     if self._would_give_same_feedback(list(code), feedback)
                 )
+                """
                 remaining_time = time.time() - start_time_remaining
                 print(f"Remaining calculation time: {remaining_time:.4f} seconds")
-                max_remaining = max(max_remaining, remaining)
+                #old max_remaining = max(max_remaining, remaining)
 
             guess_time = time.time() - start_time_guess
             print(f"Time for this guess evaluation: {guess_time:.4f} seconds")
 
+            if max_remaining < min_max_remaining:
+                min_max_remaining = max_remaining
+                best_guess = guess
+                if guess in self.possible_codes:
+                    break
+
+            """
             # Wenn dieser Rateversuch besser ist als der bisherige beste
             if max_remaining < min_max_remaining:
                 min_max_remaining = max_remaining
@@ -90,6 +114,8 @@ class ComputerGuesser(IGuesser):
             # Bei gleichem Score bevorzuge einen Code aus possible_codes
             elif max_remaining == min_max_remaining and guess in self.possible_codes:
                 best_guess = guess
+                
+            """
 
         total_time = time.time() - start_time_total
         print(f"Total time for this guess: {total_time:.4f} seconds")
@@ -109,6 +135,16 @@ class ComputerGuesser(IGuesser):
         Returns:
             List[FeedbackColorCode]: The feedback for the guess.
         """
+        """
+        black = sum(g == c for g, c in zip(guess, code))
+        guess_count = Counter(guess)
+        code_count = Counter(code)
+        white = sum((guess_count & code_count).values()) - black
+        return [FeedbackColorCode.BLACK] * black + [FeedbackColorCode.WHITE] * white
+        
+        """
+
+
         feedback = []
         temp_guess = guess.copy()
         temp_code = code.copy()
@@ -127,6 +163,7 @@ class ComputerGuesser(IGuesser):
                 temp_code[temp_code.index(temp_guess[i])] = None
 
         return feedback
+
 
     def process_feedback(self, feedback: List[FeedbackColorCode]) -> None:
         """
