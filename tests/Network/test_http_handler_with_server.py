@@ -1,7 +1,6 @@
 import threading
 import unittest
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from typing import cast, Type
+from http.server import HTTPServer
 
 import requests
 from src.Network.HttpHandler import HTTPHandler
