@@ -16,7 +16,6 @@ class JsonValidator:
         """
         self.schema = self._load_schema(schema_path)
 
-
     def _load_schema(self, schema_path: str) -> Dict[str, Any]:
         """
         Load the JSON schema from the specified file path.

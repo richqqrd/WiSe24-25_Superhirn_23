@@ -6,6 +6,7 @@ class TestServerRequestHandler(BaseHTTPRequestHandler):
     """
     Request handler for the test server.
     """
+
     last_game_id = 0
 
     def do_POST(self):

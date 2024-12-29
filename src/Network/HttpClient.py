@@ -15,7 +15,9 @@ class HttpClient:
         self.base_url = base_url
         self.session = requests.Session()
 
-    def post(self, endpoint: str, data: Dict[str, Any], timeout: int = 10) -> Optional[Dict[str, Any]]:
+    def post(
+        self, endpoint: str, data: Dict[str, Any], timeout: int = 10
+    ) -> Optional[Dict[str, Any]]:
         """
         Send a POST request to the specified endpoint with the given data.
 
@@ -36,9 +38,9 @@ class HttpClient:
         try:
             response = self.session.post(
                 f"{self.base_url}/{endpoint}",
-                headers={'Content-Type': 'application/json'},
+                headers={"Content-Type": "application/json"},
                 json=data,
-                timeout=timeout
+                timeout=timeout,
             )
             response.raise_for_status()
             return response.json()

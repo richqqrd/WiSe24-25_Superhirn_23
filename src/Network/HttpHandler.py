@@ -9,10 +9,12 @@ class HTTPHandler:
         """
         Initialize the HTTPHandler with server IP and port.
         """
-        self.base_url = f'http://{server_ip}:{server_port}'
+        self.base_url = f"http://{server_ip}:{server_port}"
         self.http_client = HttpClient(self.base_url)
 
-        schema_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../util/schema.json'))
+        schema_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../util/schema.json")
+        )
         self.validate = JsonValidator(schema_path)
 
     def send_json_via_post(self, json_data: Dict[str, Any]) -> [Dict[str, Any]]:
@@ -21,7 +23,7 @@ class HTTPHandler:
         """
         if not self.validate.validate(json_data):
             raise ValueError("Invalid JSON data.")
-        return self.http_client.post('', json_data)
+        return self.http_client.post("", json_data)
 
     def start_new_game(self, gameid: str, positions: int, colors: int) -> int:
         """
@@ -32,12 +34,14 @@ class HTTPHandler:
             "gamerid": gameid,
             "positions": positions,
             "colors": colors,
-            "value": ""
+            "value": "",
         }
         response = self.send_json_via_post(json_data)
-        return response['gameid']
+        return response["gameid"]
 
-    def make_move(self, gameid: int, gamerid: str, positions: int, colors: int, value: str) -> str:
+    def make_move(
+        self, gameid: int, gamerid: str, positions: int, colors: int, value: str
+    ) -> str:
         """
         Make a move in the game with the given game ID,
         gamer ID, positions, colors, and value.
@@ -47,7 +51,7 @@ class HTTPHandler:
             "gamerid": gamerid,
             "positions": positions,
             "colors": colors,
-            "value": value
+            "value": value,
         }
         response = self.send_json_via_post(json_data)
-        return response['value']
+        return response["value"]

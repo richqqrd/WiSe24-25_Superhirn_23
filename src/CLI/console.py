@@ -21,7 +21,9 @@ class Console:
             if next_action == "choose_role_online":
                 self.menu_renderer.display_role_menu()
                 role_input = self.input_handler.handle_role_input()
-                next_action = self.business_logic.handle_role_choice(role_input, "online")
+                next_action = self.business_logic.handle_role_choice(
+                    role_input, "online"
+                )
                 self.handle_game_loop(next_action)
             elif next_action == "choose_role":
                 self.handle_offline_game()
@@ -31,7 +33,9 @@ class Console:
     def handle_game_loop(self, next_action: str) -> None:
         while next_action not in ["game_over", "error"]:
             if next_action == "need_guess_input":
-                self.game_renderer.render_game_state(self.business_logic.get_game_state())
+                self.game_renderer.render_game_state(
+                    self.business_logic.get_game_state()
+                )
                 guess_input = self.input_handler.handle_guess_input()
                 next_action = self.business_logic.handle_guess_input(guess_input)
             elif next_action == "need_code_input":
@@ -40,11 +44,12 @@ class Console:
                 next_action = self.business_logic.handle_code_input(code_input)
             elif next_action == "wait_for_computer_guess":
                 self.business_logic.handle_computer_guess()
-                self.game_renderer.render_game_state(self.business_logic.get_game_state())
+                self.game_renderer.render_game_state(
+                    self.business_logic.get_game_state()
+                )
                 self.menu_renderer.display_feedback_input()
                 feedback_input = self.input_handler.handle_feedback_input()
                 next_action = self.business_logic.handle_feedback_input(feedback_input)
-
 
         if next_action == "game_over":
             self.end_game()
@@ -54,8 +59,6 @@ class Console:
     def end_game(self) -> None:
         self.menu_renderer.display_end_game()
         self.is_game_active = False
-
-
 
     def handle_offline_game(self) -> None:
         self.menu_renderer.display_role_menu()

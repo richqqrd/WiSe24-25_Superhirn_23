@@ -91,9 +91,6 @@ class BusinessLogic(IBusinessLogic):
         except ValueError:
             return "need_guess_input"
 
-
-
-
     def handle(self, command: str) -> str:
         action = self.commands.get(command)
         if action:
