@@ -6,7 +6,6 @@ import requests
 from src.Network.HttpHandler import HTTPHandler
 from tests.Network.server_mock import MockServerRequestHandler
 
-
 class TestHTTPHandlerWithServer(unittest.TestCase):
 
     @classmethod
