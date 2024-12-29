@@ -2,6 +2,8 @@ import unittest
 from io import StringIO
 import sys
 from src.CLI.game_renderer.game_renderer import GameRenderer
+from src.GameLogic.GameState import GameState
+from src.GameLogic.GameTurn import GameTurn
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
@@ -38,16 +40,20 @@ class TestGameRenderer(unittest.TestCase):
     def test_render_game_state(self):
         """Test the render_game_state method to ensure it
         correctly renders the game state."""
-        game_state = {
-            1: (
+        game_state = GameState([ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE], 12)
+        game_state.add_turn(
+            GameTurn(
                 [ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE],
                 [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE],
-            ),
-            2: (
+            )
+        )
+        game_state.add_turn(
+            GameTurn(
                 [ColorCode.YELLOW, ColorCode.ORANGE, ColorCode.BROWN],
                 [FeedbackColorCode.WHITE, FeedbackColorCode.BLACK],
-            ),
-        }
+            )
+        )
+
         self.renderer.render_game_state(game_state)
         output = self.held_output.getvalue().strip()
         self.assertIn("Super Superhirn", output)
