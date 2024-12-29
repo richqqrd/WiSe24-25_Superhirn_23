@@ -1,14 +1,14 @@
 from typing import List
-from GameLogic.Coder.ComputerCoder import ComputerCoder
-from GameLogic.Coder.PlayerCoder import PlayerCoder
-from GameLogic.GameState import GameState
-from GameLogic.GameTurn import GameTurn
-from GameLogic.Guesser.ComputerGuesser import ComputerGuesser
-from GameLogic.Guesser.PlayerGuesser import PlayerGuesser
-from GameLogic.IGameLogic import IGameLogic
-from Network.network_service import NetworkService
-from util.ColorCode import ColorCode
-from util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.Coder.ComputerCoder import ComputerCoder
+from src.GameLogic.Coder.PlayerCoder import PlayerCoder
+from src.GameLogic.GameState import GameState
+from src.GameLogic.GameTurn import GameTurn
+from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
+from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
+from src.GameLogic.IGameLogic import IGameLogic
+from src.Network.network_service import NetworkService
+from src.util.ColorCode import ColorCode
+from src.util.FeedbackColorCode import FeedbackColorCode
 
 
 # asd
