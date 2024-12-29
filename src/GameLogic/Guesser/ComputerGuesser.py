@@ -1,3 +1,4 @@
+import time
 from itertools import product
 from typing import List, Set
 from src.GameLogic.Guesser.IGuesser import IGuesser
@@ -18,7 +19,11 @@ class ComputerGuesser(IGuesser):
         Returns:
             Set[tuple]: A set of all possible color code combinations.
         """
+        start_time = time.time()
         colors = [ColorCode(i) for i in range(1, 9)]
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"generate all poss codes: {elapsed_time:.4f} seconds")
         return set(product(colors, repeat=5))
 
     def make_guess(self) -> List[ColorCode]:
@@ -35,12 +40,15 @@ class ComputerGuesser(IGuesser):
                 ColorCode(1),
                 ColorCode(2),
                 ColorCode(2),
-                ColorCode(3),
+                ColorCode(2),
             ]
             return self.last_guess
 
         if not self.possible_codes:
             return [ColorCode(1) for _ in range(5)]
+
+        start_time_total = time.time()  # Gesamtdauer des Guess
+
 
         # Minimax-Strategie
         best_guess = None
@@ -51,23 +59,31 @@ class ComputerGuesser(IGuesser):
         sample_codes = set(list(self.possible_codes)[:sample_size])
 
         for guess in sample_codes:
+            start_time_guess = time.time()  # Zeit für diese Vermutung
+
             max_remaining = 0
 
             # Optimierung: Verwende auch hier nur eine Stichprobe
             for possible_code in sample_codes:
+                start_time_feedback = time.time()  # Zeit für Feedback-Berechnung
+
                 feedback = self._calculate_feedback(list(guess), list(possible_code))
+                feedback_time = time.time() - start_time_feedback
+                print(f"Feedback calculation time: {feedback_time:.4f} seconds")
                 # Zähle wie viele Codes nach diesem Feedback übrig bleiben würden
+                start_time_remaining = time.time()
                 remaining = sum(
                     1
                     for code in self.possible_codes
                     if self._would_give_same_feedback(list(code), feedback)
                 )
+                remaining_time = time.time() - start_time_remaining
+                print(f"Remaining calculation time: {remaining_time:.4f} seconds")
                 max_remaining = max(max_remaining, remaining)
 
-                # Optimierung: Frühzeitiger Abbruch, wenn dieser Guess
-                # nicht besser sein kann
-                if max_remaining >= min_max_remaining:
-                    break
+
+            guess_time = time.time() - start_time_guess
+            print(f"Time for this guess evaluation: {guess_time:.4f} seconds")
 
             # Wenn dieser Rateversuch besser ist als der bisherige beste
             if max_remaining < min_max_remaining:
@@ -77,6 +93,8 @@ class ComputerGuesser(IGuesser):
             elif max_remaining == min_max_remaining and guess in self.possible_codes:
                 best_guess = guess
 
+        total_time = time.time() - start_time_total
+        print(f"Total time for this guess: {total_time:.4f} seconds")
         self.last_guess = list(best_guess)
         return self.last_guess
 
@@ -122,11 +140,15 @@ class ComputerGuesser(IGuesser):
         if not self.last_guess:
             return
 
+        start_time = time.time()
+
         self.possible_codes = {
             code
             for code in self.possible_codes
             if self._would_give_same_feedback(list(code), feedback)
         }
+        process_time = time.time() - start_time
+        print(f"Feedback processing time: {process_time:.4f} seconds")
 
     def _would_give_same_feedback(
         self, code: List[ColorCode], target_feedback: List[FeedbackColorCode]
