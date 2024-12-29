@@ -49,7 +49,6 @@ class ComputerGuesser(IGuesser):
 
         start_time_total = time.time()  # Gesamtdauer des Guess
 
-
         # Minimax-Strategie
         best_guess = None
         min_max_remaining = float("inf")
@@ -80,7 +79,6 @@ class ComputerGuesser(IGuesser):
                 remaining_time = time.time() - start_time_remaining
                 print(f"Remaining calculation time: {remaining_time:.4f} seconds")
                 max_remaining = max(max_remaining, remaining)
-
 
             guess_time = time.time() - start_time_guess
             print(f"Time for this guess evaluation: {guess_time:.4f} seconds")
