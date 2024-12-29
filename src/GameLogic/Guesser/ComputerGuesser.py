@@ -64,7 +64,8 @@ class ComputerGuesser(IGuesser):
                 )
                 max_remaining = max(max_remaining, remaining)
 
-                # Optimierung: Frühzeitiger Abbruch, wenn dieser Guess nicht besser sein kann
+                # Optimierung: Frühzeitiger Abbruch, wenn dieser Guess
+                # nicht besser sein kann
                 if max_remaining >= min_max_remaining:
                     break
 
