@@ -1,6 +1,7 @@
 translations = {
     "en": {
         "main_menu": "Main Menu",
+        "ingame_menu": "Menu",
         "start_game": "1. Start Game",
         "start_offline_game": "1. Start Offline Game",
         "start_online_game": "2. Start Online Game",
@@ -54,6 +55,7 @@ translations = {
     },
     "de": {
         "main_menu": "Hauptmenü",
+        "ingame_menu": "Menü",
         "start_game": "1. Spiel starten",
         "start_offline_game": "1. Offline-Spiel starten",
         "start_online_game": "2. Online-Spiel starten",
@@ -106,6 +108,7 @@ translations = {
     },
     "fr": {
         "main_menu": "Menu Principal",
+        "ingame_menu": "Menu",
         "start_game": "TODO",
         "start_offline_game": "1. Démarrer un jeu hors ligne",
         "start_online_game": "2. Démarrer un jeu en ligne",
@@ -158,6 +161,7 @@ translations = {
     },
     "ko": {
         "main_menu": "메인 메뉴",
+        "ingame_menu": "메뉴",
         "start_game": "TODO",
         "start_offline_game": "1. 오프라인 게임 시작",
         "start_online_game": "2. 온라인 게임 시작",

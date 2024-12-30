@@ -21,12 +21,22 @@ class MenuRenderer:
         if language in translations:
             self.language = language
 
-    def display_menu(self) -> None:
+    def display_main_menu(self) -> None:
         """
         Displays the main menu options.
         """
         print(translations[self.language]["main_menu"])
         print(translations[self.language]["start_game"])
+        print(translations[self.language]["change_language"])
+        print(translations[self.language]["resume_game"])
+        print(translations[self.language]["end_game"])
+
+    def display_ingame_menu(self) -> None:
+        """
+        Displays the in-game menu options.
+        """
+        print(translations[self.language]["ingame_menu"])
+        print(translations[self.language]["save_game"])
         print(translations[self.language]["change_language"])
         print(translations[self.language]["resume_game"])
         print(translations[self.language]["end_game"])
