@@ -21,6 +21,7 @@ class GameLogic(IGameLogic):
         self.network_service = None
         self.game_state = None
         self.max_round = 12
+        self.persistenceManager = PersistenceManager()
 
     def startgame(self, playerRole: str) -> str:
         if playerRole == "guesser":
@@ -117,3 +118,17 @@ class GameLogic(IGameLogic):
 
     def get_game_state(self) -> GameState:
         return self.game_state
+
+    def save_game_state(self):
+        """
+        Save the current game state to a file.
+        """
+        self.persistenceManager.save_game_state(self.game_state)
+        return "game_saved"
+
+    def load_game_state(self):
+        """
+        Load the game state from a file.
+        """
+        self.game_state = self.persistenceManager.load_game_state()
+        return "game_loaded"
