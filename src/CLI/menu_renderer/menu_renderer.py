@@ -31,6 +31,16 @@ class MenuRenderer:
         print(translations[self.language]["resume_game"])
         print(translations[self.language]["end_game"])
 
+    def display_ingame_menu(self) -> None:
+        """
+        Displays the in-game menu options.
+        """
+        print(translations[self.language]["ingame_menu"])
+        print(translations[self.language]["save_game"])
+        print(translations[self.language]["change_language"])
+        print(translations[self.language]["resume_game"])
+        print(translations[self.language]["end_game"])
+
 
     def display_game_mode_menu(self) -> None:
         """
