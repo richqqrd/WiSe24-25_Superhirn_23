@@ -27,7 +27,7 @@ class TestMenuRenderer(unittest.TestCase):
         Test the display_menu method to ensure it
         correctly displays the menu.
         """
-        self.renderer.display_menu()
+        self.renderer.display_main_menu()
         output = self.held_output.getvalue().strip()
         self.assertIn("Main Menu", output)
         self.assertIn("1. Start Offline Game", output)

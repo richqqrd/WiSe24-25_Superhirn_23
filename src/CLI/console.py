@@ -19,7 +19,7 @@ class Console:
 
     def run(self) -> None:
         while self.is_game_active:
-            self.menu_renderer.display_menu()
+            self.menu_renderer.display_main_menu()
             user_input = self.input_handler.handle_menu_input()
             next_action = self.business_logic.handle(user_input)
 
@@ -35,22 +35,10 @@ class Console:
                     self.business_logic.get_game_state()
                 )
                 guess_input = self.input_handler.handle_guess_input()
-                if guess_input == "menu":
-                    self.menu_renderer.display_menu()
-                    user_input = self.input_handler.handle_menu_input()
-                    next_action = self.business_logic.handle(user_input)
-                    continue
-
                 next_action = self.business_logic.handle_guess_input(guess_input)
             elif next_action == "need_code_input":
                 self.menu_renderer.display_code_input()
                 code_input = self.input_handler.handle_code_input()
-                if code_input == "menu":
-                    self.menu_renderer.display_menu()
-                    user_input = self.input_handler.handle_menu_input()
-                    next_action = self.business_logic.handle(user_input)
-                    continue
-
                 next_action = self.business_logic.handle_code_input(code_input)
             elif next_action == "wait_for_computer_guess":
                 next_action = self.business_logic.handle_computer_guess()
@@ -60,19 +48,7 @@ class Console:
             elif next_action == "need_server_connection":
                 self.menu_renderer.display_server_connection()
                 server_ip = self.input_handler.handle_ip_input()
-                if server_ip == "menu":
-                    self.menu_renderer.display_menu()
-                    user_input = self.input_handler.handle_menu_input()
-                    next_action = self.business_logic.handle(user_input)
-                    continue
-
                 server_port = self.input_handler.handle_port_input()
-                if server_port == "menu":
-                    self.menu_renderer.display_menu()
-                    user_input = self.input_handler.handle_menu_input()
-                    next_action = self.business_logic.handle(user_input)
-                    continue
-
                 next_action = self.business_logic.handle_server_connection(
                     server_ip, server_port
                 )
@@ -82,14 +58,16 @@ class Console:
                 )
                 self.menu_renderer.display_feedback_input()
                 feedback = self.input_handler.handle_feedback_input()
-                if feedback == "menu":
-                    self.menu_renderer.display_menu()
-                    user_input = self.input_handler.handle_menu_input()
-                    next_action = self.business_logic.handle(user_input)
-
-                    continue
                 next_action = self.business_logic.handle_feedback_input(feedback)
 
+        if next_action == "game_over":
+            self.end_game()
+        elif next_action == "error":
+            print("Ein Fehler ist aufgetreten. Das Spiel wird beendet.")
+            self.end_game()
+        elif next_action == "cheating_detected":
+            self.menu_renderer.display_cheating_warning()
+            self.end_game()
 
     def end_game(self) -> None:
         self.menu_renderer.display_end_game()

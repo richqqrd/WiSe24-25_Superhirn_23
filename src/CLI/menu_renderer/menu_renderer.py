@@ -21,7 +21,7 @@ class MenuRenderer:
         if language in translations:
             self.language = language
 
-    def display_menu(self) -> None:
+    def display_main_menu(self) -> None:
         """
         Displays the main menu options.
         """
