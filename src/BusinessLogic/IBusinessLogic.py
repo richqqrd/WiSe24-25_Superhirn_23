@@ -66,7 +66,7 @@ class IBusinessLogic(ABC):
         pass
 
     @abstractmethod
-    def resume_interrupted_game(self) -> str:
+    def load_game(self) -> str:
         """
         Resume an interrupted game.
         """

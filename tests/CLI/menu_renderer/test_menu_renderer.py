@@ -82,7 +82,7 @@ class TestMenuRenderer(unittest.TestCase):
         Test the display_resume_game method to ensure it
         correctly displays the resume game message.
         """
-        self.renderer.display_resume_game()
+        self.renderer.display_load_game()
         output = self.held_output.getvalue().strip()
         self.assertIn("loads resumed game", output)
 
