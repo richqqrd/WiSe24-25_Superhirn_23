@@ -115,12 +115,14 @@ class Console:
         self.menu_renderer.display_max_attempts_input()
         max_attempts = self.input_handler.handle_max_attempts_input()
 
-        next_action = self.business_logic.handle_game_configuration(
+        self.business_logic.handle_game_configuration(
             player_name,
             positions,
             colors,
             max_attempts
         )
+
+        self.handle_game_loop(next_action)
 
 
 
