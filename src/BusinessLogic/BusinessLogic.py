@@ -40,6 +40,9 @@ class BusinessLogic(IBusinessLogic):
         elif game_mode == "4":
             return "back_to_menu"
 
+    def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
+        return self.game_logic.configure_game(player_name, positions, colors, max_attempts)
+
     def _is_valid_feedback(self, feedback: str) -> bool:
         try:
             if feedback is None or len(feedback) > 5:

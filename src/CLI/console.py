@@ -97,7 +97,26 @@ class Console:
 
         if next_action == "back_to_menu":
             return
-        else:
-            self.handle_game_loop(next_action)
+
+        self.menu_renderer.display_player_name_input()
+        player_name = self.input_handler.handle_player_name_input()
+
+        self.menu_renderer.display_positions_input()
+        positions = self.input_handler.handle_positions_input()
+
+        self.menu_renderer.display_colors_input()
+        colors = self.input_handler.handle_colors_input()
+
+        self.menu_renderer.display_max_attempts_input()
+        max_attempts = self.input_handler.handle_max_attempts_input()
+
+        next_action = self.business_logic.handle_game_configuration(
+            player_name,
+            positions,
+            colors,
+            max_attempts
+        )
+
+
 
 

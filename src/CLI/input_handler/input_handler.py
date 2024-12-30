@@ -73,3 +73,27 @@ class InputHandler:
         Handles input for server port.
         """
         return self.handle_user_input("Enter server port: ")
+
+    def handle_player_name_input(self) -> str:
+        """
+        Handles input for player name.
+        """
+        return self.handle_user_input(translations[self.language]["enter_player_name"])
+
+    def handle_positions_input(self) -> str:
+        """
+        Handles input for positions.
+        """
+        return self.handle_user_input(translations[self.language]["enter_positions"])
+
+    def handle_colors_input(self) -> str:
+        """
+        Handles input for colors.
+        """
+        return self.handle_user_input(translations[self.language]["enter_colors"])
+
+    def handle_max_attempts_input(self) -> str:
+        """
+        Handles input for max attempts.
+        """
+        return self.handle_user_input(translations[self.language]["enter_max_attempts"])

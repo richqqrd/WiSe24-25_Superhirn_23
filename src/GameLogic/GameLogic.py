@@ -137,3 +137,9 @@ class GameLogic(IGameLogic):
         """
         self.game_state = self.persistenceManager.load_game_state()
         return "game_loaded"
+
+    def configure_game(self, player_name: str, positions: int, colors: int, max_attempts: int) -> None:
+        self.player_name = player_name
+        self.positions = positions
+        self.colors = colors
+        self.max_round = max_attempts

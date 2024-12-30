@@ -107,3 +107,27 @@ class MenuRenderer:
         Displays the cheating warning.
         """
         print(translations[self.language]["cheating_warning"])
+
+    def display_player_name_input(self) -> None:
+        """
+        Displays the player name input.
+        """
+        print(translations[self.language]["pick_player_name"])
+
+    def display_positions_input(self) -> None:
+        """
+        Displays the positions input.
+        """
+        print(translations[self.language]["pick_positions"])
+
+    def display_colors_input(self) -> None:
+        """
+        Displays the colors input.
+        """
+        print(translations[self.language]["pick_colors"])
+
+    def display_max_attempts_input(self) -> None:
+        """
+        Displays the max attempts input.
+        """
+        print(translations[self.language]["pick_max_attempts"])

@@ -40,7 +40,17 @@ translations = {
         "enter_server_port": "Enter server port:",
         "connecting": "Connecting to server...",
         "connection_failed": "Connection failed!",
-        "cheating_warning": "CHEATING DETECTED!"
+        "cheating_warning": "CHEATING DETECTED!",
+        "pick_player_name": "Pick a player name: ",
+        "pick_positions": "Pick with how many positions you want to play: ",
+        "pick_colors": "Pick how many colors you want to play with: ",
+        "pick_max_attempts": "Pick the maximum number of attempts: ",
+        "enter_player_name": "Enter player name: ",
+        "enter_positions": "Enter number of positions: ",
+        "enter_colors": "Enter number of colors: ",
+        "enter_max_attempts": "Enter maximum number of attempts: ",
+
+
     },
     "de": {
         "main_menu": "Hauptmenü",
@@ -83,7 +93,15 @@ translations = {
         "enter_server_port": "Server Port eingeben:",
         "connecting": "Verbinde mit Server...",
         "connection_failed": "Verbindung fehlgeschlagen!",
-        "cheating_warning": "BETRUG ERKANNT!"
+        "cheating_warning": "BETRUG ERKANNT!",
+        "pick_player_name": "Wähle einen Spielernamen: ",
+        "pick_positions": "Wähle mit wie vielen Positionen du spielen möchtest: ",
+        "pick_colors": "Wähle mit wie vielen Farben du spielen möchtest: ",
+        "pick_max_attempts": "Wähle die maximale Anzahl an Versuchen: ",
+        "enter_player_name": "Geben Sie den Spielernamen ein: ",
+        "enter_positions": "Geben Sie die Anzahl der Positionen ein: ",
+        "enter_colors": "Geben Sie die Anzahl der Farben ein: ",
+        "enter_max_attempts": "Geben Sie die maximale Anzahl an Versuchen ein: ",
 
     },
     "fr": {
@@ -127,7 +145,15 @@ translations = {
         "enter_server_port": "TODO",
         "connecting": "TODO",
         "connection_failed": "TODO",
-        "cheating_warning": "TODO"
+        "cheating_warning": "TODO",
+        "pick_player_name": "TODO",
+        "pick_positions": "TODO",
+        "pick_colors": "TODO",
+        "pick_max_attempts": "TODO",
+        "enter_player_name": "TODO",
+        "enter_positions": "TODO",
+        "enter_colors": "TODO",
+        "enter_max_attempts": "TODO",
 
     },
     "ko": {
@@ -171,6 +197,14 @@ translations = {
         "enter_server_port": "TODO",
         "connecting": "TODO",
         "connection_failed": "TODO",
-        "cheating_warning": "TODO"
+        "cheating_warning": "TODO",
+        "pick_player_name": "TODO",
+        "pick_positions": "TODO",
+        "pick_colors": "TODO",
+        "pick_max_attempts": "TODO",
+        "enter_player_name": "TODO",
+        "enter_positions": "TODO",
+        "enter_colors": "TODO",
+        "enter_max_attempts": "TODO",
     }
 }
