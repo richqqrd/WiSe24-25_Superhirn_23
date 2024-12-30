@@ -37,9 +37,14 @@ class BusinessLogic(IBusinessLogic):
                 return self.game_logic.startgame("online_guesser")
 
     def _is_valid_feedback(self, feedback: str) -> bool:
-        if feedback is None or len(feedback) > 5:
+        try:
+            if feedback is None or len(feedback) > 5:
+                return False
+            if feedback == "" or all(c in "78" for c in feedback):
+                return True
             return False
-        return feedback == "" or all(c in "78" for c in feedback)
+        except Exception:
+            return False
 
     def handle_feedback_input(self, feedback_input: str) -> str:
         if not self._is_valid_feedback(feedback_input):

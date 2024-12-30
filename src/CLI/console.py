@@ -62,6 +62,13 @@ class Console:
                 next_action = self.business_logic.handle_server_connection(
                     server_ip, server_port
                 )
+            elif next_action == "need_feedback_input":
+                self.game_renderer.render_game_state(
+                    self.business_logic.get_game_state()
+                )
+                self.menu_renderer.display_feedback_input()
+                feedback = self.input_handler.handle_feedback_input()
+                next_action = self.business_logic.handle_feedback_input(feedback)
 
         if next_action == "game_over":
             self.end_game()
