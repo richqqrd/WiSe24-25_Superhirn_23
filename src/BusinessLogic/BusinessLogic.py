@@ -41,7 +41,24 @@ class BusinessLogic(IBusinessLogic):
             return "back_to_menu"
 
     def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
-        return self.game_logic.configure_game(player_name, positions, colors, max_attempts)
+        if not player_name or len(player_name.strip()) == 0:
+            return "invalid_configuration"
+        
+        try:
+            pos = int(positions)
+            col = int(colors)
+            att = int(max_attempts)
+
+            if not (1 <= pos <= 9):
+                return "invalid_configuration"
+            if not (1 <= col <= 8):
+                return "invalid configuration"
+            if att <= 0:
+                return "invalid configuration"
+            
+            return self.game_logic.configure_game(player_name, pos, col, att)
+        except ValueError:
+            return "invalid_configuration"
 
     def _is_valid_feedback(self, feedback: str) -> bool:
         try:
