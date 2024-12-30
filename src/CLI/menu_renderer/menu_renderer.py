@@ -1,75 +1,83 @@
-# src/CLI/menu_renderer/menu_renderer.py
 from src.util.ColorCode import ColorCode
-
+from src.util.translations import translations
 
 class MenuRenderer:
     """
     Responsible for rendering the menu
     """
 
-    def __init__(self):
+    def __init__(self, language: str = "en"):
         """
         Initializes the MenuRenderer.
         """
-        pass
+        self.language = language
+
+    def set_language(self, language: str) -> None:
+        """
+        Sets the language for the menu.
+
+        :param language: The language code (e.g., 'en' or 'de').
+        """
+        if language in translations:
+            self.language = language
 
     def display_menu(self) -> None:
         """
         Displays the main menu options.
         """
-        print("Main Menu")
-        print("1. Start Offline Game")
-        print("2. Start Online Game")
-        print("3. Change Language")
-        print("4. End Game")
-        print("5. Save Game")
-        print("6. Resume Interrupted Game")
+        print(translations[self.language]["main_menu"])
+        print(translations[self.language]["start_offline_game"])
+        print(translations[self.language]["start_online_game"])
+        print(translations[self.language]["change_language"])
+        print(translations[self.language]["end_game"])
+        print(translations[self.language]["save_game"])
+        print(translations[self.language]["resume_game"])
 
     def display_role_menu(self) -> None:
         """
         Displays the role selection menu.
         """
-        print("Select your role:")
-        print("1. Guesser")
-        print("2. Coder")
+        print(translations[self.language]["select_role"])
+        print(translations[self.language]["guesser"])
+        print(translations[self.language]["coder"])
 
     def display_languages(self) -> None:
         """
-        Displays the language selection menu.
+        Displays the language selection menu dynamically.
         """
-        print("Select a language:")
-        print("1. German")
-        print("2. English")
+        print(translations[self.language]["select_language"])
+        for index, lang in enumerate(translations.keys(), 1):
+            print(f"{index}. {translations[self.language]['language_' + lang]}")
 
     def display_end_game(self) -> None:
         """
         Displays the end game message.
         """
-        print("Game ended.")
+        print(translations[self.language]["game_ended"])
 
     def display_save_game(self) -> None:
         """
         Displays the save game message.
         """
-        print("Game saved.")
+        print(translations[self.language]["game_saved"])
 
     def display_resume_game(self) -> None:
         """
         Displays the resume game message.
         """
-        print("loads resumed game")
+        print(translations[self.language]["loads_resumed_game"])
 
     def display_start_game(self) -> None:
         """
         Displays the start game message.
         """
-        print("Game started.")
+        print(translations[self.language]["game_started"])
 
     def display_code_input(self) -> None:
         """
         Displays the available colors and their codes.
         """
-        print("\nAvailable colors and their codes:")
+        print(f"\n{translations[self.language]['available_colors']}")
         for color in ColorCode:
             print(f"{color.value} : {color}")
 
@@ -77,7 +85,7 @@ class MenuRenderer:
         """
         Displays the available colors and their codes.
         """
-        print("\nAvailable colors and their codes:")
+        print(f"\n{translations[self.language]['available_colors']}")
         for color in ColorCode:
             print(f"{color.value} : {color}")
 
@@ -85,7 +93,5 @@ class MenuRenderer:
         """
         Displays the feedback input options.
         """
-        print("\nGive feedback for the guess:")
-        print("8: Black (correct color in correct position)")
-        print("7: White (correct color in wrong position)")
-        print("Enter feedback (e.g. 887 for two black, one white):")
+        print(f"\n{translations[self.language]['give_feedback']}")
+        print(translations[self.language]["feedback_instructions"])

@@ -1,15 +1,15 @@
-from BusinessLogic.IBusinessLogic import IBusinessLogic
-from CLI.game_renderer.game_renderer import GameRenderer
-from CLI.input_handler.input_handler import InputHandler
-from CLI.menu_renderer.menu_renderer import MenuRenderer
+from src.BusinessLogic.IBusinessLogic import IBusinessLogic
+from src.CLI.game_renderer.game_renderer import GameRenderer
+from src.CLI.input_handler.input_handler import InputHandler
+from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 
 
 class Console:
     def __init__(self, business_logic: IBusinessLogic):
         self.business_logic = business_logic
-        self.input_handler = InputHandler()
         self.menu_renderer = MenuRenderer()
         self.game_renderer = GameRenderer()
+        self.input_handler = InputHandler()
         self.is_game_active = True
 
     def run(self) -> None:
@@ -71,6 +71,9 @@ class Console:
             self.menu_renderer.display_save_game()
         elif action == "choose_language":
             self.menu_renderer.display_languages()
-            self.input_handler.handle_language_input()
+            language_input = self.input_handler.handle_language_input(self.menu_renderer.language)
+            self.menu_renderer.set_language(language_input)
+            self.game_renderer.set_language(language_input)
+            self.input_handler.set_language(language_input)
         elif action == "end_game":
             self.end_game()

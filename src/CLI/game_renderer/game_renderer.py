@@ -5,11 +5,26 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 from typing import List, Union
 
+from src.util.translations import translations
+
 
 class GameRenderer:
     """
     Responsible for rendering the game state and feedback in the CLI.
     """
+
+    def __init__(self, language: str = "en"):
+        """
+        Initializes the GameRenderer.
+        """
+        self.language = language
+
+    def set_language(self, language: str) -> None:
+        """
+        Sets the language for the game renderer.
+        """
+        if language in translations:
+            self.language = language
 
     def clear_screen(self) -> None:
         """
@@ -36,12 +51,14 @@ class GameRenderer:
         :param game_state: Dict with round number as key and a tuple of lists
         (guesses, feedback).
         """
+
         self.clear_screen()
         secret_code_str = self.colorize(game_state.secret_code)
-        print(f"Secret Code: {secret_code_str}")
-        print("Super Superhirn")
+        print(f"{translations[self.language]['secret_code']}: {secret_code_str}")
+        print(translations[self.language]["game_title"])
         print("=================")
-        print("Round | Feedback | Guess")
+        print(
+        f"{translations[self.language]['round']} | {translations[self.language]['feedback']} | {translations[self.language]['guess']}")
         print("--------------------------")
 
         for round_num, turn in enumerate(game_state.get_turns(), 1):
