@@ -1,3 +1,8 @@
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.CLI.game_renderer.game_renderer import GameRenderer
 from src.CLI.input_handler.input_handler import InputHandler
