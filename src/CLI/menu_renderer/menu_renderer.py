@@ -26,20 +26,21 @@ class MenuRenderer:
         Displays the main menu options.
         """
         print(translations[self.language]["main_menu"])
-        print(translations[self.language]["start_offline_game"])
-        print(translations[self.language]["start_online_game"])
+        print(translations[self.language]["start_game"])
         print(translations[self.language]["change_language"])
-        print(translations[self.language]["end_game"])
-        print(translations[self.language]["save_game"])
         print(translations[self.language]["resume_game"])
+        print(translations[self.language]["end_game"])
 
-    def display_role_menu(self) -> None:
+
+    def display_game_mode_menu(self) -> None:
         """
-        Displays the role selection menu.
+        Displays the game mode selection menu.
         """
-        print(translations[self.language]["select_role"])
-        print(translations[self.language]["guesser"])
-        print(translations[self.language]["coder"])
+        print(translations[self.language]["select_game_mode"])
+        print(translations[self.language]["offline_guesser"])
+        print(translations[self.language]["offline_coder"])
+        print(translations[self.language]["online_guesser"])
+        print(translations[self.language]["back_to_menu"])
 
     def display_languages(self) -> None:
         """

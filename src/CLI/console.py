@@ -23,15 +23,8 @@ class Console:
             user_input = self.input_handler.handle_menu_input()
             next_action = self.business_logic.handle(user_input)
 
-            if next_action == "choose_role_online":
-                self.menu_renderer.display_role_menu()
-                role_input = self.input_handler.handle_role_input()
-                next_action = self.business_logic.handle_role_choice(
-                    role_input, "online"
-                )
-                self.handle_game_loop(next_action)
-            elif next_action == "choose_role":
-                self.handle_offline_game()
+            if next_action == "choose_role":
+                self.handle_game_mode_choice()
             elif next_action in ["end_game", "save_game", "choose_language"]:
                 self.handle_menu_action(next_action)
 
@@ -93,7 +86,18 @@ class Console:
             self.menu_renderer.display_languages()
             language_input = self.input_handler.handle_language_input(self.menu_renderer.language)
             self.menu_renderer.set_language(language_input)
-            self.game_renderer.set_language(language_input)
             self.input_handler.set_language(language_input)
         elif action == "end_game":
             self.end_game()
+    
+    def handle_game_mode_choice(self) -> None:
+        self.menu_renderer.display_game_mode_menu()
+        game_mode = self.input_handler.handle_game_mode_input()
+        next_action = self.business_logic.handle_game_mode_choice(game_mode)
+
+        if next_action == "back_to_menu":
+            return
+        else:
+            self.handle_game_loop(next_action)
+
+

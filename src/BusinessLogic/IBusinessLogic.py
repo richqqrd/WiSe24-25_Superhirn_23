@@ -129,3 +129,6 @@ class IBusinessLogic(ABC):
 
     def handle_server_connection(self, server_ip, server_port):
         pass
+
+    def handle_game_mode_choice(self, game_mode):
+        pass

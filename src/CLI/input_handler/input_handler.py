@@ -26,11 +26,11 @@ class InputHandler:
         """
         return self.handle_user_input(translations[self.language]["enter_command"])
 
-    def handle_role_input(self) -> str:
+    def handle_game_mode_input(self) -> str:
         """
-        Handles input for role selection (1-2).
+        Handles input for game mode selection (1-2).
         """
-        return self.handle_user_input(translations[self.language]["enter_role"])
+        return self.handle_user_input(translations[self.language]["enter_game_mode"])
 
     def handle_language_input(self, language: str) -> str:
         """

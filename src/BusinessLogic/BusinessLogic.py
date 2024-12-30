@@ -9,32 +9,36 @@ class BusinessLogic(IBusinessLogic):
     Concrete implementation of the IBusinessLogic interface.
     """
 
+    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
+        pass
+
     def __init__(self, game_logic: IGameLogic):
         """
         Initializes the BusinessLogic instance.
         """
         self.game_logic = game_logic
         self.commands = {
-            "1": self.start_offline_game,
-            "2": self.start_online_game,
-            "3": self.change_language,
+            "1": self.start_game,
+            "2": self.change_language,
+            "3": self.resume_interrupted_game,
             "4": self.end_game,
-            "5": self.save_game,
-            "6": self.resume_interrupted_game,
         }
 
-    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
-        if role_input not in ["1", "2"]:
+    def start_game(self) -> str:
+        return "choose_role"
+
+    def handle_game_mode_choice(self, game_mode: str) -> str:
+        if game_mode not in ["1", "2", "3", "4"]:
             return "Invalid role."
 
-        if game_mode == "offline":
-            if role_input == "1":
-                return self.game_logic.startgame("guesser")
-            elif role_input == "2":
-                return self.game_logic.startgame("coder")
-        elif game_mode == "online":
-            if role_input == "1":
-                return self.game_logic.startgame("online_guesser")
+        if game_mode == "1":
+            return self.game_logic.startgame("guesser")
+        elif game_mode == "2":
+            return self.game_logic.startgame("coder")
+        elif game_mode == "3":
+            return self.game_logic.startgame("online_guesser")
+        elif game_mode == "4":
+            return "back_to_menu"
 
     def _is_valid_feedback(self, feedback: str) -> bool:
         try:
@@ -105,6 +109,7 @@ class BusinessLogic(IBusinessLogic):
 
     def handle_server_connection(self, ip: str, port: int) -> str:
         return self.game_logic.start_as_online_guesser(ip, port)
+
 
     def start_offline_game(self) -> str:
         return "choose_role"
