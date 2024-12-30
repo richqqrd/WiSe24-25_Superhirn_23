@@ -13,7 +13,12 @@ class PersistenceManager:
         Args:
             game_state (GameState): The game state to save.
             file_path (str): The file path where the game state will be saved.
+
+        Raises:
+            TypeError: If the game_state is not an instance of GameState.
         """
+        if not isinstance(game_state, GameState):
+            raise TypeError("game_state must be an instance of GameState")
         with open(file_path, "wb") as file:
             pickle.dump(game_state, file)
 
