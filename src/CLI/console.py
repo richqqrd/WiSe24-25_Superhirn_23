@@ -81,7 +81,12 @@ class Console:
 
     def handle_menu_action(self, action: str) -> None:
         if action == "save_game":
+            self.business_logic.save_game()
             self.menu_renderer.display_save_game()
+        elif action == "load_game":
+            self.business_logic.load_game()
+            self.menu_renderer.display_load_game()
+
         elif action == "choose_language":
             self.menu_renderer.display_languages()
             language_input = self.input_handler.handle_language_input(self.menu_renderer.language)

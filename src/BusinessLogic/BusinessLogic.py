@@ -20,7 +20,7 @@ class BusinessLogic(IBusinessLogic):
         self.commands = {
             "1": self.start_game,
             "2": self.change_language,
-            "3": self.resume_interrupted_game,
+            "3": self.load_game,
             "4": self.end_game,
         }
 
@@ -124,10 +124,12 @@ class BusinessLogic(IBusinessLogic):
         return "end_game"
 
     def save_game(self) -> str:
+        self.game_logic.save_game()
         return "save_game"
 
-    def resume_interrupted_game(self) -> str:
-        return "resume_interrupted_game"
+    def load_game(self) -> str:
+        self.game_logic.save_game()
+        return "load_game"
 
     def start_offline_game_as_guesser(self) -> None:
         print("Game started as Guesser.")

@@ -62,7 +62,7 @@ class MenuRenderer:
         """
         print(translations[self.language]["game_saved"])
 
-    def display_resume_game(self) -> None:
+    def display_load_game(self) -> None:
         """
         Displays the resume game message.
         """

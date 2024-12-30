@@ -77,3 +77,9 @@ class IGameLogic(ABC):
         Lets the player make a guess turn.
         """
         pass
+
+    def save_game(self):
+        """
+        Saves the current game state.
+        """
+        pass
