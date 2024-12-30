@@ -12,16 +12,19 @@ from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
 
-# asd
+
 class GameLogic(IGameLogic):
     def __init__(self):
         self.player_guesser = PlayerGuesser()
         self.player_coder = PlayerCoder()
-        self.computer_guesser = ComputerGuesser()
-        self.computer_coder = ComputerCoder()
+        self.computer_guesser = None
+        self.computer_coder = None
         self.network_service = None
         self.game_state = None
         self.max_round = 12
+        self.player_name = "player1"
+        self.colors = 8
+        self.positions = 5
         self.persistenceManager = PersistenceManager()
 
     def startgame(self, playerRole: str) -> str:
@@ -35,8 +38,8 @@ class GameLogic(IGameLogic):
 
     def start_as_online_guesser(self, server_ip: str, server_port: int) -> str:
         self.network_service = NetworkService(server_ip, server_port)
-        if self.network_service.start_game("player1"):
-            self.game_state = GameState(None, self.max_round, self.player_guesser)
+        if self.network_service.start_game(self.player_name):
+            self.game_state = GameState(None, self.max_round, self.positions, self.colors, self.player_name, self.player_guesser)
             return "need_server_connection"
         return "error"
 
@@ -63,7 +66,7 @@ class GameLogic(IGameLogic):
             return self.is_game_over(feedback)
 
     def is_game_over(self, feedback_list: List[FeedbackColorCode]) -> str:
-        if len(feedback_list) == 5 and all(
+        if len(feedback_list) == self.positions and all(
             [f == FeedbackColorCode.BLACK for f in feedback_list]
         ):
             return "game_over"
@@ -95,7 +98,7 @@ class GameLogic(IGameLogic):
         try:
             secret_code = self.computer_coder.generate_code()
             self.game_state = GameState(
-                secret_code, self.max_round, self.player_guesser
+                secret_code, self.max_round, self.positions, self.colors, self.player_name, self.player_guesser
             )
             return "need_guess_input"
         except ValueError:
@@ -104,7 +107,7 @@ class GameLogic(IGameLogic):
     def set_secret_code(self, code_list: List[ColorCode]) -> str:
         try:
             self.game_state = GameState(
-                code_list, self.max_round, self.computer_guesser
+                code_list, self.max_round, self.positions, self.colors, self.player_name, self.computer_guesser
             )
             return "wait_for_computer_guess"
         except ValueError:
@@ -143,3 +146,5 @@ class GameLogic(IGameLogic):
         self.positions = positions
         self.colors = colors
         self.max_round = max_attempts
+        self.computer_guesser = ComputerGuesser(positions, colors)
+        self.computer_coder = ComputerCoder(positions, colors)

@@ -89,6 +89,17 @@ class Console:
 
                     continue
                 next_action = self.business_logic.handle_feedback_input(feedback)
+        if next_action == "game_over":
+            self.game_renderer.render_game_state(
+                self.business_logic.get_game_state()
+            )
+            self.end_game()
+        elif next_action == "cheating_detected":
+            self.menu_renderer.display_cheating_warning()
+            self.end_game()
+        elif next_action == "error":
+            print("error, ending game")
+            self.end_game()
 
 
     def end_game(self) -> None:
@@ -122,29 +133,24 @@ class Console:
         game_mode = self.input_handler.handle_game_mode_input()
         next_action = self.business_logic.handle_game_mode_choice(game_mode)
 
-        if next_action == "back_to_menu":
-            return
+        if next_action == "need_configuration":
+            self.menu_renderer.display_player_name_input()
+            player_name = self.input_handler.handle_player_name_input()
 
-        self.menu_renderer.display_player_name_input()
-        player_name = self.input_handler.handle_player_name_input()
+            self.menu_renderer.display_positions_input()
+            positions = self.input_handler.handle_positions_input()
 
-        self.menu_renderer.display_positions_input()
-        positions = self.input_handler.handle_positions_input()
+            self.menu_renderer.display_colors_input()
+            colors = self.input_handler.handle_colors_input()
 
-        self.menu_renderer.display_colors_input()
-        colors = self.input_handler.handle_colors_input()
+            self.menu_renderer.display_max_attempts_input()
+            max_attempts = self.input_handler.handle_max_attempts_input()
 
-        self.menu_renderer.display_max_attempts_input()
-        max_attempts = self.input_handler.handle_max_attempts_input()
+            next_action = self.business_logic.handle_game_mode_choice(
+                game_mode, player_name, positions, colors, max_attempts)
 
-        self.business_logic.handle_game_configuration(
-            player_name,
-            positions,
-            colors,
-            max_attempts
-        )
-
-        self.handle_game_loop(next_action)
+        if next_action not in ["back_to_menu", "invalid_mode", "invalid_configuration"]:
+            self.handle_game_loop(next_action)
 
 
 

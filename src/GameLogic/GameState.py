@@ -20,7 +20,10 @@ class GameState:
         self,
         secret_code: List[ColorCode],
         max_rounds: int,
-        current_guesser: IGuesser = None,
+        positions: int,
+        colors: int,
+        player_name: str,
+        current_guesser: IGuesser = None
     ):
         """
         Initializes the GameState with a secret code and maximum rounds.
@@ -33,6 +36,9 @@ class GameState:
         self.turns: List[GameTurn] = []  # Empty list of turns
         self.max_rounds = max_rounds
         self.current_guesser = current_guesser
+        self.positions = positions
+        self.colors = colors
+        self.player_name = player_name
 
     def add_turn(self, turn: GameTurn) -> None:
         """
@@ -46,6 +52,8 @@ class GameState:
         """
         if len(self.turns) >= self.max_rounds:
             raise ValueError("Max number of turns reached")
+        if len(turn.guesses) != self.positions:
+            raise ValueError(f"Guess must have {self.positions} positions")
         self.turns.append(turn)
 
     def get_secret_code(self) -> List[ColorCode]:

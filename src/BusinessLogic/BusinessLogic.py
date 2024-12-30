@@ -27,18 +27,33 @@ class BusinessLogic(IBusinessLogic):
     def start_game(self) -> str:
         return "choose_role"
 
-    def handle_game_mode_choice(self, game_mode: str) -> str:
+    def handle_game_mode_choice(self, game_mode: str, player_name: str = None,
+                                positions: str = None, colors: str = None,
+                                max_attempts: str = None) -> str:
+        """Handle game mode choice and configuration"""
+        # Validiere Spielmodus
         if game_mode not in ["1", "2", "3", "4"]:
-            return "Invalid role."
+            return "invalid_mode"
 
+        if game_mode == "4":
+            return "back_to_menu"
+
+        # Erste Validierung ohne Konfiguration
+        if all(param is None for param in [player_name, positions, colors, max_attempts]):
+            return "need_configuration"
+
+        # Handle game configuration
+        config_result = self.handle_game_configuration(player_name, positions, colors, max_attempts)
+        if config_result == "invalid_configuration":
+            return config_result
+
+        # Start appropriate game mode
         if game_mode == "1":
             return self.game_logic.startgame("guesser")
         elif game_mode == "2":
             return self.game_logic.startgame("coder")
         elif game_mode == "3":
             return self.game_logic.startgame("online_guesser")
-        elif game_mode == "4":
-            return "back_to_menu"
 
     def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
         if not player_name or len(player_name.strip()) == 0:
@@ -89,9 +104,12 @@ class BusinessLogic(IBusinessLogic):
         return self.game_logic.make_computer_guess()
 
     def _is_valid_code(self, code: str) -> bool:
-        if len(code) != 5:
+        if not code or len(code) != self.game_logic.positions:
             return False
-        return all(c in "12345678" for c in code)
+        try:
+            return all(1 <= int(c) <= self.game_logic.colors for c in code)
+        except ValueError:
+            return False
 
     def _convert_to_color_code(self, number: int) -> ColorCode:
         """Convert a number to its corresponding ColorCode enum value."""

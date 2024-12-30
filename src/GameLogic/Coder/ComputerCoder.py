@@ -8,16 +8,18 @@ from src.util.FeedbackColorCode import FeedbackColorCode
 
 class ComputerCoder(ICoder):
 
-    def __init__(self):
+    def __init__(self, positions: int, colors: int):
         self.__secret_code = []
+        self.positions = positions
+        self.colors = colors
 
     def give_feedback(self, guess: List[ColorCode]) -> List[FeedbackColorCode]:
         feedback = []
 
-        if len(guess) != len(self.secret_code):
+        if len(guess) != self.positions:
             return feedback
 
-        secret_code = self.secret_code.copy()
+        secret_code = self.__secret_code.copy()
         guess_code = guess.copy()
 
         for i in range(len(secret_code)):
@@ -35,5 +37,5 @@ class ComputerCoder(ICoder):
         return feedback
 
     def generate_code(self) -> List[ColorCode]:
-        self.secret_code = [ColorCode(random.randint(1, 8)) for _ in range(5)]
-        return self.secret_code
+        self.__secret_code = [ColorCode(random.randint(1, self.colors)) for _ in range(self.positions)]
+        return self.__secret_code
