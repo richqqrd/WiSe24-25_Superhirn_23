@@ -7,6 +7,7 @@ from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
 from src.GameLogic.IGameLogic import IGameLogic
 from src.Network.network_service import NetworkService
+from src.Persistence.PersistenceManager import PersistenceManager
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
