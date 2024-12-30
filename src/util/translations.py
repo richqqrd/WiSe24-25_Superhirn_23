@@ -36,7 +36,8 @@ translations = {
         "enter_server_ip": "Enter server IP address:",
         "enter_server_port": "Enter server port:",
         "connecting": "Connecting to server...",
-        "connection_failed": "Connection failed!"
+        "connection_failed": "Connection failed!",
+        "cheating_warning": "CHEATING DETECTED!"
     },
     "de": {
         "main_menu": "Hauptmenü",
@@ -75,7 +76,9 @@ translations = {
         "enter_server_ip": "Server IP-Adresse eingeben:",
         "enter_server_port": "Server Port eingeben:",
         "connecting": "Verbinde mit Server...",
-        "connection_failed": "Verbindung fehlgeschlagen!"
+        "connection_failed": "Verbindung fehlgeschlagen!",
+        "cheating_warning": "BETRUG ERKANNT!"
+
     },
     "fr": {
         "main_menu": "Menu Principal",
@@ -114,7 +117,9 @@ translations = {
         "enter_server_ip": "TODO",
         "enter_server_port": "TODO",
         "connecting": "TODO",
-        "connection_failed": "TODO"
+        "connection_failed": "TODO",
+        "cheating_warning": "TODO"
+
     },
     "ko": {
         "main_menu": "메인 메뉴",
@@ -153,6 +158,7 @@ translations = {
         "enter_server_ip": "TODO",
         "enter_server_port": "TODO",
         "connecting": "TODO",
-        "connection_failed": "TODO"
+        "connection_failed": "TODO",
+        "cheating_warning": "TODO"
     }
 }

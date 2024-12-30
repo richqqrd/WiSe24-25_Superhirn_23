@@ -47,24 +47,13 @@ class ComputerGuesser(IGuesser):
             return self.last_guess
 
         if not self.possible_codes:
-            print("\nERROR: No possible codes remaining!")
-            print("The feedback provided must have been incorrect.")
-            print("Please check your feedback and try again.\n")
-            return [ColorCode(1) for _ in range(5)]
+            raise ValueError("CHEATING_DETECTED")
 
         start_time_total = time.time()  # Gesamtdauer des Guess
 
         # Minimax-Strategie
         best_guess = None
         min_max_remaining = float('inf')
-
-        """
-        # Optimierung: Verwende nur eine Stichprobe der möglichen Codes
-        sample_size = min(1000, len(self.possible_codes))
-        sample_codes = set(list(self.possible_codes)[:sample_size])
-        
-        """
-
 
         for guess in self.possible_codes: #new
             start_time_guess = time.time()  # Zeit für diese Vermutung

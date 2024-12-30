@@ -36,7 +36,7 @@ class Console:
                 self.handle_menu_action(next_action)
 
     def handle_game_loop(self, next_action: str) -> None:
-        while next_action not in ["game_over", "error"]:
+        while next_action not in ["game_over", "error", "cheating_detected"]:
             if next_action == "need_guess_input":
                 self.game_renderer.render_game_state(
                     self.business_logic.get_game_state()
@@ -48,13 +48,10 @@ class Console:
                 code_input = self.input_handler.handle_code_input()
                 next_action = self.business_logic.handle_code_input(code_input)
             elif next_action == "wait_for_computer_guess":
-                self.business_logic.handle_computer_guess()
+                next_action = self.business_logic.handle_computer_guess()
                 self.game_renderer.render_game_state(
                     self.business_logic.get_game_state()
                 )
-                self.menu_renderer.display_feedback_input()
-                feedback_input = self.input_handler.handle_feedback_input()
-                next_action = self.business_logic.handle_feedback_input(feedback_input)
             elif next_action == "need_server_connection":
                 self.menu_renderer.display_server_connection()
                 server_ip = self.input_handler.handle_ip_input()
@@ -74,6 +71,10 @@ class Console:
             self.end_game()
         elif next_action == "error":
             print("Ein Fehler ist aufgetreten. Das Spiel wird beendet.")
+            self.end_game()
+        elif next_action == "cheating_detected":
+            self.menu_renderer.display_cheating_warning()
+            self.end_game()
 
     def end_game(self) -> None:
         self.menu_renderer.display_end_game()

@@ -101,3 +101,8 @@ class MenuRenderer:
         """
         print(f"\n{translations[self.language]['enter_server_ip']}")
         print(f"{translations[self.language]['enter_server_port']}")
+    def display_cheating_warning(self) -> None:
+        """
+        Displays the cheating warning.
+        """
+        print(translations[self.language]["cheating_warning"])

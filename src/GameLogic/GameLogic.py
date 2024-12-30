@@ -109,11 +109,15 @@ class GameLogic(IGameLogic):
             return "need_code_input"
 
     def make_computer_guess(self) -> str:
-        guess = self.computer_guesser.make_guess()
-
-        turn = GameTurn(guess, [])
-        self.game_state.add_turn(turn)
-        return "show_computer_guess"
+        try:
+            guess = self.computer_guesser.make_guess()
+            turn = GameTurn(guess, [])
+            self.game_state.add_turn(turn)
+            return "need_feedback_input"
+        except ValueError as e:
+            if str(e) == "CHEATING_DETECTED":
+                return "cheating_detected"
+            return "error"
 
     def get_game_state(self) -> GameState:
         return self.game_state
