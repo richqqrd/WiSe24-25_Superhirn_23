@@ -95,3 +95,9 @@ class MenuRenderer:
         """
         print(f"\n{translations[self.language]['give_feedback']}")
         print(translations[self.language]["feedback_instructions"])
+    def display_server_connection(self) -> None:
+        """
+        Displays the server connection input options.
+        """
+        print(f"\n{translations[self.language]['enter_server_ip']}")
+        print(f"{translations[self.language]['enter_server_port']}")

@@ -28,14 +28,14 @@ class GameLogic(IGameLogic):
         elif playerRole == "coder":
             return self.start_as_coder()
         elif playerRole == "online_guesser":
-            return self.start_as_online_guesser()
+            return "need_server_connection"
         return "invalid_role"
 
-    def start_as_online_guesser(self) -> str:
-        self.network_service = NetworkService("localhost", 5000)
+    def start_as_online_guesser(self, server_ip: str, server_port: int) -> str:
+        self.network_service = NetworkService(server_ip, server_port)
         if self.network_service.start_game("player1"):
             self.game_state = GameState(None, self.max_round, self.player_guesser)
-            return "need_guess_input"
+            return "need_server_connection"
         return "error"
 
     def make_guess(self, guess_list: List[ColorCode]) -> str:

@@ -98,6 +98,9 @@ class BusinessLogic(IBusinessLogic):
         else:
             return "Invalid command."
 
+    def handle_server_connection(self, ip: str, port: int) -> str:
+        return self.game_logic.start_as_online_guesser(ip, port)
+
     def start_offline_game(self) -> str:
         return "choose_role"
 

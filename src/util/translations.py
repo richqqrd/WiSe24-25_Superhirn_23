@@ -32,7 +32,11 @@ translations = {
         "enter_guess": "Enter your guess (5 digits): ",
         "enter_feedback": "Enter feedback (5 digits): ",
         "enter_command": "Enter command: ",
-        "enter_role": "Enter role: "
+        "enter_role": "Enter role: ",
+        "enter_server_ip": "Enter server IP address:",
+        "enter_server_port": "Enter server port:",
+        "connecting": "Connecting to server...",
+        "connection_failed": "Connection failed!"
     },
     "de": {
         "main_menu": "Hauptmenü",
@@ -67,7 +71,11 @@ translations = {
         "enter_guess": "Geben Sie Ihren Tipp ein (5 Ziffern): ",
         "enter_feedback": "Geben Sie das Feedback ein (5 Ziffern): ",
         "enter_command": "Befehl eingeben: ",
-        "enter_role": "Rolle eingeben: "
+        "enter_role": "Rolle eingeben: ",
+        "enter_server_ip": "Server IP-Adresse eingeben:",
+        "enter_server_port": "Server Port eingeben:",
+        "connecting": "Verbinde mit Server...",
+        "connection_failed": "Verbindung fehlgeschlagen!"
     },
     "fr": {
         "main_menu": "Menu Principal",
@@ -102,7 +110,11 @@ translations = {
         "enter_guess": "Entrez votre supposition (5 chiffres): ",
         "enter_feedback": "Entrez le retour (5 chiffres): ",
         "enter_command": "Entrez la commande: ",
-        "enter_role": "Entrez le rôle: "
+        "enter_role": "Entrez le rôle: ",
+        "enter_server_ip": "TODO",
+        "enter_server_port": "TODO",
+        "connecting": "TODO",
+        "connection_failed": "TODO"
     },
     "ko": {
         "main_menu": "메인 메뉴",
@@ -137,6 +149,10 @@ translations = {
         "enter_guess": "추측을 입력하세요 (5자리 숫자): ",
         "enter_feedback": "피드백을 입력하세요 (5자리 숫자): ",
         "enter_command": "명령을 입력하세요: ",
-        "enter_role": "역할을 입력하세요: "
+        "enter_role": "역할을 입력하세요: ",
+        "enter_server_ip": "TODO",
+        "enter_server_port": "TODO",
+        "connecting": "TODO",
+        "connection_failed": "TODO"
     }
 }

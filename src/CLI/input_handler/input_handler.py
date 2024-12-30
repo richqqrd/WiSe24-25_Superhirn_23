@@ -63,3 +63,13 @@ class InputHandler:
         Handles input for feedback generation.
         """
         return self.handle_user_input(translations[self.language]["enter_feedback"])
+    def handle_ip_input(self) -> str:
+        """
+        Handles input for server IP.
+        """
+        return self.handle_user_input("Enter server IP: ")
+    def handle_port_input(self) -> str:
+        """
+        Handles input for server port.
+        """
+        return self.handle_user_input("Enter server port: ")

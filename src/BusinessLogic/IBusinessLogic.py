@@ -126,3 +126,6 @@ class IBusinessLogic(ABC):
             feedback_input (str): The feedback input provided by the user.
         """
         pass
+
+    def handle_server_connection(self, server_ip, server_port):
+        pass
