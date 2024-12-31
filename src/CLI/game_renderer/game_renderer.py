@@ -26,7 +26,15 @@ class GameRenderer:
 
     def render_game_state(self, game_state: GameState) -> None:
         self.clear_screen()
-        secret_code_str = self.colorize(game_state.secret_code)
+
+        if game_state is None:
+            return
+            
+        # Dann prüfe secret_code
+        if game_state.secret_code is not None:
+            secret_code_str = self.colorize(game_state.secret_code)
+            print(f"\n{translations[self.language]['secret_code']}:  {secret_code_str}")
+
         print(f"\n{translations[self.language]['secret_code']}:  {secret_code_str}")
         print("\n" + "=" * 40)
         print(f"{translations[self.language]['game_title'].center(40)}")

@@ -16,33 +16,6 @@ class IBusinessLogic(ABC):
         """
         pass
 
-    @abstractmethod
-    def start_offline_game(self) -> str:
-        """
-        Start an offline game.
-        """
-        pass
-
-    @abstractmethod
-    def start_offline_game_as_guesser(self) -> str:
-        """
-        Start an offline game as the guesser.
-        """
-        pass
-
-    @abstractmethod
-    def start_offline_game_as_coder(self) -> str:
-        """
-        Start an offline game as the coder.
-        """
-        pass
-
-    @abstractmethod
-    def start_online_game(self) -> str:
-        """
-        Start an online game.
-        """
-        pass
 
     @abstractmethod
     def change_language(self) -> str:

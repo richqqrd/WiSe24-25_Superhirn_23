@@ -2,6 +2,8 @@ from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.GameLogic.IGameLogic import IGameLogic
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
+
 
 
 class BusinessLogic(IBusinessLogic):
@@ -25,20 +27,18 @@ class BusinessLogic(IBusinessLogic):
         }
 
     def start_game(self) -> str:
-        return "choose_role"
+        return "choose_mode"
 
     def handle_game_mode_choice(self, game_mode: str, player_name: str = None,
                                 positions: str = None, colors: str = None,
                                 max_attempts: str = None) -> str:
         """Handle game mode choice and configuration"""
-        # Validiere Spielmodus
         if game_mode not in ["1", "2", "3", "4"]:
             return "invalid_mode"
 
         if game_mode == "4":
             return "back_to_menu"
 
-        # Erste Validierung ohne Konfiguration
         if all(param is None for param in [player_name, positions, colors, max_attempts]):
             return "need_configuration"
 
@@ -148,13 +148,6 @@ class BusinessLogic(IBusinessLogic):
     def handle_server_connection(self, ip: str, port: int) -> str:
         return self.game_logic.start_as_online_guesser(ip, port)
 
-
-    def start_offline_game(self) -> str:
-        return "choose_role"
-
-    def start_online_game(self) -> str:
-        return "choose_role_online"
-
     def change_language(self) -> str:
         return "choose_language"
 
@@ -169,8 +162,88 @@ class BusinessLogic(IBusinessLogic):
         self.game_logic.save_game()
         return "load_game"
 
-    def start_offline_game_as_guesser(self) -> None:
-        print("Game started as Guesser.")
+    def process_game_action(self, action: str, user_input: str = None) -> str:
+        if action == "need_guess_input":
+            if user_input == "menu":
+                return "show_menu"
+            return self.handle_guess_input(user_input)
 
-    def start_offline_game_as_coder(self) -> None:
-        print("Game started as Coder.")
+        elif action == "need_code_input":
+            if user_input == "menu":
+                return "show_menu"
+            return self.handle_code_input(user_input)
+
+        elif action == "need_feedback_input":
+            if user_input == "menu":
+                return "show_menu"
+            return self.handle_feedback_input(user_input)
+
+        elif action == "wait_for_computer_guess":
+            return self.handle_computer_guess()
+
+        elif action == "need_server_connection":
+            if user_input == "menu":
+                return "show_menu"
+            ip, port = user_input.split(":")
+            return self.handle_server_connection(ip, int(port))
+
+        return "error"
+
+
+    def handle_menu_action(self, menu_choice: str) -> str:
+        if menu_choice == "1":  # Save
+            self.game_logic.save_game()
+            return "save_game"
+        elif menu_choice == "2":  # Change Language
+            return "choose_language"
+        elif menu_choice == "3":  # Load
+            self.game_logic.load_game()
+            return "load_game"
+        elif menu_choice == "4":  # End
+            return "end_game"
+        return self.get_current_game_action()
+
+
+    def get_required_action(self, game_mode: str) -> str:
+        if game_mode not in ["1", "2", "3", "4"]:
+            return "invalid_mode"
+
+        if game_mode == "4":
+            return "back_to_menu"
+
+        return "need_configuration"
+
+    def configure_game(self, game_mode: str, config: dict) -> str:
+        config_result = self.handle_game_configuration(
+            config["player_name"],
+            config["positions"],
+            config["colors"],
+            config["max_attempts"]
+        )
+
+        if config_result == "invalid_configuration":
+            return config_result
+
+        if game_mode == "1":
+            return self.game_logic.startgame("guesser")
+
+        elif game_mode == "2":
+            return self.game_logic.startgame("coder")
+
+        elif game_mode == "3":
+            return self.game_logic.startgame("online_guesser")
+
+        return "invalid_mode"
+
+    def can_start_game(self, next_action: str) -> bool:
+        return next_action not in ["invalid_mode", "invalid_configuration", "back_to_menu"]
+    
+    def is_game_over(self, action: str) -> bool:
+        return action in ["game_over", "error", "cheating_detected"]
+
+    def get_current_game_action(self) -> str:
+        game_state = self.game_logic.get_game_state()
+        if isinstance(game_state.current_guesser, PlayerGuesser):
+            return "need_guess_input"
+        else:
+            return "need_feedback_input"
