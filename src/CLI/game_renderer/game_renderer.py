@@ -32,7 +32,7 @@ class GameRenderer:
         print(f"{translations[self.language]['game_title'].center(40)}")
         print("=" * 40)
         print(
-            f"\n{'Round':^8} | {'Feedback':^15} | {'Guess':^15}"
+            f"\n{translations[self.language]['round']:^8} | {translations[self.language]['feedback']:^15} | {translations[self.language]['guess']:^15}"
         )
         print("-" * 40)
 
