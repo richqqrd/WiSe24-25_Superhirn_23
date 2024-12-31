@@ -85,10 +85,11 @@ class Console:
                 self.menu_renderer.display_cheating_warning()
                 self.end_game()
 
-    def handle_ingame_menu(self) -> None:
+    def handle_ingame_menu(self) -> str:
         self.menu_renderer.display_ingame_menu()
         user_input = self.input_handler.handle_menu_input()
         next_action = self.business_logic.handle(user_input)
+
         if next_action == "save_game":
             self.business_logic.save_game()
             self.menu_renderer.display_save_game()
@@ -103,6 +104,8 @@ class Console:
             self.input_handler.set_language(language_input)
         elif next_action == "end_game":
             self.end_game()
+            return "game_over"
+
 
     def end_game(self) -> None:
         self.menu_renderer.display_end_game()

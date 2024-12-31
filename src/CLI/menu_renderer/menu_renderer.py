@@ -26,20 +26,21 @@ class MenuRenderer:
         Displays the main menu options.
         """
         print(translations[self.language]["main_menu"])
-        print(translations[self.language]["start_game"])
-        print(translations[self.language]["change_language"])
-        print(translations[self.language]["resume_game"])
-        print(translations[self.language]["end_game"])
+        print(f"1. {translations[self.language]['start_game']}")        
+        print(f"2. {translations[self.language]['change_language']}")
+        print(f"3. {translations[self.language]['resume_game']}")
+        print(f"4. {translations[self.language]['end_game']}")
+
 
     def display_ingame_menu(self) -> None:
         """
         Displays the in-game menu options.
         """
         print(translations[self.language]["ingame_menu"])
-        print(translations[self.language]["save_game"])
-        print(translations[self.language]["change_language"])
-        print(translations[self.language]["resume_game"])
-        print(translations[self.language]["end_game"])
+        print(f"1. {translations[self.language]['save_game']}")
+        print(f"2. {translations[self.language]['change_language']}")
+        print(f"3. {translations[self.language]['resume_game']}")
+        print(f"4. {translations[self.language]['end_game']}")
 
 
     def display_game_mode_menu(self) -> None:
@@ -47,10 +48,10 @@ class MenuRenderer:
         Displays the game mode selection menu.
         """
         print(translations[self.language]["select_game_mode"])
-        print(translations[self.language]["offline_guesser"])
-        print(translations[self.language]["offline_coder"])
-        print(translations[self.language]["online_guesser"])
-        print(translations[self.language]["back_to_menu"])
+        print(f"1. {translations[self.language]['offline_guesser']}")
+        print(f"2. {translations[self.language]['offline_coder']}")
+        print(f"3. {translations[self.language]['online_guesser']}")
+        print(f"4. {translations[self.language]['back_to_menu']}")
 
     def display_languages(self) -> None:
         """
