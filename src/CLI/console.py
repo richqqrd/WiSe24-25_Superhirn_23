@@ -32,6 +32,10 @@ class Console:
             elif action  == "save_game":
                 self.business_logic.save_game()
                 self.menu_renderer.display_save_game()
+            elif action == "resume_game":
+                next_action = self.business_logic.load_game()
+                if next_action != "error":
+                    self.start_game_loop(next_action)
 
 
     def handle_language_change(self) -> None:
@@ -121,6 +125,7 @@ class Console:
 
         elif next_action == "end_game":
             self.end_game()
+            return "game_over"
             
         return self.business_logic.get_current_game_action()
 

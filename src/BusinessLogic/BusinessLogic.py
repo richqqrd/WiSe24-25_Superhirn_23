@@ -20,10 +20,10 @@ class BusinessLogic(IBusinessLogic):
         """
         self.game_logic = game_logic
         self.commands = {
-            "1": self.start_game,
-            "2": self.change_language,
-            "3": self.load_game,
-            "4": self.end_game,
+            "1": lambda: "choose_mode",
+            "2": lambda: "choose_language",
+            "3": lambda: "resume_game",
+            "4": lambda: "end_game",
         }
 
     def start_game(self) -> str:
@@ -155,12 +155,15 @@ class BusinessLogic(IBusinessLogic):
         return "end_game"
 
     def save_game(self) -> str:
-        self.game_logic.save_game()
+        self.game_logic.save_game_state()
         return "save_game"
 
     def load_game(self) -> str:
-        self.game_logic.save_game()
-        return "load_game"
+        try:
+            self.game_logic.load_game_state()
+            return self.get_current_game_action()
+        except FileNotFoundError:
+            return "error"
 
     def process_game_action(self, action: str, user_input: str = None) -> str:
         if action == "need_guess_input":
@@ -192,12 +195,12 @@ class BusinessLogic(IBusinessLogic):
 
     def handle_menu_action(self, menu_choice: str) -> str:
         if menu_choice == "1":  # Save
-            self.game_logic.save_game()
+            self.save_game()
             return "save_game"
         elif menu_choice == "2":  # Change Language
             return "choose_language"
         elif menu_choice == "3":  # Load
-            self.game_logic.load_game()
+            self.load_game()
             return "load_game"
         elif menu_choice == "4":  # End
             return "end_game"

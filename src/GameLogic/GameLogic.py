@@ -139,6 +139,24 @@ class GameLogic(IGameLogic):
         Load the game state from a file.
         """
         self.game_state = self.persistenceManager.load_game_state()
+
+
+        self.computer_coder = ComputerCoder(self.game_state.positions, self.game_state.colors)
+        self.computer_guesser = ComputerGuesser(self.game_state.positions, self.game_state.colors)
+
+        self.computer_coder.secret_code = self.game_state.secret_code
+
+        for turn in self.game_state.get_turns():
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                # Player is guesser, recalculate computer feedback
+                feedback = self.computer_coder.give_feedback(turn.guesses)
+                turn.feedback = feedback
+            else:
+                # Computer is guesser, replay computer guesses and feedback
+                self.computer_guesser.last_guess = turn.guesses
+                if turn.feedback:
+                    self.computer_guesser.process_feedback(turn.feedback)
+
         return "game_loaded"
 
     def configure_game(self, player_name: str, positions: int, colors: int, max_attempts: int) -> None:

@@ -39,3 +39,13 @@ class ComputerCoder(ICoder):
     def generate_code(self) -> List[ColorCode]:
         self.__secret_code = [ColorCode(random.randint(1, self.colors)) for _ in range(self.positions)]
         return self.__secret_code
+
+    @property
+    def secret_code(self) -> List[ColorCode]:
+        """Get the secret code"""
+        return self.__secret_code
+
+    @secret_code.setter
+    def secret_code(self, code: List[ColorCode]):
+        """Set the secret code"""
+        self.__secret_code = code

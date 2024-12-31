@@ -1,7 +1,16 @@
+import os
 import pickle
 from src.GameLogic.GameState import GameState
 
 class PersistenceManager:
+
+    def __init__(self):
+        self.save_dir = os.path.join(os.path.dirname(__file__), '..', 'saves')
+        os.makedirs(self.save_dir, exist_ok=True)
+
+
+
+
     """
     Manages the persistence of the game state.
     """
@@ -19,11 +28,14 @@ class PersistenceManager:
         """
         if not isinstance(game_state, GameState):
             raise TypeError("game_state must be an instance of GameState")
+
+        file_path = os.path.join(self.save_dir, file_path)
         with open(file_path, "wb") as file:
             pickle.dump(game_state, file)
 
     def load_game_state(self, file_path: str = "game_state.pkl") -> GameState:
         """
+
         Loads the game state from a file.
 
         Args:
@@ -32,5 +44,6 @@ class PersistenceManager:
         Returns:
             GameState: The loaded game state.
         """
+        file_path = os.path.join(self.save_dir, file_path)
         with open(file_path, "rb") as file:
             return pickle.load(file)
