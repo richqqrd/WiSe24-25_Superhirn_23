@@ -1,82 +1,59 @@
 from abc import ABC, abstractmethod
 
-
 class IBusinessLogic(ABC):
-    """
-    Interface for the business logic related to the game operations.
-    """
-
+    """Interface for business logic layer"""
+    
     @abstractmethod
     def handle(self, command: str) -> str:
-        """
-        Handles a command string and invokes the corresponding method.
-
-        Args:
-            command (str): The command string to process.
-        """
+        """Handle general commands"""
         pass
 
     @abstractmethod
-    def save_game(self) -> str:
-        """
-        Save the current game state.
-        """
+    def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
+        """Handle game configuration input"""
         pass
 
     @abstractmethod
-    def load_game(self) -> str:
-        """
-        Resume an interrupted game.
-        """
-        pass
-
-
-    @abstractmethod
-    def handle_code_input(self, code_input: str) -> str:
-        """
-        Handle the code input provided by the user.
-
-        Args:
-            code_input (str): The code input provided by the user.
-        """
+    def process_game_action(self, action: str, user_input: str = None) -> str:
+        """Process game actions and return next state"""
         pass
 
     @abstractmethod
     def handle_guess_input(self, guess_input: str) -> str:
-        """
-        Handle the guess input provided by the user.
-
-        Args:
-            guess_input (str): The guess input provided by the user.
-        """
+        """Handle player guess input"""
         pass
 
     @abstractmethod
-    def handle_computer_guess(self) -> str:
-        """
-        Handle the computer's guess in the game.
-        """
+    def handle_feedback_input(self, feedback: str) -> str:
+        """Handle feedback input"""
+        pass
+
+    @abstractmethod
+    def handle_menu_action(self, action: str) -> str:
+        """Handle menu actions"""
+        pass
+
+    @abstractmethod
+    def get_required_action(self, game_mode: str) -> str:
+        """Get next required action for game mode"""
+        pass
+
+    @abstractmethod
+    def configure_game(self, game_mode: str, config: dict) -> str:
+        """Configure game with given settings"""
         pass
 
     @abstractmethod
     def get_game_state(self):
-        """
-        Get the current game state.
-        """
+        """Get current game state"""
         pass
 
     @abstractmethod
-    def handle_feedback_input(self, feedback_input: str) -> str:
-        """
-        Handle the feedback input provided by the user.
-
-        Args:
-            feedback_input (str): The feedback input provided by the user.
-        """
+    def save_game(self) -> str:
+        """Save current game state"""
         pass
 
-    def handle_server_connection(self, server_ip, server_port):
-        pass
-
-    def handle_game_mode_choice(self, game_mode):
+    @abstractmethod
+    def load_game(self) -> str:
+        """Load saved game state"""
         pass
