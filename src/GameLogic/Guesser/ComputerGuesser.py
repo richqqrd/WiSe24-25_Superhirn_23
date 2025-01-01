@@ -39,8 +39,11 @@ class ComputerGuesser(IGuesser):
         """
         if self.first_guess:
             self.first_guess = False
-            self.last_guess = ([ColorCode(1)] * (self.positions // 2) + 
-                             [ColorCode(2)] * (self.positions - self.positions // 2))
+            if self.colors == 1:
+                self.last_guess = [ColorCode(1)] * self.positions
+            else:
+                self.last_guess = ([ColorCode(1)] * (self.positions // 2) + 
+                                [ColorCode(2)] * (self.positions - self.positions // 2))
             return self.last_guess
 
         if not self.possible_codes:
