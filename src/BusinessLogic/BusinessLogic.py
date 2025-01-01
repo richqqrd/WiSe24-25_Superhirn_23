@@ -13,9 +13,6 @@ class BusinessLogic(IBusinessLogic):
     Concrete implementation of the IBusinessLogic interface.
     """
 
-    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
-        pass
-
     def __init__(self, game_logic: IGameLogic):
         """
         Initializes the BusinessLogic instance.

@@ -1,5 +1,6 @@
 import os
 from src.GameLogic.GameState import GameState
+from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 from typing import List, Union
@@ -49,8 +50,8 @@ class GameRenderer:
                   game_state.max_rounds
               ))
         print("\n" + "-" * 40)
-            
-        if game_state.secret_code is not None:
+
+        if game_state.secret_code is not None and isinstance(game_state.current_guesser, ComputerGuesser):
             secret_code_str = self.colorize(game_state.secret_code)
             print(f"\n{translations[self.language]['secret_code']}:  {secret_code_str}")
 

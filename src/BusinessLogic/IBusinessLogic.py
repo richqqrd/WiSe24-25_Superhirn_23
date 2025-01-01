@@ -45,16 +45,6 @@ class IBusinessLogic(ABC):
         """
         pass
 
-    @abstractmethod
-    def handle_role_choice(self, role_input: str, game_mode: str) -> str:
-        """
-        Handle the user's role choice for the game.
-
-        Args:
-            role_input (str): The role chosen by the user.
-            game_mode (str): The game mode selected by the user.
-        """
-        pass
 
     @abstractmethod
     def handle_code_input(self, code_input: str) -> str:
