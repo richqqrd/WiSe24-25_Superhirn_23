@@ -3,3 +3,16 @@ max-line-length = 88
 max-complexity = 10
 statistics = True
 show-source = True
+
+# Docstring Checks
+docstring-convention = google  
+require-docstrings = True
+
+# Type Annotation Checks 
+require-type-annotation = True
+
+# Enable Plugins
+extend-select = 
+    D,   # flake8-docstrings
+    T4,  # flake8-type-checking
+    ANN  # flake8-annotations
