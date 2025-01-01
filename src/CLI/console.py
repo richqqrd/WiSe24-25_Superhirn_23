@@ -90,20 +90,23 @@ class Console:
 
     def get_user_input(self, action: str) -> str:
         if action == "need_guess_input":
-            return self.input_handler.handle_guess_input()
+            positions = self.business_logic.get_positions()
+            return self.input_handler.handle_guess_input(positions)
 
         elif action == "need_code_input":
-            return self.input_handler.handle_code_input()
+            positions = self.business_logic.get_positions()
+            return self.input_handler.handle_code_input(positions)
 
         elif action == "need_feedback_input":
-            return self.input_handler.handle_feedback_input()
+            positions = self.business_logic.get_positions()
+            return self.input_handler.handle_feedback_input(positions)
 
         elif action == "need_server_connection":
             ip = self.input_handler.handle_ip_input()
             port = self.input_handler.handle_port_input()
             return f"{ip}:{port}"
-        return ""
 
+        return ""
 
 
 

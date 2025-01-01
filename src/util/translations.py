@@ -32,9 +32,9 @@ translations = {
         "feedback": "Feedback",
         "guess": "Guess",
         "warning": "WARNING",
-        "enter_secret_code": "Enter input for secret code (5 digits): ",
-        "enter_guess": "Enter your guess (5 digits): ",
-        "enter_feedback": "Enter feedback (5 digits): ",
+        "enter_secret_code": "Enter input for secret code ({} digits): ",
+        "enter_guess": "Enter your guess ({} digits): ",
+        "enter_feedback": "Enter feedback ({} digits): ",
         "enter_command": "Enter command: ",
         "enter_game_mode": "Enter game mode: ",
         "enter_server_ip": "Enter server IP address:",
@@ -52,7 +52,10 @@ translations = {
         "enter_max_attempts": "Enter maximum number of attempts: ",
         "save_warning": "Warning: A saved game already exists and will be overwritten. Continue?",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "player_label": "Player:",
+        "settings_label": "Settings:",
+        "settings_format": "{} positions, {} colors, {} attempts"
 
 
     },
@@ -89,9 +92,9 @@ translations = {
         "feedback": "Feedback",
         "guess": "Tipp",
         "warning": "WARNUNG",
-        "enter_secret_code": "Geben Sie den geheimen Code ein (5 Ziffern): ",
-        "enter_guess": "Geben Sie Ihren Tipp ein (5 Ziffern): ",
-        "enter_feedback": "Geben Sie das Feedback ein (5 Ziffern): ",
+        "enter_secret_code": "Geben Sie den geheimen Code ein ({} Ziffern): ",
+        "enter_guess": "Geben Sie Ihren Tipp ein ({} Ziffern): ",
+        "enter_feedback": "Geben Sie das Feedback ein ({} Ziffern): ",
         "enter_command": "Befehl eingeben: ",
         "enter_game_mode": "Spielemodus eingeben: ",
         "enter_server_ip": "Server IP-Adresse eingeben:",
@@ -109,7 +112,10 @@ translations = {
         "enter_max_attempts": "Geben Sie die maximale Anzahl an Versuchen ein: ",
         "save_warning": "Warnung! Ein gespeichertes Spiel existiert bereits und wird überschrieben. Fortfahren?",
         "yes": "Ja",
-        "no": "Nein"
+        "no": "Nein",
+        "player_label": "Spieler:",
+        "settings_label": "Einstellungen:",
+        "settings_format": "{} Positionen, {} Farben, {} Versuche"
 
     },
     "fr": {
@@ -145,9 +151,9 @@ translations = {
         "feedback": "Retour",
         "guess": "Supposition",
         "warning": "AVERTISSEMENT",
-        "enter_secret_code": "Entrez le code secret (5 chiffres): ",
-        "enter_guess": "Entrez votre supposition (5 chiffres): ",
-        "enter_feedback": "Entrez le retour (5 chiffres): ",
+        "enter_secret_code": "Entrez le code secret ({} chiffres): ",
+        "enter_guess": "Entrez votre supposition ({} chiffres): ",
+        "enter_feedback": "Entrez le retour ({} chiffres): ",
         "enter_command": "Entrez la commande: ",
         "enter_game_mode": "Entrez le mode de jeu: ",
         "enter_server_ip": "Entrez l'adresse IP du serveur:",
@@ -165,7 +171,10 @@ translations = {
         "enter_max_attempts": "Entrez le nombre maximum de tentatives: ",
         "save_warning": "TODO",
         "yes": "TODO",
-        "no": "TODO"
+        "no": "TODO",
+        "player_label": "TODO",
+        "settings_label": "TODO",
+        "settings_format": "TODO"
 
     },
     "ko": {
@@ -201,9 +210,9 @@ translations = {
         "feedback": "피드백",
         "guess": "추측",
         "warning": "경고",
-        "enter_secret_code": "비밀 코드를 입력하세요 (5자리 숫자): ",
-        "enter_guess": "추측을 입력하세요 (5자리 숫자): ",
-        "enter_feedback": "피드백을 입력하세요 (5자리 숫자): ",
+        "enter_secret_code": "비밀 코드를 입력하세요 ({}자리 숫자): ",
+        "enter_guess": "추측을 입력하세요 ({}자리 숫자): ",
+        "enter_feedback": "피드백을 입력하세요 ({}자리 숫자): ",
         "enter_command": "명령을 입력하세요: ",
         "enter_game_mode": "게임 모드를 입력하세요: ",
         "enter_server_ip": "서버 IP 주소를 입력하세요:",
@@ -221,6 +230,9 @@ translations = {
         "enter_max_attempts": "최대 시도 횟수를 입력하세요: ",
         "save_warning": "TODO",
         "yes": "TODO",
-        "no": "TODO"
+        "no": "TODO",
+        "player_label": "TODO",
+        "settings_label": "TODO",
+        "settings_format": "TODO"
     }
 }

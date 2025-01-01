@@ -46,35 +46,39 @@ class InputHandler:
             print("Invalid input. Defaulting to English.")
             return "en"
 
-    def handle_code_input(self) -> str:
+    def handle_code_input(self, positions: int) -> str:
         """
         Handles input for code generation.
         """
-        return self.handle_user_input(translations[self.language]["enter_secret_code"])
-
-    def handle_guess_input(self) -> str:
+        return self.handle_user_input(
+            translations[self.language]["enter_secret_code"].format(positions)
+        )
+    def handle_guess_input(self, positions: int) -> str:
         """
         Handles input for code guessing.
         """
-        return self.handle_user_input(translations[self.language]["enter_guess"])
+        return self.handle_user_input(
+            translations[self.language]["enter_guess"].format(positions))
 
-    def handle_feedback_input(self) -> str:
+    def handle_feedback_input(self, positions: int) -> str:
         """
         Handles input for feedback generation.
         """
-        return self.handle_user_input(translations[self.language]["enter_feedback"])
+        return self.handle_user_input(
+            translations[self.language]["enter_feedback"].format(positions)
+        )
 
     def handle_ip_input(self) -> str:
         """
         Handles input for server IP.
         """
-        return self.handle_user_input("Enter server IP: ")
+        return self.handle_user_input(translations[self.language]["enter_server_ip"])
 
     def handle_port_input(self) -> str:
         """
         Handles input for server port.
         """
-        return self.handle_user_input("Enter server port: ")
+        return self.handle_user_input(translations[self.language]["enter_server_port"])
 
     def handle_player_name_input(self) -> str:
         """
@@ -103,7 +107,8 @@ class InputHandler:
     def handle_save_warning_input(self) -> bool:
         """Handle yes/no input for save warning"""
         while True:
-            user_input = input().strip()
+            user_input = self.handle_user_input(f"\n1. {translations[self.language]['yes']}\n"
+                               f"2. {translations[self.language]['no']}\n").strip()
             if user_input == "1":  # Yes
                 return True
             elif user_input == "2":  # No

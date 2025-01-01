@@ -292,3 +292,10 @@ class BusinessLogic(IBusinessLogic):
             return "save_game"
         except:
             return "error"
+
+    def get_positions(self) -> int:
+        """Get number of positions through game logic"""
+        game_state = self.game_logic.get_game_state()
+        if game_state:
+            return game_state.positions
+        return self.game_logic.positions

@@ -41,9 +41,13 @@ class GameRenderer:
         print(f"{translations[self.language]['game_title'].center(40)}")
         print("=" * 40)
 
-        print(f"\nPlayer: {game_state.player_name}")
-        print(
-            f"Settings: {game_state.positions} positions, {game_state.colors} colors, {game_state.max_rounds} attempts")
+        print(f"\n{translations[self.language]['player_label']} {game_state.player_name}")
+        print(f"{translations[self.language]['settings_label']} " +
+              translations[self.language]['settings_format'].format(
+                  game_state.positions,
+                  game_state.colors,
+                  game_state.max_rounds
+              ))
         print("\n" + "-" * 40)
             
         if game_state.secret_code is not None:
