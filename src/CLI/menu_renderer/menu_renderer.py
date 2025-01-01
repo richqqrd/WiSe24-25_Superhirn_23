@@ -32,15 +32,23 @@ class MenuRenderer:
         print(f"4. {translations[self.language]['end_game']}")
 
 
-    def display_ingame_menu(self) -> None:
+    def display_ingame_menu(self, available_actions: list) -> None:
         """
         Displays the in-game menu options.
         """
         print(translations[self.language]["ingame_menu"])
-        print(f"1. {translations[self.language]['save_game']}")
-        print(f"2. {translations[self.language]['change_language']}")
-        print(f"3. {translations[self.language]['resume_game']}")
-        print(f"4. {translations[self.language]['end_game']}")
+        menu_items = []
+        if "save_game" in available_actions:
+            menu_items.append((1, translations[self.language]['save_game']))
+            menu_items.append((2, translations[self.language]['change_language']))
+            menu_items.append((3, translations[self.language]['resume_game']))
+            menu_items.append((4, translations[self.language]['end_game']))
+        else:
+            menu_items.append((1, translations[self.language]['change_language']))
+            menu_items.append((2, translations[self.language]['end_game']))
+
+        for number, text in menu_items:
+            print(f"{number}. {text}")
 
 
     def display_game_mode_menu(self) -> None:

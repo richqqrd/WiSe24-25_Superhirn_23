@@ -109,7 +109,8 @@ class Console:
 
 
     def handle_ingame_menu(self) -> str:
-        self.menu_renderer.display_ingame_menu()
+        available_actions = self.business_logic.get_available_menu_actions()
+        self.menu_renderer.display_ingame_menu(available_actions)
         user_input = self.input_handler.handle_menu_input()
         next_action = self.business_logic.handle_menu_action(user_input)
 

@@ -192,19 +192,37 @@ class BusinessLogic(IBusinessLogic):
 
         return "error"
 
-
     def handle_menu_action(self, menu_choice: str) -> str:
-        if menu_choice == "1":  # Save
+        """Handle menu actions based on player role"""
+        available_actions = self.get_available_menu_actions()
+
+        menu_map = {
+            "1": "save_game" if "save_game" in available_actions else "change_language",
+            "2": "change_language" if "save_game" in available_actions else "end_game",
+            "3": "load_game" if "load_game" in available_actions else None,
+            "4": "end_game" if "save_game" in available_actions else None
+        }
+
+        action = menu_map.get(menu_choice)
+        if not action:
+            return self.get_current_game_action()  # Return to game state
+
+        if action == "save_game":
             self.save_game()
             return "save_game"
-        elif menu_choice == "2":  # Change Language
-            return "choose_language"
-        elif menu_choice == "3":  # Load
+        elif action == "load_game":
             self.load_game()
-            return "load_game"
-        elif menu_choice == "4":  # End
+            return self.get_current_game_action()
+        elif action == "change_language":
+            return "choose_language"
+        elif action == "end_game":
             return "end_game"
+
         return self.get_current_game_action()
+
+
+
+
 
 
     def get_required_action(self, game_mode: str) -> str:
@@ -250,3 +268,16 @@ class BusinessLogic(IBusinessLogic):
             return "need_guess_input"
         else:
             return "need_feedback_input"
+
+    def get_available_menu_actions(self) -> list[str]:
+        """Get available menu actions based on game state"""
+        is_guesser = isinstance(self.game_logic.game_state.current_guesser, PlayerGuesser)
+
+        # Common actions
+        actions = ["change_language", "end_game"]
+
+        # Guesser-specific actions
+        if is_guesser:
+            actions.extend(["save_game", "load_game"])
+
+        return actions
