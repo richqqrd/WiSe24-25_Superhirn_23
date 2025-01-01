@@ -19,6 +19,7 @@ class Console:
 
     def run(self) -> None:
         while self.is_game_active:
+            self.game_renderer.clear_screen()
             self.menu_renderer.display_main_menu()
             user_input = self.input_handler.handle_menu_input()
             action = self.business_logic.handle(user_input)
@@ -155,6 +156,7 @@ class Console:
         self.is_game_active = False
 
     def handle_game_mode_choice(self) -> None:
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_game_mode_menu()
         game_mode = self.input_handler.handle_game_mode_input()
 
@@ -174,16 +176,20 @@ class Console:
 
     def collect_game_configuration(self) -> dict:
         """Collect game configuration with color display"""
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_player_name_input()
         player_name = self.input_handler.handle_player_name_input()
 
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_positions_input()
         positions = self.input_handler.handle_positions_input()
 
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_code_input(8)
         self.menu_renderer.display_colors_input()
         colors = self.input_handler.handle_colors_input()
 
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_max_attempts_input()
         max_attempts = self.input_handler.handle_max_attempts_input()
 
