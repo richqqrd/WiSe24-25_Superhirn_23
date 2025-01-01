@@ -1,3 +1,5 @@
+"""Module for JSON schema validation."""
+
 import json
 import logging
 from typing import Dict, Any
@@ -7,28 +9,37 @@ from jsonschema.validators import validate
 
 
 class JsonValidator:
-    def __init__(self, schema_path: str):
-        """
-        Initialize the JsonValidator with the path to the JSON schema.
+    """JSON schema validator class.
+    
+    This class handles validation of JSON data against a predefined schema.
+    
+    Attributes:
+        schema: The loaded JSON schema used for validation
+    """
+    def __init__(self: "JsonValidator", schema_path: str) -> None:
+        """Initialize the JsonValidator with a schema.
 
         Args:
-            schema_path (str): The file path to the JSON schema.
+            schema_path: Path to the JSON schema file
+            
+        Raises:
+            FileNotFoundError: If schema file not found
+            json.JSONDecodeError: If schema contains invalid JSON
         """
         self.schema = self._load_schema(schema_path)
 
-    def _load_schema(self, schema_path: str) -> Dict[str, Any]:
-        """
-        Load the JSON schema from the specified file path.
+    def _load_schema(self: "JsonValidator", schema_path: str) -> Dict[str, Any]:
+        """Load JSON schema from file.
 
         Args:
-            schema_path (str): The file path to the JSON schema.
+            schema_path: Path to the JSON schema file
 
         Returns:
-            Dict[str, Any]: The loaded JSON schema.
+            Dict containing the loaded schema
 
         Raises:
-            FileNotFoundError: If the schema file is not found.
-            json.JSONDecodeError: If the schema file contains invalid JSON.
+            FileNotFoundError: If schema file not found
+            json.JSONDecodeError: If schema contains invalid JSON
         """
         try:
             with open(schema_path) as file:
@@ -38,18 +49,17 @@ class JsonValidator:
             logging.error(f"Failed to load schema: {e}")
             raise
 
-    def validate(self, data: Dict[str, Any]) -> bool:
-        """
-        Validate the given data against the loaded JSON schema.
+    def validate(self: "JsonValidator", data: Dict[str, Any]) -> bool:
+        """Validate data against the JSON schema.
 
         Args:
-            data (Dict[str, Any]): The JSON data to validate.
+            data: The JSON data to validate
 
         Returns:
-            bool: True if the data is valid, False otherwise.
-
+            bool: True if valid, False otherwise
+            
         Raises:
-            ValidationError: If the data does not conform to the schema.
+            ValidationError: If data does not match schema
         """
         try:
 

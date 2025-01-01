@@ -1,4 +1,4 @@
-# src/util/game_state.py
+"""Module for managing game state."""
 
 from typing import List
 from src.GameLogic.game_turn import GameTurn
@@ -7,48 +7,56 @@ from src.util.color_code import ColorCode
 
 
 class GameState:
-    """
-    Represents the state of the game.
+    """Represents the state of the game.
+
+    This class maintains the current state of a game including secret code,
+    game turns, and configuration settings.
 
     Attributes:
-        secret_code (List[ColorCode]): The secret code that needs to be guessed.
-        turns (List[GameTurn]): The list of turns taken in the game.
-        max_rounds (int): The maximum number of rounds allowed in the game.
+        secret_code: The secret code that needs to be guessed
+        turns: The list of turns taken in the game
+        max_rounds: The maximum number of rounds allowed
+        current_guesser: The current guesser (player or computer)
+        positions: Number of positions in the code
+        colors: Number of available colors
+        player_name: Name of the player
     """
 
     def __init__(
-        self,
+        self: "GameState",
         secret_code: List[ColorCode],
         max_rounds: int,
         positions: int,
         colors: int,
         player_name: str,
         current_guesser: IGuesser = None,
-    ):
-        """
-        Initializes the GameState with a secret code and maximum rounds.
+    ) -> None:
+        """Initialize the game state.
 
         Args:
-            secret_code (List[ColorCode]): The secret code that needs to be guessed.
-            max_rounds (int): The maximum number of rounds allowed in the game.
+            secret_code: The secret code that needs to be guessed
+            max_rounds: The maximum number of rounds allowed
+            positions: Number of positions in the code
+            colors: Number of available colors
+            player_name: Name of the player
+            current_guesser: The current guesser (player or computer)
         """
         self.secret_code: List[ColorCode] = secret_code
-        self.turns: List[GameTurn] = []  # Empty list of turns
+        self.turns: List[GameTurn] = []
         self.max_rounds = max_rounds
         self.current_guesser = current_guesser
         self.positions = positions
         self.colors = colors
         self.player_name = player_name
 
-    def add_turn(self, turn: GameTurn) -> None:
-        """
-        Adds a turn to the game state.
+    def add_turn(self: "GameState", turn: GameTurn) -> None:
+        """Add a turn to the game state.
 
         Args:
-            turn (GameTurn): The turn to be added.
+            turn: The turn to be added
 
         Raises:
-            ValueError: If the maximum number of turns is reached.
+            ValueError: If the maximum number of turns is reached
         """
         if len(self.turns) >= self.max_rounds:
             raise ValueError("Max number of turns reached")
@@ -56,7 +64,7 @@ class GameState:
             raise ValueError(f"Guess must have {self.positions} positions")
         self.turns.append(turn)
 
-    def get_secret_code(self) -> List[ColorCode]:
+    def get_secret_code(self: "GameState") -> List[ColorCode]:
         """
         Returns the secret code.
 
@@ -65,21 +73,23 @@ class GameState:
         """
         return self.secret_code
 
-    def get_turns(self) -> List[GameTurn]:
-        """
-        Returns the list of turns.
+    def get_turns(self: "GameState") -> List[GameTurn]:
+        """Get all turns taken in the game.
 
         Returns:
-            List[GameTurn]: The list of turns.
+            List of all game turns
         """
         return self.turns
 
-    def __repr__(self):
-        """
-        Returns the string representation of the game state.
+    def __repr__(self: "GameState"):
+        """Return string representation of the GameState.
+        
+        This method provides a detailed string representation of the game state
+        including secret code, turns, and max rounds for debugging and development.
 
         Returns:
-            str: The string representation of the game state.
+            str: String representation in format 
+                'GameState(secret_code=X, turns=Y, max_rounds=Z)'
         """
         return (
             f"GameState(secret_code={self.secret_code}, "

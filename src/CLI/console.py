@@ -1,3 +1,5 @@
+"""Module for console-based user interface."""
+
 import os
 import sys
 
@@ -10,14 +12,35 @@ from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 
 
 class Console:
-    def __init__(self, business_logic: IBusinessLogic):
+    """Main console interface controller.
+    
+    This class coordinates all user interface components and handles
+    the main game loop.
+    
+    Attributes:
+        business_logic: Business logic layer interface
+        menu_renderer: Renderer for menus
+        game_renderer: Renderer for game states
+        input_handler: Handler for user input
+        is_game_active: Flag indicating if game is running
+    """
+    def __init__(self: "Console", business_logic: IBusinessLogic) -> None:
+        """Initialize console interface.
+
+        Args:
+            business_logic: Business logic layer interface
+        """
         self.business_logic = business_logic
         self.menu_renderer = MenuRenderer()
         self.game_renderer = GameRenderer()
         self.input_handler = InputHandler()
         self.is_game_active = True
 
-    def run(self) -> None:
+    def run(self: "Console") -> None:
+        """Run the main application loop.
+        
+        Handles main menu navigation and delegates to appropriate handlers.
+        """
         while self.is_game_active:
             self.game_renderer.clear_screen()
             self.menu_renderer.display_main_menu()
@@ -38,18 +61,35 @@ class Console:
                 if next_action != "error":
                     self.start_game_loop(next_action)
 
-    def handle_language_change(self) -> None:
+    def handle_language_change(self: "Console") -> None:
+        """Handle language selection and update.
+        
+        Displays language options and updates all UI components 
+        with selected language.
+        """
         self.menu_renderer.display_languages()
         language = self.input_handler.handle_language_input(self.menu_renderer.language)
         self.update_language(language)
 
-    def update_language(self, language: str) -> None:
+    def update_language(self: "Console", language: str) -> None:
+        """Update language for all UI components.
+        
+        Args:
+            language: New language code to set
+        """
         self.menu_renderer.set_language(language)
         self.game_renderer.set_language(language)
         self.input_handler.set_language(language)
 
-    def start_game_loop(self, next_action: str) -> None:
-        """Main game loop controller"""
+    def start_game_loop(self: "Console", next_action: str) -> None:
+        """Control the main game loop.
+        
+        Handles game state rendering and user input processing
+        until game is over.
+        
+        Args:
+            next_action: Initial game action to process
+        """
         while not self.business_logic.is_game_over(next_action):
 
             if next_action in [
@@ -70,23 +110,48 @@ class Console:
 
         self.handle_game_end(next_action)
 
-    def handle_game_end(self, next_action: str) -> None:
-        """Handle end of game states"""
+    def handle_game_end(self: "Console", next_action: str) -> None:
+        """Handle end of game states.
+        
+        Displays final game state and appropriate end message based on:
+        - Game won
+        - Game lost
+        - Cheating detected
+        Then ends the game session.
+        """
         self.game_renderer.render_game_state(self.business_logic.get_game_state())
 
         if next_action == "game_won":
             self.menu_renderer.display_game_won()
-        elif next_action == "game_lost":  # Beide Fälle behandeln
+        elif next_action == "game_lost": 
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
         self.end_game()
 
-    def render_game_state(self) -> None:
-        """Render current game state"""
+    def render_game_state(self: "Console") -> None:
+        """Render current game state.
+        
+        Displays the current game state using the game renderer,
+        including board layout, guesses, and feedback.
+        """
         self.game_renderer.render_game_state(self.business_logic.get_game_state())
 
-    def get_user_input(self, action: str) -> str:
+    def get_user_input(self: "Console", action: str) -> str:
+        """Get appropriate user input based on the current game action.
+    
+        Args:
+            action: The current game action that requires user input
+            
+        Returns:
+            str: The user input appropriate for the action
+
+        Actions handled:
+            - need_guess_input: Get guess from player
+            - need_code_input: Get secret code from player
+            - need_feedback_input: Get feedback from player
+            - need_server_connection: Get server connection details
+        """
         if action == "need_guess_input":
             positions = self.business_logic.get_positions()
             return self.input_handler.handle_guess_input(positions)
@@ -109,7 +174,18 @@ class Console:
 
         return ""
 
-    def handle_ingame_menu(self) -> str:
+    def handle_ingame_menu(self: "Console") -> str:
+        """Handle the in-game menu interactions.
+    
+        Displays menu options, processes user input and handles menu actions like:
+        - Save game
+        - Load game
+        - Change language
+        - End game
+        
+        Returns:
+            str: Next game action to process
+        """
         available_actions = self.business_logic.get_available_menu_actions()
         self.menu_renderer.display_ingame_menu(available_actions)
         user_input = self.input_handler.handle_menu_input()
@@ -122,7 +198,6 @@ class Console:
             else:
                 return self.business_logic.get_current_game_action()
 
-        # Handle UI feedback only
         if next_action == "save_game":
             self.menu_renderer.display_save_game()
 
@@ -138,11 +213,15 @@ class Console:
 
         return self.business_logic.get_current_game_action()
 
-    def end_game(self) -> None:
+    def end_game(self: "Console") -> None:
+        """End the current game session.
+        
+        Displays game end message and sets game inactive.
+        """
         self.menu_renderer.display_end_game()
         self.is_game_active = False
 
-    def handle_game_mode_choice(self) -> None:
+    def handle_game_mode_choice(self: "Console") -> None:
         self.game_renderer.clear_screen()
         self.menu_renderer.display_game_mode_menu()
         game_mode = self.input_handler.handle_game_mode_input()
@@ -160,8 +239,18 @@ class Console:
         if self.business_logic.can_start_game(next_action):
             self.start_game_loop(next_action)
 
-    def collect_game_configuration(self) -> dict:
-        """Collect game configuration with color display"""
+    def collect_game_configuration(self: "Console") -> dict:
+        """Collect game configuration from user input.
+        
+        Prompts for and collects:
+        - Player name
+        - Number of positions
+        - Number of colors 
+        - Maximum attempts
+        
+        Returns:
+            dict: Game configuration parameters
+        """
         self.menu_renderer.display_player_name_input()
         player_name = self.input_handler.handle_player_name_input()
         self.game_renderer.clear_screen()

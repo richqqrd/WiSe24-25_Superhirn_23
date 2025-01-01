@@ -1,28 +1,58 @@
+"""Module for rendering game states and UI elements."""
+
 import os
+from typing import List, Union
 from src.GameLogic.game_state import GameState
 from src.GameLogic.Guesser.computer_guesser import ComputerGuesser
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
-from typing import List, Union
 
 from src.util.translations import translations
 
 
 class GameRenderer:
-    def __init__(self, language: str = "en"):
+    """Game state and UI renderer.
+    
+    This class handles rendering the game state and UI elements with
+    proper formatting and translations.
+    
+    Attributes:
+        language: Current language code for translations
+    """
+
+    def __init__(self: "GameRenderer", language: str = "en") -> None:
+        """Initialize the renderer with a language.
+
+        Args:
+            language: Language code, defaults to 'en'
+        """
         self.language = language
 
-    def set_language(self, language: str) -> None:
+    def set_language(self: "GameRenderer", language: str) -> None:
+        """Set the display language.
+
+        Args:
+            language: Language code to switch to
+        """
         if language in translations:
             self.language = language
 
-    def clear_screen(self) -> None:
+    def clear_screen(self: "GameRenderer") -> None:
+        """Clear the terminal screen."""
         os.system("cls" if os.name == "nt" else "clear")
 
     def colorize(
-        self, pins: List[Union[ColorCode, FeedbackColorCode]], width: int = 15
+        self: "GameRenderer", pins: List[Union[ColorCode, FeedbackColorCode]], width: int = 15
     ) -> str:
-        """Format and colorize pins with consistent width"""
+        """Format and colorize pins with consistent width.
+
+        Args:
+            pins: List of pins to colorize
+            width: Total width for output formatting, defaults to 15
+
+        Returns:
+            str: Formatted and colorized string with padding
+        """
         if not pins:
             return " " * width
 
@@ -36,7 +66,15 @@ class GameRenderer:
 
         return " " * padding + pin_str + " " * (width - visible_length - padding)
 
-    def render_game_state(self, game_state: GameState) -> None:
+    def render_game_state(self: "GameRenderer", game_state: GameState) -> None:
+        """Render the current game state to the console.
+    
+        Displays game title, player info, settings, secret code (if applicable),
+        and all game turns with their feedback.
+        
+        Args:
+            game_state: Current game state to render
+        """
         self.clear_screen()
 
         if game_state is None:
@@ -83,12 +121,22 @@ class GameRenderer:
             print("-" * (round_width + feedback_width + guess_width + 4))
         print(f"\n{translations[self.language]['menu_hint']}")
 
-    def render_message(self, message: str) -> None:
+    def render_message(self: "GameRenderer", message: str) -> None:
+        """Render a centered message with decorative borders.
+    
+        Args:
+            message: The message text to display
+        """
         print("\n" + "-" * 40)
         print(f"{message.center(40)}")
         print("-" * 40)
 
-    def render_warning(self, warning: str) -> None:
+    def render_warning(self: "GameRenderer", warning: str) -> None:
+        """Render a warning message with prominent borders.
+    
+        Args:
+            warning: The warning text to display
+        """
         print("\n" + "!" * 40)
         print(f"WARNING: {warning.center(30)}")
         print("!" * 40 + "\n")

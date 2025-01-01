@@ -1,18 +1,26 @@
-# src/util/feedback_color_code.py
+"""Module for feedback color code enumeration."""
 from enum import Enum
 
 
 class FeedbackColorCode(Enum):
-    """
-    Enum representing feedback color codes with their respective integer values and ANSI color codes.
+    """Enum representing feedback color codes with ANSI color codes.
+    
+    This enum defines the feedback colors (WHITE, BLACK) used in the game
+    along with their corresponding ANSI color codes for terminal display.
+
+    Attributes:
+        WHITE: Represents correct color in wrong position (value 7)
+        BLACK: Represents correct color in correct position (value 8)
     """
 
     WHITE = 7
     BLACK = 8
 
-    def __init__(self, value):
-        """
-        Initializes the FeedbackColorCode enum instance.
+    def __init__(self: "FeedbackColorCode", value: int) -> None:
+        """Initialize the FeedbackColorCode enum instance.
+        
+        Args:
+            value: Integer value for the feedback color (7 or 8)
         """
         self._value_ = value
         # Map values to ANSI codes
@@ -22,8 +30,18 @@ class FeedbackColorCode(Enum):
         }
         self.ansi_code = self._ansi_codes[value]
 
-    def __str__(self):
+    def __str__(self: "FeedbackColorCode") -> str:
+        """Return string representation with ANSI color.
+        
+        Returns:
+            str: Colored string representation of the enum value
+        """
         return f"{self.ansi_code}{self.name}\033[0m"
 
-    def get_ansi_code(self):
+    def get_ansi_code(self: "FeedbackColorCode") -> str:
+        """Get the ANSI color code for this feedback color.
+        
+        Returns:
+            str: ANSI color code sequence
+        """
         return self.ansi_code
