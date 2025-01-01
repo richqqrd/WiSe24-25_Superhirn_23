@@ -68,7 +68,9 @@ class GameRenderer:
             feedback_str = self.colorize(turn.feedback, width=feedback_width)
             guess_str = self.colorize(turn.guesses, width=guess_width)
             print(f"{round_num:^{round_width}} | {feedback_str} | {guess_str}")
-            print("-" * (round_width + feedback_width + guess_width + 4))
+            print("-" * (round_width + feedback_width + guess_width + 4)
+                  )
+        print(f"\n{translations[self.language]['menu_hint']}")
 
     def render_message(self, message: str) -> None:
         print("\n" + "-" * 40)
