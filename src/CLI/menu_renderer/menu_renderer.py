@@ -171,3 +171,11 @@ class MenuRenderer:
     def display_invalid_configuration(self) -> None:
         """Display message for invalid game configuration"""
         print(f"\n{translations[self.language]['invalid_configuration']}")
+
+    def display_game_won(self) -> None:
+        """Display win message at game end"""
+        print(translations[self.language]["game_won"])
+
+    def display_game_lost(self) -> None:
+        """Display lose message at game end"""
+        print(translations[self.language]["game_lost"])

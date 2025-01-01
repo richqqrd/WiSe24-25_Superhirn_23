@@ -56,7 +56,9 @@ translations = {
         "player_label": "Player:",
         "settings_label": "Settings:",
         "settings_format": "{} positions, {} colors, {} attempts",
-        "invalid_configuration": "Invalid configuration. Please check your input values."
+        "invalid_configuration": "Invalid configuration. Please check your input values.",
+        "game_won": "Congratulations! You've won the game!",
+        "game_lost": f"Game Over! You've reached the maximum number of attempts."
 
 
     },
@@ -117,7 +119,9 @@ translations = {
         "player_label": "Spieler:",
         "settings_label": "Einstellungen:",
         "settings_format": "{} Positionen, {} Farben, {} Versuche",
-        "invalid_configuration": "Ungültige Konfiguration. Bitte überprüfen Sie Ihre Eingaben"
+        "invalid_configuration": "Ungültige Konfiguration. Bitte überprüfen Sie Ihre Eingaben",
+        "game_won": "Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!",
+        "game_lost": "Spiel vorbei! Sie haben die maximale Anzahl an Versuchen erreicht.",
 
     },
     "fr": {
@@ -177,8 +181,9 @@ translations = {
         "player_label": "TODO",
         "settings_label": "TODO",
         "settings_format": "TODO",
-        "invalid_configuration": "TODO"
-
+        "invalid_configuration": "TODO",
+        "game_won": "TODO",
+        "game_lost": "TODO"
     },
     "ko": {
         "main_menu": "메인 메뉴",
@@ -237,6 +242,8 @@ translations = {
         "player_label": "TODO",
         "settings_label": "TODO",
         "settings_format": "TODO",
-        "invalid_configuration": "TODO"
+        "invalid_configuration": "TODO",
+        "game_won": "TODO",
+        "game_lost": "TODO"
     }
 }

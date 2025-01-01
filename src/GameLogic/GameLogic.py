@@ -69,10 +69,10 @@ class GameLogic(IGameLogic):
         if len(feedback_list) == self.positions and all(
             [f == FeedbackColorCode.BLACK for f in feedback_list]
         ):
-            return "game_over"
+            return "game_won"
 
         if len(self.game_state.get_turns()) >= self.max_round:
-            return "game_over"
+            return "game_lost"
 
         if isinstance(self.game_state.current_guesser, PlayerGuesser):
             return "need_guess_input"

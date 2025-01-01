@@ -72,14 +72,17 @@ class Console:
 
     def handle_game_end(self, next_action: str) -> None:
         """Handle end of game states"""
-        if next_action == "game_over":
-            self.game_renderer.render_game_state(
-                self.business_logic.get_game_state()
-            )
-            self.end_game()
+        self.game_renderer.render_game_state(
+            self.business_logic.get_game_state()
+        )
+
+        if next_action == "game_won":
+            self.menu_renderer.display_game_won()
+        elif next_action == "game_lost":  # Beide Fälle behandeln
+            self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
-            self.end_game()
+        self.end_game()
     
     def render_game_state(self) -> None:
         """Render current game state"""

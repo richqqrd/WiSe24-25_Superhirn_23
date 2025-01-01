@@ -263,7 +263,7 @@ class BusinessLogic(IBusinessLogic):
         return next_action not in ["invalid_mode", "invalid_configuration", "back_to_menu"]
     
     def is_game_over(self, action: str) -> bool:
-        return action in ["game_over", "error", "cheating_detected"]
+        return action in ["game_won", "game_lost", "error", "cheating_detected"]
 
     def get_current_game_action(self) -> str:
         game_state = self.game_logic.get_game_state()
