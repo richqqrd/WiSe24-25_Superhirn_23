@@ -93,13 +93,13 @@ class MenuRenderer:
         """
         print(translations[self.language]["game_started"])
 
-    def display_code_input(self) -> None:
+    def display_code_input(self, available_colors: int) -> None:
         """
         Displays the available colors and their codes.
         """
         print(f"\n{translations[self.language]['available_colors']}")
-        for color in ColorCode:
-            print(f"{color.value} : {color}")
+        for color in list(ColorCode)[:available_colors]:
+            print(f"{color.value}: {color}")
 
     def display_guess_input(self) -> None:
         """
@@ -167,3 +167,7 @@ class MenuRenderer:
     def display_feedback_instructions(self) -> None:
         """Display feedback instructions before input"""
         print(f"\n{translations[self.language]['feedback_instructions']}")
+
+    def display_invalid_configuration(self) -> None:
+        """Display message for invalid game configuration"""
+        print(f"\n{translations[self.language]['invalid_configuration']}")

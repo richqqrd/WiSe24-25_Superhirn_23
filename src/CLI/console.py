@@ -95,6 +95,8 @@ class Console:
 
         elif action == "need_code_input":
             positions = self.business_logic.get_positions()
+            colors = self.business_logic.get_colors()
+            self.menu_renderer.display_code_input(colors)
             return self.input_handler.handle_code_input(positions)
 
         elif action == "need_feedback_input":
@@ -159,6 +161,10 @@ class Console:
             config = self.collect_game_configuration()
             next_action = self.business_logic.configure_game(game_mode, config)
 
+            if next_action == "invalid_configuration":
+                    self.menu_renderer.display_invalid_configuration()
+                    next_action = "need_configuration"
+
         if self.business_logic.can_start_game(next_action):
             self.start_game_loop(next_action)
 
@@ -171,8 +177,7 @@ class Console:
         self.menu_renderer.display_positions_input()
         positions = self.input_handler.handle_positions_input()
 
-        # Zeige verfügbare Farben vor der Farbauswahl
-        self.menu_renderer.display_code_input()  # Zeigt die Farben an
+        self.menu_renderer.display_code_input(8)
         self.menu_renderer.display_colors_input()
         colors = self.input_handler.handle_colors_input()
 

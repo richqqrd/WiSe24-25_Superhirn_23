@@ -56,6 +56,7 @@ translations = {
         "player_label": "Player:",
         "settings_label": "Settings:",
         "settings_format": "{} positions, {} colors, {} attempts",
+        "invalid_configuration": "Invalid configuration. Please check your input values."
 
 
     },
@@ -116,6 +117,7 @@ translations = {
         "player_label": "Spieler:",
         "settings_label": "Einstellungen:",
         "settings_format": "{} Positionen, {} Farben, {} Versuche",
+        "invalid_configuration": "Ungültige Konfiguration. Bitte überprüfen Sie Ihre Eingaben"
 
     },
     "fr": {
@@ -174,7 +176,8 @@ translations = {
         "no": "TODO",
         "player_label": "TODO",
         "settings_label": "TODO",
-        "settings_format": "TODO"
+        "settings_format": "TODO",
+        "invalid_configuration": "TODO"
 
     },
     "ko": {
@@ -233,6 +236,7 @@ translations = {
         "no": "TODO",
         "player_label": "TODO",
         "settings_label": "TODO",
-        "settings_format": "TODO"
+        "settings_format": "TODO",
+        "invalid_configuration": "TODO"
     }
 }

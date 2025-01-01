@@ -69,9 +69,9 @@ class BusinessLogic(IBusinessLogic):
             if not (1 <= pos <= 9):
                 return "invalid_configuration"
             if not (1 <= col <= 8):
-                return "invalid configuration"
+                return "invalid_configuration"
             if att <= 0:
-                return "invalid configuration"
+                return "invalid_configuration"
             
             return self.game_logic.configure_game(player_name, pos, col, att)
         except ValueError:
@@ -299,3 +299,10 @@ class BusinessLogic(IBusinessLogic):
         if game_state:
             return game_state.positions
         return self.game_logic.positions
+
+    def get_colors(self) -> int:
+        """Get number of positions through game logic"""
+        game_state = self.game_logic.get_game_state()
+        if game_state:
+            return game_state.colors
+        return self.game_logic.colors
