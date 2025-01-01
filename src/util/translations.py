@@ -50,6 +50,9 @@ translations = {
         "enter_positions": "Enter number of positions: ",
         "enter_colors": "Enter number of colors: ",
         "enter_max_attempts": "Enter maximum number of attempts: ",
+        "save_warning": "Warning: A saved game already exists and will be overwritten. Continue?",
+        "yes": "Yes",
+        "no": "No"
 
 
     },
@@ -104,6 +107,9 @@ translations = {
         "enter_positions": "Geben Sie die Anzahl der Positionen ein: ",
         "enter_colors": "Geben Sie die Anzahl der Farben ein: ",
         "enter_max_attempts": "Geben Sie die maximale Anzahl an Versuchen ein: ",
+        "save_warning": "Warnung! Ein gespeichertes Spiel existiert bereits und wird überschrieben. Fortfahren?",
+        "yes": "Ja",
+        "no": "Nein"
 
     },
     "fr": {
@@ -157,6 +163,9 @@ translations = {
         "enter_positions": "Entrez le nombre de positions: ",
         "enter_colors": "Entrez le nombre de couleurs: ",
         "enter_max_attempts": "Entrez le nombre maximum de tentatives: ",
+        "save_warning": "TODO",
+        "yes": "TODO",
+        "no": "TODO"
 
     },
     "ko": {
@@ -210,5 +219,8 @@ translations = {
         "enter_positions": "위치 수를 입력하세요: ",
         "enter_colors": "색상 수를 입력하세요: ",
         "enter_max_attempts": "최대 시도 횟수를 입력하세요: ",
+        "save_warning": "TODO",
+        "yes": "TODO",
+        "no": "TODO"
     }
 }

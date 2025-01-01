@@ -99,3 +99,12 @@ class InputHandler:
         Handles input for max attempts.
         """
         return self.handle_user_input(translations[self.language]["enter_max_attempts"])
+
+    def handle_save_warning_input(self) -> bool:
+        """Handle yes/no input for save warning"""
+        while True:
+            user_input = input().strip()
+            if user_input == "1":  # Yes
+                return True
+            elif user_input == "2":  # No
+                return False

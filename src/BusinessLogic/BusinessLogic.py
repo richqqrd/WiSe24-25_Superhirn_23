@@ -1,3 +1,5 @@
+import os
+
 from src.BusinessLogic.IBusinessLogic import IBusinessLogic
 from src.GameLogic.IGameLogic import IGameLogic
 from src.util.ColorCode import ColorCode
@@ -156,7 +158,7 @@ class BusinessLogic(IBusinessLogic):
 
     def save_game(self) -> str:
         self.game_logic.save_game_state()
-        return "save_game"
+        return self.get_current_game_action()
 
     def load_game(self) -> str:
         try:
@@ -208,11 +210,12 @@ class BusinessLogic(IBusinessLogic):
             return self.get_current_game_action()  # Return to game state
 
         if action == "save_game":
-            self.save_game()
+            if self.game_logic.has_saved_game():
+                return "confirm_save"
+            self.game_logic.save_game_state()
             return "save_game"
         elif action == "load_game":
-            self.load_game()
-            return self.get_current_game_action()
+            return self.load_game()
         elif action == "change_language":
             return "choose_language"
         elif action == "end_game":
@@ -281,3 +284,11 @@ class BusinessLogic(IBusinessLogic):
             actions.extend(["save_game", "load_game"])
 
         return actions
+
+    def confirm_save_game(self) -> str:
+        """Save game after user confirmed overwrite"""
+        try:
+            self.game_logic.save_game_state()
+            return "save_game"
+        except:
+            return "error"

@@ -114,6 +114,14 @@ class Console:
         user_input = self.input_handler.handle_menu_input()
         next_action = self.business_logic.handle_menu_action(user_input)
 
+        if next_action == "confirm_save":
+            self.menu_renderer.display_save_warning()
+            if self.input_handler.handle_save_warning_input():
+                next_action = self.business_logic.confirm_save_game()
+            else:
+                return self.business_logic.get_current_game_action()
+
+
         # Handle UI feedback only
         if next_action == "save_game":
             self.menu_renderer.display_save_game()

@@ -150,3 +150,9 @@ class MenuRenderer:
         Displays the max attempts input.
         """
         print(translations[self.language]["pick_max_attempts"])
+
+    def display_save_warning(self) -> None:
+        """Display warning when trying to overwrite existing save"""
+        print(translations[self.language]["save_warning"])
+        print(f"1. {translations[self.language]['yes']}")
+        print(f"2. {translations[self.language]['no']}")

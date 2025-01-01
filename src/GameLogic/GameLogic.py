@@ -166,3 +166,7 @@ class GameLogic(IGameLogic):
         self.max_round = max_attempts
         self.computer_guesser = ComputerGuesser(positions, colors)
         self.computer_coder = ComputerCoder(positions, colors)
+
+    def has_saved_game(self) -> bool:
+        """Check if saved game exists through persistence layer"""
+        return self.persistenceManager.has_saved_game()

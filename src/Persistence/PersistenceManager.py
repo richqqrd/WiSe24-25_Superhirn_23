@@ -47,3 +47,8 @@ class PersistenceManager:
         file_path = os.path.join(self.save_dir, file_path)
         with open(file_path, "rb") as file:
             return pickle.load(file)
+
+    def has_saved_game(self) -> bool:
+        """Check if a saved game exists"""
+        save_path = os.path.join(self.save_dir, "game_state.pkl")
+        return os.path.exists(save_path)
