@@ -1,7 +1,7 @@
 import os
 import pickle
-from src.GameLogic.GameState import GameState
-from src.Persistence.IPersistenceManager import IPersistenceManager
+from src.GameLogic.game_state import GameState
+from src.Persistence.i_persistence_manager import IPersistenceManager
 
 
 class PersistenceManager(IPersistenceManager):

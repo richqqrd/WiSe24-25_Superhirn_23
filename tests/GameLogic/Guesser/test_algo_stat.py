@@ -2,9 +2,9 @@ import time
 import unittest
 from itertools import product
 
-from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.Guesser.computer_guesser import ComputerGuesser
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class TestAlgorithmStatistics(unittest.TestCase):

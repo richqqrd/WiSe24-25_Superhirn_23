@@ -1,4 +1,4 @@
-from src.util.ColorCode import ColorCode
+from src.util.color_code import ColorCode
 from src.util.translations import translations
 
 class MenuRenderer:

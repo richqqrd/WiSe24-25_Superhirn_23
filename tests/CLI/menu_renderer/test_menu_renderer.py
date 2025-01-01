@@ -3,7 +3,7 @@ import unittest
 from io import StringIO
 import sys
 from src.CLI.menu_renderer.menu_renderer import MenuRenderer
-from src.util.ColorCode import ColorCode
+from src.util.color_code import ColorCode
 
 
 class TestMenuRenderer(unittest.TestCase):

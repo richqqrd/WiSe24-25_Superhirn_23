@@ -1,8 +1,8 @@
 import os
-from src.GameLogic.GameState import GameState
-from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.game_state import GameState
+from src.GameLogic.Guesser.computer_guesser import ComputerGuesser
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 from typing import List, Union
 
 from src.util.translations import translations

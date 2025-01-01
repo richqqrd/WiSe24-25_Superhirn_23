@@ -1,7 +1,7 @@
 # tests/Network/test_http_handler.py
 import unittest
 from unittest.mock import patch
-from src.Network.HttpHandler import HTTPHandler
+from src.Network.http_handler import HTTPHandler
 
 
 class TestHTTPHandler(unittest.TestCase):

@@ -2,10 +2,10 @@ import unittest
 from io import StringIO
 import sys
 from src.CLI.game_renderer.game_renderer import GameRenderer
-from src.GameLogic.GameState import GameState
-from src.GameLogic.GameTurn import GameTurn
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.game_state import GameState
+from src.GameLogic.game_turn import GameTurn
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class TestGameRenderer(unittest.TestCase):

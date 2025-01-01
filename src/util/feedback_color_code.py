@@ -1,4 +1,4 @@
-# src/util/FeedbackColorCode.py
+# src/util/feedback_color_code.py
 from enum import Enum
 
 class FeedbackColorCode(Enum):

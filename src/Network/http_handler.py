@@ -1,7 +1,7 @@
 import os
 from typing import Dict, Any
-from src.Network.HttpClient import HttpClient
-from src.Network.JsonValidator import JsonValidator
+from src.Network.http_client import HttpClient
+from src.Network.json_validator import JsonValidator
 
 
 class HTTPHandler:

@@ -1,8 +1,8 @@
 import unittest
-from src.GameLogic.GameLogic import GameLogic
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
-from src.GameLogic.GameTurn import GameTurn
+from src.GameLogic.game_logic import GameLogic
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
+from src.GameLogic.game_turn import GameTurn
 
 
 class test_game_logic(unittest.TestCase):

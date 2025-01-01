@@ -1,7 +1,7 @@
 import unittest
-from src.GameLogic.Coder.ComputerCoder import ComputerCoder
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.Coder.computer_coder import ComputerCoder
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class test_computer_coder(unittest.TestCase):

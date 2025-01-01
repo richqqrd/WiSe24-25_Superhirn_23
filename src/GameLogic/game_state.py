@@ -1,9 +1,9 @@
-# src/util/GameState.py
+# src/util/game_state.py
 
 from typing import List
-from src.GameLogic.GameTurn import GameTurn
-from src.GameLogic.Guesser.IGuesser import IGuesser
-from src.util.ColorCode import ColorCode
+from src.GameLogic.game_turn import GameTurn
+from src.GameLogic.Guesser.i_guesser import IGuesser
+from src.util.color_code import ColorCode
 
 
 class GameState:

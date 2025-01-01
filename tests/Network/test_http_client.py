@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import requests
-from src.Network.HttpClient import HttpClient
+from src.Network.http_client import HttpClient
 
 
 class TestHttpClient(unittest.TestCase):

@@ -1,8 +1,8 @@
 # tests/GameLogic/test_game_turn.py
 import unittest
-from src.GameLogic.GameTurn import GameTurn
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.game_turn import GameTurn
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class test_game_turn(unittest.TestCase):

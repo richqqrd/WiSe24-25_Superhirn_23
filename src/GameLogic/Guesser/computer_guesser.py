@@ -3,9 +3,9 @@ from collections import Counter
 from itertools import product
 import random
 from typing import List, Set
-from src.GameLogic.Guesser.IGuesser import IGuesser
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.GameLogic.Guesser.i_guesser import IGuesser
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class ComputerGuesser(IGuesser):

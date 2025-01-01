@@ -1,10 +1,10 @@
 import os
 
-from src.BusinessLogic.IBusinessLogic import IBusinessLogic
-from src.GameLogic.IGameLogic import IGameLogic
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
-from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
+from src.BusinessLogic.i_business_logic import IBusinessLogic
+from src.GameLogic.i_game_logic import IGameLogic
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
+from src.GameLogic.Guesser.player_guesser import PlayerGuesser
 
 
 

@@ -1,5 +1,5 @@
 # tests/util/test_ColorCode.py
-from src.util.ColorCode import ColorCode
+from src.util.color_code import ColorCode
 
 
 def test_enum_values():

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class ICoder(ABC):

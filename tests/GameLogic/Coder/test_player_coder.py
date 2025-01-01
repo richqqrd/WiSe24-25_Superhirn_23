@@ -1,6 +1,6 @@
 import unittest
-from src.GameLogic.Coder.PlayerCoder import PlayerCoder
-from src.util.ColorCode import ColorCode
+from src.GameLogic.Coder.player_coder import PlayerCoder
+from src.util.color_code import ColorCode
 
 
 class test_player_coder(unittest.TestCase):

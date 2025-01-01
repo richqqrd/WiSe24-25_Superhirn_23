@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.GameLogic.GameState import GameState
+from src.GameLogic.game_state import GameState
 
 class IPersistenceManager(ABC):
     """Interface for persistence management"""

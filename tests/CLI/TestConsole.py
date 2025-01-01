@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from io import StringIO
 from src.CLI.console import Console
-from src.BusinessLogic.IBusinessLogic import IBusinessLogic
+from src.BusinessLogic.i_business_logic import IBusinessLogic
 
 
 class TestConsole(unittest.TestCase):

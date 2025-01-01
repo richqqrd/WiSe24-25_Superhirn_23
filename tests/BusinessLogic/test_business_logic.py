@@ -1,7 +1,7 @@
 import unittest
-from src.BusinessLogic.BusinessLogic import BusinessLogic
-from src.GameLogic.GameLogic import GameLogic
-from src.util.ColorCode import ColorCode
+from src.BusinessLogic.business_logic import BusinessLogic
+from src.GameLogic.game_logic import GameLogic
+from src.util.color_code import ColorCode
 
 
 class TestBusinessLogic(unittest.TestCase):

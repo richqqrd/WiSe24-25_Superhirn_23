@@ -1,16 +1,17 @@
 from typing import List
-from src.GameLogic.Coder.ComputerCoder import ComputerCoder
-from src.GameLogic.Coder.PlayerCoder import PlayerCoder
-from src.GameLogic.GameState import GameState
-from src.GameLogic.GameTurn import GameTurn
-from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
-from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
-from src.GameLogic.IGameLogic import IGameLogic
+from src.GameLogic.Coder.computer_coder import ComputerCoder
+from src.GameLogic.Coder.player_coder import PlayerCoder
+from src.GameLogic.game_state import GameState
+from src.GameLogic.game_turn import GameTurn
+from src.GameLogic.Guesser.computer_guesser import ComputerGuesser
+from src.GameLogic.Guesser.player_guesser import PlayerGuesser
+from src.GameLogic.i_game_logic import IGameLogic
 from src.Network.network_service import NetworkService
-from src.Persistence import IPersistenceManager
-from src.Persistence.PersistenceManager import PersistenceManager
-from src.util.ColorCode import ColorCode
-from src.util.FeedbackColorCode import FeedbackColorCode
+from src.Persistence import i_persistence_manager
+from src.Persistence.i_persistence_manager import IPersistenceManager
+from src.Persistence.persistence_manager import PersistenceManager
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 

@@ -1,8 +1,8 @@
 from CLI.console import Console
-from BusinessLogic.BusinessLogic import BusinessLogic
-from GameLogic.GameLogic import GameLogic
-from src.BusinessLogic.IBusinessLogic import IBusinessLogic
-from src.Persistence.PersistenceManager import PersistenceManager
+from BusinessLogic.business_logic import BusinessLogic
+from GameLogic.game_logic import GameLogic
+from src.BusinessLogic.i_business_logic import IBusinessLogic
+from src.Persistence.persistence_manager import PersistenceManager
 
 
 def main():

@@ -1,8 +1,8 @@
 import logging
 from typing import Optional
 
-from src.Network.HttpHandler import HTTPHandler
-from src.Network.INetworkService import INetworkService
+from src.Network.http_handler import HTTPHandler
+from src.Network.i_network_service import INetworkService
 
 
 class NetworkService(INetworkService):
