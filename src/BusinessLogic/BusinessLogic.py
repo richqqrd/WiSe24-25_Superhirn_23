@@ -25,35 +25,6 @@ class BusinessLogic(IBusinessLogic):
             "4": lambda: "end_game",
         }
 
-    def start_game(self) -> str:
-        return "choose_mode"
-
-    def handle_game_mode_choice(self, game_mode: str, player_name: str = None,
-                                positions: str = None, colors: str = None,
-                                max_attempts: str = None) -> str:
-        """Handle game mode choice and configuration"""
-        if game_mode not in ["1", "2", "3", "4"]:
-            return "invalid_mode"
-
-        if game_mode == "4":
-            return "back_to_menu"
-
-        if all(param is None for param in [player_name, positions, colors, max_attempts]):
-            return "need_configuration"
-
-        # Handle game configuration
-        config_result = self.handle_game_configuration(player_name, positions, colors, max_attempts)
-        if config_result == "invalid_configuration":
-            return config_result
-
-        # Start appropriate game mode
-        if game_mode == "1":
-            return self.game_logic.startgame("guesser")
-        elif game_mode == "2":
-            return self.game_logic.startgame("coder")
-        elif game_mode == "3":
-            return self.game_logic.startgame("online_guesser")
-
     def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
         if not player_name or len(player_name.strip()) == 0:
             return "invalid_configuration"

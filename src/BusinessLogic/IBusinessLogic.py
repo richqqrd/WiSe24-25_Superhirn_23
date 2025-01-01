@@ -16,21 +16,6 @@ class IBusinessLogic(ABC):
         """
         pass
 
-
-    @abstractmethod
-    def change_language(self) -> str:
-        """
-        Change the language of the game.
-        """
-        pass
-
-    @abstractmethod
-    def end_game(self) -> str:
-        """
-        End the current game.
-        """
-        pass
-
     @abstractmethod
     def save_game(self) -> str:
         """
