@@ -2,9 +2,10 @@ import logging
 from typing import Optional
 
 from src.Network.HttpHandler import HTTPHandler
+from src.Network.INetworkService import INetworkService
 
 
-class NetworkService:
+class NetworkService(INetworkService):
     def __init__(self, server_ip: str, server_port: int):
         """
         Initialize the NetworkService with server IP and port.
