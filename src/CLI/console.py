@@ -99,6 +99,7 @@ class Console:
 
         elif action == "need_feedback_input":
             positions = self.business_logic.get_positions()
+            self.menu_renderer.display_feedback_instructions()
             return self.input_handler.handle_feedback_input(positions)
 
         elif action == "need_server_connection":
@@ -163,9 +164,24 @@ class Console:
 
 
     def collect_game_configuration(self) -> dict:
+        """Collect game configuration with color display"""
+        self.menu_renderer.display_player_name_input()
+        player_name = self.input_handler.handle_player_name_input()
+
+        self.menu_renderer.display_positions_input()
+        positions = self.input_handler.handle_positions_input()
+
+        # Zeige verfügbare Farben vor der Farbauswahl
+        self.menu_renderer.display_code_input()  # Zeigt die Farben an
+        self.menu_renderer.display_colors_input()
+        colors = self.input_handler.handle_colors_input()
+
+        self.menu_renderer.display_max_attempts_input()
+        max_attempts = self.input_handler.handle_max_attempts_input()
+
         return {
-            "player_name": self.input_handler.handle_player_name_input(),
-            "positions": self.input_handler.handle_positions_input(),
-            "colors": self.input_handler.handle_colors_input(),
-            "max_attempts": self.input_handler.handle_max_attempts_input()
+            "player_name": player_name,
+            "positions": positions,
+            "colors": colors,
+            "max_attempts": max_attempts
         }

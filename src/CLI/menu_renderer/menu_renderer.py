@@ -156,3 +156,14 @@ class MenuRenderer:
         print(translations[self.language]["save_warning"])
         print(f"1. {translations[self.language]['yes']}")
         print(f"2. {translations[self.language]['no']}")
+
+    def display_color_selection(self) -> None:
+        """Displays available colors when selecting number of colors"""
+        print(f"\n{translations[self.language]['available_colors']}")
+        for color in ColorCode:
+            print(f"{color.value} : {color}")
+        print(f"\n{translations[self.language]['enter_colors']}")
+
+    def display_feedback_instructions(self) -> None:
+        """Display feedback instructions before input"""
+        print(f"\n{translations[self.language]['feedback_instructions']}")
