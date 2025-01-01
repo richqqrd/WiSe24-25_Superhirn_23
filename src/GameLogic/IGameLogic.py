@@ -1,85 +1,67 @@
 from abc import ABC, abstractmethod
 from typing import List
-
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
 
-
 class IGameLogic(ABC):
-    """
-    Interface for the game logic.
-    """
-
+    """Interface for game logic layer."""
+    
     @abstractmethod
-    def startgame(self, playerRole: str) -> str:
-        """
-        Starts the game with the given player role.
-
-        Args:
-            playerRole (str): The role of the player (e.g., 'coder' or 'guesser').
-
-        Returns:
-            str: The result or state of the game after starting.
-        """
+    def configure_game(self, player_name: str, positions: int, colors: int, max_attempts: int) -> None:
+        """Configure the game with initial settings."""
         pass
 
     @abstractmethod
-    def start_as_guesser(self) -> str:
-        """
-        Starts the game as the guesser.
-
-        Returns:
-            str: The result or state of the game after starting.
-        """
-        pass
-
-    @abstractmethod
-    def start_as_coder(self) -> str:
-        """
-        Starts the game as the coder.
-
-        Returns:
-            str: The result or state of the game after starting.
-        """
+    def startgame(self, role: str) -> str:
+        """Start a new game with the given role."""
         pass
 
     @abstractmethod
     def set_feedback(self, feedback_list: List[FeedbackColorCode]) -> str:
-        """
-        Sets the feedback on the current turn.
-        """
+        """Sets feedback for the current turn."""
         pass
 
     @abstractmethod
     def get_game_state(self):
-        """
-        Returns the current game state.
-        """
+        """Returns current game state."""
         pass
 
     @abstractmethod
-    def make_computer_guess(self):
-        """
-        Lets the computer make a guess turn.
-        """
+    def make_computer_guess(self) -> List[ColorCode]:
+        """Let computer make a guess."""
         pass
 
     @abstractmethod
-    def set_secret_code(self, code_list):
-        """
-        Sets the coders secret code.
-        """
+    def set_secret_code(self, code_list: List[ColorCode]) -> None:
+        """Set the secret code for the game."""
         pass
 
     @abstractmethod
     def make_guess(self, guess_list: List[ColorCode]) -> str:
-        """
-        Lets the player make a guess turn.
-        """
+        """Process a player's guess."""
         pass
 
-    def save_game(self):
-        """
-        Saves the current game state.
-        """
+    @abstractmethod
+    def save_game_state(self) -> None:
+        """Save current game state."""
+        pass
+
+    @abstractmethod
+    def load_game_state(self) -> None:
+        """Load saved game state."""
+        pass
+
+    @abstractmethod
+    def has_saved_game(self) -> bool:
+        """Check if there is a saved game."""
+        pass
+
+    @abstractmethod
+    def is_game_over(self, feedback_list: List[FeedbackColorCode]) -> str:
+        """Check if the game is over."""
+        pass
+
+    @abstractmethod
+    def start_as_online_guesser(self, server_ip: str, server_port: int) -> str:
+        """Start game as online guesser."""
         pass
