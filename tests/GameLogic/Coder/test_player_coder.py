@@ -1,5 +1,5 @@
 import unittest
-from src.GameLogic.Coder.player_coder import PlayerCoder
+from src.game_logic.coder.player_coder import PlayerCoder
 from src.util.color_code import ColorCode
 
 

@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from src.Network.network_service import NetworkService
+from src.network.network_service import NetworkService
 
 
 class TestNetworkService(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestNetworkService(unittest.TestCase):
         self.test_player_id = "player1"
         self.test_value = "1234"
 
-    @patch("src.Network.HttpHandler.HTTPHandler.start_new_game")
+    @patch("src.network.HttpHandler.HTTPHandler.start_new_game")
     def test_start_game_success(self, mock_start_game):
         """
         Test successful game start
@@ -28,7 +28,7 @@ class TestNetworkService(unittest.TestCase):
             self.test_player_id, self.service.positions, self.service.colors
         )
 
-    @patch("src.Network.HttpHandler.HTTPHandler.start_new_game")
+    @patch("src.network.HttpHandler.HTTPHandler.start_new_game")
     def test_start_game_failure(self, mock_start_game):
         """
         Test failed game start
@@ -43,7 +43,7 @@ class TestNetworkService(unittest.TestCase):
         self.assertEqual(self.service.current_player_id, self.test_player_id)
         self.assertIn("Failed to start game", log.output[0])
 
-    @patch("src.Network.HttpHandler.HTTPHandler.make_move")
+    @patch("src.network.HttpHandler.HTTPHandler.make_move")
     def test_make_move_success(self, mock_make_move):
         """
         Test successful move
@@ -76,7 +76,7 @@ class TestNetworkService(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "No active game")
 
-    @patch("src.Network.HttpHandler.HTTPHandler.make_move")
+    @patch("src.network.HttpHandler.HTTPHandler.make_move")
     def test_make_move_failure(self, mock_make_move):
         """
         Test failed move

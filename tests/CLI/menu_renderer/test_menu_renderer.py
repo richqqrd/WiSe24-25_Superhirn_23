@@ -1,8 +1,8 @@
-# tests/CLI/menu_renderer/test_menu_renderer.py
+# tests/cli/menu_renderer/test_menu_renderer.py
 import unittest
 from io import StringIO
 import sys
-from src.CLI.menu_renderer.menu_renderer import MenuRenderer
+from src.cli.menu_renderer.menu_renderer import MenuRenderer
 from src.util.color_code import ColorCode
 
 
@@ -45,8 +45,8 @@ class TestMenuRenderer(unittest.TestCase):
         self.renderer.display_role_menu()
         output = self.held_output.getvalue().strip()
         self.assertIn("Select your role:", output)
-        self.assertIn("1. Guesser", output)
-        self.assertIn("2. Coder", output)
+        self.assertIn("1. guesser", output)
+        self.assertIn("2. coder", output)
 
     def test_display_languages(self):
         """

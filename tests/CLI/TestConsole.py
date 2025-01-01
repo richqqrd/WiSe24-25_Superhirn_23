@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from io import StringIO
-from src.CLI.console import Console
-from src.BusinessLogic.i_business_logic import IBusinessLogic
+from src.cli.console import Console
+from src.business_logic.i_business_logic import IBusinessLogic
 
 
 class TestConsole(unittest.TestCase):
@@ -31,8 +31,8 @@ class TestConsole(unittest.TestCase):
             self.console.run()
             self.assertIn("Main Menu", fake_out.getvalue())
             self.assertIn("Select your role:", fake_out.getvalue())
-            self.assertIn("1. Guesser", fake_out.getvalue())
-            self.assertIn("2. Coder", fake_out.getvalue())
+            self.assertIn("1. guesser", fake_out.getvalue())
+            self.assertIn("2. coder", fake_out.getvalue())
 
 
 if __name__ == "__main__":

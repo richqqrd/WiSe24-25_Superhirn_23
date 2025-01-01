@@ -1,5 +1,5 @@
 import unittest
-from src.GameLogic.Guesser.player_guesser import PlayerGuesser
+from src.game_logic.guesser.player_guesser import PlayerGuesser
 from src.util.color_code import ColorCode
 
 

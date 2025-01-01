@@ -1,12 +1,12 @@
 import unittest
-from src.GameLogic.game_logic import GameLogic
+from src.game_logic.game_logic import GameLogic
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
-from src.GameLogic.game_turn import GameTurn
+from src.game_logic.game_turn import GameTurn
 
 
 class test_game_logic(unittest.TestCase):
-    """Test suite for the GameLogic class.
+    """Test suite for the game_logic class.
 
     This class tests the core game logic functionality including game initialization,
     making guesses, handling feedback, and determining game end conditions.
@@ -15,7 +15,7 @@ class test_game_logic(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures before each test method.
 
-        Initializes a fresh GameLogic instance and necessary mock objects
+        Initializes a fresh game_logic instance and necessary mock objects
         for testing game state transitions.
         """
         self.game_logic = GameLogic()

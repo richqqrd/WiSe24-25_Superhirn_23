@@ -3,7 +3,7 @@ import unittest
 from http.server import HTTPServer
 
 import requests
-from src.Network.http_handler import HTTPHandler
+from src.network.http_handler import HTTPHandler
 from tests.Network.server_mock import MockServerRequestHandler
 
 

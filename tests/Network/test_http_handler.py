@@ -1,7 +1,7 @@
-# tests/Network/test_http_handler.py
+# tests/network/test_http_handler.py
 import unittest
 from unittest.mock import patch
-from src.Network.http_handler import HTTPHandler
+from src.network.http_handler import HTTPHandler
 
 
 class TestHTTPHandler(unittest.TestCase):
@@ -11,8 +11,8 @@ class TestHTTPHandler(unittest.TestCase):
         """
         self.handler = HTTPHandler("127.0.0.1", 8000)
 
-    @patch("src.Network.HttpHandler.HttpClient.post")
-    @patch("src.Network.HttpHandler.JsonValidator")
+    @patch("src.network.HttpHandler.HttpClient.post")
+    @patch("src.network.HttpHandler.JsonValidator")
     def test_send_json_via_post_success(self, mock_validator, mock_post):
         """
         Test sending JSON via POST request successfully.
@@ -29,8 +29,8 @@ class TestHTTPHandler(unittest.TestCase):
         response = self.handler.send_json_via_post(valid_json)
         self.assertEqual(response, valid_json)
 
-    @patch("src.Network.HttpClient.HttpClient.post")
-    @patch("src.Network.HttpHandler.JsonValidator")
+    @patch("src.network.HttpClient.HttpClient.post")
+    @patch("src.network.HttpHandler.JsonValidator")
     def test_send_json_via_post_invalid(self, mock_validator, mock_post):
         """
         Test sending invalid JSON via POST request.
@@ -47,8 +47,8 @@ class TestHTTPHandler(unittest.TestCase):
             self.handler.send_json_via_post(invalid_json)
         mock_post.assert_not_called()
 
-    @patch("src.Network.HttpHandler.HttpClient.post")
-    @patch("src.Network.HttpHandler.JsonValidator")
+    @patch("src.network.HttpHandler.HttpClient.post")
+    @patch("src.network.HttpHandler.JsonValidator")
     def test_start_new_game_success(self, mock_validator, mock_post):
         """
         Test starting a new game successfully.
@@ -75,8 +75,8 @@ class TestHTTPHandler(unittest.TestCase):
             },
         )
 
-    @patch("src.Network.HttpHandler.HttpClient.post")
-    @patch("src.Network.HttpHandler.JsonValidator")
+    @patch("src.network.HttpHandler.HttpClient.post")
+    @patch("src.network.HttpHandler.JsonValidator")
     def test_make_move_success(self, mock_validator, mock_post):
         """
         Test making a move successfully.

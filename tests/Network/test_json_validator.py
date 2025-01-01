@@ -1,6 +1,6 @@
 import unittest
 import os
-from src.Network.json_validator import JsonValidator
+from src.network.json_validator import JsonValidator
 
 
 class TestJsonValidator(unittest.TestCase):

@@ -1,7 +1,7 @@
-# tests/CLI/input_handler/test_input_handler.py
+# tests/cli/input_handler/test_input_handler.py
 import unittest
 from unittest.mock import patch
-from src.CLI.input_handler.input_handler import InputHandler
+from src.cli.input_handler.input_handler import InputHandler
 
 
 class TestInputHandler(unittest.TestCase):
