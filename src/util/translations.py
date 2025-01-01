@@ -1,3 +1,25 @@
+"""Translation dictionary module for the Mastermind game.
+
+This module contains translations for all game text in multiple languages (en, de, fr, ko).
+Each language contains key-value pairs for every text element in the game.
+
+Attributes:
+    translations (dict): A nested dictionary containing all translations.
+        Structure:
+        {
+            "language_code": {
+                "text_key": "translated_text",
+                ...
+            },
+            ...
+        }
+
+Available Languages:
+    - en: English
+    - de: German
+    - fr: French
+    - ko: Korean
+"""
 translations = {
     "en": {
         "main_menu": "Main Menu",
@@ -25,7 +47,9 @@ translations = {
         "game_started": "Game started.",
         "available_colors": "Available colors and their codes:",
         "give_feedback": "Give feedback for the guess:",
-        "feedback_instructions": "8: Black (correct color in correct position)\n7: White (correct color in wrong position)\nEnter feedback (e.g. 887 for two black, one white):",
+        "feedback_instructions": "8: Black (correct color in correct position)"
+                                 "\n7: White (correct color in wrong position)"
+                                 "\nEnter feedback (e.g. 887 for two black, one white):",
         "secret_code": "Secret Code",
         "game_title": "Super Mastermind",
         "round": "Round",
