@@ -8,7 +8,7 @@ from src.util.feedback_color_code import FeedbackColorCode
 
 class IGameLogic(ABC):
     """Interface for game logic layer.
-    
+
     This interface defines the contract for the game logic implementation,
     handling core game mechanics like:
         - Game configuration
@@ -20,7 +20,11 @@ class IGameLogic(ABC):
 
     @abstractmethod
     def configure_game(
-        self: "IGameLogic", player_name: str, positions: int, colors: int, max_attempts: int
+        self: "IGameLogic",
+        player_name: str,
+        positions: int,
+        colors: int,
+        max_attempts: int,
     ) -> None:
         """Configure the game with initial settings.
 
@@ -53,7 +57,7 @@ class IGameLogic(ABC):
 
         Returns:
             str: Next game state
-        """        
+        """
         pass
 
     @abstractmethod
@@ -62,7 +66,7 @@ class IGameLogic(ABC):
 
         Returns:
             GameState: Current state of the game
-        """        
+        """
         pass
 
     @abstractmethod
@@ -71,7 +75,7 @@ class IGameLogic(ABC):
 
         Returns:
             List[ColorCode]: Computer's guess
-        """        
+        """
         pass
 
     @abstractmethod
@@ -98,7 +102,7 @@ class IGameLogic(ABC):
     @abstractmethod
     def save_game_state(self: "IGameLogic") -> None:
         """Save current game state to persistent storage.
-        
+
         Saves all relevant game information to allow resuming later.
         """
         pass
@@ -106,9 +110,9 @@ class IGameLogic(ABC):
     @abstractmethod
     def load_game_state(self: "IGameLogic") -> None:
         """Load a previously saved game state.
-        
+
         Restores the game to the state it was in when saved.
-        
+
         Raises:
             FileNotFoundError: If no saved game state exists
         """
@@ -117,7 +121,7 @@ class IGameLogic(ABC):
     @abstractmethod
     def has_saved_game(self: "IGameLogic") -> bool:
         """Check if a saved game exists.
-        
+
         Returns:
             bool: True if a saved game exists, False otherwise
         """
@@ -126,12 +130,11 @@ class IGameLogic(ABC):
     @abstractmethod
     def is_game_over(self: "IGameLogic", feedback_list: List[FeedbackColorCode]) -> str:
         """Check if the game is over based on feedback.
-        
+
         Args:
             feedback_list: List of feedback pins from last guess
-            
+
         Returns:
             str: Game state ("game_won", "game_lost", or current game state)
         """
         pass
-

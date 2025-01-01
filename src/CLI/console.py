@@ -13,10 +13,10 @@ from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 
 class Console:
     """Main console interface controller.
-    
+
     This class coordinates all user interface components and handles
     the main game loop.
-    
+
     Attributes:
         business_logic: Business logic layer interface
         menu_renderer: Renderer for menus
@@ -24,6 +24,7 @@ class Console:
         input_handler: Handler for user input
         is_game_active: Flag indicating if game is running
     """
+
     def __init__(self: "Console", business_logic: IBusinessLogic) -> None:
         """Initialize console interface.
 
@@ -38,7 +39,7 @@ class Console:
 
     def run(self: "Console") -> None:
         """Run the main application loop.
-        
+
         Handles main menu navigation and delegates to appropriate handlers.
         """
         while self.is_game_active:
@@ -63,8 +64,8 @@ class Console:
 
     def handle_language_change(self: "Console") -> None:
         """Handle language selection and update.
-        
-        Displays language options and updates all UI components 
+
+        Displays language options and updates all UI components
         with selected language.
         """
         self.menu_renderer.display_languages()
@@ -73,7 +74,7 @@ class Console:
 
     def update_language(self: "Console", language: str) -> None:
         """Update language for all UI components.
-        
+
         Args:
             language: New language code to set
         """
@@ -83,10 +84,10 @@ class Console:
 
     def start_game_loop(self: "Console", next_action: str) -> None:
         """Control the main game loop.
-        
+
         Handles game state rendering and user input processing
         until game is over.
-        
+
         Args:
             next_action: Initial game action to process
         """
@@ -112,7 +113,7 @@ class Console:
 
     def handle_game_end(self: "Console", next_action: str) -> None:
         """Handle end of game states.
-        
+
         Displays final game state and appropriate end message based on:
         - Game won
         - Game lost
@@ -123,7 +124,7 @@ class Console:
 
         if next_action == "game_won":
             self.menu_renderer.display_game_won()
-        elif next_action == "game_lost": 
+        elif next_action == "game_lost":
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
@@ -131,7 +132,7 @@ class Console:
 
     def render_game_state(self: "Console") -> None:
         """Render current game state.
-        
+
         Displays the current game state using the game renderer,
         including board layout, guesses, and feedback.
         """
@@ -139,10 +140,10 @@ class Console:
 
     def get_user_input(self: "Console", action: str) -> str:
         """Get appropriate user input based on the current game action.
-    
+
         Args:
             action: The current game action that requires user input
-            
+
         Returns:
             str: The user input appropriate for the action
 
@@ -176,13 +177,13 @@ class Console:
 
     def handle_ingame_menu(self: "Console") -> str:
         """Handle the in-game menu interactions.
-    
+
         Displays menu options, processes user input and handles menu actions like:
         - Save game
         - Load game
         - Change language
         - End game
-        
+
         Returns:
             str: Next game action to process
         """
@@ -215,7 +216,7 @@ class Console:
 
     def end_game(self: "Console") -> None:
         """End the current game session.
-        
+
         Displays game end message and sets game inactive.
         """
         self.menu_renderer.display_end_game()
@@ -241,13 +242,13 @@ class Console:
 
     def collect_game_configuration(self: "Console") -> dict:
         """Collect game configuration from user input.
-        
+
         Prompts for and collects:
         - Player name
         - Number of positions
-        - Number of colors 
+        - Number of colors
         - Maximum attempts
-        
+
         Returns:
             dict: Game configuration parameters
         """

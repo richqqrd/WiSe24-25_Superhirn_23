@@ -15,16 +15,16 @@ from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 
 
-class GameLogic(IGameLogic):    
+class GameLogic(IGameLogic):
     """Core game logic implementation.
-    
+
     This class implements the game mechanics including:
         - Game state management
         - Player/Computer moves
         - Win/loss conditions
         - Network gameplay
         - Game persistence
-        
+
     Attributes:
         player_guesser: Player instance for guessing role
         player_coder: Player instance for coding role
@@ -38,9 +38,10 @@ class GameLogic(IGameLogic):
         positions: Number of positions in the code
         persistence_manager: Manager for saving/loading games
     """
+
     def __init__(self: "GameLogic", persistence_manager: IPersistenceManager) -> None:
         """Initialize GameLogic with persistence manager.
-        
+
         Args:
             persistence_manager: Manager for saving/loading game states
         """
@@ -177,7 +178,11 @@ class GameLogic(IGameLogic):
         return "game_loaded"
 
     def configure_game(
-        self: "GameLogic", player_name: str, positions: int, colors: int, max_attempts: int
+        self: "GameLogic",
+        player_name: str,
+        positions: int,
+        colors: int,
+        max_attempts: int,
     ) -> None:
         self.player_name = player_name
         self.positions = positions
@@ -189,12 +194,12 @@ class GameLogic(IGameLogic):
     def has_saved_game(self: "GameLogic") -> bool:
         """Check if saved game exists through persistence layer"""
         return self.persistence_manager.has_saved_game()
-    
+
     def start_as_coder(self: "GameLogic") -> str:
         """Start a new game with player as code maker.
-        
+
         Private helper method called by startgame().
-        
+
         Returns:
             str: "need_code_input" to request secret code from player
         """
@@ -202,13 +207,13 @@ class GameLogic(IGameLogic):
 
     def start_as_guesser(self: "GameLogic") -> str:
         """Start a new game with player as code guesser.
-        
+
         Private helper method called by startgame().
         Creates new game state with computer generated secret code.
-        
+
         Returns:
             str: "need_guess_input" to request first guess from player
-            
+
         Raises:
             ValueError: If game configuration is invalid
         """
@@ -225,14 +230,16 @@ class GameLogic(IGameLogic):
             return "need_guess_input"
         except ValueError:
             return "need_guess_input"
-        
-    def start_as_online_guesser(self: "GameLogic", server_ip: str, server_port: int) -> str:
+
+    def start_as_online_guesser(
+        self: "GameLogic", server_ip: str, server_port: int
+    ) -> str:
         """Start game as online guesser.
-        
+
         Args:
             server_ip: IP address of the game server
             server_port: Port number of the game server
-            
+
         Returns:
             str: "need_server_connection" if successful, "error" otherwise
         """
@@ -248,4 +255,3 @@ class GameLogic(IGameLogic):
             )
             return "need_server_connection"
         return "error"
-

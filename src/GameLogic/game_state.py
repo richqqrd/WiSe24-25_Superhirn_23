@@ -83,12 +83,12 @@ class GameState:
 
     def __repr__(self: "GameState"):
         """Return string representation of the GameState.
-        
+
         This method provides a detailed string representation of the game state
         including secret code, turns, and max rounds for debugging and development.
 
         Returns:
-            str: String representation in format 
+            str: String representation in format
                 'GameState(secret_code=X, turns=Y, max_rounds=Z)'
         """
         return (

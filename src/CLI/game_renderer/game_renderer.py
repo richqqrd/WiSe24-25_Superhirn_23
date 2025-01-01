@@ -12,10 +12,10 @@ from src.util.translations import translations
 
 class GameRenderer:
     """Game state and UI renderer.
-    
+
     This class handles rendering the game state and UI elements with
     proper formatting and translations.
-    
+
     Attributes:
         language: Current language code for translations
     """
@@ -42,7 +42,9 @@ class GameRenderer:
         os.system("cls" if os.name == "nt" else "clear")
 
     def colorize(
-        self: "GameRenderer", pins: List[Union[ColorCode, FeedbackColorCode]], width: int = 15
+        self: "GameRenderer",
+        pins: List[Union[ColorCode, FeedbackColorCode]],
+        width: int = 15,
     ) -> str:
         """Format and colorize pins with consistent width.
 
@@ -68,10 +70,10 @@ class GameRenderer:
 
     def render_game_state(self: "GameRenderer", game_state: GameState) -> None:
         """Render the current game state to the console.
-    
+
         Displays game title, player info, settings, secret code (if applicable),
         and all game turns with their feedback.
-        
+
         Args:
             game_state: Current game state to render
         """
@@ -123,7 +125,7 @@ class GameRenderer:
 
     def render_message(self: "GameRenderer", message: str) -> None:
         """Render a centered message with decorative borders.
-    
+
         Args:
             message: The message text to display
         """
@@ -133,7 +135,7 @@ class GameRenderer:
 
     def render_warning(self: "GameRenderer", warning: str) -> None:
         """Render a warning message with prominent borders.
-    
+
         Args:
             warning: The warning text to display
         """

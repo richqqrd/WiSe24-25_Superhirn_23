@@ -10,13 +10,13 @@ from src.GameLogic.Guesser.player_guesser import PlayerGuesser
 
 class BusinessLogic(IBusinessLogic):
     """Business logic implementation controlling game flow.
-    
+
     This class coordinates between UI and game logic layers, handling:
         - Command interpretation
         - Input validation
         - Game configuration
         - State transitions
-    
+
     Attributes:
         game_logic: Core game logic implementation
         commands: Dictionary mapping menu commands to handler functions
@@ -37,7 +37,11 @@ class BusinessLogic(IBusinessLogic):
         }
 
     def handle_game_configuration(
-        self: "BusinessLogic", player_name: str, positions: str, colors: str, max_attempts: str
+        self: "BusinessLogic",
+        player_name: str,
+        positions: str,
+        colors: str,
+        max_attempts: str,
     ) -> str:
         if not player_name or len(player_name.strip()) == 0:
             return "invalid_configuration"
@@ -60,10 +64,10 @@ class BusinessLogic(IBusinessLogic):
 
     def _is_valid_feedback(self: "BusinessLogic", feedback: str) -> bool:
         """Validate feedback string format.
-        
+
         Args:
             feedback: Feedback string to validate
-            
+
         Returns:
             bool: True if feedback format is valid
         """
@@ -96,15 +100,15 @@ class BusinessLogic(IBusinessLogic):
 
     def _is_valid_code(self: "BusinessLogic", code: str) -> bool:
         """Validate if a code string meets game requirements.
-        
+
         Checks if:
         - Code is not empty
         - Code length matches required positions
         - All digits are within valid color range
-        
+
         Args:
             code: The code string to validate
-            
+
         Returns:
             bool: True if code is valid, False otherwise
         """
@@ -117,16 +121,16 @@ class BusinessLogic(IBusinessLogic):
 
     def _convert_to_color_code(self: "BusinessLogic", number: int) -> ColorCode:
         """Convert a number to its corresponding ColorCode enum value.
-        
+
         Args:
             number: Integer value (1-8) to convert to ColorCode
-            
+
         Returns:
             ColorCode: Corresponding ColorCode enum value
-            
+
         Raises:
             ValueError: If no ColorCode exists for the given number
-            
+
         Examples:
             1 -> ColorCode.RED
             2 -> ColorCode.GREEN
@@ -184,7 +188,9 @@ class BusinessLogic(IBusinessLogic):
         except FileNotFoundError:
             return "error"
 
-    def process_game_action(self: "BusinessLogic", action: str, user_input: str = None) -> str:
+    def process_game_action(
+        self: "BusinessLogic", action: str, user_input: str = None
+    ) -> str:
         if action == "need_guess_input":
             if user_input == "menu":
                 return "show_menu"

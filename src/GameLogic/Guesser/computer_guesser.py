@@ -10,10 +10,10 @@ from src.util.feedback_color_code import FeedbackColorCode
 
 class ComputerGuesser(IGuesser):
     """Computer implementation of the guesser interface.
-    
+
     This class implements the computer's strategy for guessing the secret code
     using a Knuth-like algorithm.
-    
+
     Attributes:
         positions: Number of positions in the code
         colors: Number of available colors
@@ -21,7 +21,8 @@ class ComputerGuesser(IGuesser):
         last_guess: Previous guess made by computer
         first_guess: Whether this is the first guess
     """
-    def __init__(self: "ComputerGuesser", positions: int, colors: int) -> None: 
+
+    def __init__(self: "ComputerGuesser", positions: int, colors: int) -> None:
         """Initialize computer guesser with game parameters.
 
         Args:
@@ -52,7 +53,7 @@ class ComputerGuesser(IGuesser):
 
         Returns:
             List[ColorCode]: The guessed color code
-            
+
         Raises:
             ValueError: If no valid guesses remain (cheating detected)
         """
@@ -69,7 +70,7 @@ class ComputerGuesser(IGuesser):
         if not self.possible_codes:
             raise ValueError("CHEATING_DETECTED")
 
-        start_time_total = time.time() 
+        start_time_total = time.time()
 
         best_guess = None
         min_max_remaining = float("inf")
@@ -113,15 +114,15 @@ class ComputerGuesser(IGuesser):
         self: "ComputerGuesser", guess: List[ColorCode], code: List[ColorCode]
     ) -> List[FeedbackColorCode]:
         """Calculate feedback for a guess against a code.
-        
+
         Uses the Mastermind feedback rules:
         - Black pin for correct color in correct position
         - White pin for correct color in wrong position
-        
+
         Args:
             guess: The guessed color code sequence
             code: The code to compare against
-            
+
         Returns:
             List of feedback pins (BLACK/WHITE) for the guess
         """
@@ -143,12 +144,14 @@ class ComputerGuesser(IGuesser):
 
         return feedback
 
-    def process_feedback(self: "ComputerGuesser", feedback: List[FeedbackColorCode]) -> None:
+    def process_feedback(
+        self: "ComputerGuesser", feedback: List[FeedbackColorCode]
+    ) -> None:
         """Process feedback and update possible codes.
-        
-        Updates the set of possible codes by eliminating those that would not 
+
+        Updates the set of possible codes by eliminating those that would not
         give the same feedback as received.
-        
+
         Args:
             feedback: The feedback received for the last guess
         """
@@ -166,17 +169,19 @@ class ComputerGuesser(IGuesser):
         print(f"Feedback processing time: {process_time:.4f} seconds")
 
     def _would_give_same_feedback(
-        self: "ComputerGuesser", code: List[ColorCode], target_feedback: List[FeedbackColorCode]
+        self: "ComputerGuesser",
+        code: List[ColorCode],
+        target_feedback: List[FeedbackColorCode],
     ) -> bool:
         """Check if a code would give the same feedback as target.
-    
+
         Calculates feedback for the code against the last guess and compares
         it with target feedback.
-        
+
         Args:
             code: Code to check feedback for
             target_feedback: Target feedback to compare against
-            
+
         Returns:
             True if feedback matches target, False otherwise
         """

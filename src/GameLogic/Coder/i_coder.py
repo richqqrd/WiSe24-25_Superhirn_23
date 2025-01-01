@@ -8,7 +8,7 @@ from src.util.feedback_color_code import FeedbackColorCode
 
 class ICoder(ABC):
     """Interface for the coder in the game logic.
-    
+
     This interface defines the contract for implementing a coder,
     which can be either a human player or computer player that creates
     and evaluates secret codes.

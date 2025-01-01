@@ -1,11 +1,12 @@
 """Module containing color code enumeration for the game."""
+
 from enum import Enum
 
 
 class ColorCode(Enum):
     """Enum representing various color codes with their respective integer values and ANSI codes.
-    
-    This enum defines the color codes used in the game along with their corresponding 
+
+    This enum defines the color codes used in the game along with their corresponding
     ANSI color codes for terminal display.
 
     Attributes:
@@ -30,7 +31,7 @@ class ColorCode(Enum):
 
     def __init__(self: "ColorCode", value: int) -> None:
         """Initialize the ColorCode enum instance.
-        
+
         Args:
             value: Integer value for the color (1-8)
         """
@@ -49,7 +50,7 @@ class ColorCode(Enum):
 
     def __str__(self: "ColorCode") -> str:
         """Return string representation with ANSI color.
-        
+
         Returns:
             str: Colored string representation of the enum value
         """
@@ -57,7 +58,7 @@ class ColorCode(Enum):
 
     def get_ansi_code(self: "ColorCode") -> str:
         """Get the ANSI color code for this color.
-        
+
         Returns:
             str: ANSI color code sequence
         """

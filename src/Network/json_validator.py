@@ -10,18 +10,19 @@ from jsonschema.validators import validate
 
 class JsonValidator:
     """JSON schema validator class.
-    
+
     This class handles validation of JSON data against a predefined schema.
-    
+
     Attributes:
         schema: The loaded JSON schema used for validation
     """
+
     def __init__(self: "JsonValidator", schema_path: str) -> None:
         """Initialize the JsonValidator with a schema.
 
         Args:
             schema_path: Path to the JSON schema file
-            
+
         Raises:
             FileNotFoundError: If schema file not found
             json.JSONDecodeError: If schema contains invalid JSON
@@ -57,7 +58,7 @@ class JsonValidator:
 
         Returns:
             bool: True if valid, False otherwise
-            
+
         Raises:
             ValidationError: If data does not match schema
         """

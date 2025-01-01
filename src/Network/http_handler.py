@@ -8,10 +8,10 @@ from src.Network.json_validator import JsonValidator
 
 class HttpHandler:
     """Handler for HTTP communication with the game server.
-    
+
     This class manages HTTP requests to the game server including starting new games
     and making moves.
-    
+
     Attributes:
         base_url: Base URL of the game server
         http_client: Client for making HTTP requests
@@ -33,7 +33,9 @@ class HttpHandler:
         )
         self.validate = JsonValidator(schema_path)
 
-    def send_json_via_post(self: "HttpHandler", json_data: Dict[str, Any]) -> [Dict[str, Any]]:
+    def send_json_via_post(
+        self: "HttpHandler", json_data: Dict[str, Any]
+    ) -> [Dict[str, Any]]:
         """Send the given JSON data via a POST request.
 
         Args:
@@ -49,7 +51,9 @@ class HttpHandler:
             raise ValueError("Invalid JSON data.")
         return self.http_client.post("", json_data)
 
-    def start_new_game(self: "HttpHandler", gameid: str, positions: int, colors: int) -> int:
+    def start_new_game(
+        self: "HttpHandler", gameid: str, positions: int, colors: int
+    ) -> int:
         """Start a new game with the given parameters.
 
         Args:
@@ -71,7 +75,12 @@ class HttpHandler:
         return response["gameid"]
 
     def make_move(
-        self: "HttpHandler", gameid: int, gamerid: str, positions: int, colors: int, value: str
+        self: "HttpHandler",
+        gameid: int,
+        gamerid: str,
+        positions: int,
+        colors: int,
+        value: str,
     ) -> str:
         """Make a move in an existing game.
 

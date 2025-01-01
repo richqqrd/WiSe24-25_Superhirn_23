@@ -5,7 +5,7 @@ from src.util.translations import translations
 
 class InputHandler:
     """Handles and validates all user input for the game.
-    
+
     This class provides methods to handle different types of user input
     with proper validation and translation support.
 
@@ -92,10 +92,10 @@ class InputHandler:
 
     def handle_guess_input(self: "InputHandler", positions: int) -> str:
         """Handle user input for making a guess.
-        
+
         Args:
             positions: Number of positions in the code
-            
+
         Returns:
             str: The user's guess as a string
         """
@@ -105,10 +105,10 @@ class InputHandler:
 
     def handle_feedback_input(self: "InputHandler", positions: int) -> str:
         """Handle user input for providing feedback.
-        
+
         Args:
             positions: Number of positions in the code
-            
+
         Returns:
             str: The feedback as a string (e.g. '887' for two black, one white)
         """
@@ -118,7 +118,7 @@ class InputHandler:
 
     def handle_ip_input(self: "InputHandler") -> str:
         """Handle user input for server IP address.
-        
+
         Returns:
             str: The entered IP address
         """
@@ -126,7 +126,7 @@ class InputHandler:
 
     def handle_port_input(self: "InputHandler") -> str:
         """Handle user input for server port.
-        
+
         Returns:
             str: The entered port number as string
         """
@@ -134,7 +134,7 @@ class InputHandler:
 
     def handle_player_name_input(self: "InputHandler") -> str:
         """Handle input for player name.
-        
+
         Returns:
             str: The entered player name
         """
@@ -142,7 +142,7 @@ class InputHandler:
 
     def handle_positions_input(self: "InputHandler") -> str:
         """Handle input for number of positions.
-        
+
         Returns:
             str: The entered number of positions
         """
@@ -150,7 +150,7 @@ class InputHandler:
 
     def handle_colors_input(self: "InputHandler") -> str:
         """Handle input for number of colors.
-        
+
         Returns:
             str: The entered number of colors
         """
@@ -158,7 +158,7 @@ class InputHandler:
 
     def handle_max_attempts_input(self: "InputHandler") -> str:
         """Handle input for maximum attempts.
-        
+
         Returns:
             str: The entered maximum number of attempts
         """
@@ -166,7 +166,7 @@ class InputHandler:
 
     def handle_save_warning_input(self: "InputHandler") -> bool:
         """Handle yes/no input for save warning.
-        
+
         Returns:
             bool: True if user confirms save, False otherwise
         """

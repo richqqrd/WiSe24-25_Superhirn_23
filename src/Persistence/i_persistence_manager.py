@@ -4,14 +4,16 @@ from src.GameLogic.game_state import GameState
 
 class IPersistenceManager(ABC):
     """Interface for persistence management.
-    
+
     This interface defines the contract for managing game state persistence,
     including saving and loading game states.
     """
 
     @abstractmethod
     def save_game_state(
-        self: "IPersistenceManager", game_state: GameState, file_path: str = "game_state.pkl"
+        self: "IPersistenceManager",
+        game_state: GameState,
+        file_path: str = "game_state.pkl",
     ) -> None:
         """Save the current game state to a file.
 
@@ -26,7 +28,9 @@ class IPersistenceManager(ABC):
         pass
 
     @abstractmethod
-    def load_game_state(self: "IPersistenceManager", file_path: str = "game_state.pkl") -> GameState:
+    def load_game_state(
+        self: "IPersistenceManager", file_path: str = "game_state.pkl"
+    ) -> GameState:
         """Load the game state from a file.
 
         Args:

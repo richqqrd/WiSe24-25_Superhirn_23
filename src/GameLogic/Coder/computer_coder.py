@@ -10,10 +10,10 @@ from src.util.feedback_color_code import FeedbackColorCode
 
 class ComputerCoder(ICoder):
     """Computer implementation of the coder interface.
-    
+
     This class represents the computer as code maker. It generates
     secret codes and provides feedback on guesses.
-    
+
     Attributes:
         positions: Number of positions in the code
         colors: Number of available colors
@@ -31,12 +31,14 @@ class ComputerCoder(ICoder):
         self.positions = positions
         self.colors = colors
 
-    def give_feedback(self: "ComputerCoder", guess: List[ColorCode]) -> List[FeedbackColorCode]:
+    def give_feedback(
+        self: "ComputerCoder", guess: List[ColorCode]
+    ) -> List[FeedbackColorCode]:
         """Provide feedback for a guess.
-        
+
         Args:
             guess: The guess to evaluate
-            
+
         Returns:
             List[FeedbackColorCode]: Feedback pins for the guess
         """
@@ -64,7 +66,7 @@ class ComputerCoder(ICoder):
 
     def generate_code(self: "ComputerCoder") -> List[ColorCode]:
         """Generate a random secret code.
-        
+
         Returns:
             List[ColorCode]: The generated secret code
         """
@@ -76,7 +78,7 @@ class ComputerCoder(ICoder):
     @property
     def secret_code(self: "ComputerCoder") -> List[ColorCode]:
         """Get the secret code.
-        
+
         Returns:
             List[ColorCode]: The current secret code
         """
@@ -85,7 +87,7 @@ class ComputerCoder(ICoder):
     @secret_code.setter
     def secret_code(self: "ComputerCoder", code: List[ColorCode]) -> None:
         """Set the secret code.
-        
+
         Args:
             code: List of color codes to set as secret code
         """

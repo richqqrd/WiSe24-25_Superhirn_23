@@ -17,13 +17,13 @@ from src.Persistence.persistence_manager import PersistenceManager
 
 def main() -> None:
     """Initialize and start the Mastermind game application.
-    
+
     Creates instances of:
         - PersistenceManager for save/load functionality
         - GameLogic for core game mechanics
         - BusinessLogic for game flow control
         - Console for user interface
-    
+
     Then starts the main game loop through the Console.
     """
     persistence_manager = PersistenceManager()

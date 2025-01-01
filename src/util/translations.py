@@ -20,6 +20,7 @@ Available Languages:
     - fr: French
     - ko: Korean
 """
+
 translations = {
     "en": {
         "main_menu": "Main Menu",
@@ -48,8 +49,8 @@ translations = {
         "available_colors": "Available colors and their codes:",
         "give_feedback": "Give feedback for the guess:",
         "feedback_instructions": "8: Black (correct color in correct position)"
-                                 "\n7: White (correct color in wrong position)"
-                                 "\nEnter feedback (e.g. 887 for two black, one white):",
+        "\n7: White (correct color in wrong position)"
+        "\nEnter feedback (e.g. 887 for two black, one white):",
         "secret_code": "Secret Code",
         "game_title": "Super Mastermind",
         "round": "Round",

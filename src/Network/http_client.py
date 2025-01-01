@@ -8,14 +8,15 @@ import requests
 
 class HttpClient:
     """HTTP client for making requests to the game server.
-    
+
     This class handles making HTTP requests to the game server with proper
     error handling and logging.
-    
+
     Attributes:
         base_url: Base URL for the HTTP requests
         session: Requests session for connection pooling
     """
+
     def __init__(self: "HttpClient", base_url: str) -> None:
         """Initialize the HttpClient.
 

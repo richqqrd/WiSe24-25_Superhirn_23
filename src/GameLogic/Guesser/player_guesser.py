@@ -9,13 +9,14 @@ from src.util.feedback_color_code import FeedbackColorCode
 
 class PlayerGuesser(IGuesser):
     """Player implementation of the guesser interface.
-    
+
     This class represents a human player in the guesser role. It stores
     the current guess and implements the IGuesser interface.
 
     Attributes:
         current_guess: List of color codes representing the current guess
     """
+
     def __init__(self: "PlayerGuesser") -> None:
         """Initialize player guesser with empty guess."""
         self.current_guess: List[ColorCode] = []
@@ -36,9 +37,11 @@ class PlayerGuesser(IGuesser):
         """
         self.current_guess = guess
 
-    def process_feedback(self: "PlayerGuesser", feedback: List[FeedbackColorCode]) -> None:
+    def process_feedback(
+        self: "PlayerGuesser", feedback: List[FeedbackColorCode]
+    ) -> None:
         """Process feedback from last guess.
-        
+
         Not used in player implementation since player makes own decisions.
 
         Args:

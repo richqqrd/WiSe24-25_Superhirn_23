@@ -9,10 +9,10 @@ from src.Network.i_network_service import INetworkService
 
 class NetworkService(INetworkService):
     """Handles network communication for online gameplay.
-    
-    This class manages the connection to the game server and handles 
+
+    This class manages the connection to the game server and handles
     game-related network operations like starting games and making moves.
-    
+
     Attributes:
         http_handler: Handler for HTTP requests to the server
         current_game_id: ID of the current game session
@@ -20,6 +20,7 @@ class NetworkService(INetworkService):
         positions: Number of positions in the game
         colors: Number of colors available in the game
     """
+
     def __init__(self: "NetworkService", server_ip: str, server_port: int) -> None:
         """Initialize the NetworkService with server connection details.
 

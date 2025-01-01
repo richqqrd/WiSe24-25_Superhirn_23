@@ -18,14 +18,16 @@ class PersistenceManager(IPersistenceManager):
 
     def __init__(self: "PersistenceManager") -> None:
         """Initialize the PersistenceManager.
-        
+
         Creates the save directory if it doesn't exist.
         """
         self.save_dir = os.path.join(os.path.dirname(__file__), "..", "saves")
         os.makedirs(self.save_dir, exist_ok=True)
 
     def save_game_state(
-        self: "PersistenceManager", game_state: GameState, file_path: str = "game_state.pkl"
+        self: "PersistenceManager",
+        game_state: GameState,
+        file_path: str = "game_state.pkl",
     ) -> None:
         """Save the current game state to a file.
 
@@ -43,7 +45,9 @@ class PersistenceManager(IPersistenceManager):
         with open(file_path, "wb") as file:
             pickle.dump(game_state, file)
 
-    def load_game_state(self: "PersistenceManager", file_path: str = "game_state.pkl") -> GameState:
+    def load_game_state(
+        self: "PersistenceManager", file_path: str = "game_state.pkl"
+    ) -> GameState:
         """Load a game state from a file.
 
         Args:

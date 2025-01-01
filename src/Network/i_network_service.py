@@ -6,8 +6,8 @@ from typing import Optional
 
 class INetworkService(ABC):
     """Interface for network service layer.
-    
-    This interface defines the contract for network communication 
+
+    This interface defines the contract for network communication
     used in online gameplay.
 
     Provides methods for:

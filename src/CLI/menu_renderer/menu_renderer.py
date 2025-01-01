@@ -6,10 +6,10 @@ from src.util.translations import translations
 
 class MenuRenderer:
     """Renders game menus and user interface elements.
-    
+
     This class is responsible for displaying various menus and UI elements
     with proper translation support.
-    
+
     Attributes:
         language: Current language code for translations
     """
@@ -33,10 +33,10 @@ class MenuRenderer:
 
     def display_main_menu(self: "MenuRenderer") -> None:
         """Display the main menu options.
-        
+
         Shows translated menu items:
             1. Start Game
-            2. Change Language  
+            2. Change Language
             3. Resume Game
             4. End Game
         """
@@ -48,7 +48,7 @@ class MenuRenderer:
 
     def display_ingame_menu(self: "MenuRenderer", available_actions: list) -> None:
         """Display the in-game menu options.
-        
+
         Shows different menu items based on available actions.
 
         Args:
@@ -70,10 +70,10 @@ class MenuRenderer:
 
     def display_game_mode_menu(self: "MenuRenderer") -> None:
         """Display the game mode selection menu.
-        
+
         Shows translated menu items:
             1. Play as Guesser (offline)
-            2. Play as Coder (offline)  
+            2. Play as Coder (offline)
             3. Play as Guesser (online)
             4. Back to Main Menu
         """
@@ -85,7 +85,7 @@ class MenuRenderer:
 
     def display_languages(self: "MenuRenderer") -> None:
         """Display the language selection menu.
-        
+
         Shows available languages with their translated names.
         Languages are numbered starting from 1.
         """
@@ -95,37 +95,37 @@ class MenuRenderer:
 
     def display_end_game(self: "MenuRenderer") -> None:
         """Display game end message.
-        
+
         Shows translated message when game ends.
         """
         print(translations[self.language]["game_ended"])
 
     def display_save_game(self: "MenuRenderer") -> None:
         """Display game save message.
-        
+
         Shows translated confirmation when game is saved.
         """
         print(translations[self.language]["game_saved"])
 
     def display_load_game(self: "MenuRenderer") -> None:
         """Display message when loading a saved game.
-        
+
         Shows translated message confirming game load operation.
         """
         print(translations[self.language]["loads_resumed_game"])
 
     def display_start_game(self: "MenuRenderer") -> None:
         """Display game start message.
-        
+
         Shows translated message when new game starts.
         """
         print(translations[self.language]["game_started"])
 
     def display_code_input(self: "MenuRenderer", available_colors: int) -> None:
         """Display color selection for code input.
-    
+
         Shows available colors and their codes up to the specified limit.
-        
+
         Args:
             available_colors: Maximum number of colors to display
         """
@@ -135,7 +135,7 @@ class MenuRenderer:
 
     def display_guess_input(self: "MenuRenderer") -> None:
         """Display available colors for making a guess.
-        
+
         Shows all available colors and their corresponding codes.
         """
         print(f"\n{translations[self.language]['available_colors']}")
@@ -144,7 +144,7 @@ class MenuRenderer:
 
     def display_feedback_input(self: "MenuRenderer") -> None:
         """Display feedback input instructions.
-        
+
         Shows instructions for providing feedback using black/white pins.
         """
         print(f"\n{translations[self.language]['give_feedback']}")
@@ -152,7 +152,7 @@ class MenuRenderer:
 
     def display_server_connection(self: "MenuRenderer") -> None:
         """Display server connection input prompts.
-        
+
         Shows translated prompts for server IP and port input.
         """
         print(f"\n{translations[self.language]['enter_server_ip']}")
@@ -160,42 +160,42 @@ class MenuRenderer:
 
     def display_cheating_warning(self: "MenuRenderer") -> None:
         """Display warning when cheating is detected.
-        
+
         Shows translated warning message about detected cheating.
         """
         print(translations[self.language]["cheating_warning"])
 
     def display_player_name_input(self: "MenuRenderer") -> None:
         """Display player name input prompt.
-        
+
         Shows translated prompt for entering player name.
         """
         print(translations[self.language]["pick_player_name"])
 
     def display_positions_input(self: "MenuRenderer") -> None:
         """Display positions input prompt.
-        
+
         Shows translated prompt for entering number of code positions.
         """
         print(translations[self.language]["pick_positions"])
 
     def display_colors_input(self: "MenuRenderer") -> None:
         """Display colors input prompt.
-        
+
         Shows translated prompt for entering number of colors.
         """
         print(translations[self.language]["pick_colors"])
 
     def display_max_attempts_input(self: "MenuRenderer") -> None:
         """Display maximum attempts input prompt.
-        
+
         Shows translated prompt for entering maximum allowed attempts.
         """
         print(translations[self.language]["pick_max_attempts"])
 
     def display_save_warning(self: "MenuRenderer") -> None:
         """Display warning about overwriting existing save.
-        
+
         Shows translated warning message and yes/no options for confirmation
         when attempting to save over an existing save file.
         """
@@ -205,7 +205,7 @@ class MenuRenderer:
 
     def display_color_selection(self: "MenuRenderer") -> None:
         """Display available colors for selection.
-        
+
         Shows all available colors with their codes and values,
         followed by color input prompt.
         """
@@ -216,7 +216,7 @@ class MenuRenderer:
 
     def display_feedback_instructions(self: "MenuRenderer") -> None:
         """Display instructions for providing feedback.
-        
+
         Shows translated instructions for how to input feedback
         using black and white pins.
         """
@@ -224,21 +224,21 @@ class MenuRenderer:
 
     def display_invalid_configuration(self: "MenuRenderer") -> None:
         """Display invalid configuration error message.
-        
+
         Shows translated error message when game settings are invalid.
         """
         print(f"\n{translations[self.language]['invalid_configuration']}")
 
     def display_game_won(self: "MenuRenderer") -> None:
         """Display game won message.
-        
+
         Shows translated victory message when player wins the game.
         """
         print(translations[self.language]["game_won"])
 
     def display_game_lost(self: "MenuRenderer") -> None:
         """Display game lost message.
-        
+
         Shows translated defeat message when player loses the game.
         """
         print(translations[self.language]["game_lost"])
