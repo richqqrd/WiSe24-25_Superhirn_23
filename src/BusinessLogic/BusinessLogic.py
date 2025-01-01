@@ -38,7 +38,7 @@ class BusinessLogic(IBusinessLogic):
                 return "invalid_configuration"
             if not (1 <= col <= 8):
                 return "invalid_configuration"
-            if att <= 0:
+            if att < 0:
                 return "invalid_configuration"
             
             return self.game_logic.configure_game(player_name, pos, col, att)
