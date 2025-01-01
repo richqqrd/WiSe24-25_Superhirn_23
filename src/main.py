@@ -1,6 +1,8 @@
 from CLI.console import Console
 from BusinessLogic.BusinessLogic import BusinessLogic
 from GameLogic.GameLogic import GameLogic
+from src.BusinessLogic.IBusinessLogic import IBusinessLogic
+from src.Persistence.PersistenceManager import PersistenceManager
 
 
 def main():
@@ -11,7 +13,10 @@ def main():
     linked with an InputHandler to process inputs,
     and starts the application's main runtime loop.
     """
-    ui = Console(BusinessLogic(GameLogic()))
+    persistence_manager = PersistenceManager()
+    game_logic = GameLogic(persistence_manager)
+    business_logic = BusinessLogic(game_logic)
+    ui = Console(business_logic)
     ui.run()
 
 

@@ -1,8 +1,10 @@
 import os
 import pickle
 from src.GameLogic.GameState import GameState
+from src.Persistence.IPersistenceManager import IPersistenceManager
 
-class PersistenceManager:
+
+class PersistenceManager(IPersistenceManager):
 
     def __init__(self):
         self.save_dir = os.path.join(os.path.dirname(__file__), '..', 'saves')

@@ -7,6 +7,7 @@ from src.GameLogic.Guesser.ComputerGuesser import ComputerGuesser
 from src.GameLogic.Guesser.PlayerGuesser import PlayerGuesser
 from src.GameLogic.IGameLogic import IGameLogic
 from src.Network.network_service import NetworkService
+from src.Persistence import IPersistenceManager
 from src.Persistence.PersistenceManager import PersistenceManager
 from src.util.ColorCode import ColorCode
 from src.util.FeedbackColorCode import FeedbackColorCode
@@ -14,7 +15,7 @@ from src.util.FeedbackColorCode import FeedbackColorCode
 
 
 class GameLogic(IGameLogic):
-    def __init__(self):
+    def __init__(self, persistence_manager: IPersistenceManager):
         self.player_guesser = PlayerGuesser()
         self.player_coder = PlayerCoder()
         self.computer_guesser = None
@@ -25,7 +26,7 @@ class GameLogic(IGameLogic):
         self.player_name = "player1"
         self.colors = 8
         self.positions = 5
-        self.persistenceManager = PersistenceManager()
+        self.persistence_manager = persistence_manager
 
     def startgame(self, playerRole: str) -> str:
         if playerRole == "guesser":
@@ -137,14 +138,14 @@ class GameLogic(IGameLogic):
         """
         Save the current game state to a file.
         """
-        self.persistenceManager.save_game_state(self.game_state)
+        self.persistence_manager.save_game_state(self.game_state)
         return "game_saved"
 
     def load_game_state(self):
         """
         Load the game state from a file.
         """
-        self.game_state = self.persistenceManager.load_game_state()
+        self.game_state = self.persistence_manager.load_game_state()
 
 
         self.computer_coder = ComputerCoder(self.game_state.positions, self.game_state.colors)
@@ -175,4 +176,4 @@ class GameLogic(IGameLogic):
 
     def has_saved_game(self) -> bool:
         """Check if saved game exists through persistence layer"""
-        return self.persistenceManager.has_saved_game()
+        return self.persistence_manager.has_saved_game()
