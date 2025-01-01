@@ -1,6 +1,7 @@
 from src.util.color_code import ColorCode
 from src.util.translations import translations
 
+
 class MenuRenderer:
     """
     Responsible for rendering the menu
@@ -26,11 +27,10 @@ class MenuRenderer:
         Displays the main menu options.
         """
         print(translations[self.language]["main_menu"])
-        print(f"1. {translations[self.language]['start_game']}")        
+        print(f"1. {translations[self.language]['start_game']}")
         print(f"2. {translations[self.language]['change_language']}")
         print(f"3. {translations[self.language]['resume_game']}")
         print(f"4. {translations[self.language]['end_game']}")
-
 
     def display_ingame_menu(self, available_actions: list) -> None:
         """
@@ -39,17 +39,16 @@ class MenuRenderer:
         print(translations[self.language]["ingame_menu"])
         menu_items = []
         if "save_game" in available_actions:
-            menu_items.append((1, translations[self.language]['save_game']))
-            menu_items.append((2, translations[self.language]['change_language']))
-            menu_items.append((3, translations[self.language]['resume_game']))
-            menu_items.append((4, translations[self.language]['end_game']))
+            menu_items.append((1, translations[self.language]["save_game"]))
+            menu_items.append((2, translations[self.language]["change_language"]))
+            menu_items.append((3, translations[self.language]["resume_game"]))
+            menu_items.append((4, translations[self.language]["end_game"]))
         else:
-            menu_items.append((1, translations[self.language]['change_language']))
-            menu_items.append((2, translations[self.language]['end_game']))
+            menu_items.append((1, translations[self.language]["change_language"]))
+            menu_items.append((2, translations[self.language]["end_game"]))
 
         for number, text in menu_items:
             print(f"{number}. {text}")
-
 
     def display_game_mode_menu(self) -> None:
         """
@@ -115,12 +114,14 @@ class MenuRenderer:
         """
         print(f"\n{translations[self.language]['give_feedback']}")
         print(translations[self.language]["feedback_instructions"])
+
     def display_server_connection(self) -> None:
         """
         Displays the server connection input options.
         """
         print(f"\n{translations[self.language]['enter_server_ip']}")
         print(f"{translations[self.language]['enter_server_port']}")
+
     def display_cheating_warning(self) -> None:
         """
         Displays the cheating warning.

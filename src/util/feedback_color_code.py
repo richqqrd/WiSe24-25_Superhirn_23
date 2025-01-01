@@ -1,6 +1,7 @@
 # src/util/feedback_color_code.py
 from enum import Enum
 
+
 class FeedbackColorCode(Enum):
     """
     Enum representing feedback color codes with their respective integer values and ANSI color codes.

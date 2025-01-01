@@ -23,7 +23,7 @@ class GameState:
         positions: int,
         colors: int,
         player_name: str,
-        current_guesser: IGuesser = None
+        current_guesser: IGuesser = None,
     ):
         """
         Initializes the GameState with a secret code and maximum rounds.

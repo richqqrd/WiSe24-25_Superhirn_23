@@ -53,12 +53,14 @@ class InputHandler:
         return self.handle_user_input(
             translations[self.language]["enter_secret_code"].format(positions)
         )
+
     def handle_guess_input(self, positions: int) -> str:
         """
         Handles input for code guessing.
         """
         return self.handle_user_input(
-            translations[self.language]["enter_guess"].format(positions))
+            translations[self.language]["enter_guess"].format(positions)
+        )
 
     def handle_feedback_input(self, positions: int) -> str:
         """
@@ -107,8 +109,10 @@ class InputHandler:
     def handle_save_warning_input(self) -> bool:
         """Handle yes/no input for save warning"""
         while True:
-            user_input = self.handle_user_input(f"\n1. {translations[self.language]['yes']}\n"
-                               f"2. {translations[self.language]['no']}\n").strip()
+            user_input = self.handle_user_input(
+                f"\n1. {translations[self.language]['yes']}\n"
+                f"2. {translations[self.language]['no']}\n"
+            ).strip()
             if user_input == "1":  # Yes
                 return True
             elif user_input == "2":  # No

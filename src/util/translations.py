@@ -59,8 +59,7 @@ translations = {
         "invalid_configuration": "Invalid configuration. Please check your input values.",
         "game_won": "Congratulations! You've won the game!",
         "game_lost": f"Game Over! You've reached the maximum number of attempts.",
-        "menu_hint": "Type 'menu' to open the game menu"
-
+        "menu_hint": "Type 'menu' to open the game menu",
     },
     "de": {
         "main_menu": "Hauptmenü",
@@ -122,8 +121,7 @@ translations = {
         "invalid_configuration": "Ungültige Konfiguration. Bitte überprüfen Sie Ihre Eingaben",
         "game_won": "Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!",
         "game_lost": "Spiel vorbei! Sie haben die maximale Anzahl an Versuchen erreicht.",
-        "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen"
-
+        "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen",
     },
     "fr": {
         "main_menu": "Menu Principal",
@@ -185,8 +183,7 @@ translations = {
         "invalid_configuration": "TODO",
         "game_won": "TODO",
         "game_lost": "TODO",
-        "menu_hint": "TODO"
-
+        "menu_hint": "TODO",
     },
     "ko": {
         "main_menu": "메인 메뉴",
@@ -248,7 +245,6 @@ translations = {
         "invalid_configuration": "TODO",
         "game_won": "TODO",
         "game_lost": "TODO",
-        "menu_hint": "TODO"
-
-    }
+        "menu_hint": "TODO",
+    },
 }

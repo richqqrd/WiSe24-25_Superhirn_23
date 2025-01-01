@@ -7,17 +7,16 @@ from src.Persistence.i_persistence_manager import IPersistenceManager
 class PersistenceManager(IPersistenceManager):
 
     def __init__(self):
-        self.save_dir = os.path.join(os.path.dirname(__file__), '..', 'saves')
+        self.save_dir = os.path.join(os.path.dirname(__file__), "..", "saves")
         os.makedirs(self.save_dir, exist_ok=True)
-
-
-
 
     """
     Manages the persistence of the game state.
     """
 
-    def save_game_state(self, game_state: GameState, file_path: str = "game_state.pkl") -> None:
+    def save_game_state(
+        self, game_state: GameState, file_path: str = "game_state.pkl"
+    ) -> None:
         """
         Saves the current game state to a file.
 

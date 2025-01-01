@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 from src.GameLogic.game_state import GameState
 
+
 class IPersistenceManager(ABC):
     """Interface for persistence management"""
-    
+
     @abstractmethod
-    def save_game_state(self, game_state: GameState, file_path: str = "game_state.pkl") -> None:
+    def save_game_state(
+        self, game_state: GameState, file_path: str = "game_state.pkl"
+    ) -> None:
         """
         Saves the current game state to a file.
 

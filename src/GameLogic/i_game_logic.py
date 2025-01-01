@@ -3,11 +3,14 @@ from typing import List
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 
+
 class IGameLogic(ABC):
     """Interface for game logic layer."""
-    
+
     @abstractmethod
-    def configure_game(self, player_name: str, positions: int, colors: int, max_attempts: int) -> None:
+    def configure_game(
+        self, player_name: str, positions: int, colors: int, max_attempts: int
+    ) -> None:
         """Configure the game with initial settings."""
         pass
 

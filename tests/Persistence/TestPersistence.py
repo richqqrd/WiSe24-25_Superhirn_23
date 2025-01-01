@@ -8,26 +8,57 @@ from src.GameLogic.game_state import GameState
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 
+
 class TestPersistenceManager(unittest.TestCase):
     def setUp(self):
         self.persistence_manager = PersistenceManager()
         self.test_file = "test_game_state.pkl"
         self.game_state = GameState(
-            secret_code=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW, ColorCode.ORANGE],
+            secret_code=[
+                ColorCode.RED,
+                ColorCode.BLUE,
+                ColorCode.GREEN,
+                ColorCode.YELLOW,
+                ColorCode.ORANGE,
+            ],
             max_rounds=12,
             positions=5,
             colors=8,
             player_name="player1",
-            current_guesser=None
+            current_guesser=None,
         )
-        self.game_state.add_turn(GameTurn(
-            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW, ColorCode.ORANGE],
-            feedback=[FeedbackColorCode.BLACK, FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]
-        ))
-        self.game_state.add_turn(GameTurn(
-            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW, ColorCode.ORANGE],
-            feedback=[FeedbackColorCode.BLACK, FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]
-        ))
+        self.game_state.add_turn(
+            GameTurn(
+                guesses=[
+                    ColorCode.RED,
+                    ColorCode.BLUE,
+                    ColorCode.GREEN,
+                    ColorCode.YELLOW,
+                    ColorCode.ORANGE,
+                ],
+                feedback=[
+                    FeedbackColorCode.BLACK,
+                    FeedbackColorCode.BLACK,
+                    FeedbackColorCode.WHITE,
+                ],
+            )
+        )
+        self.game_state.add_turn(
+            GameTurn(
+                guesses=[
+                    ColorCode.RED,
+                    ColorCode.BLUE,
+                    ColorCode.GREEN,
+                    ColorCode.YELLOW,
+                    ColorCode.ORANGE,
+                ],
+                feedback=[
+                    FeedbackColorCode.BLACK,
+                    FeedbackColorCode.BLACK,
+                    FeedbackColorCode.WHITE,
+                ],
+            )
+        )
 
     def tearDown(self):
         if os.path.exists(self.test_file):
@@ -45,10 +76,18 @@ class TestPersistenceManager(unittest.TestCase):
             self.assertEqual(loaded_game_state.colors, self.game_state.colors)
             self.assertEqual(loaded_game_state.player_name, self.game_state.player_name)
             self.assertEqual(len(loaded_game_state.turns), len(self.game_state.turns))
-            self.assertEqual(loaded_game_state.turns[0].guesses, self.game_state.turns[0].guesses)
-            self.assertEqual(loaded_game_state.turns[0].feedback, self.game_state.turns[0].feedback)
-            self.assertEqual(loaded_game_state.turns[1].guesses, self.game_state.turns[1].guesses)
-            self.assertEqual(loaded_game_state.turns[1].feedback, self.game_state.turns[1].feedback)
+            self.assertEqual(
+                loaded_game_state.turns[0].guesses, self.game_state.turns[0].guesses
+            )
+            self.assertEqual(
+                loaded_game_state.turns[0].feedback, self.game_state.turns[0].feedback
+            )
+            self.assertEqual(
+                loaded_game_state.turns[1].guesses, self.game_state.turns[1].guesses
+            )
+            self.assertEqual(
+                loaded_game_state.turns[1].feedback, self.game_state.turns[1].feedback
+            )
 
     def test_load_game_state(self):
         with open(self.test_file, "wb") as file:
@@ -61,10 +100,18 @@ class TestPersistenceManager(unittest.TestCase):
         self.assertEqual(loaded_game_state.colors, self.game_state.colors)
         self.assertEqual(loaded_game_state.player_name, self.game_state.player_name)
         self.assertEqual(len(loaded_game_state.turns), len(self.game_state.turns))
-        self.assertEqual(loaded_game_state.turns[0].guesses, self.game_state.turns[0].guesses)
-        self.assertEqual(loaded_game_state.turns[0].feedback, self.game_state.turns[0].feedback)
-        self.assertEqual(loaded_game_state.turns[1].guesses, self.game_state.turns[1].guesses)
-        self.assertEqual(loaded_game_state.turns[1].feedback, self.game_state.turns[1].feedback)
+        self.assertEqual(
+            loaded_game_state.turns[0].guesses, self.game_state.turns[0].guesses
+        )
+        self.assertEqual(
+            loaded_game_state.turns[0].feedback, self.game_state.turns[0].feedback
+        )
+        self.assertEqual(
+            loaded_game_state.turns[1].guesses, self.game_state.turns[1].guesses
+        )
+        self.assertEqual(
+            loaded_game_state.turns[1].feedback, self.game_state.turns[1].feedback
+        )
 
     def test_load_non_existent_file(self):
         with self.assertRaises(FileNotFoundError):
@@ -80,6 +127,7 @@ class TestPersistenceManager(unittest.TestCase):
 
         with self.assertRaises(pickle.UnpicklingError):
             self.persistence_manager.load_game_state(self.test_file)
+
 
 if __name__ == "__main__":
     unittest.main()

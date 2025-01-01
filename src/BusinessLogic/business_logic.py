@@ -7,7 +7,6 @@ from src.util.feedback_color_code import FeedbackColorCode
 from src.GameLogic.Guesser.player_guesser import PlayerGuesser
 
 
-
 class BusinessLogic(IBusinessLogic):
     """
     Concrete implementation of the IBusinessLogic interface.
@@ -25,10 +24,12 @@ class BusinessLogic(IBusinessLogic):
             "4": lambda: "end_game",
         }
 
-    def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
+    def handle_game_configuration(
+        self, player_name: str, positions: str, colors: str, max_attempts: str
+    ) -> str:
         if not player_name or len(player_name.strip()) == 0:
             return "invalid_configuration"
-        
+
         try:
             pos = int(positions)
             col = int(colors)
@@ -40,7 +41,7 @@ class BusinessLogic(IBusinessLogic):
                 return "invalid_configuration"
             if att < 0:
                 return "invalid_configuration"
-            
+
             return self.game_logic.configure_game(player_name, pos, col, att)
         except ValueError:
             return "invalid_configuration"
@@ -170,7 +171,7 @@ class BusinessLogic(IBusinessLogic):
             "1": "save_game" if "save_game" in available_actions else "change_language",
             "2": "change_language" if "save_game" in available_actions else "end_game",
             "3": "load_game" if "load_game" in available_actions else None,
-            "4": "end_game" if "save_game" in available_actions else None
+            "4": "end_game" if "save_game" in available_actions else None,
         }
 
         action = menu_map.get(menu_choice)
@@ -191,11 +192,6 @@ class BusinessLogic(IBusinessLogic):
 
         return self.get_current_game_action()
 
-
-
-
-
-
     def get_required_action(self, game_mode: str) -> str:
         if game_mode not in ["1", "2", "3", "4"]:
             return "invalid_mode"
@@ -210,7 +206,7 @@ class BusinessLogic(IBusinessLogic):
             config["player_name"],
             config["positions"],
             config["colors"],
-            config["max_attempts"]
+            config["max_attempts"],
         )
 
         if config_result == "invalid_configuration":
@@ -228,8 +224,12 @@ class BusinessLogic(IBusinessLogic):
         return "invalid_mode"
 
     def can_start_game(self, next_action: str) -> bool:
-        return next_action not in ["invalid_mode", "invalid_configuration", "back_to_menu"]
-    
+        return next_action not in [
+            "invalid_mode",
+            "invalid_configuration",
+            "back_to_menu",
+        ]
+
     def is_game_over(self, action: str) -> bool:
         return action in ["game_won", "game_lost", "error", "cheating_detected"]
 
@@ -242,7 +242,9 @@ class BusinessLogic(IBusinessLogic):
 
     def get_available_menu_actions(self) -> list[str]:
         """Get available menu actions based on game state"""
-        is_guesser = isinstance(self.game_logic.game_state.current_guesser, PlayerGuesser)
+        is_guesser = isinstance(
+            self.game_logic.game_state.current_guesser, PlayerGuesser
+        )
 
         # Common actions
         actions = ["change_language", "end_game"]

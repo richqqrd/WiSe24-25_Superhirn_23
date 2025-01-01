@@ -14,7 +14,6 @@ from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 
 
-
 class GameLogic(IGameLogic):
     def __init__(self, persistence_manager: IPersistenceManager):
         self.player_guesser = PlayerGuesser()
@@ -41,7 +40,14 @@ class GameLogic(IGameLogic):
     def start_as_online_guesser(self, server_ip: str, server_port: int) -> str:
         self.network_service = NetworkService(server_ip, server_port)
         if self.network_service.start_game(self.player_name):
-            self.game_state = GameState(None, self.max_round, self.positions, self.colors, self.player_name, self.player_guesser)
+            self.game_state = GameState(
+                None,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
+            )
             return "need_server_connection"
         return "error"
 
@@ -106,7 +112,12 @@ class GameLogic(IGameLogic):
         try:
             secret_code = self.computer_coder.generate_code()
             self.game_state = GameState(
-                secret_code, self.max_round, self.positions, self.colors, self.player_name, self.player_guesser
+                secret_code,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
             )
             return "need_guess_input"
         except ValueError:
@@ -115,7 +126,12 @@ class GameLogic(IGameLogic):
     def set_secret_code(self, code_list: List[ColorCode]) -> str:
         try:
             self.game_state = GameState(
-                code_list, self.max_round, self.positions, self.colors, self.player_name, self.computer_guesser
+                code_list,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.computer_guesser,
             )
             return "wait_for_computer_guess"
         except ValueError:
@@ -148,9 +164,12 @@ class GameLogic(IGameLogic):
         """
         self.game_state = self.persistence_manager.load_game_state()
 
-
-        self.computer_coder = ComputerCoder(self.game_state.positions, self.game_state.colors)
-        self.computer_guesser = ComputerGuesser(self.game_state.positions, self.game_state.colors)
+        self.computer_coder = ComputerCoder(
+            self.game_state.positions, self.game_state.colors
+        )
+        self.computer_guesser = ComputerGuesser(
+            self.game_state.positions, self.game_state.colors
+        )
 
         self.computer_coder.secret_code = self.game_state.secret_code
 
@@ -167,7 +186,9 @@ class GameLogic(IGameLogic):
 
         return "game_loaded"
 
-    def configure_game(self, player_name: str, positions: int, colors: int, max_attempts: int) -> None:
+    def configure_game(
+        self, player_name: str, positions: int, colors: int, max_attempts: int
+    ) -> None:
         self.player_name = player_name
         self.positions = positions
         self.colors = colors

@@ -1,15 +1,18 @@
 from abc import ABC, abstractmethod
 
+
 class IBusinessLogic(ABC):
     """Interface for business logic layer"""
-    
+
     @abstractmethod
     def handle(self, command: str) -> str:
         """Handle general commands"""
         pass
 
     @abstractmethod
-    def handle_game_configuration(self, player_name: str, positions: str, colors: str, max_attempts: str) -> str:
+    def handle_game_configuration(
+        self, player_name: str, positions: str, colors: str, max_attempts: str
+    ) -> str:
         """Handle game configuration input"""
         pass
 

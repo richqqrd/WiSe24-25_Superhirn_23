@@ -24,7 +24,7 @@ class ComputerGuesser(IGuesser):
             Set[tuple]: A set of all possible color code combinations.
         """
         start_time = time.time()
-        colors = [ColorCode(i) for i in range(1, self.colors+1)]
+        colors = [ColorCode(i) for i in range(1, self.colors + 1)]
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f"generate all poss codes: {elapsed_time:.4f} seconds")
@@ -42,8 +42,9 @@ class ComputerGuesser(IGuesser):
             if self.colors == 1:
                 self.last_guess = [ColorCode(1)] * self.positions
             else:
-                self.last_guess = ([ColorCode(1)] * (self.positions // 2) + 
-                                [ColorCode(2)] * (self.positions - self.positions // 2))
+                self.last_guess = [ColorCode(1)] * (self.positions // 2) + [
+                    ColorCode(2)
+                ] * (self.positions - self.positions // 2)
             return self.last_guess
 
         if not self.possible_codes:
@@ -53,32 +54,31 @@ class ComputerGuesser(IGuesser):
 
         # Minimax-Strategie
         best_guess = None
-        min_max_remaining = float('inf')
+        min_max_remaining = float("inf")
 
-        for guess in self.possible_codes: #new
+        for guess in self.possible_codes:  # new
             start_time_guess = time.time()  # Zeit für diese Vermutung
 
             max_remaining = 0
 
-            score_counts = {}  #new
+            score_counts = {}  # new
 
             # Optimierung: Verwende auch hier nur eine Stichprobe
-            for possible_code in self.possible_codes: #new
+            for possible_code in self.possible_codes:  # new
                 start_time_feedback = time.time()  # Zeit für Feedback-Berechnung
 
                 feedback = self._calculate_feedback(list(guess), list(possible_code))
-                score = tuple(feedback)  #new
-                score_counts[score] = score_counts.get(score, 0) + 1  #new
-                max_score = max(max_remaining, score_counts[score])  #new
+                score = tuple(feedback)  # new
+                score_counts[score] = score_counts.get(score, 0) + 1  # new
+                max_score = max(max_remaining, score_counts[score])  # new
                 feedback_time = time.time() - start_time_feedback
                 print(f"Feedback calculation time: {feedback_time:.4f} seconds")
                 # Zähle wie viele Codes nach diesem Feedback übrig bleiben würden
                 start_time_remaining = time.time()
 
-
                 remaining_time = time.time() - start_time_remaining
                 print(f"Remaining calculation time: {remaining_time:.4f} seconds")
-                #old max_remaining = max(max_remaining, remaining)
+                # old max_remaining = max(max_remaining, remaining)
 
             guess_time = time.time() - start_time_guess
             print(f"Time for this guess evaluation: {guess_time:.4f} seconds")
@@ -108,7 +108,6 @@ class ComputerGuesser(IGuesser):
             List[FeedbackColorCode]: The feedback for the guess.
         """
 
-
         feedback = []
         temp_guess = guess.copy()
         temp_code = code.copy()
@@ -127,7 +126,6 @@ class ComputerGuesser(IGuesser):
                 temp_code[temp_code.index(temp_guess[i])] = None
 
         return feedback
-
 
     def process_feedback(self, feedback: List[FeedbackColorCode]) -> None:
         """
