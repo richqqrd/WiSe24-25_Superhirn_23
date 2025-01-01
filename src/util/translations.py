@@ -50,15 +50,17 @@ translations = {
         "enter_positions": "Enter number of positions: ",
         "enter_colors": "Enter number of colors: ",
         "enter_max_attempts": "Enter maximum number of attempts: ",
-        "save_warning": "Warning: A saved game already exists and will be overwritten. Continue?",
+        "save_warning": "Warning: A saved game already exists "
+        "and will be overwritten. Continue?",
         "yes": "Yes",
         "no": "No",
         "player_label": "Player:",
         "settings_label": "Settings:",
         "settings_format": "{} positions, {} colors, {} attempts",
-        "invalid_configuration": "Invalid configuration. Please check your input values.",
+        "invalid_configuration": "Invalid configuration. "
+        "Please check your input values.",
         "game_won": "Congratulations! You've won the game!",
-        "game_lost": f"Game Over! You've reached the maximum number of attempts.",
+        "game_lost": "Game Over! You've reached the maximum number of attempts.",
         "menu_hint": "Type 'menu' to open the game menu",
     },
     "de": {
@@ -87,7 +89,9 @@ translations = {
         "game_started": "Spiel gestartet.",
         "available_colors": "Verfügbare Farben und ihre Codes:",
         "give_feedback": "Gib Feedback für den Tipp:",
-        "feedback_instructions": "8: Schwarz (richtige Farbe an richtiger Position)\n7: Weiß (richtige Farbe an falscher Position)\nGib Feedback ein (z.B. 887 für zwei Schwarz, ein Weiß):",
+        "feedback_instructions": "8: Schwarz (richtige Farbe an richtiger Position)"
+        "\n7: Weiß (richtige Farbe an falscher Position)"
+        "\nGib Feedback ein (z.B. 887 für zwei Schwarz, ein Weiß):",
         "secret_code": "Geheimer Code",
         "game_title": "Super Superhirn",
         "round": "Runde",
@@ -112,15 +116,18 @@ translations = {
         "enter_positions": "Geben Sie die Anzahl der Positionen ein: ",
         "enter_colors": "Geben Sie die Anzahl der Farben ein: ",
         "enter_max_attempts": "Geben Sie die maximale Anzahl an Versuchen ein: ",
-        "save_warning": "Warnung! Ein gespeichertes Spiel existiert bereits und wird überschrieben. Fortfahren?",
+        "save_warning": "Warnung! Ein gespeichertes Spiel existiert bereits "
+        "und wird überschrieben. Fortfahren?",
         "yes": "Ja",
         "no": "Nein",
         "player_label": "Spieler:",
         "settings_label": "Einstellungen:",
         "settings_format": "{} Positionen, {} Farben, {} Versuche",
-        "invalid_configuration": "Ungültige Konfiguration. Bitte überprüfen Sie Ihre Eingaben",
+        "invalid_configuration": "Ungültige Konfiguration."
+        " Bitte überprüfen Sie Ihre Eingaben",
         "game_won": "Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!",
-        "game_lost": "Spiel vorbei! Sie haben die maximale Anzahl an Versuchen erreicht.",
+        "game_lost": "Spiel vorbei! "
+        "Sie haben die maximale Anzahl an Versuchen erreicht.",
         "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen",
     },
     "fr": {
@@ -149,7 +156,9 @@ translations = {
         "game_started": "Jeu démarré.",
         "available_colors": "Couleurs disponibles et leurs codes:",
         "give_feedback": "Donnez un retour pour la supposition:",
-        "feedback_instructions": "8: Noir (couleur correcte à la bonne position)\n7: Blanc (couleur correcte à la mauvaise position)\nEntrez le retour (par exemple 887 pour deux noirs, un blanc):",
+        "feedback_instructions": "8: Noir (couleur correcte à la bonne position)"
+        "\n7: Blanc (couleur correcte à la mauvaise position)"
+        "\nEntrez le retour (par exemple 887 pour deux noirs, un blanc):",
         "secret_code": "Code Secret",
         "game_title": "Super Super cerveau",
         "round": "Tour",
@@ -211,7 +220,9 @@ translations = {
         "game_started": "게임 시작됨.",
         "available_colors": "사용 가능한 색상 및 코드:",
         "give_feedback": "추측에 대한 피드백을 제공하세요:",
-        "feedback_instructions": "8: 검정 (올바른 위치에 올바른 색상)\n7: 흰색 (잘못된 위치에 올바른 색상)\n피드백 입력 (예: 두 개의 검정, 하나의 흰색을 위해 887 입력):",
+        "feedback_instructions": "8: 검정 (올바른 위치에 올바른 색상)"
+        "\n7: 흰색 (잘못된 위치에 올바른 색상)"
+        "\n피드백 입력 (예: 두 개의 검정, 하나의 흰색을 위해 887 입력):",
         "secret_code": "비밀 코드",
         "game_title": "슈퍼 슈퍼히른",
         "round": "라운드",
