@@ -634,5 +634,60 @@ class TestApplicationLogic(unittest.TestCase):
         self.game_logic.startgame("guesser")
         self.assertEqual(self.app_logic.get_colors(), 8)
 
+    def test_handle_guess_input_empty_list(self):
+        """Test handling of empty guess list."""
+        # Setup
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("guesser")
+
+        # Test empty guess list
+        with patch('src.application_logic.application_logic.ColorCode') as mock_color:
+            # Mock ColorCode to return [] when list comprehension runs
+            mock_color.side_effect = []
+
+            result = self.app_logic.handle_guess_input("1234")
+            self.assertEqual(result, "need_guess_input")
+
+    def test_process_game_action_invalid(self):
+        """Test process_game_action with invalid action."""
+        # Setup
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("guesser")
+
+        # Test invalid action
+        result = self.app_logic.process_game_action("invalid_action")
+        self.assertEqual(result, "error")
+
+        # Test None action
+        result = self.app_logic.process_game_action(None)
+        self.assertEqual(result, "error")
+
+        # Test empty action
+        result = self.app_logic.process_game_action("")
+        self.assertEqual(result, "error")
+
+    def test_handle_menu_action_fallback(self):
+        """Test handle_menu_action fallback to current game action."""
+        # Setup game state with player guesser
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("guesser")
+
+        # Mock get_current_game_action to return known value
+        self.app_logic.get_current_game_action = Mock(return_value="need_guess_input")
+
+        # Test that unhandled action falls back to current game action
+        result = self.app_logic.handle_menu_action("5")  # Invalid choice
+        self.assertEqual(result, "need_guess_input")
+
+        # Test action when no special actions are available
+        # Setup computer guesser state so save_game/load_game aren't available
+        self.game_logic.startgame("coder")
+        self.game_logic.set_secret_code([ColorCode(1)] * 4)
+
+        # Test that menu option 3 falls back to current game action
+        # when load_game isn't available
+        result = self.app_logic.handle_menu_action("3")
+        self.assertEqual(result, "need_guess_input")
+
 if __name__ == "__main__":
     unittest.main()
