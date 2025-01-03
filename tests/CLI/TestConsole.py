@@ -2,14 +2,14 @@ import unittest
 from unittest.mock import patch, MagicMock
 from io import StringIO
 from src.cli.console import Console
-from src.business_logic.i_business_logic import IBusinessLogic
+from src.application_logic.i_application_logic import IApplicationLogic
 
 
 class TestConsole(unittest.TestCase):
 
     def setUp(self):
         """Set up the test environment."""
-        self.mock_business_logic = MagicMock(spec=IBusinessLogic)
+        self.mock_business_logic = MagicMock(spec=IApplicationLogic)
         self.console = Console(self.mock_business_logic)
 
     @patch(

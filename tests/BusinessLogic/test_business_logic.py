@@ -1,24 +1,24 @@
 import unittest
+from src.application_logic.application_logic import ApplicationLogic
 from src.business_logic.business_logic import BusinessLogic
-from src.game_logic.game_logic import GameLogic
 from src.util.color_code import ColorCode
 
 
 class TestBusinessLogic(unittest.TestCase):
-    """Test suite for the business_logic class.
+    """Test suite for the application_logic class.
 
-    This test suite verifies the functionality of the business_logic class,
+    This test suite verifies the functionality of the application_logic class,
     which handles input validation and conversion between the UI and game logic layers.
     """
 
     def setUp(self):
         """Set up test fixtures before each test method.
 
-        Creates a new business_logic instance with a game_logic dependency
+        Creates a new application_logic instance with a business_logic dependency
         for testing input handling and validation.
         """
-        self.game_logic = GameLogic()
-        self.business_logic = BusinessLogic(self.game_logic)
+        self.game_logic = BusinessLogic()
+        self.business_logic = ApplicationLogic(self.game_logic)
 
     def test_is_valid_code(self):
         """Test code validation.

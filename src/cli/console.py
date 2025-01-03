@@ -5,7 +5,7 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-from src.business_logic.i_business_logic import IBusinessLogic
+from src.application_logic.i_application_logic import IApplicationLogic
 from src.cli.game_renderer.game_renderer import GameRenderer
 from src.cli.input_handler.input_handler import InputHandler
 from src.cli.menu_renderer.menu_renderer import MenuRenderer
@@ -25,7 +25,7 @@ class Console:
         is_game_active: Flag indicating if game is running
     """
 
-    def __init__(self: "Console", business_logic: IBusinessLogic) -> None:
+    def __init__(self: "Console", business_logic: IApplicationLogic) -> None:
         """Initialize console interface.
 
         Args:

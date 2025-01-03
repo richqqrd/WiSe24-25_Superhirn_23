@@ -2,9 +2,9 @@ import unittest
 import os
 import pickle
 
-from src.game_logic.game_turn import GameTurn
+from src.business_logic.game_turn import GameTurn
 from src.persistence.persistence_manager import PersistenceManager
-from src.game_logic.game_state import GameState
+from src.business_logic.game_state import GameState
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

@@ -2,7 +2,7 @@ import time
 import unittest
 from itertools import product
 
-from src.game_logic.guesser.computer_guesser import ComputerGuesser
+from src.business_logic.guesser.computer_guesser import ComputerGuesser
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

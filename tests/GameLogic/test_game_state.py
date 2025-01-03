@@ -1,9 +1,9 @@
 import unittest
-from src.game_logic.game_state import GameState
-from src.game_logic.game_turn import GameTurn
+from src.business_logic.game_state import GameState
+from src.business_logic.game_turn import GameTurn
 from src.util.color_code import ColorCode
-from src.game_logic.guesser.player_guesser import PlayerGuesser
-from src.game_logic.guesser.computer_guesser import ComputerGuesser
+from src.business_logic.guesser.player_guesser import PlayerGuesser
+from src.business_logic.guesser.computer_guesser import ComputerGuesser
 
 
 class test_game_state(unittest.TestCase):

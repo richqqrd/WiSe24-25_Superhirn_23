@@ -1,5 +1,5 @@
 import unittest
-from src.game_logic.coder.computer_coder import ComputerCoder
+from src.business_logic.coder.computer_coder import ComputerCoder
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

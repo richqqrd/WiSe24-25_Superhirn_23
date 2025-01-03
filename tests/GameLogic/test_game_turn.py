@@ -1,6 +1,6 @@
-# tests/game_logic/test_game_turn.py
+# tests/business_logic/test_game_turn.py
 import unittest
-from src.game_logic.game_turn import GameTurn
+from src.business_logic.game_turn import GameTurn
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

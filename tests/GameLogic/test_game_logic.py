@@ -1,12 +1,12 @@
 import unittest
-from src.game_logic.game_logic import GameLogic
+from src.business_logic.business_logic import BusinessLogic
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
-from src.game_logic.game_turn import GameTurn
+from src.business_logic.game_turn import GameTurn
 
 
 class test_game_logic(unittest.TestCase):
-    """Test suite for the game_logic class.
+    """Test suite for the business_logic class.
 
     This class tests the core game logic functionality including game initialization,
     making guesses, handling feedback, and determining game end conditions.
@@ -15,10 +15,10 @@ class test_game_logic(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures before each test method.
 
-        Initializes a fresh game_logic instance and necessary mock objects
+        Initializes a fresh business_logic instance and necessary mock objects
         for testing game state transitions.
         """
-        self.game_logic = GameLogic()
+        self.game_logic = BusinessLogic()
 
     def test_startgame_as_guesser(self):
         """Test game initialization when player is guesser.

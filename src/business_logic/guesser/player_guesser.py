@@ -2,7 +2,7 @@
 
 from typing import List
 
-from src.game_logic.guesser.i_guesser import IGuesser
+from src.business_logic.guesser.i_guesser import IGuesser
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

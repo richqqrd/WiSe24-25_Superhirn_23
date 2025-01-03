@@ -1,8 +1,8 @@
 """Module for managing game state."""
 
 from typing import List
-from src.game_logic.game_turn import GameTurn
-from src.game_logic.guesser.i_guesser import IGuesser
+from src.business_logic.game_turn import GameTurn
+from src.business_logic.guesser.i_guesser import IGuesser
 from src.util.color_code import ColorCode
 
 

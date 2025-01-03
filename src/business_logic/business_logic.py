@@ -1,327 +1,256 @@
-"""Business logic module for game flow control."""
+"""Module for core business logic implementation."""
 
-import os
+from typing import List
+from src.business_logic.coder.computer_coder import ComputerCoder
+from src.business_logic.coder.player_coder import PlayerCoder
+from src.business_logic.game_state import GameState
+from src.business_logic.game_turn import GameTurn
+from src.business_logic.guesser.computer_guesser import ComputerGuesser
+from src.business_logic.guesser.player_guesser import PlayerGuesser
 from src.business_logic.i_business_logic import IBusinessLogic
-from src.game_logic.i_game_logic import IGameLogic
+from src.network.network_service import NetworkService
+from src.persistence.i_persistence_manager import IPersistenceManager
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
-from src.game_logic.guesser.player_guesser import PlayerGuesser
 
 
 class BusinessLogic(IBusinessLogic):
-    """Business logic implementation controlling game flow.
+    """Core game business implementation.
 
-    This class coordinates between UI and game logic layers, handling:
-        - Command interpretation
-        - Input validation
-        - Game configuration
-        - State transitions
+    This class implements the game mechanics including:
+        - Game state management
+        - Player/Computer moves
+        - Win/loss conditions
+        - network gameplay
+        - Game persistence
 
     Attributes:
-        game_logic: Core game logic implementation
-        commands: Dictionary mapping menu commands to handler functions
+        player_guesser: Player instance for guessing role
+        player_coder: Player instance for coding role
+        computer_guesser: Computer instance for guessing role
+        computer_coder: Computer instance for coding role
+        network_service: Service for online gameplay
+        game_state: Current state of the game
+        max_round: Maximum number of rounds allowed
+        player_name: Name of the player
+        colors: Number of available colors
+        positions: Number of positions in the code
+        persistence_manager: Manager for saving/loading games
     """
 
-    def __init__(self: "business_logic", game_logic: IGameLogic) -> None:
-        """Initialize business logic with game logic dependency.
+    def __init__(self: "BusinessLogic", persistence_manager: IPersistenceManager) -> None:
+        """Initialize business_logic with persistence manager.
 
         Args:
-            game_logic: Core game logic implementation
+            persistence_manager: Manager for saving/loading game states
         """
-        self.game_logic = game_logic
-        self.commands = {
-            "1": lambda: "choose_mode",
-            "2": lambda: "choose_language",
-            "3": lambda: "resume_game",
-            "4": lambda: "end_game",
-        }
+        self.player_guesser = PlayerGuesser()
+        self.player_coder = PlayerCoder()
+        self.computer_guesser = None
+        self.computer_coder = None
+        self.network_service = None
+        self.game_state = None
+        self.max_round = 12
+        self.player_name = "player1"
+        self.colors = 8
+        self.positions = 5
+        self.persistence_manager = persistence_manager
 
-    def handle_game_configuration(
-        self: "business_logic",
-        player_name: str,
-        positions: str,
-        colors: str,
-        max_attempts: str,
-    ) -> str:
-        if not player_name or len(player_name.strip()) == 0:
-            return "invalid_configuration"
+    def startgame(self: "BusinessLogic", role: str) -> str:
+        if role == "guesser":
+            return self.start_as_guesser()
+        elif role == "coder":
+            return self.start_as_coder()
+        elif role == "online_guesser":
+            return "need_server_connection"
+        return "invalid_role"
 
-        try:
-            pos = int(positions)
-            col = int(colors)
-            att = int(max_attempts)
+    def make_guess(self: "BusinessLogic", guess_list: List[ColorCode]) -> str:
+        self.player_guesser.set_guess(guess_list)
+        guess = self.player_guesser.make_guess()
+        turn = GameTurn(guess_list, [])
+        self.game_state.add_turn(turn)
 
-            if not (1 <= pos <= 9):
-                return "invalid_configuration"
-            if not (1 <= col <= 8):
-                return "invalid_configuration"
-            if att < 0:
-                return "invalid_configuration"
-
-            return self.game_logic.configure_game(player_name, pos, col, att)
-        except ValueError:
-            return "invalid_configuration"
-
-    def _is_valid_feedback(self: "business_logic", feedback: str) -> bool:
-        """Validate feedback string format.
-
-        Args:
-            feedback: Feedback string to validate
-
-        Returns:
-            bool: True if feedback format is valid
-        """
-        try:
-            if feedback is None or len(feedback) > 5:
-                return False
-            if feedback == "" or all(c in "78" for c in feedback):
-                return True
-            return False
-        except Exception:
-            return False
-
-    def handle_feedback_input(self: "business_logic", feedback: str) -> str:
-        if not self._is_valid_feedback(feedback):
-            return "need_feedback_input"
-        try:
+        if self.network_service:
+            guess_str = "".join(str(color.value) for color in guess_list)
+            feedback_str = self.network_service.make_move(guess_str)
+            if feedback_str is None:
+                return "error"
             feedback_list = [
                 FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE
-                for c in feedback
+                for c in feedback_str
             ]
-            return self.game_logic.set_feedback(feedback_list)
-        except ValueError:
+            turn.feedback = feedback_list
+            return self.is_game_over(feedback_list)
+        else:
+            feedback = self.computer_coder.give_feedback(guess)
+            turn.feedback = feedback
+            return self.is_game_over(feedback)
+
+    def is_game_over(self: "BusinessLogic", feedback_list: List[FeedbackColorCode]) -> str:
+        if len(feedback_list) == self.positions and all(
+            [f == FeedbackColorCode.BLACK for f in feedback_list]
+        ):
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                return "game_won"
+            else:
+                return "game_lost"
+
+        if len(self.game_state.get_turns()) >= self.max_round:
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                return "game_lost"
+            else:
+                return "game_won"
+
+        if isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return "need_guess_input"
+        else:
+            return "wait_for_computer_guess"
+
+    def set_feedback(self: "BusinessLogic", feedback_list: List[FeedbackColorCode]) -> str:
+        try:
+            current_turn = self.game_state.get_turns()[-1]
+            current_turn.feedback = feedback_list
+
+            if isinstance(self.game_state.current_guesser, ComputerGuesser):
+                self.game_state.current_guesser.process_feedback(feedback_list)
+
+            return self.is_game_over(feedback_list)
+        except (IndexError, ValueError):
             return "need_feedback_input"
 
-    def get_game_state(self: "business_logic"):
-        return self.game_logic.get_game_state()
-
-    def handle_computer_guess(self: "business_logic") -> str:
-        return self.game_logic.make_computer_guess()
-
-    def _is_valid_code(self: "business_logic", code: str) -> bool:
-        """Validate if a code string meets game requirements.
-
-        Checks if:
-        - Code is not empty
-        - Code length matches required positions
-        - All digits are within valid color range
-
-        Args:
-            code: The code string to validate
-
-        Returns:
-            bool: True if code is valid, False otherwise
-        """
-        if not code or len(code) != self.game_logic.positions:
-            return False
+    def set_secret_code(self: "BusinessLogic", code_list: List[ColorCode]) -> str:
         try:
-            return all(1 <= int(c) <= self.game_logic.colors for c in code)
+            self.game_state = GameState(
+                code_list,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.computer_guesser,
+            )
+            return "wait_for_computer_guess"
         except ValueError:
-            return False
+            return "need_code_input"
 
-    def _convert_to_color_code(self: "business_logic", number: int) -> ColorCode:
-        """Convert a number to its corresponding ColorCode enum value.
+    def make_computer_guess(self: "BusinessLogic") -> str:
+        try:
+            guess = self.computer_guesser.make_guess()
+            turn = GameTurn(guess, [])
+            self.game_state.add_turn(turn)
+            return "need_feedback_input"
+        except ValueError as e:
+            if str(e) == "CHEATING_DETECTED":
+                return "cheating_detected"
+            return "error"
 
-        Args:
-            number: Integer value (1-8) to convert to ColorCode
+    def get_game_state(self: "BusinessLogic") -> GameState:
+        return self.game_state
+
+    def save_game_state(self: "BusinessLogic") -> str:
+        self.persistence_manager.save_game_state(self.game_state)
+        return "game_saved"
+
+    def load_game_state(self: "BusinessLogic") -> str:
+        self.game_state = self.persistence_manager.load_game_state()
+
+        self.computer_coder = ComputerCoder(
+            self.game_state.positions, self.game_state.colors
+        )
+        self.computer_guesser = ComputerGuesser(
+            self.game_state.positions, self.game_state.colors
+        )
+
+        self.computer_coder.secret_code = self.game_state.secret_code
+
+        for turn in self.game_state.get_turns():
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                # Player is guesser, recalculate computer feedback
+                feedback = self.computer_coder.give_feedback(turn.guesses)
+                turn.feedback = feedback
+            else:
+                # Computer is guesser, replay computer guesses and feedback
+                self.computer_guesser.last_guess = turn.guesses
+                if turn.feedback:
+                    self.computer_guesser.process_feedback(turn.feedback)
+
+        return "game_loaded"
+
+    def configure_game(
+        self: "BusinessLogic",
+        player_name: str,
+        positions: int,
+        colors: int,
+        max_attempts: int,
+    ) -> None:
+        self.player_name = player_name
+        self.positions = positions
+        self.colors = colors
+        self.max_round = max_attempts
+        self.computer_guesser = ComputerGuesser(positions, colors)
+        self.computer_coder = ComputerCoder(positions, colors)
+
+    def has_saved_game(self: "BusinessLogic") -> bool:
+        """Check if saved game exists through persistence layer"""
+        return self.persistence_manager.has_saved_game()
+
+    def start_as_coder(self: "BusinessLogic") -> str:
+        """Start a new game with player as code maker.
+
+        Private helper method called by startgame().
 
         Returns:
-            ColorCode: Corresponding ColorCode enum value
+            str: "need_code_input" to request secret code from player
+        """
+        return "need_code_input"
+
+    def start_as_guesser(self: "BusinessLogic") -> str:
+        """Start a new game with player as code guesser.
+
+        Private helper method called by startgame().
+        Creates new game state with computer generated secret code.
+
+        Returns:
+            str: "need_guess_input" to request first guess from player
 
         Raises:
-            ValueError: If no ColorCode exists for the given number
-
-        Examples:
-            1 -> ColorCode.RED
-            2 -> ColorCode.GREEN
-            etc.
+            ValueError: If game configuration is invalid
         """
-        for color in ColorCode:
-            if color.value == number:
-                return color
-        raise ValueError(f"No ColorCode found for number {number}")
-
-    def handle_code_input(self: "business_logic", code_input: str) -> str:
-        if not self._is_valid_code(code_input):
-            return "need_code_input"
         try:
-            code_list = [self._convert_to_color_code(int(c)) for c in code_input]
-            return self.game_logic.set_secret_code(code_list)
-        except ValueError:
-            return "need_code_input"
-
-    def handle_guess_input(self: "business_logic", guess_input: str) -> str:
-        if not self._is_valid_code(guess_input):
+            secret_code = self.computer_coder.generate_code()
+            self.game_state = GameState(
+                secret_code,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
+            )
             return "need_guess_input"
-        try:
-            guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
-            if not guess_list:
-                return "need_guess_input"
-            return self.game_logic.make_guess(guess_list)
         except ValueError:
             return "need_guess_input"
 
-    def handle(self: "business_logic", command: str) -> str:
-        action = self.commands.get(command)
-        if action:
-            return action()
-        else:
-            return "Invalid command."
-
-    def handle_server_connection(self: "business_logic", ip: str, port: int) -> str:
-        return self.game_logic.start_as_online_guesser(ip, port)
-
-    def change_language(self: "business_logic") -> str:
-        return "choose_language"
-
-    def end_game(self: "business_logic") -> str:
-        return "end_game"
-
-    def save_game(self: "business_logic") -> str:
-        self.game_logic.save_game_state()
-        return self.get_current_game_action()
-
-    def load_game(self: "business_logic") -> str:
-        try:
-            self.game_logic.load_game_state()
-            return self.get_current_game_action()
-        except FileNotFoundError:
-            return "error"
-
-    def process_game_action(
-        self: "business_logic", action: str, user_input: str = None
+    def start_as_online_guesser(
+        self: "BusinessLogic", server_ip: str, server_port: int
     ) -> str:
-        if action == "need_guess_input":
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_guess_input(user_input)
+        """Start game as online guesser.
 
-        elif action == "need_code_input":
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_code_input(user_input)
+        Args:
+            server_ip: IP address of the game server
+            server_port: Port number of the game server
 
-        elif action == "need_feedback_input":
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_feedback_input(user_input)
-
-        elif action == "wait_for_computer_guess":
-            return self.handle_computer_guess()
-
-        elif action == "need_server_connection":
-            if user_input == "menu":
-                return "show_menu"
-            ip, port = user_input.split(":")
-            return self.handle_server_connection(ip, int(port))
-
+        Returns:
+            str: "need_server_connection" if successful, "error" otherwise
+        """
+        self.network_service = NetworkService(server_ip, server_port)
+        if self.network_service.start_game(self.player_name):
+            self.game_state = GameState(
+                None,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
+            )
+            return "need_server_connection"
         return "error"
-
-    def handle_menu_action(self: "business_logic", menu_choice: str) -> str:
-        available_actions = self.get_available_menu_actions()
-
-        menu_map = {
-            "1": (
-                "save_game" if "save_game" in available_actions else "change_language"
-            ),
-            "2": "change_language" if "save_game" in available_actions else "end_game",
-            "3": "load_game" if "load_game" in available_actions else None,
-            "4": "end_game" if "save_game" in available_actions else None,
-        }
-
-        action = menu_map.get(menu_choice)
-        if not action:
-            return self.get_current_game_action()
-
-        if action == "save_game":
-            if self.game_logic.has_saved_game():
-                return "confirm_save"
-            self.game_logic.save_game_state()
-            return "save_game"
-        elif action == "load_game":
-            return self.load_game()
-        elif action == "change_language":
-            return "choose_language"
-        elif action == "end_game":
-            return "end_game"
-
-        return self.get_current_game_action()
-
-    def get_required_action(self: "business_logic", game_mode: str) -> str:
-        if game_mode not in ["1", "2", "3", "4"]:
-            return "invalid_mode"
-
-        if game_mode == "4":
-            return "back_to_menu"
-
-        return "need_configuration"
-
-    def configure_game(self: "business_logic", game_mode: str, config: dict) -> str:
-        config_result = self.handle_game_configuration(
-            config["player_name"],
-            config["positions"],
-            config["colors"],
-            config["max_attempts"],
-        )
-
-        if config_result == "invalid_configuration":
-            return config_result
-
-        if game_mode == "1":
-            return self.game_logic.startgame("guesser")
-
-        elif game_mode == "2":
-            return self.game_logic.startgame("coder")
-
-        elif game_mode == "3":
-            return self.game_logic.startgame("online_guesser")
-
-        return "invalid_mode"
-
-    def can_start_game(self: "business_logic", next_action: str) -> bool:
-        return next_action not in [
-            "invalid_mode",
-            "invalid_configuration",
-            "back_to_menu",
-        ]
-
-    def is_game_over(self: "business_logic", action: str) -> bool:
-        return action in ["game_won", "game_lost", "error", "cheating_detected"]
-
-    def get_current_game_action(self: "business_logic") -> str:
-        game_state = self.game_logic.get_game_state()
-        if isinstance(game_state.current_guesser, PlayerGuesser):
-            return "need_guess_input"
-        else:
-            return "need_feedback_input"
-
-    def get_available_menu_actions(self: "business_logic") -> list[str]:
-        is_guesser = isinstance(
-            self.game_logic.game_state.current_guesser, PlayerGuesser
-        )
-
-        actions = ["change_language", "end_game"]
-
-        if is_guesser:
-            actions.extend(["save_game", "load_game"])
-
-        return actions
-
-    def confirm_save_game(self: "business_logic") -> str:
-        try:
-            self.game_logic.save_game_state()
-            return "save_game"
-        except:
-            return "error"
-
-    def get_positions(self: "business_logic") -> int:
-        game_state = self.game_logic.get_game_state()
-        if game_state:
-            return game_state.positions
-        return self.game_logic.positions
-
-    def get_colors(self: "business_logic") -> int:
-        game_state = self.game_logic.get_game_state()
-        if game_state:
-            return game_state.colors
-        return self.game_logic.colors
