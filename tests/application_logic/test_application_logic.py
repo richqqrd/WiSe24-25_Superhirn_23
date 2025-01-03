@@ -1,91 +1,125 @@
+"""Test module for ApplicationLogic."""
 import unittest
+from unittest.mock import Mock
 from src.application_logic.application_logic import ApplicationLogic
 from src.business_logic.business_logic import BusinessLogic
+from src.business_logic.game_turn import GameTurn
 from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
+from src.persistence.i_persistence_manager import IPersistenceManager
 
 
 class TestApplicationLogic(unittest.TestCase):
-    """Test suite for the application_logic class.
-
-    This test suite verifies the functionality of the application_logic class,
-    which handles input validation and conversion between the UI and game logic layers.
-    """
+    """Test suite for the ApplicationLogic class."""
 
     def setUp(self):
-        """Set up test fixtures before each test method.
-
-        Creates a new application_logic instance with a business_logic dependency
-        for testing input handling and validation.
-        """
-        self.game_logic = BusinessLogic()
-        self.business_logic = ApplicationLogic(self.game_logic)
+        """Set up test fixtures before each test method."""
+        # Mock the persistence manager
+        mock_persistence_manager = Mock(spec=IPersistenceManager)
+        self.game_logic = BusinessLogic(mock_persistence_manager)
+        self.app_logic = ApplicationLogic(self.game_logic)
+        self.game_logic.positions = 4
+        self.game_logic.colors = 6
 
     def test_is_valid_code(self):
-        """Test code validation.
-
-        Verifies that the code validation correctly identifies valid
-        and invalid color code inputs.
-        """
+        """Test code validation."""
         # Valid cases
-        self.assertTrue(self.business_logic._is_valid_code("12345"))
-        self.assertTrue(self.business_logic._is_valid_code("87654"))
+        self.assertTrue(self.app_logic._is_valid_code("1234"))
+        self.assertTrue(self.app_logic._is_valid_code("6543"))
 
         # Invalid cases
-        self.assertFalse(self.business_logic._is_valid_code("123"))  # Too short
-        self.assertFalse(self.business_logic._is_valid_code("123456"))  # Too long
-        self.assertFalse(
-            self.business_logic._is_valid_code("1234A")
-        )  # Invalid character
-        self.assertFalse(self.business_logic._is_valid_code(""))  # Empty string
+        self.assertFalse(self.app_logic._is_valid_code("123"))  # Too short
+        self.assertFalse(self.app_logic._is_valid_code("12345"))  # Too long
+        self.assertFalse(self.app_logic._is_valid_code("123A"))  # Invalid char
+        self.assertFalse(self.app_logic._is_valid_code(""))  # Empty
+        self.assertFalse(self.app_logic._is_valid_code("0123"))  # Invalid number
+        self.assertFalse(self.app_logic._is_valid_code("7890"))  # Out of range
 
     def test_is_valid_feedback(self):
-        """Test feedback validation.
-
-        Verifies that the feedback validation correctly identifies valid
-        and invalid feedback inputs.
-        """
+        """Test feedback validation."""
         # Valid cases
-        self.assertTrue(self.business_logic._is_valid_feedback("78"))
-        self.assertTrue(self.business_logic._is_valid_feedback(""))
+        self.assertTrue(self.app_logic._is_valid_feedback("78"))
+        self.assertTrue(self.app_logic._is_valid_feedback("8877"))
+        self.assertTrue(self.app_logic._is_valid_feedback(""))
 
         # Invalid cases
-        self.assertFalse(
-            self.business_logic._is_valid_feedback("123")
-        )  # Invalid characters
-        self.assertFalse(self.business_logic._is_valid_feedback("778888"))  # Too long
-        self.assertFalse(self.business_logic._is_valid_feedback(None))  # None input
+        self.assertFalse(self.app_logic._is_valid_feedback("789"))  # Invalid number
+        self.assertFalse(self.app_logic._is_valid_feedback("12"))  # Invalid feedback
+        self.assertFalse(self.app_logic._is_valid_feedback("A8"))  # Invalid char
 
     def test_convert_to_color_code(self):
-        """Test color code conversion.
+        """Test color code conversion."""
+        # Single valid conversion
+        self.assertEqual(self.app_logic._convert_to_color_code(1), ColorCode.RED)
+        self.assertEqual(self.app_logic._convert_to_color_code(2), ColorCode.GREEN)
+        self.assertEqual(self.app_logic._convert_to_color_code(4), ColorCode.BLUE)
 
-        Verifies that numeric inputs are correctly converted to ColorCode
-        enum values and invalid inputs raise appropriate exceptions.
-        """
-        # Valid conversions
-        self.assertEqual(self.business_logic._convert_to_color_code(1), ColorCode(1))
-        self.assertEqual(self.business_logic._convert_to_color_code(8), ColorCode(8))
-
-        # Invalid conversion
+        # Invalid input raises ValueError
         with self.assertRaises(ValueError):
-            self.business_logic._convert_to_color_code(9)  # Out of range
+            self.app_logic._convert_to_color_code(9)  # Out of range
+
+    def test_handle_code_input(self):
+        """Test code input handling."""
+        # Valid input
+        self.assertEqual(self.app_logic.handle_code_input("1234"), "wait_for_computer_guess")
+
+        # Invalid input
+        self.assertEqual(self.app_logic.handle_code_input("123"), "need_code_input")
+        self.assertEqual(self.app_logic.handle_code_input("ABCD"), "need_code_input")
+        self.assertEqual(self.app_logic.handle_code_input(""), "need_code_input")
 
     def test_handle_feedback_input(self):
-        """Test feedback input handling.
+        """Test feedback input handling."""
+        # Initialize game state first with proper configuration
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("coder")  # Start game as coder
 
-        Verifies that feedback input is properly validated and converted
-        before being passed to the game logic.
-        """
-        # Setup game state
+        # Set a secret code first since we're in coder mode
+        secret_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)]
+        self.game_logic.set_secret_code(secret_code)
+
+        # Make computer guess to create a turn
+        self.game_logic.make_computer_guess()
+
+        # Now test feedback handling
+        # Valid input
+        result = self.app_logic.handle_feedback_input("88")
+        self.assertEqual(result, "wait_for_computer_guess")
+
+        # Invalid input
+        self.assertEqual(self.app_logic.handle_feedback_input("89"), "need_feedback_input")
+        self.assertEqual(self.app_logic.handle_feedback_input("ABC"), "need_feedback_input")
+
+    def test_handle_guess_input(self):
+        """Test guess input handling."""
+        # Configure game first
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+
+        # Then start game
         self.game_logic.startgame("guesser")
-        self.game_logic.make_guess([ColorCode(1) for _ in range(5)])
 
-        # Valid feedback
-        result = self.business_logic.handle_feedback_input("88")
+        # Valid guess
+        result = self.app_logic.handle_guess_input("1234")
         self.assertIn(result, ["need_guess_input", "game_over"])
 
-        # Invalid feedback
-        result = self.business_logic.handle_feedback_input("99")
-        self.assertEqual(result, "need_feedback_input")
+        # Invalid guess
+        result = self.app_logic.handle_guess_input("invalid")
+        self.assertEqual(result, "need_guess_input")
+
+    def test_handle_feedback_input_conversion(self):
+        """Test feedback string to enum conversion in handle_feedback_input."""
+        # Setup game state first
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("coder")
+        self.game_logic.set_secret_code([ColorCode(1)] * 4)
+        self.game_logic.make_computer_guess()
+
+        # Test conversion through handle_feedback_input
+        result = self.app_logic.handle_feedback_input("78")
+        self.assertNotEqual(result, "need_feedback_input")  # Valid conversion
+
+        result = self.app_logic.handle_feedback_input("12")
+        self.assertEqual(result, "need_feedback_input")  # Invalid conversion
 
 
 if __name__ == "__main__":
