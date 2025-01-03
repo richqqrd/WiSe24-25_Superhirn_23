@@ -1,0 +1,10 @@
+[run]
+omit = 
+    */i_*.py
+    */__init__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    @abstract
+    @abstractmethod
