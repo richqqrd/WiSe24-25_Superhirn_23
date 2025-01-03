@@ -72,7 +72,9 @@ class ApplicationLogic(IApplicationLogic):
             bool: True if feedback format is valid
         """
         try:
-            if feedback is None or len(feedback) > 5:
+            if feedback is None:
+                return False
+            if len(feedback) > self.game_logic.positions:
                 return False
             if feedback == "" or all(c in "78" for c in feedback):
                 return True
