@@ -3,7 +3,7 @@
 import logging
 from typing import Optional
 
-from src.network.http_handler import HTTPHandler
+from src.network.http_handler import HttpHandler
 from src.network.i_network_service import INetworkService
 
 
@@ -28,7 +28,7 @@ class NetworkService(INetworkService):
             server_ip: The IP address of the game server
             server_port: The port number of the game server
         """
-        self.http_handler = HTTPHandler(server_ip, server_port)
+        self.http_handler = HttpHandler(server_ip, server_port)
         self.current_game_id: Optional[int] = None
         self.current_player_id: Optional[str] = None
         self.positions: int = 5

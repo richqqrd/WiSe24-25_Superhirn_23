@@ -63,6 +63,9 @@ class JsonValidator:
             ValidationError: If data does not match schema
         """
         try:
+            # First check if data is a dictionary
+            if not isinstance(data, dict):
+                return False
 
             if not isinstance(data.get("gameid"), int):
                 return False
