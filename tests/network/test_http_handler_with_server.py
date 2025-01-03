@@ -4,7 +4,7 @@ from http.server import HTTPServer
 
 import requests
 from src.network.http_handler import HTTPHandler
-from tests.Network.server_mock import MockServerRequestHandler
+from tests.network.server_mock import MockServerRequestHandler
 
 
 class TestHTTPHandlerWithServer(unittest.TestCase):
