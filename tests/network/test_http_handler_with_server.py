@@ -3,7 +3,7 @@ import unittest
 from http.server import HTTPServer
 
 import requests
-from src.network.http_handler import HTTPHandler
+from src.network.http_handler import HttpHandler
 from tests.network.server_mock import MockServerRequestHandler
 
 
@@ -21,7 +21,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         cls.server_thread.daemon = True
         cls.server_thread.start()
 
-        cls.handler = HTTPHandler("localhost", cls.server_port)
+        cls.handler = HttpHandler("localhost", cls.server_port)
 
     @classmethod
     def tearDownClass(cls):
