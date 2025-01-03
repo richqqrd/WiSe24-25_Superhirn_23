@@ -9,7 +9,7 @@ from src.game_logic.game_state import GameState
 from src.game_logic.game_turn import GameTurn
 from src.game_logic.guesser.computer_guesser import ComputerGuesser
 from src.game_logic.guesser.player_guesser import PlayerGuesser
-from src.game_logic.i_game_logic import IGameLogic
+from src.business_logic.i_business_logic import IGameLogic
 from src.Network.network_service import NetworkService
 from src.Persistence.i_persistence_manager import IPersistenceManager
 from src.util.color_code import ColorCode

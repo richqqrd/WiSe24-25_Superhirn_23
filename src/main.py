@@ -9,10 +9,10 @@ The module follows a layered architecture pattern where:
 - game_logic handles core game mechanics
 """
 
-from CLI.console import Console
-from business_logic.business_logic import BusinessLogic
-from game_logic.game_logic import GameLogic
-from src.Persistence.persistence_manager import PersistenceManager
+from cli.console import Console
+from src.application_logic.application_logic import ApplicationLogic
+from src.business_logic.business_logic import BusinessLogic
+from src.persistence.persistence_manager import PersistenceManager
 
 
 def main() -> None:
@@ -27,9 +27,9 @@ def main() -> None:
     Then starts the main game loop through the Console.
     """
     persistence_manager = PersistenceManager()
-    game_logic = GameLogic(persistence_manager)
-    business_logic = BusinessLogic(game_logic)
-    ui = Console(business_logic)
+    business_logic = BusinessLogic(persistence_manager)
+    application_logic = ApplicationLogic(business_logic)
+    ui = Console(application_logic)
     ui.run()
 
 

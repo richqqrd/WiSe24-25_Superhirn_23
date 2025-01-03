@@ -38,7 +38,7 @@ class BusinessLogic(IBusinessLogic):
         persistence_manager: Manager for saving/loading games
     """
 
-    def __init__(self: "application_logic", persistence_manager: IPersistenceManager) -> None:
+    def __init__(self: "BusinessLogic", persistence_manager: IPersistenceManager) -> None:
         """Initialize business_logic with persistence manager.
 
         Args:
@@ -56,7 +56,7 @@ class BusinessLogic(IBusinessLogic):
         self.positions = 5
         self.persistence_manager = persistence_manager
 
-    def startgame(self: "application_logic", role: str) -> str:
+    def startgame(self: "BusinessLogic", role: str) -> str:
         if role == "guesser":
             return self.start_as_guesser()
         elif role == "coder":
@@ -65,7 +65,7 @@ class BusinessLogic(IBusinessLogic):
             return "need_server_connection"
         return "invalid_role"
 
-    def make_guess(self: "application_logic", guess_list: List[ColorCode]) -> str:
+    def make_guess(self: "BusinessLogic", guess_list: List[ColorCode]) -> str:
         self.player_guesser.set_guess(guess_list)
         guess = self.player_guesser.make_guess()
         turn = GameTurn(guess_list, [])
@@ -87,7 +87,7 @@ class BusinessLogic(IBusinessLogic):
             turn.feedback = feedback
             return self.is_game_over(feedback)
 
-    def is_game_over(self: "application_logic", feedback_list: List[FeedbackColorCode]) -> str:
+    def is_game_over(self: "BusinessLogic", feedback_list: List[FeedbackColorCode]) -> str:
         if len(feedback_list) == self.positions and all(
             [f == FeedbackColorCode.BLACK for f in feedback_list]
         ):
@@ -107,7 +107,7 @@ class BusinessLogic(IBusinessLogic):
         else:
             return "wait_for_computer_guess"
 
-    def set_feedback(self: "application_logic", feedback_list: List[FeedbackColorCode]) -> str:
+    def set_feedback(self: "BusinessLogic", feedback_list: List[FeedbackColorCode]) -> str:
         try:
             current_turn = self.game_state.get_turns()[-1]
             current_turn.feedback = feedback_list
@@ -119,7 +119,7 @@ class BusinessLogic(IBusinessLogic):
         except (IndexError, ValueError):
             return "need_feedback_input"
 
-    def set_secret_code(self: "application_logic", code_list: List[ColorCode]) -> str:
+    def set_secret_code(self: "BusinessLogic", code_list: List[ColorCode]) -> str:
         try:
             self.game_state = GameState(
                 code_list,
@@ -133,7 +133,7 @@ class BusinessLogic(IBusinessLogic):
         except ValueError:
             return "need_code_input"
 
-    def make_computer_guess(self: "application_logic") -> str:
+    def make_computer_guess(self: "BusinessLogic") -> str:
         try:
             guess = self.computer_guesser.make_guess()
             turn = GameTurn(guess, [])
@@ -144,14 +144,14 @@ class BusinessLogic(IBusinessLogic):
                 return "cheating_detected"
             return "error"
 
-    def get_game_state(self: "application_logic") -> GameState:
+    def get_game_state(self: "BusinessLogic") -> GameState:
         return self.game_state
 
-    def save_game_state(self: "application_logic") -> str:
+    def save_game_state(self: "BusinessLogic") -> str:
         self.persistence_manager.save_game_state(self.game_state)
         return "game_saved"
 
-    def load_game_state(self: "application_logic") -> str:
+    def load_game_state(self: "BusinessLogic") -> str:
         self.game_state = self.persistence_manager.load_game_state()
 
         self.computer_coder = ComputerCoder(
@@ -177,7 +177,7 @@ class BusinessLogic(IBusinessLogic):
         return "game_loaded"
 
     def configure_game(
-        self: "application_logic",
+        self: "BusinessLogic",
         player_name: str,
         positions: int,
         colors: int,
@@ -190,11 +190,11 @@ class BusinessLogic(IBusinessLogic):
         self.computer_guesser = ComputerGuesser(positions, colors)
         self.computer_coder = ComputerCoder(positions, colors)
 
-    def has_saved_game(self: "application_logic") -> bool:
+    def has_saved_game(self: "BusinessLogic") -> bool:
         """Check if saved game exists through persistence layer"""
         return self.persistence_manager.has_saved_game()
 
-    def start_as_coder(self: "application_logic") -> str:
+    def start_as_coder(self: "BusinessLogic") -> str:
         """Start a new game with player as code maker.
 
         Private helper method called by startgame().
@@ -204,7 +204,7 @@ class BusinessLogic(IBusinessLogic):
         """
         return "need_code_input"
 
-    def start_as_guesser(self: "application_logic") -> str:
+    def start_as_guesser(self: "BusinessLogic") -> str:
         """Start a new game with player as code guesser.
 
         Private helper method called by startgame().
@@ -231,7 +231,7 @@ class BusinessLogic(IBusinessLogic):
             return "need_guess_input"
 
     def start_as_online_guesser(
-        self: "application_logic", server_ip: str, server_port: int
+        self: "BusinessLogic", server_ip: str, server_port: int
     ) -> str:
         """Start game as online guesser.
 

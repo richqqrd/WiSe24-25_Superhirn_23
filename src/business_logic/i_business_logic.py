@@ -1,59 +1,61 @@
-"""Interface module for business logic layer."""
+"""Interface module for game logic layer."""
 
 from abc import ABC, abstractmethod
-
-from src.game_logic.game_state import GameState
+from typing import List
+from src.util.color_code import ColorCode
+from src.util.feedback_color_code import FeedbackColorCode
 
 
 class IBusinessLogic(ABC):
-    """Interface for business logic layer.
+    """Interface for game logic layer.
 
-    This interface defines the contract for business logic implementations,
-    coordinating game flow and rules between UI and game logic layers.
+    This interface defines the contract for the game logic implementation,
+    handling core game mechanics like:
+        - Game configuration
+        - Game state management
+        - Turn processing
+        - Move validation
+        - Win/loss conditions
     """
 
     @abstractmethod
-    def handle(self: "IBusinessLogic", command: str) -> str:
-        """Handle general command input.
-
-        Args:
-            command: User command to process
-
-        Returns:
-            str: Next action to take
-        """
-        pass
-
-    @abstractmethod
-    def handle_game_configuration(
+    def configure_game(
         self: "IBusinessLogic",
         player_name: str,
-        positions: str,
-        colors: str,
-        max_attempts: str,
-    ) -> str:
-        """Handle game configuration input validation.
+        positions: int,
+        colors: int,
+        max_attempts: int,
+    ) -> None:
+        """Configure the game with initial settings.
 
         Args:
             player_name: Name of the player
-            positions: Number of code positions
+            positions: Number of positions in the code
             colors: Number of available colors
-            max_attempts: Maximum allowed attempts
-
-        Returns:
-            str: Configuration result status
+            max_attempts: Maximum number of allowed attempts
         """
         pass
 
     @abstractmethod
-    def process_game_action(
-        self: "IBusinessLogic", action: str, user_input: str = None
-    ) -> str:
-        """Process game actions and determine next state.
+    def startgame(self: "IBusinessLogic", role: str) -> str:
+        """Start a new game with the given role.
 
         Args:
-            action: Current game action
-            user_input: Optional user input for the action
+            role: Player's role ('guesser', 'coder', or 'online_guesser')
+
+        Returns:
+            str: Next required action
+        """
+        pass
+
+    @abstractmethod
+    def set_feedback(
+        self: "IBusinessLogic", feedback_list: List[FeedbackColorCode]
+    ) -> str:
+        """Sets feedback for the current turn.
+
+        Args:
+            feedback_list: List of feedback pins
 
         Returns:
             str: Next game state
@@ -61,73 +63,8 @@ class IBusinessLogic(ABC):
         pass
 
     @abstractmethod
-    def handle_guess_input(self: "IBusinessLogic", guess_input: str) -> str:
-        """Handle and validate player guess input.
-
-        Args:
-            guess_input: Player's code guess
-
-        Returns:
-            str: Result of processing the guess
-        """
-        pass
-
-    @abstractmethod
-    def handle_feedback_input(self: "IBusinessLogic", feedback: str) -> str:
-        """Handle and validate feedback input.
-
-        Args:
-            feedback: Feedback for last guess
-
-        Returns:
-            str: Result of processing the feedback
-        """
-        pass
-
-    @abstractmethod
-    def handle_menu_action(self: "IBusinessLogic", menu_choice: str) -> str:
-        """Handle menu actions.
-
-        Args:
-            menu_choice: Menu action to process
-
-        Returns:
-            str: Result of processing the menu action
-        """
-        pass
-
-    @abstractmethod
-    def get_required_action(self: "IBusinessLogic", game_mode: str) -> str:
-        """Get the next required action for a game mode.
-
-        Args:
-            game_mode: Current game mode
-
-        Returns:
-            str: Next required action for the game mode
-        """
-        pass
-
-    @abstractmethod
-    def configure_game(self: "IBusinessLogic", game_mode: str, config: dict) -> str:
-        """Configure a new game with the given mode and settings.
-
-        Args:
-            game_mode: Type of game to configure ('guesser', 'coder', 'online')
-            config: Dictionary containing game configuration parameters:
-                - player_name: Name of the player
-                - positions: Number of code positions
-                - colors: Number of available colors
-                - max_attempts: Maximum allowed attempts
-
-        Returns:
-            str: Configuration result status
-        """
-        pass
-
-    @abstractmethod
-    def get_game_state(self: "IBusinessLogic") -> "GameState":
-        """Get the current game state.
+    def get_game_state(self: "IBusinessLogic") -> str:
+        """Returns current game state.
 
         Returns:
             GameState: Current state of the game
@@ -135,137 +72,73 @@ class IBusinessLogic(ABC):
         pass
 
     @abstractmethod
-    def get_positions(self: "IBusinessLogic") -> int:
-        """Get number of code positions.
+    def make_computer_guess(self: "IBusinessLogic") -> List[ColorCode]:
+        """Let computer make a guess.
 
         Returns:
-            int: Number of positions in the code
+            List[ColorCode]: Computer's guess
         """
         pass
 
     @abstractmethod
-    def get_colors(self: "IBusinessLogic") -> int:
-        """Get number of available colors.
+    def set_secret_code(self: "IBusinessLogic", code_list: List[ColorCode]) -> None:
+        """Set the secret code for the game.
 
-        Returns:
-            int: Number of available colors
+        Args:
+            code_list: List of color codes forming the secret code
         """
         pass
 
     @abstractmethod
-    def get_available_menu_actions(self: "IBusinessLogic") -> list:
-        """Get list of available menu actions.
+    def make_guess(self: "IBusinessLogic", guess_list: List[ColorCode]) -> str:
+        """Process a player's guess.
+
+        Args:
+            guess_list: List of color codes representing the guess
 
         Returns:
-            list: List of available menu actions
+            str: Result of the guess
         """
         pass
 
     @abstractmethod
-    def save_game(self: "IBusinessLogic") -> str:
-        """Save the current game state.
+    def save_game_state(self: "IBusinessLogic") -> None:
+        """Save current game state to persistent storage.
 
-        Saves the current game state using the persistence manager.
-
-        Returns:
-            str: Save operation result status
+        Saves all relevant game information to allow resuming later.
         """
         pass
 
     @abstractmethod
-    def load_game(self: "IBusinessLogic") -> str:
+    def load_game_state(self: "IBusinessLogic") -> None:
         """Load a previously saved game state.
 
-        Loads a saved game state using the persistence manager.
+        Restores the game to the state it was in when saved.
 
-        Returns:
-            str: Load operation result status ('error' if no save exists)
+        Raises:
+            FileNotFoundError: If no saved game state exists
         """
         pass
 
     @abstractmethod
-    def can_start_game(self: "IBusinessLogic", next_action: str) -> bool:
-        """Check if a game can be started with the given action.
+    def has_saved_game(self: "IBusinessLogic") -> bool:
+        """Check if a saved game exists.
+
+        Returns:
+            bool: True if a saved game exists, False otherwise
+        """
+        pass
+
+    @abstractmethod
+    def is_game_over(
+        self: "IBusinessLogic", feedback_list: List[FeedbackColorCode]
+    ) -> str:
+        """Check if the game is over based on feedback.
 
         Args:
-            next_action: Action to check
+            feedback_list: List of feedback pins from last guess
 
         Returns:
-            bool: True if game can be started, False otherwise
-        """
-        pass
-
-    @abstractmethod
-    def is_game_over(self: "IBusinessLogic", action: str) -> bool:
-        """Check if the given action indicates game over.
-
-        Args:
-            action: Action to check
-
-        Returns:
-            bool: True if game is over, False otherwise
-        """
-        pass
-
-    @abstractmethod
-    def get_current_game_action(self: "IBusinessLogic") -> str:
-        """Get the current game action based on game state.
-
-        Returns:
-            str: Current action needed ("need_guess_input" or "need_feedback_input")
-        """
-        pass
-
-    @abstractmethod
-    def handle_computer_guess(self: "IBusinessLogic") -> str:
-        """Handle computer making a guess.
-
-        Triggers the computer guesser to make its next move.
-
-        Returns:
-            str: Next game state after computer's guess
-        """
-        pass
-
-    @abstractmethod
-    def handle_code_input(self: "IBusinessLogic", code_input: str) -> str:
-        """Handle and validate secret code input.
-
-        Args:
-            code_input: Secret code entered by player
-
-        Returns:
-            str: Result of processing the code input
-        """
-        pass
-
-    @abstractmethod
-    def handle_server_connection(self: "IBusinessLogic", ip: str, port: int) -> str:
-        """Handle online game server connection.
-
-        Args:
-            ip: Server IP address
-            port: Server port number
-
-        Returns:
-            str: Connection result status
-        """
-        pass
-
-    @abstractmethod
-    def change_language(self: "IBusinessLogic") -> str:
-        """Handle language change request.
-
-        Returns:
-            str: "choose_language" to trigger language selection
-        """
-        pass
-
-    @abstractmethod
-    def end_game(self: "IBusinessLogic") -> str:
-        """Handle game end request.
-
-        Returns:
-            str: "end_game" to trigger game ending
+            str: Game state ("game_won", "game_lost", or current game state)
         """
         pass
