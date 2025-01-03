@@ -17,11 +17,23 @@ class PlayerCoder(ICoder):
         code: List of color codes representing the secret code
     """
 
-    def __init__(self: "PlayerCoder"):
-        """Initialize player coder with empty code."""
+    def __init__(self: "PlayerCoder") -> None:
+        """Initialize player coder with empty code.
+
+        Args:
+            self: PlayerCoder instance
+        """
         self.code: List[ColorCode] = []
 
     def generate_code(self: "PlayerCoder") -> List[ColorCode]:
+        """Generate a secret code.
+
+        Raises:
+            ValueError: If code is not set
+
+        Returns:
+            List[ColorCode]: The generated secret code
+        """
         if not self.code:
             raise ValueError("Code is not set")
         return self.code

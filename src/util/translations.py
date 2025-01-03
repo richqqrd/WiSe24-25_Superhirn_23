@@ -1,7 +1,7 @@
 """Translation dictionary module for the Mastermind game.
 
-This module contains translations for all game text 
-in multiple languages (en, de, fr, ko).
+This module contains translations for all game text in multiple languages
+(en, de, fr, ko).
 Each language contains key-value pairs for every text element in the game.
 
 Attributes:

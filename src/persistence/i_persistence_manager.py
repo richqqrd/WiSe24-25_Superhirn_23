@@ -1,3 +1,4 @@
+"""Interface for persistence management."""
 from abc import ABC, abstractmethod
 from src.business_logic.game_state import GameState
 

@@ -11,4 +11,5 @@ organized in a layered architecture:
     - Util: Shared utilities and constants
 
 The package uses dependency injection and interfaces to maintain loose coupling
-between layers."""
+between layers.
+"""

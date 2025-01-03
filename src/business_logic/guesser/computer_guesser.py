@@ -126,7 +126,6 @@ class ComputerGuesser(IGuesser):
         Returns:
             List of feedback pins (BLACK/WHITE) for the guess
         """
-
         feedback = []
         temp_guess = guess.copy()
         temp_code = code.copy()

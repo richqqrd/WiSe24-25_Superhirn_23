@@ -4,7 +4,7 @@ from enum import Enum
 
 
 class ColorCode(Enum):
-    """Enum representing various color codes with their respective integer values and ANSI codes.
+    """Enum representing color codes for the game.
 
     This enum defines the color codes used in the game along with their corresponding
     ANSI color codes for terminal display.

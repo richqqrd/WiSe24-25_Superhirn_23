@@ -1,16 +1,13 @@
-"""business_logic package for core game mechanics.
+"""business_logic package for game flow control.
 
-This package implements the core game logic including:
-    - business_logic: Main game mechanics implementation
-    - GameState: Game state management
-    - GameTurn: Turn tracking
-    - coder: Code maker implementation (player/computer)
-    - guesser: Code breaker implementation (player/computer)
+This package manages the game flow and rules:
+    - business_logic: Main implementation coordinating UI and game logic
+    - IBusinessLogic: Interface defining core business logic behavior
 
-The package follows a layered architecture pattern with clear separation
-between game logic and other components.
-
-Dependencies:
-    - network: For online gameplay
-    - persistence: For save/load functionality
-    - Util: For color codes and feedback"""
+The business logic layer:
+    - Validates user input
+    - Controls game flow
+    - Coordinates between UI and game mechanics
+    - Manages state transitions
+Follows layered architecture with dependency injection for loose coupling.
+"""

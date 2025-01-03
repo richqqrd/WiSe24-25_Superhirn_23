@@ -3,6 +3,10 @@
 import unittest
 import os
 import json
+from unittest.mock import patch
+
+from jsonschema.exceptions import ValidationError
+
 from src.network.json_validator import JsonValidator
 
 
@@ -138,6 +142,24 @@ class TestJsonValidator(unittest.TestCase):
         }
         self.assertFalse(self.validator.validate(invalid_json))
 
+    def test_validate_raises_validation_error(self):
+        """Test that ValidationError is caught and logged."""
+        invalid_json = {
+            "gameid": 0,  # Gültiger int
+            "gamerid": "player1",
+            "positions": 5,
+            "colors": 8,
+            "value": ""
+        }
+
+        with patch('src.network.json_validator.validate') as mock_validate:
+            mock_validate.side_effect = ValidationError("Test validation error")
+
+            with self.assertLogs(level="ERROR") as log:
+                result = self.validator.validate(invalid_json)
+
+                self.assertFalse(result)
+                self.assertIn("Validation error: Test validation error", log.output[0])
 
 if __name__ == "__main__":
     unittest.main()

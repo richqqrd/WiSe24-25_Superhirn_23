@@ -5,14 +5,14 @@ business logic, and user interface components.
 
 The module follows a layered architecture pattern where:
 - Console handles user interaction
-- application_logic handles game flow control
-- business_logic handles core game mechanics
+- business_logic handles game flow control
+- game_logic handles core game mechanics
 """
 
-from cli.console import Console
-from application_logic.application_logic import ApplicationLogic
+from CLI.console import Console
 from business_logic.business_logic import BusinessLogic
-from src.persistence.persistence_manager import PersistenceManager
+from game_logic.game_logic import GameLogic
+from src.Persistence.persistence_manager import PersistenceManager
 
 
 def main() -> None:
@@ -20,15 +20,15 @@ def main() -> None:
 
     Creates instances of:
         - PersistenceManager for save/load functionality
-        - business_logic for core game mechanics
-        - application_logic for game flow control
+        - game_logic for core game mechanics
+        - business_logic for game flow control
         - Console for user interface
 
     Then starts the main game loop through the Console.
     """
     persistence_manager = PersistenceManager()
-    game_logic = BusinessLogic(persistence_manager)
-    business_logic = ApplicationLogic(game_logic)
+    game_logic = GameLogic(persistence_manager)
+    business_logic = BusinessLogic(game_logic)
     ui = Console(business_logic)
     ui.run()
 

@@ -7,9 +7,10 @@ This package provides network communication capabilities for online gameplay:
     - JsonValidator: Validates JSON data against schema
     - INetworkService: Interface defining network operations
 
-The package follows the layered architecture pattern and uses 
+The package follows the layered architecture pattern and uses
 dependency injection for loose coupling.
 
 Dependencies:
     - requests: For HTTP communication
-    - jsonschema: For JSON validation"""
+    - jsonschema: For JSON validation
+"""
