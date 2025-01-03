@@ -35,7 +35,7 @@ class PlayerGuesser(IGuesser):
         Args:
             guess: List of color codes to set as current guess
         """
-        self.current_guess = guess
+        self.current_guess = guess if guess is not None else []
 
     def process_feedback(
         self: "PlayerGuesser", feedback: List[FeedbackColorCode]
