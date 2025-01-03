@@ -18,17 +18,17 @@ class ApplicationLogic(IApplicationLogic):
         - State transitions
 ƒ
     Attributes:
-        game_logic: Core game logic implementation
+        business_logic: Core game logic implementation
         commands: Dictionary mapping menu commands to handler functions
     """
 
-    def __init__(self: "ApplicationLogic", game_logic: IBusinessLogic) -> None:
+    def __init__(self: "ApplicationLogic", business_logic: IBusinessLogic) -> None:
         """Initialize application logic with game logic dependency.
 
         Args:
-            game_logic: Core game logic implementation
+            business_logic: Core game logic implementation
         """
-        self.game_logic = game_logic
+        self.business_logic = business_logic
         self.commands = {
             "1": lambda: "choose_mode",
             "2": lambda: "choose_language",
@@ -58,7 +58,7 @@ class ApplicationLogic(IApplicationLogic):
             if att < 0:
                 return "invalid_configuration"
 
-            return self.game_logic.configure_game(player_name, pos, col, att)
+            return self.business_logic.configure_game(player_name, pos, col, att)
         except ValueError:
             return "invalid_configuration"
 
@@ -74,7 +74,7 @@ class ApplicationLogic(IApplicationLogic):
         try:
             if feedback is None:
                 return False
-            if len(feedback) > self.game_logic.positions:
+            if len(feedback) > self.business_logic.positions:
                 return False
             if feedback == "" or all(c in "78" for c in feedback):
                 return True
@@ -90,15 +90,15 @@ class ApplicationLogic(IApplicationLogic):
                 FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE
                 for c in feedback
             ]
-            return self.game_logic.set_feedback(feedback_list)
+            return self.business_logic.set_feedback(feedback_list)
         except ValueError:
             return "need_feedback_input"
 
     def get_game_state(self: "ApplicationLogic"):
-        return self.game_logic.get_game_state()
+        return self.business_logic.get_game_state()
 
     def handle_computer_guess(self: "ApplicationLogic") -> str:
-        return self.game_logic.make_computer_guess()
+        return self.business_logic.make_computer_guess()
 
     def _is_valid_code(self: "ApplicationLogic", code: str) -> bool:
         """Validate if a code string meets game requirements.
@@ -114,10 +114,10 @@ class ApplicationLogic(IApplicationLogic):
         Returns:
             bool: True if code is valid, False otherwise
         """
-        if not code or len(code) != self.game_logic.positions:
+        if not code or len(code) != self.business_logic.positions:
             return False
         try:
-            return all(1 <= int(c) <= self.game_logic.colors for c in code)
+            return all(1 <= int(c) <= self.business_logic.colors for c in code)
         except ValueError:
             return False
 
@@ -148,7 +148,7 @@ class ApplicationLogic(IApplicationLogic):
             return "need_code_input"
         try:
             code_list = [self._convert_to_color_code(int(c)) for c in code_input]
-            return self.game_logic.set_secret_code(code_list)
+            return self.business_logic.set_secret_code(code_list)
         except ValueError:
             return "need_code_input"
 
@@ -159,7 +159,7 @@ class ApplicationLogic(IApplicationLogic):
             guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
             if not guess_list:
                 return "need_guess_input"
-            return self.game_logic.make_guess(guess_list)
+            return self.business_logic.make_guess(guess_list)
         except ValueError:
             return "need_guess_input"
 
@@ -171,7 +171,7 @@ class ApplicationLogic(IApplicationLogic):
             return "Invalid command."
 
     def handle_server_connection(self: "ApplicationLogic", ip: str, port: int) -> str:
-        return self.game_logic.start_as_online_guesser(ip, port)
+        return self.business_logic.start_as_online_guesser(ip, port)
 
     def change_language(self: "ApplicationLogic") -> str:
         return "choose_language"
@@ -180,12 +180,12 @@ class ApplicationLogic(IApplicationLogic):
         return "end_game"
 
     def save_game(self: "ApplicationLogic") -> str:
-        self.game_logic.save_game_state()
+        self.business_logic.save_game_state()
         return self.get_current_game_action()
 
     def load_game(self: "ApplicationLogic") -> str:
         try:
-            self.game_logic.load_game_state()
+            self.business_logic.load_game_state()
             return self.get_current_game_action()
         except FileNotFoundError:
             return "error"
@@ -199,6 +199,8 @@ class ApplicationLogic(IApplicationLogic):
             return self.handle_guess_input(user_input)
 
         elif action == "need_code_input":
+            if not self.business_logic.game_state:
+                return self.handle_code_input(user_input)
             if user_input == "menu":
                 return "show_menu"
             return self.handle_code_input(user_input)
@@ -236,9 +238,9 @@ class ApplicationLogic(IApplicationLogic):
             return self.get_current_game_action()
 
         if action == "save_game":
-            if self.game_logic.has_saved_game():
+            if self.business_logic.has_saved_game():
                 return "confirm_save"
-            self.game_logic.save_game_state()
+            self.business_logic.save_game_state()
             return "save_game"
         elif action == "load_game":
             return self.load_game()
@@ -270,13 +272,13 @@ class ApplicationLogic(IApplicationLogic):
             return config_result
 
         if game_mode == "1":
-            return self.game_logic.startgame("guesser")
+            return self.business_logic.startgame("guesser")
 
         elif game_mode == "2":
-            return self.game_logic.startgame("coder")
+            return self.business_logic.startgame("coder")
 
         elif game_mode == "3":
-            return self.game_logic.startgame("online_guesser")
+            return self.business_logic.startgame("online_guesser")
 
         return "invalid_mode"
 
@@ -291,7 +293,7 @@ class ApplicationLogic(IApplicationLogic):
         return action in ["game_won", "game_lost", "error", "cheating_detected"]
 
     def get_current_game_action(self: "ApplicationLogic") -> str:
-        game_state = self.game_logic.get_game_state()
+        game_state = self.business_logic.get_game_state()
         if isinstance(game_state.current_guesser, PlayerGuesser):
             return "need_guess_input"
         else:
@@ -299,7 +301,7 @@ class ApplicationLogic(IApplicationLogic):
 
     def get_available_menu_actions(self: "ApplicationLogic") -> list[str]:
         is_guesser = isinstance(
-            self.game_logic.game_state.current_guesser, PlayerGuesser
+            self.business_logic.game_state.current_guesser, PlayerGuesser
         )
 
         actions = ["change_language", "end_game"]
@@ -311,19 +313,19 @@ class ApplicationLogic(IApplicationLogic):
 
     def confirm_save_game(self: "ApplicationLogic") -> str:
         try:
-            self.game_logic.save_game_state()
+            self.business_logic.save_game_state()
             return "save_game"
         except:
             return "error"
 
     def get_positions(self: "ApplicationLogic") -> int:
-        game_state = self.game_logic.get_game_state()
+        game_state = self.business_logic.get_game_state()
         if game_state:
             return game_state.positions
-        return self.game_logic.positions
+        return self.business_logic.positions
 
     def get_colors(self: "ApplicationLogic") -> int:
-        game_state = self.game_logic.get_game_state()
+        game_state = self.business_logic.get_game_state()
         if game_state:
             return game_state.colors
-        return self.game_logic.colors
+        return self.business_logic.colors

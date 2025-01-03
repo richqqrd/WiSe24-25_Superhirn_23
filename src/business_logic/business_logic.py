@@ -66,6 +66,8 @@ class BusinessLogic(IBusinessLogic):
         return "invalid_role"
 
     def make_guess(self: "BusinessLogic", guess_list: List[ColorCode]) -> str:
+        if not guess_list or len(guess_list) != self.positions:
+            return "need_guess_input"
         self.player_guesser.set_guess(guess_list)
         guess = self.player_guesser.make_guess()
         turn = GameTurn(guess_list, [])

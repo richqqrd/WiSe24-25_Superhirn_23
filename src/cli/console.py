@@ -18,20 +18,20 @@ class Console:
     the main game loop.
 
     Attributes:
-        business_logic: Business logic layer interface
+        application_logic: application logic layer interface
         menu_renderer: Renderer for menus
         game_renderer: Renderer for game states
         input_handler: Handler for user input
         is_game_active: Flag indicating if game is running
     """
 
-    def __init__(self: "Console", business_logic: IApplicationLogic) -> None:
+    def __init__(self: "Console", application_logic: IApplicationLogic) -> None:
         """Initialize console interface.
 
         Args:
-            business_logic: Business logic layer interface
+            application_logic: Business logic layer interface
         """
-        self.business_logic = business_logic
+        self.application_logic = application_logic
         self.menu_renderer = MenuRenderer()
         self.game_renderer = GameRenderer()
         self.input_handler = InputHandler()
@@ -46,7 +46,7 @@ class Console:
             self.game_renderer.clear_screen()
             self.menu_renderer.display_main_menu()
             user_input = self.input_handler.handle_menu_input()
-            action = self.business_logic.handle(user_input)
+            action = self.application_logic.handle(user_input)
 
             if action == "choose_mode":
                 self.handle_game_mode_choice()
@@ -55,10 +55,10 @@ class Console:
             elif action == "end_game":
                 self.end_game()
             elif action == "save_game":
-                self.business_logic.save_game()
+                self.application_logic.save_game()
                 self.menu_renderer.display_save_game()
             elif action == "resume_game":
-                next_action = self.business_logic.load_game()
+                next_action = self.application_logic.load_game()
                 if next_action != "error":
                     self.start_game_loop(next_action)
 
@@ -93,7 +93,7 @@ class Console:
         Args:
             next_action: Initial game action to process
         """
-        while not self.business_logic.is_game_over(next_action):
+        while not self.application_logic.is_game_over(next_action):
 
             if next_action in [
                 "need_guess_input",
@@ -104,7 +104,7 @@ class Console:
                 self.render_game_state()
 
             user_input = self.get_user_input(next_action)
-            next_action = self.business_logic.process_game_action(
+            next_action = self.application_logic.process_game_action(
                 next_action, user_input
             )
 
@@ -122,7 +122,7 @@ class Console:
         - Cheating detected
         Then ends the game session.
         """
-        self.game_renderer.render_game_state(self.business_logic.get_game_state())
+        self.game_renderer.render_game_state(self.application_logic.get_game_state())
 
         if next_action == "game_won":
             self.menu_renderer.display_game_won()
@@ -138,7 +138,7 @@ class Console:
         Displays the current game state using the game renderer,
         including board layout, guesses, and feedback.
         """
-        self.game_renderer.render_game_state(self.business_logic.get_game_state())
+        self.game_renderer.render_game_state(self.application_logic.get_game_state())
 
     def get_user_input(self: "Console", action: str) -> str:
         """Get appropriate user input based on the current game action.
@@ -156,17 +156,17 @@ class Console:
             - need_server_connection: Get server connection details
         """
         if action == "need_guess_input":
-            positions = self.business_logic.get_positions()
+            positions = self.application_logic.get_positions()
             return self.input_handler.handle_guess_input(positions)
 
         elif action == "need_code_input":
-            positions = self.business_logic.get_positions()
-            colors = self.business_logic.get_colors()
+            positions = self.application_logic.get_positions()
+            colors = self.application_logic.get_colors()
             self.menu_renderer.display_code_input(colors)
             return self.input_handler.handle_code_input(positions)
 
         elif action == "need_feedback_input":
-            positions = self.business_logic.get_positions()
+            positions = self.application_logic.get_positions()
             self.menu_renderer.display_feedback_instructions()
             return self.input_handler.handle_feedback_input(positions)
 
@@ -189,17 +189,17 @@ class Console:
         Returns:
             str: Next game action to process
         """
-        available_actions = self.business_logic.get_available_menu_actions()
+        available_actions = self.application_logic.get_available_menu_actions()
         self.menu_renderer.display_ingame_menu(available_actions)
         user_input = self.input_handler.handle_menu_input()
-        next_action = self.business_logic.handle_menu_action(user_input)
+        next_action = self.application_logic.handle_menu_action(user_input)
 
         if next_action == "confirm_save":
             self.menu_renderer.display_save_warning()
             if self.input_handler.handle_save_warning_input():
-                next_action = self.business_logic.confirm_save_game()
+                next_action = self.application_logic.confirm_save_game()
             else:
-                return self.business_logic.get_current_game_action()
+                return self.application_logic.get_current_game_action()
 
         if next_action == "save_game":
             self.menu_renderer.display_save_game()
@@ -214,7 +214,7 @@ class Console:
             self.end_game()
             return "game_over"
 
-        return self.business_logic.get_current_game_action()
+        return self.application_logic.get_current_game_action()
 
     def end_game(self: "Console") -> None:
         """End the current game session.
@@ -229,17 +229,17 @@ class Console:
         self.menu_renderer.display_game_mode_menu()
         game_mode = self.input_handler.handle_game_mode_input()
 
-        next_action = self.business_logic.get_required_action(game_mode)
+        next_action = self.application_logic.get_required_action(game_mode)
 
         while next_action == "need_configuration":
             config = self.collect_game_configuration()
-            next_action = self.business_logic.configure_game(game_mode, config)
+            next_action = self.application_logic.configure_game(game_mode, config)
 
             if next_action == "invalid_configuration":
                 self.menu_renderer.display_invalid_configuration()
                 next_action = "need_configuration"
 
-        if self.business_logic.can_start_game(next_action):
+        if self.application_logic.can_start_game(next_action):
             self.start_game_loop(next_action)
 
     def collect_game_configuration(self: "Console") -> dict:
