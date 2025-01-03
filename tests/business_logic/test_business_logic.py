@@ -5,7 +5,7 @@ from src.util.feedback_color_code import FeedbackColorCode
 from src.business_logic.game_turn import GameTurn
 
 
-class test_game_logic(unittest.TestCase):
+class TestBusinessLogic(unittest.TestCase):
     """Test suite for the business_logic class.
 
     This class tests the core game logic functionality including game initialization,

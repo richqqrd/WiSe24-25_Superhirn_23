@@ -4,7 +4,7 @@ from src.business_logic.business_logic import BusinessLogic
 from src.util.color_code import ColorCode
 
 
-class TestBusinessLogic(unittest.TestCase):
+class TestApplicationLogic(unittest.TestCase):
     """Test suite for the application_logic class.
 
     This test suite verifies the functionality of the application_logic class,
