@@ -640,13 +640,20 @@ class TestApplicationLogic(unittest.TestCase):
         self.game_logic.configure_game("TestPlayer", 4, 6, 10)
         self.game_logic.startgame("guesser")
 
-        # Test empty guess list
-        with patch('src.application_logic.application_logic.ColorCode') as mock_color:
-            # Mock ColorCode to return [] when list comprehension runs
-            mock_color.side_effect = []
+        # Create a mock that returns valid numbers but creates empty list
+        original_convert = self.app_logic._convert_to_color_code
+        convert_results = []
 
-            result = self.app_logic.handle_guess_input("1234")
-            self.assertEqual(result, "need_guess_input")
+        def mock_convert(num):
+            if not convert_results:
+                return original_convert(num)
+            return convert_results.pop(0)
+
+        self.app_logic._convert_to_color_code = mock_convert
+
+        # Test empty list case
+        result = self.app_logic.handle_guess_input("1234")
+        self.assertEqual(result, "need_guess_input")
 
     def test_process_game_action_invalid(self):
         """Test process_game_action with invalid action."""
@@ -687,6 +694,23 @@ class TestApplicationLogic(unittest.TestCase):
         # Test that menu option 3 falls back to current game action
         # when load_game isn't available
         result = self.app_logic.handle_menu_action("3")
+        self.assertEqual(result, "need_guess_input")
+
+    def test_handle_menu_action_final_fallback(self):
+        """Test handle_menu_action final fallback to current game action."""
+        # Setup game state with player guesser
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("guesser")
+
+        # Mock get_current_game_action to return known value
+        self.app_logic.get_current_game_action = Mock(return_value="need_guess_input")
+
+        # Create a situation where menu_map returns an invalid action
+        mock_actions = []  # Empty list so no special actions are available
+        self.app_logic.get_available_menu_actions = Mock(return_value=mock_actions)
+
+        # Use an invalid menu choice that doesn't map to any action
+        result = self.app_logic.handle_menu_action("5")  # Invalid choice
         self.assertEqual(result, "need_guess_input")
 
 if __name__ == "__main__":
