@@ -68,27 +68,6 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertEqual(self.app_logic.handle_code_input("ABCD"), "need_code_input")
         self.assertEqual(self.app_logic.handle_code_input(""), "need_code_input")
 
-    def test_handle_feedback_input(self):
-        """Test feedback input handling."""
-        # Initialize game state first with proper configuration
-        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
-        self.game_logic.startgame("coder")  # Start game as coder
-
-        # Set a secret code first since we're in coder mode
-        secret_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)]
-        self.game_logic.set_secret_code(secret_code)
-
-        # Make computer guess to create a turn
-        self.game_logic.make_computer_guess()
-
-        # Now test feedback handling
-        # Valid input
-        result = self.app_logic.handle_feedback_input("88")
-        self.assertEqual(result, "wait_for_computer_guess")
-
-        # Invalid input
-        self.assertEqual(self.app_logic.handle_feedback_input("89"), "need_feedback_input")
-        self.assertEqual(self.app_logic.handle_feedback_input("ABC"), "need_feedback_input")
 
     def test_handle_guess_input(self):
         """Test guess input handling."""
@@ -119,7 +98,70 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertNotEqual(result, "need_feedback_input")  # Valid conversion
 
         result = self.app_logic.handle_feedback_input("12")
-        self.assertEqual(result, "need_feedback_input")  # Invalid conversion
+        self.assertEqual(result, "need_feedback_input")  # Invalid conversion#
+    
+    def test_handle_code_input_invalid(self):
+        """Test handling of invalid code input."""
+        # Invalid inputs
+        self.assertEqual(self.app_logic.handle_code_input("123"), "need_code_input")  # Too short
+        self.assertEqual(self.app_logic.handle_code_input("12345"), "need_code_input")  # Too long
+        self.assertEqual(self.app_logic.handle_code_input("ABCD"), "need_code_input")  # Invalid chars
+        self.assertEqual(self.app_logic.handle_code_input(""), "need_code_input")  # Empty
+
+    def test_handle_guess_input(self):
+        """Test guess input handling."""
+        # Configure and start game first
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("guesser")
+        
+        # Valid guess
+        result = self.app_logic.handle_guess_input("1234")
+        self.assertIn(result, ["need_guess_input", "game_over"])
+
+        # Invalid guesses
+        self.assertEqual(self.app_logic.handle_guess_input("123"), "need_guess_input")
+        self.assertEqual(self.app_logic.handle_guess_input("ABCD"), "need_guess_input")
+        self.assertEqual(self.app_logic.handle_guess_input(""), "need_guess_input")
+
+    def test_handle_feedback_input(self):
+        """Test feedback input handling."""
+        # Configure and start game first
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("coder")
+        self.game_logic.set_secret_code([ColorCode(1)] * 4)
+        self.game_logic.make_computer_guess()
+
+        # Partial feedback - game continues
+        self.assertEqual(self.app_logic.handle_feedback_input("78"), "wait_for_computer_guess")
+
+        # All correct feedback - computer wins
+        self.assertEqual(self.app_logic.handle_feedback_input("8888"), "game_lost")
+
+        # Invalid feedback
+        self.assertEqual(self.app_logic.handle_feedback_input("999"), "need_feedback_input")
+        self.assertEqual(self.app_logic.handle_feedback_input("ABC"), "need_feedback_input")
+
+    def test_handle_computer_guess(self):
+        """Test computer guess handling."""
+        # Setup
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("coder")
+        self.game_logic.set_secret_code([ColorCode(1)] * 4)
+
+        # Test computer guess
+        result = self.app_logic.handle_computer_guess()
+        self.assertIn(result, ["need_feedback_input", "game_over"])  # include need_feedback_input
+
+    def test_is_valid_code_none(self):
+        """Test code validation with None input."""
+        self.assertFalse(self.app_logic._is_valid_code(None))
+
+    def test_handle_invalid_role(self):
+        """Test handling invalid role."""
+        # Configure and start game with invalid role
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        result = self.game_logic.startgame("invalid_role")
+        self.assertEqual(result, "invalid_role")
 
 
 if __name__ == "__main__":
