@@ -83,6 +83,61 @@ class TestJsonValidator(unittest.TestCase):
         """Test validation with non-dictionary input."""
         self.assertFalse(self.validator.validate([1, 2, 3]))
 
+    def test_validate_wrong_gameid_type(self):
+        """Test validation with wrong gameid type."""
+        invalid_json = {
+            "gameid": "not_an_integer",  # String statt int
+            "gamerid": "player1",
+            "positions": 5,
+            "colors": 8,
+            "value": ""
+        }
+        self.assertFalse(self.validator.validate(invalid_json))
+
+    def test_validate_wrong_gamerid_type(self):
+        """Test validation with wrong gamerid type."""
+        invalid_json = {
+            "gameid": 0,
+            "gamerid": 123,  # Integer statt string
+            "positions": 5,
+            "colors": 8,
+            "value": ""
+        }
+        self.assertFalse(self.validator.validate(invalid_json))
+
+    def test_validate_wrong_positions_type(self):
+        """Test validation with wrong positions type."""
+        invalid_json = {
+            "gameid": 0,
+            "gamerid": "player1",
+            "positions": "5",  # String statt int
+            "colors": 8,
+            "value": ""
+        }
+        self.assertFalse(self.validator.validate(invalid_json))
+
+    def test_validate_wrong_colors_type(self):
+        """Test validation with wrong colors type."""
+        invalid_json = {
+            "gameid": 0,
+            "gamerid": "player1",
+            "positions": 5,
+            "colors": "8",  # String statt int
+            "value": ""
+        }
+        self.assertFalse(self.validator.validate(invalid_json))
+
+    def test_validate_wrong_value_type(self):
+        """Test validation with wrong value type."""
+        invalid_json = {
+            "gameid": 0,
+            "gamerid": "player1",
+            "positions": 5,
+            "colors": 8,
+            "value": 123  # Integer statt string
+        }
+        self.assertFalse(self.validator.validate(invalid_json))
+
 
 if __name__ == "__main__":
     unittest.main()
