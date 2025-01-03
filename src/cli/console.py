@@ -1,14 +1,16 @@
 """Module for console-based user interface."""
-
 import os
 import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.business_logic.i_business_logic import IBusinessLogic
+
+from src.CLI.game_renderer.game_renderer import GameRenderer
+from src.CLI.input_handler.input_handler import InputHandler
+from src.CLI.menu_renderer.menu_renderer import MenuRenderer
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
-from src.business_logic.i_business_logic import IBusinessLogic
-from src.cli.game_renderer.game_renderer import GameRenderer
-from src.cli.input_handler.input_handler import InputHandler
-from src.cli.menu_renderer.menu_renderer import MenuRenderer
 
 
 class Console:
@@ -25,7 +27,7 @@ class Console:
         is_game_active: Flag indicating if game is running
     """
 
-    def __init__(self: "Console", business_logic: IBusinessLogic) -> None:
+    def __init__(self: "Console", business_logic: "IBusinessLogic") -> None:
         """Initialize console interface.
 
         Args:
@@ -225,6 +227,11 @@ class Console:
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:
+        """Handle game mode selection.
+
+        Displays game mode menu, collects game configuration,
+        and starts the game loop with the selected mode.
+        """
         self.game_renderer.clear_screen()
         self.menu_renderer.display_game_mode_menu()
         game_mode = self.input_handler.handle_game_mode_input()

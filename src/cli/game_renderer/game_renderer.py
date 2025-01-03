@@ -2,6 +2,7 @@
 
 import os
 from typing import List, Union
+
 from src.game_logic.game_state import GameState
 from src.game_logic.guesser.computer_guesser import ComputerGuesser
 from src.util.color_code import ColorCode

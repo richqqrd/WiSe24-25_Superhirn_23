@@ -5,4 +5,5 @@ This package provides functionality for saving and loading game states:
     - IPersistenceManager: Interface defining persistence operations
 
 The persistence layer uses pickle for serialization and follows the
-layered architecture pattern."""
+layered architecture pattern.
+"""

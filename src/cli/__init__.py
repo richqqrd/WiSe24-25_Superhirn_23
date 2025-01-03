@@ -5,10 +5,11 @@ This package provides the cli components:
     - MenuRenderer: Menu display and formatting
     - GameRenderer: Game state visualization
     - InputHandler: User input handling and validation
-    
+
 The cli layer handles all user interaction through:
     - Menu navigation
     - Game state display
     - User input processing
     - Input validation
-    - Internationalization support"""
+    - Internationalization support
+"""
