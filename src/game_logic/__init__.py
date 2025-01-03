@@ -13,4 +13,5 @@ between game logic and other components.
 Dependencies:
     - network: For online gameplay
     - persistence: For save/load functionality
-    - Util: For color codes and feedback"""
+    - Util: For color codes and feedback
+"""

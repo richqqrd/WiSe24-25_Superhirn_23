@@ -9,10 +9,10 @@ The module follows a layered architecture pattern where:
 - game_logic handles core game mechanics
 """
 
-from cli.console import Console
+from CLI.console import Console
 from business_logic.business_logic import BusinessLogic
 from game_logic.game_logic import GameLogic
-from src.persistence.persistence_manager import PersistenceManager
+from src.Persistence.persistence_manager import PersistenceManager
 
 
 def main() -> None:

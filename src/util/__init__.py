@@ -5,4 +5,5 @@ This package contains utility classes and functions used across the game:
     - FeedbackColorCode: Enum for feedback pins
     - translations: Multi-language support
 
-The utilities provide core functionality used by other packages."""
+The utilities provide core functionality used by other packages.
+"""

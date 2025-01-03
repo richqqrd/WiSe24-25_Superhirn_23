@@ -63,7 +63,7 @@ class IGameLogic(ABC):
         pass
 
     @abstractmethod
-    def get_game_state(self: "IGameLogic"):
+    def get_game_state(self: "IGameLogic") -> str:
         """Returns current game state.
 
         Returns:

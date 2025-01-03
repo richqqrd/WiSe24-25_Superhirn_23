@@ -65,8 +65,7 @@ class GameState:
         self.turns.append(turn)
 
     def get_secret_code(self: "GameState") -> List[ColorCode]:
-        """
-        Returns the secret code.
+        """Returns the secret code.
 
         Returns:
             List[ColorCode]: The secret code.
@@ -81,7 +80,7 @@ class GameState:
         """
         return self.turns
 
-    def __repr__(self: "GameState"):
+    def __repr__(self: "GameState") -> str:
         """Return string representation of the GameState.
 
         This method provides a detailed string representation of the game state
