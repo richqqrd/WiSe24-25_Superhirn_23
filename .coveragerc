@@ -2,6 +2,8 @@
 omit = 
     */i_*.py
     */__init__.py
+    */test_server.py
+
 
 [report]
 exclude_lines =
