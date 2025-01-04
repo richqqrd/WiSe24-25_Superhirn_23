@@ -223,11 +223,16 @@ class Console:
             self.handle_language_change()
 
         elif next_action == "back_to_menu":
-            self.game_renderer.clear_screen()  # Clear current game display
+            self.game_renderer.clear_screen()  #
             return "back_to_menu"
+        
         elif next_action == "end_game":
-            self.end_game()
-            return "game_over"
+            self.game_renderer.clear_screen()
+            self.menu_renderer.display_end_game()  # Zeige Ende-Nachricht
+            time.sleep(2)  # Kurze Pause
+            self.game_renderer.clear_screen()
+            self.is_game_active = False
+            return "back_to_menu"
 
         return self.application_logic.get_current_game_action()
 
