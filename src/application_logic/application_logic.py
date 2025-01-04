@@ -218,8 +218,11 @@ class ApplicationLogic(IApplicationLogic):
         elif action == "need_server_connection":
             if user_input == "menu":
                 return "show_menu"
-            ip, port = user_input.split(":")
-            return self.handle_server_connection(ip, int(port))
+            try:
+                ip, port = user_input.split(":")
+                return self.handle_server_connection(ip, int(port))
+            except ValueError:
+                return "need_server_connection"
 
         return "error"
 

@@ -272,6 +272,7 @@ class BusinessLogic(IBusinessLogic):
             str: "need_server_connection" if successful, "error" otherwise
         """
         self.network_service = NetworkService(server_ip, server_port)
+        self.network_service.configure(self.positions, self.colors)
         if self.network_service.start_game(self.player_name):
             self.game_state = GameState(
                 None,
@@ -281,7 +282,7 @@ class BusinessLogic(IBusinessLogic):
                 self.player_name,
                 self.player_guesser,
             )
-            return "need_server_connection"
+            return "need_guess_input"
         return "error"
     
 
@@ -298,6 +299,7 @@ class BusinessLogic(IBusinessLogic):
             str: "need_server_connection" if successful, "error" otherwise
         """
         self.network_service = NetworkService(server_ip, server_port)
+        self.network_service.configure(self.positions, self.colors)
         if self.network_service.start_game(self.player_name):
             self.game_state = GameState(
                 None,
@@ -307,5 +309,5 @@ class BusinessLogic(IBusinessLogic):
                 self.player_name,
                 self.computer_guesser,
             )
-            return "need_server_connection"
+            return "wait_for_computer_guess"
         return "error"
