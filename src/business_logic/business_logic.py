@@ -156,25 +156,33 @@ class BusinessLogic(IBusinessLogic):
     def load_game_state(self: "BusinessLogic") -> str:
         self.game_state = self.persistence_manager.load_game_state()
 
+        # Only allow loading if player was guesser
+        if not isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return "error"
+
+        # Initialize computer components
         self.computer_coder = ComputerCoder(
             self.game_state.positions, self.game_state.colors
         )
-        self.computer_guesser = ComputerGuesser(
-            self.game_state.positions, self.game_state.colors
-        )
 
+        # Store loaded game state properties
+        self.positions = self.game_state.positions
+        self.colors = self.game_state.colors
+        self.player_name = self.game_state.player_name
+        self.max_round = self.game_state.max_rounds
+
+        # Create and restore player guesser
+        self.player_guesser = PlayerGuesser()
+        self.game_state.current_guesser = self.player_guesser
+
+        # Restore computer coder state
         self.computer_coder.secret_code = self.game_state.secret_code
 
+        # Replay turns to restore game state
         for turn in self.game_state.get_turns():
-            if isinstance(self.game_state.current_guesser, PlayerGuesser):
-                # Player is guesser, recalculate computer feedback
-                feedback = self.computer_coder.give_feedback(turn.guesses)
-                turn.feedback = feedback
-            else:
-                # Computer is guesser, replay computer guesses and feedback
-                self.computer_guesser.last_guess = turn.guesses
-                if turn.feedback:
-                    self.computer_guesser.process_feedback(turn.feedback)
+            feedback = self.computer_coder.give_feedback(turn.guesses)
+            turn.feedback = feedback
+            self.player_guesser.set_guess(turn.guesses)
 
         return "game_loaded"
 
