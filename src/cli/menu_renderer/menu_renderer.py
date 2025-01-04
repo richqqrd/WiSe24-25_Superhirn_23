@@ -208,8 +208,8 @@ class MenuRenderer:
         when attempting to save over an existing save file.
         """
         print(translations[self.language]["save_warning"])
-        print(f"1. {translations[self.language]['yes']}")
-        print(f"2. {translations[self.language]['no']}")
+        #print(f"1. {translations[self.language]['yes']}")
+        #print(f"2. {translations[self.language]['no']}")
 
     def display_color_selection(self: "MenuRenderer") -> None:
         """Display available colors for selection.
