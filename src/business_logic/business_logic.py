@@ -63,6 +63,8 @@ class BusinessLogic(IBusinessLogic):
             return self.start_as_coder()
         elif role == "online_guesser":
             return "need_server_connection"
+        elif role == "online_computer_guesser":
+            return "need_server_connection"
         return "invalid_role"
 
     def make_guess(self: "BusinessLogic", guess_list: List[ColorCode]) -> str:
@@ -261,6 +263,32 @@ class BusinessLogic(IBusinessLogic):
                 self.colors,
                 self.player_name,
                 self.player_guesser,
+            )
+            return "need_server_connection"
+        return "error"
+    
+
+    def start_as_online_computer_guesser(
+        self: "BusinessLogic", server_ip: str, server_port: int
+    ) -> str:
+        """Start game online game as the computer as guesser.
+
+        Args:
+            server_ip: IP address of the game server
+            server_port: Port number of the game server
+
+        Returns:
+            str: "need_server_connection" if successful, "error" otherwise
+        """
+        self.network_service = NetworkService(server_ip, server_port)
+        if self.network_service.start_game(self.player_name):
+            self.game_state = GameState(
+                None,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.computer_guesser,
             )
             return "need_server_connection"
         return "error"

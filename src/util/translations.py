@@ -88,6 +88,7 @@ translations = {
         "game_won": "Congratulations! You've won the game!",
         "game_lost": "Game Over! You've reached the maximum number of attempts.",
         "menu_hint": "Type 'menu' to open the game menu",
+        "computer_online_guesser": "Let the computer guess (online)"
     },
     "de": {
         "main_menu": "Hauptmenü",
@@ -155,7 +156,8 @@ translations = {
         "game_lost": "Spiel vorbei! "
         "Sie haben die maximale Anzahl an Versuchen erreicht.",
         "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen",
-    },
+        "computer_online_guesser": "Lass den Computer raten (online)"
+            },
     "fr": {
         "main_menu": "Menu Principal",
         "ingame_menu": "Menu",
@@ -219,6 +221,8 @@ translations = {
         "game_won": "TODO",
         "game_lost": "TODO",
         "menu_hint": "TODO",
+        "computer_online_guesser": "TODO"
+
     },
     "ko": {
         "main_menu": "메인 메뉴",
@@ -283,5 +287,6 @@ translations = {
         "game_won": "TODO",
         "game_lost": "TODO",
         "menu_hint": "TODO",
+        "computer_online_guesser": "TODO"
     },
 }

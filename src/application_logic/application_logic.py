@@ -252,10 +252,10 @@ class ApplicationLogic(IApplicationLogic):
         return self.get_current_game_action()
 
     def get_required_action(self: "ApplicationLogic", game_mode: str) -> str:
-        if game_mode not in ["1", "2", "3", "4"]:
+        if game_mode not in ["1", "2", "3", "4", "5"]:
             return "invalid_mode"
 
-        if game_mode == "4":
+        if game_mode == "5":
             return "back_to_menu"
 
         return "need_configuration"
@@ -279,6 +279,9 @@ class ApplicationLogic(IApplicationLogic):
 
         elif game_mode == "3":
             return self.business_logic.startgame("online_guesser")
+        
+        elif game_mode == "4":
+            return self.business_logic.startgame("online_computer_guesser")
 
         return "invalid_mode"
 

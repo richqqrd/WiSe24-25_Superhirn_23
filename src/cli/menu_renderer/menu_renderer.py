@@ -75,13 +75,15 @@ class MenuRenderer:
             1. Play as guesser (offline)
             2. Play as coder (offline)
             3. Play as guesser (online)
-            4. Back to Main Menu
+            4. Let the computer guess (online)
+            5. Back to Main Menu
         """
         print(translations[self.language]["select_game_mode"])
         print(f"1. {translations[self.language]['offline_guesser']}")
         print(f"2. {translations[self.language]['offline_coder']}")
         print(f"3. {translations[self.language]['online_guesser']}")
-        print(f"4. {translations[self.language]['back_to_menu']}")
+        print(f"4. {translations[self.language]['computer_online_guesser']}")
+        print(f"5. {translations[self.language]['back_to_menu']}")
 
     def display_languages(self: "MenuRenderer") -> None:
         """Display the language selection menu.
