@@ -31,8 +31,18 @@ class NetworkService(INetworkService):
         self.http_handler = HttpHandler(server_ip, server_port)
         self.current_game_id: Optional[int] = None
         self.current_player_id: Optional[str] = None
-        self.positions: int = 5
-        self.colors: int = 8
+        self.positions: int = 0
+        self.colors: int = 0
+
+    def configure(self: "NetworkService", positions: int, colors: int) -> None:
+        """Configure game parameters.
+
+        Args:
+            positions: Number of positions in the code
+            colors: Number of available colors
+        """
+        self.positions = positions
+        self.colors = colors
 
     def start_game(self: "NetworkService", player_id: str) -> bool:
         """Start a new game for the given player.

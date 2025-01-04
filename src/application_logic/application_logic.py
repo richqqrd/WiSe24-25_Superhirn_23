@@ -218,8 +218,11 @@ class ApplicationLogic(IApplicationLogic):
         elif action == "need_server_connection":
             if user_input == "menu":
                 return "show_menu"
-            ip, port = user_input.split(":")
-            return self.handle_server_connection(ip, int(port))
+            try:
+                ip, port = user_input.split(":")
+                return self.handle_server_connection(ip, int(port))
+            except ValueError:
+                return "need_server_connection"
 
         return "error"
 
@@ -305,13 +308,14 @@ class ApplicationLogic(IApplicationLogic):
             return "need_feedback_input"
 
     def get_available_menu_actions(self: "ApplicationLogic") -> list[str]:
-        is_guesser = isinstance(
-            self.business_logic.game_state.current_guesser, PlayerGuesser
+        is_offline_guesser = (
+            isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser) and
+            not self.business_logic.network_service  # Check if offline game
         )
 
         actions = ["change_language", "end_game"]
 
-        if is_guesser:
+        if is_offline_guesser:
             actions.extend(["save_game", "load_game"])
 
         return actions
