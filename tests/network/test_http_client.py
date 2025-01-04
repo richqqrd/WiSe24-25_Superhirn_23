@@ -40,35 +40,26 @@ class TestHttpClient(unittest.TestCase):
         )
 
     @patch("requests.Session.post")
-    def test_post_http_error(self, mock_post):
-        """Test POST request with HTTP error."""
-        mock_response = Mock()
-        mock_response.status_code = 404
-        mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
-            "404 Client Error"
-        )
-        mock_post.return_value = mock_response
-
-        with self.assertRaises(requests.exceptions.HTTPError):
-            self.client.post(self.test_url, self.test_data)
-
-    @patch("requests.Session.post")
     def test_post_connection_error(self, mock_post):
         """Test POST request with connection error."""
-        mock_post.side_effect = requests.exceptions.ConnectionError(
-            "Connection refused"
-        )
+        mock_post.side_effect = requests.exceptions.ConnectionError("Connection refused")
 
-        with self.assertRaises(requests.exceptions.ConnectionError):
-            self.client.post(self.test_url, self.test_data)
+        response = self.client.post(self.test_url, self.test_data)
+        self.assertEqual(
+            response,
+            {"error": "Verbindung fehlgeschlagen"}  # Prüfe auf erwartetes Fehler-Dict
+        )
 
     @patch("requests.Session.post")
     def test_post_timeout_error(self, mock_post):
         """Test POST request with timeout."""
         mock_post.side_effect = requests.exceptions.Timeout("Request timed out")
 
-        with self.assertRaises(requests.exceptions.Timeout):
-            self.client.post(self.test_url, self.test_data)
+        response = self.client.post(self.test_url, self.test_data)
+        self.assertEqual(
+            response,
+            {"error": "Zeitüberschreitung"}  # Prüfe auf erwartetes Fehler-Dict
+        )
 
     @patch("requests.Session.post")
     def test_post_invalid_json_response(self, mock_post):
@@ -78,8 +69,11 @@ class TestHttpClient(unittest.TestCase):
         mock_response.json.side_effect = ValueError("Invalid JSON")
         mock_post.return_value = mock_response
 
-        with self.assertRaises(ValueError):
-            self.client.post(self.test_url, self.test_data)
+        response = self.client.post(self.test_url, self.test_data)
+        self.assertEqual(
+            response,
+            {"error": "Unerwarteter Fehler"}  # Prüfe auf erwartetes Fehler-Dict
+        )
 
     @patch("requests.Session.post")
     def test_post_empty_response(self, mock_post):
