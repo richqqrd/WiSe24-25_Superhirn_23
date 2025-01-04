@@ -55,8 +55,10 @@ class BusinessLogic(IBusinessLogic):
         self.colors = 8
         self.positions = 5
         self.persistence_manager = persistence_manager
+        self.current_mode = None
 
     def startgame(self: "BusinessLogic", role: str) -> str:
+        self.current_mode = role
         if role == "guesser":
             return self.start_as_guesser()
         elif role == "coder":
@@ -142,6 +144,21 @@ class BusinessLogic(IBusinessLogic):
             guess = self.computer_guesser.make_guess()
             turn = GameTurn(guess, [])
             self.game_state.add_turn(turn)
+
+            if self.network_service:
+                guess_str = "".join(str(color.value) for color in guess)
+                feedback_str = self.network_service.make_move(guess_str)
+                if feedback_str is None:
+                    return "error"
+
+                feedback_list = [
+                    FeedbackColorCode.BLACK if c == "8" else FeedbackColorCode.WHITE
+                    for c in feedback_str
+                ]
+                turn.feedback = feedback_list
+
+                self.computer_guesser.process_feedback(feedback_list)
+                return self.is_game_over(feedback_list)
             return "need_feedback_input"
         except ValueError as e:
             if str(e) == "CHEATING_DETECTED":

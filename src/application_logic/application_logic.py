@@ -171,6 +171,8 @@ class ApplicationLogic(IApplicationLogic):
             return "Invalid command."
 
     def handle_server_connection(self: "ApplicationLogic", ip: str, port: int) -> str:
+        if self.business_logic.current_mode == "online_computer_guesser":
+            return self.business_logic.start_as_online_computer_guesser(ip, port)
         return self.business_logic.start_as_online_guesser(ip, port)
 
     def change_language(self: "ApplicationLogic") -> str:
