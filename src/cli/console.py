@@ -223,11 +223,7 @@ class Console:
             return "back_to_menu"
         
         elif next_action == "end_game":
-            self.game_renderer.clear_screen()
-            self.menu_renderer.display_end_game()  # Zeige Ende-Nachricht
-            time.sleep(2)  # Kurze Pause
-            self.game_renderer.clear_screen()
-            self.is_game_active = False
+            self.end_game()
             return "back_to_menu"
 
         return self.application_logic.get_current_game_action()
@@ -237,7 +233,9 @@ class Console:
 
         Displays game end message and sets game inactive.
         """
+        self.game_renderer.clear_screen()
         self.menu_renderer.display_end_game()
+        time.sleep(2)  # Kurze Pause
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:

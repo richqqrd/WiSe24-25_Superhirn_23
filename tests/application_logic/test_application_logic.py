@@ -494,10 +494,11 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertEqual(self.app_logic.get_required_action("1"), "need_configuration")
         self.assertEqual(self.app_logic.get_required_action("2"), "need_configuration")
         self.assertEqual(self.app_logic.get_required_action("3"), "need_configuration")
-        self.assertEqual(self.app_logic.get_required_action("4"), "back_to_menu")
+        self.assertEqual(self.app_logic.get_required_action("4"), "need_configuration")
+        self.assertEqual(self.app_logic.get_required_action("5"), "back_to_menu")
 
         # Test invalid mode
-        self.assertEqual(self.app_logic.get_required_action("5"), "invalid_mode")
+        self.assertEqual(self.app_logic.get_required_action("6"), "invalid_mode")
 
     def test_configure_game(self):
         """Test game configuration with different modes."""
