@@ -402,5 +402,37 @@ class TestConsole(unittest.TestCase):
             "max_attempts": 10
         })
 
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_game_mode_input")
+    def test_invalid_game_mode(self, mock_handle_game_mode_input):
+        mock_handle_game_mode_input.return_value = "invalid_mode"
+        self.mock_logic.get_required_action.return_value = "error"
+
+        self.console.handle_game_mode_choice()
+
+        self.mock_logic.get_required_action.assert_called_with("invalid_mode")
+
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_language_input")
+    def test_invalid_language_selection(self, mock_handle_language_input):
+        mock_handle_language_input.return_value = "invalid_language"
+
+        self.console.handle_language_change()
+
+        self.assertNotEqual(self.console.menu_renderer.language, "invalid_language")
+
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_player_name_input")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_positions_input")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_colors_input")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_max_attempts_input")
+    def test_incomplete_game_configuration(self, mock_handle_max_attempts_input, mock_handle_colors_input, mock_handle_positions_input, mock_handle_player_name_input):
+        mock_handle_player_name_input.return_value = "TestPlayer"
+        mock_handle_positions_input.return_value = 4
+        mock_handle_colors_input.return_value = []
+        mock_handle_max_attempts_input.return_value = 10
+
+        config = self.console.collect_game_configuration()
+
+        self.assertEqual(config["colors"], [])
+
+
 if __name__ == "__main__":
     unittest.main()
