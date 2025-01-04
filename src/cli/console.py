@@ -2,6 +2,7 @@
 
 import os
 import sys
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
@@ -108,8 +109,17 @@ class Console:
                 next_action, user_input
             )
 
+            if next_action == "error":
+                self.game_renderer.render_warning("Connection failed!")
+                time.sleep(10)  # Show error for 2 seconds
+                self.game_renderer.clear_screen()
+                return  # Return to main menu
+
             if next_action == "show_menu":
                 next_action = self.handle_ingame_menu()
+            if next_action == "back_to_menu":
+                self.game_renderer.clear_screen()
+                return
 
         self.handle_game_end(next_action)
 
@@ -130,8 +140,10 @@ class Console:
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
-        self.end_game()
-
+        
+        time.sleep(3)
+        self.game_renderer.clear_screen()
+        
     def render_game_state(self: "Console") -> None:
         """Render current game state.
 
@@ -210,6 +222,9 @@ class Console:
         elif next_action == "choose_language":
             self.handle_language_change()
 
+        elif next_action == "back_to_menu":
+            self.game_renderer.clear_screen()  # Clear current game display
+            return "back_to_menu"
         elif next_action == "end_game":
             self.end_game()
             return "game_over"

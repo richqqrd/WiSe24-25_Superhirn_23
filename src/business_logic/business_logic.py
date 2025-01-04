@@ -148,6 +148,17 @@ class BusinessLogic(IBusinessLogic):
             if self.network_service:
                 guess_str = "".join(str(color.value) for color in guess)
                 feedback_str = self.network_service.make_move(guess_str)
+
+                if isinstance(feedback_str, dict) and "error" in feedback_str:
+                    error_type = feedback_str["error"]
+                    if error_type == "connection_failed":
+                        return "connection_error"
+                    elif error_type == "server_error":
+                        return "server_error"
+                    elif error_type == "timeout":
+                        return "timeout_error"
+                    return f"network_error:{error_type}"
+
                 if feedback_str is None:
                     return "error"
 
