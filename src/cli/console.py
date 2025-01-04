@@ -110,6 +110,9 @@ class Console:
 
             if next_action == "show_menu":
                 next_action = self.handle_ingame_menu()
+            if next_action == "back_to_menu":
+                self.game_renderer.clear_screen()
+                return
 
         self.handle_game_end(next_action)
 
@@ -210,6 +213,9 @@ class Console:
         elif next_action == "choose_language":
             self.handle_language_change()
 
+        elif next_action == "back_to_menu":
+            self.game_renderer.clear_screen()  # Clear current game display
+            return "back_to_menu"
         elif next_action == "end_game":
             self.end_game()
             return "game_over"

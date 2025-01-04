@@ -60,10 +60,12 @@ class MenuRenderer:
             menu_items.append((1, translations[self.language]["save_game"]))
             menu_items.append((2, translations[self.language]["change_language"]))
             menu_items.append((3, translations[self.language]["resume_game"]))
-            menu_items.append((4, translations[self.language]["end_game"]))
+            menu_items.append((4, translations[self.language]["back_to_menu"]))
+            menu_items.append((5, translations[self.language]["end_game"]))
         else:
             menu_items.append((1, translations[self.language]["change_language"]))
-            menu_items.append((2, translations[self.language]["end_game"]))
+            menu_items.append((2, translations[self.language]["back_to_menu"]))  # New
+            menu_items.append((3, translations[self.language]["end_game"]))
 
         for number, text in menu_items:
             print(f"{number}. {text}")

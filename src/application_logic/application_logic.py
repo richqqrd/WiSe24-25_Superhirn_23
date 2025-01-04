@@ -230,12 +230,11 @@ class ApplicationLogic(IApplicationLogic):
         available_actions = self.get_available_menu_actions()
 
         menu_map = {
-            "1": (
-                "save_game" if "save_game" in available_actions else "change_language"
-            ),
-            "2": "change_language" if "save_game" in available_actions else "end_game",
-            "3": "load_game" if "load_game" in available_actions else None,
-            "4": "end_game" if "save_game" in available_actions else None,
+            "1": ("save_game" if "save_game" in available_actions else "change_language"),
+            "2": ("change_language" if "save_game" in available_actions else "back_to_menu"),
+            "3": ("load_game" if "load_game" in available_actions else "end_game"),
+            "4": ("back_to_menu" if "save_game" in available_actions else None),
+            "5": ("end_game" if "save_game" in available_actions else None)
         }
 
         action = menu_map.get(menu_choice)
@@ -251,6 +250,8 @@ class ApplicationLogic(IApplicationLogic):
             return self.load_game()
         elif action == "change_language":
             return "choose_language"
+        elif action == "back_to_menu":
+            return "back_to_menu"
         elif action == "end_game":
             return "end_game"
 
