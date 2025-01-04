@@ -246,22 +246,30 @@ class Console:
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:
-        self.game_renderer.clear_screen()
-        self.menu_renderer.display_game_mode_menu()
-        game_mode = self.input_handler.handle_game_mode_input()
+        while True:  # Schleife für Wiederholung bei ungültiger Eingabe
+            self.game_renderer.clear_screen()
+            self.menu_renderer.display_game_mode_menu()
+            game_mode = self.input_handler.handle_game_mode_input()
 
-        next_action = self.application_logic.get_required_action(game_mode)
+            next_action = self.application_logic.get_required_action(game_mode)
 
-        while next_action == "need_configuration":
-            config = self.collect_game_configuration()
-            next_action = self.application_logic.configure_game(game_mode, config)
+            if next_action == "back_to_menu":
+                return  # Nur bei expliziter Auswahl zurück zum Hauptmenü
+                
+            if next_action == "invalid_mode":
+                continue  # Bei ungültiger Eingabe Menü erneut anzeigen
 
-            if next_action == "invalid_configuration":
-                self.menu_renderer.display_invalid_configuration()
-                next_action = "need_configuration"
+            while next_action == "need_configuration":
+                config = self.collect_game_configuration()
+                next_action = self.application_logic.configure_game(game_mode, config)
 
-        if self.application_logic.can_start_game(next_action):
-            self.start_game_loop(next_action)
+                if next_action == "invalid_configuration":
+                    self.menu_renderer.display_invalid_configuration()
+                    next_action = "need_configuration"
+
+            if self.application_logic.can_start_game(next_action):
+                self.start_game_loop(next_action)
+                return
 
     def collect_game_configuration(self: "Console") -> dict:
         """Collect game configuration from user input.

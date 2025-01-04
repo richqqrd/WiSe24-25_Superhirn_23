@@ -40,12 +40,26 @@ class MenuRenderer:
             3. Resume Game
             4. End Game
         """
+        current_number = 1
+
         print(translations[self.language]["main_menu"])
-        print(f"1. {translations[self.language]['start_game']}")
-        print(f"2. {translations[self.language]['change_language']}")
+        current_number = 1
+        
+        # Start Game is always first
+        print(f"{current_number}. {translations[self.language]['start_game']}")
+        current_number += 1
+        
+        # Change Language is always second
+        print(f"{current_number}. {translations[self.language]['change_language']}")
+        current_number += 1
+        
+        # Resume Game only if available
         if "resume_game" in available_actions:
-            print(f"3. {translations[self.language]['resume_game']}")
-        print(f"4. {translations[self.language]['end_game']}")
+            print(f"{current_number}. {translations[self.language]['resume_game']}")
+            current_number += 1
+        
+        # End Game is always last
+        print(f"{current_number}. {translations[self.language]['end_game']}")
 
     def display_ingame_menu(self: "MenuRenderer", available_actions: list) -> None:
         """Display the in-game menu options.
@@ -60,15 +74,22 @@ class MenuRenderer:
 
         print(translations[self.language]["ingame_menu"])
         menu_items = []
+        current_number = 1
+        
         if "save_game" in available_actions:
-            menu_items.append((1, translations[self.language]["save_game"]))
-            menu_items.append((2, translations[self.language]["change_language"]))
-            menu_items.append((3, translations[self.language]["resume_game"]))
-            menu_items.append((4, translations[self.language]["back_to_menu"]))
-            menu_items.append((5, translations[self.language]["end_game"]))
+            menu_items.append((current_number, translations[self.language]["save_game"]))
+            current_number += 1
+            menu_items.append((current_number, translations[self.language]["change_language"]))
+            current_number += 1
+            if "resume_game" in available_actions:
+                menu_items.append((current_number, translations[self.language]["resume_game"]))
+                current_number += 1
+            menu_items.append((current_number, translations[self.language]["back_to_menu"]))
+            current_number += 1
+            menu_items.append((current_number, translations[self.language]["end_game"]))
         else:
             menu_items.append((1, translations[self.language]["change_language"]))
-            menu_items.append((2, translations[self.language]["back_to_menu"]))  # New
+            menu_items.append((2, translations[self.language]["back_to_menu"]))
             menu_items.append((3, translations[self.language]["end_game"]))
 
         for number, text in menu_items:

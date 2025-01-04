@@ -29,12 +29,22 @@ class ApplicationLogic(IApplicationLogic):
             business_logic: Core game logic implementation
         """
         self.business_logic = business_logic
+        
+        # Basic commands that are always available
         self.commands = {
-            "1": lambda: "choose_mode",
-            "2": lambda: "choose_language",
-            "3": lambda: "resume_game",
-            "4": lambda: "end_game",
+            "1": lambda: "choose_mode",      # Start Game
+            "2": lambda: "choose_language",  # Change Language
+            "3": lambda: "end_game"         # End Game
         }
+
+        # Add resume_game command only if saved game exists
+        if self.business_logic.has_saved_game():
+            self.commands = {
+                "1": lambda: "choose_mode",
+                "2": lambda: "choose_language",
+                "3": lambda: "resume_game",
+                "4": lambda: "end_game"
+            }
 
     def handle_game_configuration(
         self: "ApplicationLogic",
@@ -163,12 +173,28 @@ class ApplicationLogic(IApplicationLogic):
         except ValueError:
             return "need_guess_input"
 
-    def handle(self: "ApplicationLogic", command: str) -> str:
-        action = self.commands.get(command)
-        if action:
-            return action()
-        else:
-            return "Invalid command."
+    def handle(self: "ApplicationLogic", menu_choice: str) -> str:
+        """Handle main menu selection."""
+        # Build menu map based on available actions
+        available_actions = self.get_available_menu_actions()
+        
+        # Basic menu map
+        menu_map = {
+            "1": "choose_mode",      # Start Game
+            "2": "choose_language",  # Change Language
+            "3": "end_game"         # End Game
+        }
+        
+        # Add resume_game if available
+        if "resume_game" in available_actions:
+            menu_map = {
+                "1": "choose_mode",
+                "2": "choose_language", 
+                "3": "resume_game",
+                "4": "end_game"
+            }
+
+        return menu_map.get(menu_choice, "invalid")
 
     def handle_server_connection(self: "ApplicationLogic", ip: str, port: int) -> str:
         if self.business_logic.current_mode == "online_computer_guesser":
@@ -239,19 +265,32 @@ class ApplicationLogic(IApplicationLogic):
 
     def handle_menu_action(self: "ApplicationLogic", menu_choice: str) -> str:
         available_actions = self.get_available_menu_actions()
+        
+        # Baue Menu-Map dynamisch basierend auf verfügbaren Aktionen
+        menu_items = []
+        if "save_game" in available_actions:
+            menu_items.append(("1", "save_game"))
+            menu_items.append(("2", "change_language"))
+            if "resume_game" in available_actions:
+                menu_items.append(("3", "resume_game"))
+                menu_items.append(("4", "back_to_menu"))
+                menu_items.append(("5", "end_game"))
+            else:
+                menu_items.append(("3", "back_to_menu"))
+                menu_items.append(("4", "end_game"))
+        else:
+            menu_items.append(("1", "change_language"))
+            menu_items.append(("2", "back_to_menu"))
+            menu_items.append(("3", "end_game"))
 
-        menu_map = {
-            "1": ("save_game" if "save_game" in available_actions else "change_language"),
-            "2": ("change_language" if "save_game" in available_actions else "back_to_menu"),
-            "3": ("load_game" if "load_game" in available_actions else "end_game"),
-            "4": ("back_to_menu" if "save_game" in available_actions else None),
-            "5": ("end_game" if "save_game" in available_actions else None)
-        }
-
+        # Konvertiere zu Dictionary für Lookup
+        menu_map = dict(menu_items)
         action = menu_map.get(menu_choice)
+        
         if not action:
             return self.get_current_game_action()
 
+        # Handle spezifische Aktionen
         if action == "save_game":
             if self.business_logic.has_saved_game():
                 return "confirm_save"
@@ -321,16 +360,18 @@ class ApplicationLogic(IApplicationLogic):
 
     def get_available_menu_actions(self: "ApplicationLogic") -> list[str]:
         # Erst prüfen ob game_state existiert
+        actions = ["change_language", "end_game"]
+
+        # Im Hauptmenü: Zeige resume_game wenn Spielstand existiert
         if not self.business_logic.game_state:
-            return ["change_language", "end_game"]
+            if self.business_logic.has_saved_game():
+                actions.append("resume_game")
+            return actions
 
         is_offline_guesser = (
             isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser) and
             not self.business_logic.network_service
         )
-
-        actions = ["change_language", "end_game"]
-
         if is_offline_guesser:
             actions.append("save_game")
             if self.business_logic.has_saved_game():
