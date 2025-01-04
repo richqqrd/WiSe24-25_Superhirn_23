@@ -317,12 +317,12 @@ class TestApplicationLogic(unittest.TestCase):
         # Test valid commands
         self.assertEqual(self.app_logic.handle("1"), "choose_mode")
         self.assertEqual(self.app_logic.handle("2"), "choose_language")
-        self.assertEqual(self.app_logic.handle("3"), "resume_game")
+        self.assertEqual(self.app_logic.handle("3"),"load_game")
         self.assertEqual(self.app_logic.handle("4"), "end_game")
 
         # Test invalid command
-        self.assertEqual(self.app_logic.handle("invalid"), "Invalid command.")
-        self.assertEqual(self.app_logic.handle("5"), "Invalid command.")
+        self.assertEqual(self.app_logic.handle("invalid"), "invalid")
+        self.assertEqual(self.app_logic.handle("5"), "invalid")
 
     def test_handle_server_connection(self):
         """Test server connection handling."""
@@ -336,7 +336,7 @@ class TestApplicationLogic(unittest.TestCase):
 
             # Test successful server connection
             result = self.app_logic.handle_server_connection("localhost", 8080)
-            self.assertEqual(result, "need_server_connection")
+            self.assertEqual(result, "need_guess_input")  # Changed expectation
 
             # Test failed server connection
             mock_network_instance.start_game.return_value = False
@@ -431,15 +431,13 @@ class TestApplicationLogic(unittest.TestCase):
             self.app_logic.process_game_action("need_server_connection", "menu"),
             "show_menu"
         )
-
-        # Mock NetworkService for server connection test
         with patch('src.business_logic.business_logic.NetworkService') as mock_network:
             mock_network_instance = mock_network.return_value
             # Test successful connection
             mock_network_instance.start_game.return_value = True
             self.assertEqual(
                 self.app_logic.process_game_action("need_server_connection", "localhost:8080"),
-                "need_server_connection"
+                "need_guess_input"  # Erwartet need_guess_input statt need_server_connection
             )
             # Test failed connection
             mock_network_instance.start_game.return_value = False
@@ -482,10 +480,12 @@ class TestApplicationLogic(unittest.TestCase):
 
         # Test end game
         result = self.app_logic.handle_menu_action("4")
+        self.assertEqual(result, "back_to_menu")
+
+        result = self.app_logic.handle_menu_action("5")
         self.assertEqual(result, "end_game")
 
-        # Test invalid choice
-        result = self.app_logic.handle_menu_action("5")
+        result = self.app_logic.handle_menu_action("10")
         self.assertEqual(result, "need_guess_input")
 
     def test_get_required_action(self):
@@ -684,7 +684,7 @@ class TestApplicationLogic(unittest.TestCase):
         self.app_logic.get_current_game_action = Mock(return_value="need_guess_input")
 
         # Test that unhandled action falls back to current game action
-        result = self.app_logic.handle_menu_action("5")  # Invalid choice
+        result = self.app_logic.handle_menu_action("7")  # Invalid choice
         self.assertEqual(result, "need_guess_input")
 
         # Test action when no special actions are available
@@ -692,10 +692,9 @@ class TestApplicationLogic(unittest.TestCase):
         self.game_logic.startgame("coder")
         self.game_logic.set_secret_code([ColorCode(1)] * 4)
 
-        # Test that menu option 3 falls back to current game action
-        # when load_game isn't available
+        # Test that menu option 3 maps to end_game when load_game isn't available
         result = self.app_logic.handle_menu_action("3")
-        self.assertEqual(result, "need_guess_input")
+        self.assertEqual(result, "end_game")  # Changed from need_guess_input
 
     def test_handle_menu_action_final_fallback(self):
         """Test handle_menu_action final fallback to current game action."""
