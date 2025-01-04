@@ -41,11 +41,7 @@ class ComputerGuesser(IGuesser):
         Returns:
             Set[tuple]: A set of all possible color code combinations
         """
-        start_time = time.time()
         colors = [ColorCode(i) for i in range(1, self.colors + 1)]
-        end_time = time.time()
-        elapsed_time = end_time - start_time
-        print(f"generate all poss codes: {elapsed_time:.4f} seconds")
         return set(product(colors, repeat=self.positions))
 
     def make_guess(self: "ComputerGuesser") -> List[ColorCode]:
@@ -70,34 +66,24 @@ class ComputerGuesser(IGuesser):
         if not self.possible_codes:
             raise ValueError("CHEATING_DETECTED")
 
-        start_time_total = time.time()
 
         best_guess = None
         min_max_remaining = float("inf")
 
         for guess in self.possible_codes:
-            start_time_guess = time.time()
 
             max_remaining = 0
 
             score_counts = {}
 
             for possible_code in self.possible_codes:
-                start_time_feedback = time.time()
 
                 feedback = self._calculate_feedback(list(guess), list(possible_code))
                 score = tuple(feedback)
                 score_counts[score] = score_counts.get(score, 0) + 1
                 max_remaining = max(max_remaining, score_counts[score])
-                feedback_time = time.time() - start_time_feedback
-                print(f"Feedback calculation time: {feedback_time:.4f} seconds")
-                start_time_remaining = time.time()
 
-                remaining_time = time.time() - start_time_remaining
-                print(f"Remaining calculation time: {remaining_time:.4f} seconds")
 
-            guess_time = time.time() - start_time_guess
-            print(f"Time for this guess evaluation: {guess_time:.4f} seconds")
 
             if max_remaining < min_max_remaining:
                 min_max_remaining = max_remaining
@@ -105,8 +91,6 @@ class ComputerGuesser(IGuesser):
                 if guess in self.possible_codes:
                     break
 
-        total_time = time.time() - start_time_total
-        print(f"Total time for this guess: {total_time:.4f} seconds")
         self.last_guess = list(best_guess)
         return self.last_guess
 
@@ -157,15 +141,13 @@ class ComputerGuesser(IGuesser):
         if not self.last_guess:
             return
 
-        start_time = time.time()
 
         self.possible_codes = {
             code
             for code in self.possible_codes
             if self._would_give_same_feedback(list(code), feedback)
         }
-        process_time = time.time() - start_time
-        print(f"Feedback processing time: {process_time:.4f} seconds")
+
 
     def _would_give_same_feedback(
         self: "ComputerGuesser",
