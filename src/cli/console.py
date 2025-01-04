@@ -1,10 +1,5 @@
 """Module for console-based user interface."""
-
-import os
-import sys
 import time
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 from src.application_logic.i_application_logic import IApplicationLogic
 from src.cli.game_renderer.game_renderer import GameRenderer
