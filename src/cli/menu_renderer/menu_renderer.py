@@ -31,7 +31,7 @@ class MenuRenderer:
         if language in translations:
             self.language = language
 
-    def display_main_menu(self: "MenuRenderer") -> None:
+    def display_main_menu(self: "MenuRenderer", available_actions: list) -> None:
         """Display the main menu options.
 
         Shows translated menu items:
@@ -43,7 +43,8 @@ class MenuRenderer:
         print(translations[self.language]["main_menu"])
         print(f"1. {translations[self.language]['start_game']}")
         print(f"2. {translations[self.language]['change_language']}")
-        print(f"3. {translations[self.language]['resume_game']}")
+        if "resume_game" in available_actions:
+            print(f"3. {translations[self.language]['resume_game']}")
         print(f"4. {translations[self.language]['end_game']}")
 
     def display_ingame_menu(self: "MenuRenderer", available_actions: list) -> None:

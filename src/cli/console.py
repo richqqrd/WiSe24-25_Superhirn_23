@@ -45,7 +45,8 @@ class Console:
         """
         while self.is_game_active:
             self.game_renderer.clear_screen()
-            self.menu_renderer.display_main_menu()
+            available_actions = self.application_logic.get_available_menu_actions()
+            self.menu_renderer.display_main_menu(available_actions)
             user_input = self.input_handler.handle_menu_input()
             action = self.application_logic.handle(user_input)
 
