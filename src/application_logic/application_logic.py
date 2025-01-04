@@ -42,7 +42,7 @@ class ApplicationLogic(IApplicationLogic):
             self.commands = {
                 "1": lambda: "choose_mode",
                 "2": lambda: "choose_language",
-                "3": lambda: "resume_game",
+                "3": lambda: "load_game",
                 "4": lambda: "end_game"
             }
 
@@ -186,11 +186,11 @@ class ApplicationLogic(IApplicationLogic):
         }
         
         # Add resume_game if available
-        if "resume_game" in available_actions:
+        if "load_game" in available_actions:
             menu_map = {
                 "1": "choose_mode",
                 "2": "choose_language", 
-                "3": "resume_game",
+                "3": "load_game",
                 "4": "end_game"
             }
 
@@ -271,8 +271,8 @@ class ApplicationLogic(IApplicationLogic):
         if "save_game" in available_actions:
             menu_items.append(("1", "save_game"))
             menu_items.append(("2", "change_language"))
-            if "resume_game" in available_actions:
-                menu_items.append(("3", "resume_game"))
+            if "load_game" in available_actions:
+                menu_items.append(("3", "load_game"))
                 menu_items.append(("4", "back_to_menu"))
                 menu_items.append(("5", "end_game"))
             else:
@@ -365,7 +365,7 @@ class ApplicationLogic(IApplicationLogic):
         # Im Hauptmenü: Zeige resume_game wenn Spielstand existiert
         if not self.business_logic.game_state:
             if self.business_logic.has_saved_game():
-                actions.append("resume_game")
+                actions.append("load_game")
             return actions
 
         is_offline_guesser = (
@@ -375,7 +375,7 @@ class ApplicationLogic(IApplicationLogic):
         if is_offline_guesser:
             actions.append("save_game")
             if self.business_logic.has_saved_game():
-                actions.append("resume_game")
+                actions.append("load_game")
 
         return actions
 

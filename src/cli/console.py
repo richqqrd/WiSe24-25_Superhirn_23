@@ -54,7 +54,7 @@ class Console:
             elif action == "save_game":
                 self.application_logic.save_game()
                 self.menu_renderer.display_save_game()
-            elif action == "resume_game":
+            elif action == "load_game":
                 next_action = self.application_logic.load_game()
                 if next_action != "error":
                     self.start_game_loop(next_action)
