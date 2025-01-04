@@ -2,6 +2,7 @@
 
 import os
 import sys
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
@@ -133,8 +134,10 @@ class Console:
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
-        self.end_game()
-
+        
+        time.sleep(3)
+        self.game_renderer.clear_screen()
+        
     def render_game_state(self: "Console") -> None:
         """Render current game state.
 
