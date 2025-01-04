@@ -1,5 +1,6 @@
 import json
 import random
+import time
 from http.server import BaseHTTPRequestHandler
 from typing import Dict, Any
 
@@ -10,6 +11,8 @@ class MastermindTestServer(BaseHTTPRequestHandler):
     # Store active games
     games: Dict[int, Dict[str, Any]] = {}
     next_game_id = 1
+    error_mode = None  # Mögliche Werte: None, "connection", "timeout", "server_error"
+
 
     def _send_response(self, status_code: int, response_data: Dict[str, Any]) -> None:
         """Send HTTP response with JSON data."""
@@ -61,6 +64,24 @@ class MastermindTestServer(BaseHTTPRequestHandler):
 
     def do_POST(self):
         """Handle POST requests."""
+        # Simuliere verschiedene Fehler basierend auf error_mode
+        if self.error_mode == "connection":
+            self._send_response(503, {"error": "Service Unavailable"})
+            return
+        elif self.error_mode == "timeout":
+            time.sleep(11)  # Länger als Standard-Timeout
+            return
+        elif self.error_mode == "server_error":
+            self._send_response(500, {"error": "Internal Server Error"})
+            return
+        elif self.error_mode == "corrupt_json":
+            # Sende korrupten JSON Response
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(b'{corrupted"json:data""')
+            return
+    
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         
@@ -130,17 +151,28 @@ class MastermindTestServer(BaseHTTPRequestHandler):
         except Exception as e:
             self._send_response(500, {"error": str(e)})
 
-def run_server(port: int = 8000):
-        """Run the test server on localhost."""
-        from http.server import HTTPServer
-        server_address = ('localhost', port)
-        httpd = HTTPServer(server_address, MastermindTestServer)
-        print(f"Starting test server on http://localhost:{port}")
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nShutting down server...")
-            httpd.server_close()
+def run_server(port: int = 8000, error_mode: str = None):
+    """Run the test server on localhost."""
+    from http.server import HTTPServer
+    server_address = ('localhost', port)
+    
+    # Set error mode before starting server
+    MastermindTestServer.error_mode = error_mode
+    
+    httpd = HTTPServer(server_address, MastermindTestServer)
+    print(f"Starting test server on http://localhost:{port}")
+    print(f"Error mode: {error_mode if error_mode else 'None'}")
+    
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nShutting down server...")
+        httpd.server_close()
 
 if __name__ == "__main__":
-        run_server()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--error', choices=['connection', 'timeout', 'server_error', 'corrupt_json'], 
+                       help='Set error mode for testing')
+    args = parser.parse_args()
+    run_server(error_mode=args.error)

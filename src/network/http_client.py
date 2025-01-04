@@ -52,9 +52,25 @@ class HttpClient:
             )
             response.raise_for_status()
             return response.json()
+             
+        except requests.exceptions.HTTPError as e:
+            logging.error(f"HTTP Error: {e.response.status_code} - {e.response.reason}")
+            if e.response.status_code == 404:
+                return {"error": "Server nicht gefunden"}
+            elif e.response.status_code == 500:
+                return {"error": "Interner Server-Fehler"}
+            elif e.response.status_code == 408:
+                return {"error": "Zeitüberschreitung"}
+            return {"error": f"HTTP Fehler: {e.response.status_code}"}
+            
+        except requests.exceptions.ConnectionError:
+            logging.error("Verbindung zum Server fehlgeschlagen")
+            return {"error": "Verbindung fehlgeschlagen"}
+            
         except requests.exceptions.Timeout:
-            logging.error("Request timed out.")
-            raise
-        except requests.exceptions.RequestException as e:
-            logging.error(f"Request failed: {e}")
-            raise
+            logging.error("Zeitüberschreitung bei Server-Anfrage")
+            return {"error": "Zeitüberschreitung"}
+            
+        except Exception as e:
+            logging.error(f"Unerwarteter Fehler: {str(e)}")
+            return {"error": "Unerwarteter Fehler"}

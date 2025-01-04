@@ -213,7 +213,18 @@ class ApplicationLogic(IApplicationLogic):
             return self.handle_feedback_input(user_input)
 
         elif action == "wait_for_computer_guess":
-            return self.handle_computer_guess()
+            result = self.handle_computer_guess()
+                
+            if result == "connection_error":
+                return "need_server_connection"  # Try reconnecting
+            elif result == "server_error":
+                return "error"  # Show server error
+            elif result == "timeout_error":
+                return "need_server_connection"  # Try again
+            elif result.startswith("network_error:"):
+                return "error"  # Show specific error
+                    
+            return result
 
         elif action == "need_server_connection":
             if user_input == "menu":

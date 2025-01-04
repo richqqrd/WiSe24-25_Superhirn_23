@@ -145,3 +145,4 @@ class GameRenderer:
         print("\n" + "!" * 40)
         print(f"WARNING: {warning.center(30)}")
         print("!" * 40 + "\n")
+        print("Going back to main menu in 10 seconds...")

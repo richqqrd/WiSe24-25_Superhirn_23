@@ -109,6 +109,12 @@ class Console:
                 next_action, user_input
             )
 
+            if next_action == "error":
+                self.game_renderer.render_warning("Connection failed!")
+                time.sleep(10)  # Show error for 2 seconds
+                self.game_renderer.clear_screen()
+                return  # Return to main menu
+
             if next_action == "show_menu":
                 next_action = self.handle_ingame_menu()
             if next_action == "back_to_menu":

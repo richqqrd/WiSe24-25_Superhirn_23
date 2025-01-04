@@ -79,13 +79,17 @@ class NetworkService(INetworkService):
             raise ValueError("No active game")
 
         try:
-            return self.http_handler.make_move(
+            response = self.http_handler.make_move(  # Speichere Response in Variable
                 self.current_game_id,
                 self.current_player_id,
                 self.positions,
                 self.colors,
                 value,
             )
+            if isinstance(response, dict) and "error" in response:
+                logging.error(f"Network error: {response['error']}")
+                return f"error:{response['error']}"
+            return response  # Return am Ende
         except Exception as e:
             logging.error(f"Failed to make move: {e}")
-            return None
+            return f"error:unexpected_error"
