@@ -267,3 +267,12 @@ class IApplicationLogic(ABC):
             str: "end_game" to trigger game ending
         """
         pass
+
+    @abstractmethod
+    def confirm_save_game(self) -> str:
+        """Handle save game confirmation request.
+
+        Returns:
+            str: Next action after save game confirmation
+        """
+        pass

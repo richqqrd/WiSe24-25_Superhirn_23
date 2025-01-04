@@ -54,6 +54,9 @@ class MenuRenderer:
         Args:
             available_actions: List of allowed menu actions
         """
+        if not isinstance(available_actions, list):
+            raise ValueError("available_actions must be a list")
+
         print(translations[self.language]["ingame_menu"])
         menu_items = []
         if "save_game" in available_actions:
@@ -133,6 +136,9 @@ class MenuRenderer:
         Args:
             available_colors: Maximum number of colors to display
         """
+        if not isinstance(available_colors, int):
+            raise ValueError("available_colors must be an integer")
+
         print(f"\n{translations[self.language]['available_colors']}")
         for color in list(ColorCode)[:available_colors]:
             print(f"{color.value}: {color}")
@@ -204,8 +210,8 @@ class MenuRenderer:
         when attempting to save over an existing save file.
         """
         print(translations[self.language]["save_warning"])
-        print(f"1. {translations[self.language]['yes']}")
-        print(f"2. {translations[self.language]['no']}")
+        #print(f"1. {translations[self.language]['yes']}")
+        #print(f"2. {translations[self.language]['no']}")
 
     def display_color_selection(self: "MenuRenderer") -> None:
         """Display available colors for selection.
