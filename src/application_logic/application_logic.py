@@ -286,7 +286,7 @@ class ApplicationLogic(IApplicationLogic):
             "need_guess_input": self._handle_guess_action,
             "need_code_input": self._handle_code_action,
             "need_feedback_input": self._handle_feedback_action,
-            "wait_for_computer_guess": self._handle_computer_guess_action,
+            "wait_for_computer_guess": lambda _:self._handle_computer_guess_action(),
             "need_server_connection": self._handle_server_connection_action
         }
 
