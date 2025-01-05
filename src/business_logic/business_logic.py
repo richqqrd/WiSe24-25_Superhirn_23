@@ -171,6 +171,10 @@ class BusinessLogic(IBusinessLogic):
             str: Result status of setting the secret code
         """
         try:
+            if not code_list:  # Ungültige Eingabe
+                return "need_code_input"
+
+       
             self.game_state = GameState(
                 code_list,
                 self.max_round,

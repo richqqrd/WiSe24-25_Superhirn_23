@@ -171,7 +171,10 @@ class Console:
             positions = self.application_logic.get_positions()
             colors = self.application_logic.get_colors()
             self.menu_renderer.display_code_input(colors)
-            return self.input_handler.handle_code_input(positions)
+            user_input = self.input_handler.handle_code_input(positions)
+            if user_input == "menu":
+                return "need_code_input"
+            return user_input
 
         elif action == "need_feedback_input":
             positions = self.application_logic.get_positions()
