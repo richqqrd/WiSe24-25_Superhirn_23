@@ -611,7 +611,7 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertEqual(result, "save_game")
 
         # Test save failure
-        self.game_logic.save_game_state = Mock(side_effect=Exception)
+        self.game_logic.save_game_state = Mock(side_effect=FileNotFoundError)  # Änderung hier
         result = self.app_logic.confirm_save_game()
         self.assertEqual(result, "error")
 
