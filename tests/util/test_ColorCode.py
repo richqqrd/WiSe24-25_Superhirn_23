@@ -7,7 +7,7 @@ from src.util.color_code import ColorCode
 class TestColorCode(unittest.TestCase):
     """Test cases for ColorCode enum."""
 
-    def test_enum_values(self):
+    def test_enum_values(self: "TestColorCode") -> None:
         """Test that enum values are correctly assigned."""
         self.assertEqual(ColorCode.RED.value, 1)
         self.assertEqual(ColorCode.GREEN.value, 2)
@@ -18,7 +18,7 @@ class TestColorCode(unittest.TestCase):
         self.assertEqual(ColorCode.WHITE.value, 7)
         self.assertEqual(ColorCode.BLACK.value, 8)
 
-    def test_get_ansi_code(self):
+    def test_get_ansi_code(self: "TestColorCode") -> None:
         """Test ANSI color code generation."""
         self.assertEqual(ColorCode.RED.get_ansi_code(), "\033[31m")
         self.assertEqual(ColorCode.GREEN.get_ansi_code(), "\033[32m")
@@ -29,7 +29,7 @@ class TestColorCode(unittest.TestCase):
         self.assertEqual(ColorCode.WHITE.get_ansi_code(), "\033[97m")
         self.assertEqual(ColorCode.BLACK.get_ansi_code(), "\033[90m")
 
-    def test_str_method(self):
+    def test_str_method(self: "TestColorCode") -> None:
         """Test string representation."""
         self.assertEqual(str(ColorCode.RED), "\033[31mRED\033[0m")
         self.assertEqual(str(ColorCode.GREEN), "\033[32mGREEN\033[0m")
@@ -40,12 +40,12 @@ class TestColorCode(unittest.TestCase):
         self.assertEqual(str(ColorCode.WHITE), "\033[97mWHITE\033[0m")
         self.assertEqual(str(ColorCode.BLACK), "\033[90mBLACK\033[0m")
 
-    def test_repr_method(self):
+    def test_repr_method(self: "TestColorCode") -> None:
         """Test repr representation."""
         self.assertEqual(repr(ColorCode.RED), "<ColorCode.RED: 1>")
         self.assertEqual(repr(ColorCode.BLACK), "<ColorCode.BLACK: 8>")
 
-    def test_equality(self):
+    def test_equality(self: "TestColorCode") -> None:
         """Test equality comparison."""
         self.assertEqual(ColorCode.RED, ColorCode.RED)
         self.assertNotEqual(ColorCode.RED, ColorCode.GREEN)

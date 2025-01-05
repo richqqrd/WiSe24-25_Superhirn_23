@@ -1,12 +1,24 @@
+"""Unit tests for the main module of the Mastermind game application."""
+
 import unittest
 from unittest.mock import patch, MagicMock
 
+
 class TestMain(unittest.TestCase):
+    """Test case for the main function in the Mastermind game application."""
+
     @patch('src.main.PersistenceManager')
     @patch('src.main.BusinessLogic')
     @patch('src.main.ApplicationLogic')
     @patch('src.main.Console')
-    def test_main(self, mock_console, mock_application_logic, mock_business_logic, mock_persistence_manager):
+    def test_main(self: "TestMain", mock_console: MagicMock,
+                  mock_application_logic: MagicMock,
+                  mock_business_logic: MagicMock,
+                  mock_persistence_manager: MagicMock) -> None:
+        """Test that the main function creates the necessary instances.
+
+        Calls the run method.
+        """
         # Mock instances
         mock_persistence_instance = MagicMock()
         mock_business_instance = MagicMock()
@@ -29,6 +41,7 @@ class TestMain(unittest.TestCase):
         mock_application_logic.assert_called_once_with(mock_business_instance)
         mock_console.assert_called_once_with(mock_application_instance)
         mock_console_instance.run.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
