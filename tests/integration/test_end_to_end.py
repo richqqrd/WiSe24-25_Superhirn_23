@@ -62,17 +62,13 @@ class TestEndToEnd(unittest.TestCase):
         # Mock user input
         console.input_handler.handle_user_input = Mock()
         console.input_handler.handle_user_input.side_effect = [
-            "2",  # Choose guesser mode
-            "Player1",  # Player name
+            "2",  # Choose coder mode
+            "Player1",  # Name
             "4",  # Positions
             "1",  # Colors
             "10",  # Max attempts
-            "2222",  # First guess
-            "menu",  # Open menu
-            "1111",
-            "menu",  
-            "2",
-            "8888"
+            "1111",  # Secret code # Menu
+            "8888",  # Feedback for computer's guess
         ]
 
         # Run game flow
