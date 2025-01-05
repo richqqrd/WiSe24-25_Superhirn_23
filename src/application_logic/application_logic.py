@@ -8,9 +8,6 @@ from src.util.feedback_color_code import FeedbackColorCode
 from src.business_logic.guesser.player_guesser import PlayerGuesser
 
 
-
-
-
 class ApplicationLogic(IApplicationLogic):
     """Application logic implementation controlling game flow.
 
@@ -283,7 +280,8 @@ class ApplicationLogic(IApplicationLogic):
         except FileNotFoundError:
             return "error"
 
-    def process_game_action(self: "ApplicationLogic", action: str, user_input: str = None) -> str:
+    def process_game_action(self: "ApplicationLogic",
+                            action: str, user_input: str = None) -> str:
         """Process the next game action."""
         action_handlers = {
             "need_guess_input": self._handle_guess_action,
@@ -292,7 +290,7 @@ class ApplicationLogic(IApplicationLogic):
             "wait_for_computer_guess": self._handle_computer_guess_action,
             "need_server_connection": self._handle_server_connection_action
         }
-    
+
         if action in action_handlers:
             return action_handlers[action](user_input)
         return "error"
