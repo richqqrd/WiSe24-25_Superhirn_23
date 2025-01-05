@@ -44,20 +44,20 @@ class MenuRenderer:
 
         print(translations[self.language]["main_menu"])
         current_number = 1
-        
+
         # Start Game is always first
         print(f"{current_number}. {translations[self.language]['start_game']}")
         current_number += 1
-        
+
         # Change Language is always second
         print(f"{current_number}. {translations[self.language]['change_language']}")
         current_number += 1
-        
+
         # Resume Game only if available
         if "resume_game" in available_actions:
             print(f"{current_number}. {translations[self.language]['resume_game']}")
             current_number += 1
-        
+
         # End Game is always last
         print(f"{current_number}. {translations[self.language]['end_game']}")
 
@@ -75,16 +75,28 @@ class MenuRenderer:
         print(translations[self.language]["ingame_menu"])
         menu_items = []
         current_number = 1
-        
+
         if "save_game" in available_actions:
-            menu_items.append((current_number, translations[self.language]["save_game"]))
+            menu_items.append(
+                (current_number, translations[self.language]["save_game"])
+            )
+
             current_number += 1
-            menu_items.append((current_number, translations[self.language]["change_language"]))
+            menu_items.append(
+                (current_number, translations[self.language]["change_language"])
+            )
+
             current_number += 1
             if "resume_game" in available_actions:
-                menu_items.append((current_number, translations[self.language]["resume_game"]))
+                menu_items.append(
+                    (current_number, translations[self.language]["resume_game"])
+                )
+
                 current_number += 1
-            menu_items.append((current_number, translations[self.language]["back_to_menu"]))
+            menu_items.append(
+                (current_number, translations[self.language]["back_to_menu"])
+            )
+
             current_number += 1
             menu_items.append((current_number, translations[self.language]["end_game"]))
         else:
@@ -232,8 +244,6 @@ class MenuRenderer:
         when attempting to save over an existing save file.
         """
         print(translations[self.language]["save_warning"])
-        #print(f"1. {translations[self.language]['yes']}")
-        #print(f"2. {translations[self.language]['no']}")
 
     def display_color_selection(self: "MenuRenderer") -> None:
         """Display available colors for selection.

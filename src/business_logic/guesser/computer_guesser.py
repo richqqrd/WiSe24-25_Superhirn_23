@@ -1,6 +1,5 @@
 """Module for computer guesser implementation."""
 
-import time
 from itertools import product
 from typing import List, Set
 from src.business_logic.guesser.i_guesser import IGuesser
@@ -66,7 +65,6 @@ class ComputerGuesser(IGuesser):
         if not self.possible_codes:
             raise ValueError("CHEATING_DETECTED")
 
-
         best_guess = None
         min_max_remaining = float("inf")
 
@@ -82,8 +80,6 @@ class ComputerGuesser(IGuesser):
                 score = tuple(feedback)
                 score_counts[score] = score_counts.get(score, 0) + 1
                 max_remaining = max(max_remaining, score_counts[score])
-
-
 
             if max_remaining < min_max_remaining:
                 min_max_remaining = max_remaining
@@ -141,13 +137,11 @@ class ComputerGuesser(IGuesser):
         if not self.last_guess:
             return
 
-
         self.possible_codes = {
             code
             for code in self.possible_codes
             if self._would_give_same_feedback(list(code), feedback)
         }
-
 
     def _would_give_same_feedback(
         self: "ComputerGuesser",

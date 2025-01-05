@@ -1,6 +1,5 @@
 """Application logic module for game flow control."""
 
-import os
 from src.application_logic.i_application_logic import IApplicationLogic
 from src.business_logic.i_business_logic import IBusinessLogic
 from src.util.color_code import ColorCode
@@ -16,7 +15,7 @@ class ApplicationLogic(IApplicationLogic):
         - Input validation
         - Game configuration
         - State transitions
-ƒ
+
     Attributes:
         business_logic: Core game logic implementation
         commands: Dictionary mapping menu commands to handler functions
@@ -29,7 +28,7 @@ class ApplicationLogic(IApplicationLogic):
             business_logic: Core game logic implementation
         """
         self.business_logic = business_logic
-        
+
         # Basic commands that are always available
         self.commands = {
             "1": lambda: "choose_mode",      # Start Game
@@ -53,6 +52,17 @@ class ApplicationLogic(IApplicationLogic):
         colors: str,
         max_attempts: str,
     ) -> str:
+        """Configure game settings based on user input.
+
+        Args:
+            player_name: Name of the player
+            positions: Number of positions in the code
+            colors: Number of colors available
+            max_attempts: Maximum number of attempts allowed
+
+        Returns:
+            str: Result of the configuration attempt
+        """
         if not player_name or len(player_name.strip()) == 0:
             return "invalid_configuration"
 
@@ -93,6 +103,14 @@ class ApplicationLogic(IApplicationLogic):
             return False
 
     def handle_feedback_input(self: "ApplicationLogic", feedback: str) -> str:
+        """Handle feedback input from the user.
+
+        Args:
+            feedback: Feedback string to process
+
+        Returns:
+            str: Result of the feedback input
+        """
         if not self._is_valid_feedback(feedback):
             return "need_feedback_input"
         try:
@@ -104,10 +122,20 @@ class ApplicationLogic(IApplicationLogic):
         except ValueError:
             return "need_feedback_input"
 
-    def get_game_state(self: "ApplicationLogic"):
+    def get_game_state(self: "ApplicationLogic") -> str:
+        """Get the current game state.
+
+        Returns:
+            str: Current game state
+        """
         return self.business_logic.get_game_state()
 
     def handle_computer_guess(self: "ApplicationLogic") -> str:
+        """Handle computer guess in online mode.
+
+        Returns:
+            str: Result of the computer guess
+        """
         return self.business_logic.make_computer_guess()
 
     def _is_valid_code(self: "ApplicationLogic", code: str) -> bool:
@@ -154,6 +182,14 @@ class ApplicationLogic(IApplicationLogic):
         raise ValueError(f"No ColorCode found for number {number}")
 
     def handle_code_input(self: "ApplicationLogic", code_input: str) -> str:
+        """Handle code input from the user.
+
+        Args:
+            code_input: Code input string to process
+
+        Returns:
+            str: Result of the code input
+        """
         if not self._is_valid_code(code_input):
             return "need_code_input"
         try:
@@ -163,6 +199,14 @@ class ApplicationLogic(IApplicationLogic):
             return "need_code_input"
 
     def handle_guess_input(self: "ApplicationLogic", guess_input: str) -> str:
+        """Handle guess input from the user.
+
+        Args:
+            guess_input: Guess input string to process
+
+        Returns:
+            str: Result of the guess input
+        """
         if not self._is_valid_code(guess_input):
             return "need_guess_input"
         try:
@@ -177,19 +221,19 @@ class ApplicationLogic(IApplicationLogic):
         """Handle main menu selection."""
         # Build menu map based on available actions
         available_actions = self.get_available_menu_actions()
-        
+
         # Basic menu map
         menu_map = {
             "1": "choose_mode",      # Start Game
             "2": "choose_language",  # Change Language
             "3": "end_game"         # End Game
         }
-        
+
         # Add resume_game if available
         if "load_game" in available_actions:
             menu_map = {
                 "1": "choose_mode",
-                "2": "choose_language", 
+                "2": "choose_language",
                 "3": "load_game",
                 "4": "end_game"
             }
@@ -197,21 +241,38 @@ class ApplicationLogic(IApplicationLogic):
         return menu_map.get(menu_choice, "invalid")
 
     def handle_server_connection(self: "ApplicationLogic", ip: str, port: int) -> str:
+        """Handle server connection for online mode.
+
+        Args:
+            ip: IP address of the server
+            port: Port number of the server
+
+        Returns:
+            str: Result of the server connection attempt
+        """
         if self.business_logic.current_mode == "online_computer_guesser":
             return self.business_logic.start_as_online_computer_guesser(ip, port)
         return self.business_logic.start_as_online_guesser(ip, port)
 
     def change_language(self: "ApplicationLogic") -> str:
+        """Change the game language.
+
+        Returns:
+            str: Result of the language change attempt
+        """
         return "choose_language"
 
     def end_game(self: "ApplicationLogic") -> str:
+        """End the current game session."""
         return "end_game"
 
     def save_game(self: "ApplicationLogic") -> str:
+        """Save the current game state."""
         self.business_logic.save_game_state()
         return self.get_current_game_action()
 
     def load_game(self: "ApplicationLogic") -> str:
+        """Load the saved game state."""
         try:
             self.business_logic.load_game_state()
             return self.get_current_game_action()
@@ -221,6 +282,15 @@ class ApplicationLogic(IApplicationLogic):
     def process_game_action(
         self: "ApplicationLogic", action: str, user_input: str = None
     ) -> str:
+        """Process the next game action based on user input.
+
+        Args:
+            action: Current game action
+            user_input: User input to process
+
+        Returns:
+            str: Result of the game action processing
+        """
         if action == "need_guess_input":
             if user_input == "menu":
                 return "show_menu"
@@ -240,7 +310,7 @@ class ApplicationLogic(IApplicationLogic):
 
         elif action == "wait_for_computer_guess":
             result = self.handle_computer_guess()
-                
+
             if result == "connection_error":
                 return "need_server_connection"  # Try reconnecting
             elif result == "server_error":
@@ -249,7 +319,7 @@ class ApplicationLogic(IApplicationLogic):
                 return "need_server_connection"  # Try again
             elif result.startswith("network_error:"):
                 return "error"  # Show specific error
-                    
+
             return result
 
         elif action == "need_server_connection":
@@ -264,8 +334,16 @@ class ApplicationLogic(IApplicationLogic):
         return "error"
 
     def handle_menu_action(self: "ApplicationLogic", menu_choice: str) -> str:
+        """Handle main menu selection.
+
+        Args:
+            menu_choice: User input for menu selection
+
+        Returns:
+            str: Result of the menu action processing
+        """
         available_actions = self.get_available_menu_actions()
-        
+
         # Baue Menu-Map dynamisch basierend auf verfügbaren Aktionen
         menu_items = []
         if "save_game" in available_actions:
@@ -286,7 +364,7 @@ class ApplicationLogic(IApplicationLogic):
         # Konvertiere zu Dictionary für Lookup
         menu_map = dict(menu_items)
         action = menu_map.get(menu_choice)
-        
+
         if not action:
             return self.get_current_game_action()
 
@@ -308,6 +386,14 @@ class ApplicationLogic(IApplicationLogic):
         return self.get_current_game_action()
 
     def get_required_action(self: "ApplicationLogic", game_mode: str) -> str:
+        """Get the required action based on the selected game mode.
+
+        Args:
+            game_mode: Selected game mode
+
+        Returns:
+            str: Required action based on the game mode
+        """
         if game_mode not in ["1", "2", "3", "4", "5"]:
             return "invalid_mode"
 
@@ -317,6 +403,15 @@ class ApplicationLogic(IApplicationLogic):
         return "need_configuration"
 
     def configure_game(self: "ApplicationLogic", game_mode: str, config: dict) -> str:
+        """Configure the game based on user input.
+
+        Args:
+            game_mode: Selected game mode
+            config: Game configuration settings
+
+        Returns:
+            str: Result of the game configuration attempt
+        """
         config_result = self.handle_game_configuration(
             config["player_name"],
             config["positions"],
@@ -335,13 +430,21 @@ class ApplicationLogic(IApplicationLogic):
 
         elif game_mode == "3":
             return self.business_logic.startgame("online_guesser")
-        
+
         elif game_mode == "4":
             return self.business_logic.startgame("online_computer_guesser")
 
         return "invalid_mode"
 
     def can_start_game(self: "ApplicationLogic", next_action: str) -> bool:
+        """Check if the game can be started based on the next action.
+
+        Args:
+            next_action: Next action to check
+
+        Returns:
+            bool: True if the game can be started, False otherwise
+        """
         return next_action not in [
             "invalid_mode",
             "invalid_configuration",
@@ -349,9 +452,22 @@ class ApplicationLogic(IApplicationLogic):
         ]
 
     def is_game_over(self: "ApplicationLogic", action: str) -> bool:
+        """Check if the game is over based on the current action.
+
+        Args:
+            action: Current game action
+
+        Returns:
+            bool: True if the game is over, False otherwise
+        """
         return action in ["game_won", "game_lost", "error", "cheating_detected"]
 
     def get_current_game_action(self: "ApplicationLogic") -> str:
+        """Get the current game action based on the game state.
+
+        Returns:
+            str: Current game action
+        """
         game_state = self.business_logic.get_game_state()
         if isinstance(game_state.current_guesser, PlayerGuesser):
             return "need_guess_input"
@@ -359,6 +475,11 @@ class ApplicationLogic(IApplicationLogic):
             return "need_feedback_input"
 
     def get_available_menu_actions(self: "ApplicationLogic") -> list[str]:
+        """Get the available menu actions based on the current game state.
+
+        Returns:
+            list[str]: List of available menu actions
+        """
         # Erst prüfen ob game_state existiert
         actions = ["change_language", "end_game"]
 
@@ -369,8 +490,8 @@ class ApplicationLogic(IApplicationLogic):
             return actions
 
         is_offline_guesser = (
-            isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser) and
-            not self.business_logic.network_service
+            isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser)
+            and not self.business_logic.network_service
         )
         if is_offline_guesser:
             actions.append("save_game")
@@ -380,19 +501,34 @@ class ApplicationLogic(IApplicationLogic):
         return actions
 
     def confirm_save_game(self: "ApplicationLogic") -> str:
+        """Confirm the save game action.
+
+        Returns:
+            str: Result of the save game confirmation
+        """
         try:
             self.business_logic.save_game_state()
             return "save_game"
-        except:
+        except FileNotFoundError:
             return "error"
 
     def get_positions(self: "ApplicationLogic") -> int:
+        """Get the number of positions in the code.
+
+        Returns:
+            int: Number of positions in the code
+        """
         game_state = self.business_logic.get_game_state()
         if game_state:
             return game_state.positions
         return self.business_logic.positions
 
     def get_colors(self: "ApplicationLogic") -> int:
+        """Get the number of colors available.
+
+        Returns:
+            int: Number of colors available
+        """
         game_state = self.business_logic.get_game_state()
         if game_state:
             return game_state.colors

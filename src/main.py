@@ -10,12 +10,13 @@ The module follows a layered architecture pattern where:
 """
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.cli.console import Console
 from src.application_logic.application_logic import ApplicationLogic
 from src.business_logic.business_logic import BusinessLogic
 from src.persistence.persistence_manager import PersistenceManager
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def main() -> None:

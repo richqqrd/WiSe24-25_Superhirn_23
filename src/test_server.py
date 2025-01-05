@@ -1,3 +1,4 @@
+"""Test server for Mastermind game."""
 import json
 import random
 import time
@@ -7,26 +8,25 @@ from typing import Dict, Any
 
 class MastermindTestServer(BaseHTTPRequestHandler):
     """Test server for Mastermind game."""
-    
+
     # Store active games
     games: Dict[int, Dict[str, Any]] = {}
     next_game_id = 1
     error_mode = None  # Mögliche Werte: None, "connection", "timeout", "server_error"
 
-
-    def _send_response(self, status_code: int, response_data: Dict[str, Any]) -> None:
-        """Send HTTP response with JSON data."""
+    def _send_response(self: "MastermindTestServer", status_code: int,
+                       response_data: Dict[str, Any]) -> None:
         self.send_response(status_code)
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
         self.wfile.write(json.dumps(response_data).encode('utf-8'))
 
-    def _validate_request(self, data: Dict[str, Any]) -> bool:
+    def _validate_request(self: "MastermindTestServer", data: Dict[str, Any]) -> bool:
         """Validate request against schema."""
         required_fields = ['gameid', 'gamerid', 'positions', 'colors', 'value']
         if not all(field in data for field in required_fields):
             return False
-            
+
         if not isinstance(data['gameid'], int):
             return False
         if not isinstance(data['gamerid'], str):
@@ -37,10 +37,10 @@ class MastermindTestServer(BaseHTTPRequestHandler):
             return False
         if not isinstance(data['value'], str):
             return False
-            
+
         return True
 
-    def _calculate_feedback(self, guess: str, code: str) -> str:
+    def _calculate_feedback(self: "MastermindTestServer", guess: str, code: str) -> str:
         """Calculate feedback for a guess."""
         feedback = []
         temp_guess = list(guess)
@@ -61,8 +61,7 @@ class MastermindTestServer(BaseHTTPRequestHandler):
 
         return ''.join(feedback)
 
-
-    def do_POST(self):
+    def do_POST(self: "MastermindTestServer") -> None:
         """Handle POST requests."""
         # Simuliere verschiedene Fehler basierend auf error_mode
         if self.error_mode == "connection":
@@ -81,13 +80,13 @@ class MastermindTestServer(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b'{corrupted"json:data""')
             return
-    
+
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        
+
         try:
             data = json.loads(post_data.decode('utf-8'))
-            
+
             if not self._validate_request(data):
                 self._send_response(400, {"error": "Invalid request format"})
                 return
@@ -96,13 +95,13 @@ class MastermindTestServer(BaseHTTPRequestHandler):
             if data['gameid'] == 0:
                 game_id = self.next_game_id
                 self.next_game_id += 1
-                
+
                 # Generate secret code based on positions and colors
                 secret_code = ''.join(
-                    str(random.randint(1, data['colors'])) 
+                    str(random.randint(1, data['colors']))
                     for _ in range(data['positions'])
                 )
-                
+
                 # Store new game data
                 self.games[game_id] = {
                     'gamerid': data['gamerid'],
@@ -110,7 +109,7 @@ class MastermindTestServer(BaseHTTPRequestHandler):
                     'colors': data['colors'],
                     'secret_code': secret_code
                 }
-                
+
                 response = {
                     'gameid': game_id,
                     'gamerid': data['gamerid'],
@@ -136,7 +135,7 @@ class MastermindTestServer(BaseHTTPRequestHandler):
             # Calculate feedback for guess
             guess = data['value']
             feedback = self._calculate_feedback(guess, game['secret_code'])
-            
+
             response = {
                 'gameid': game_id,
                 'gamerid': data['gamerid'],
@@ -151,28 +150,34 @@ class MastermindTestServer(BaseHTTPRequestHandler):
         except Exception as e:
             self._send_response(500, {"error": str(e)})
 
-def run_server(port: int = 8000, error_mode: str = None):
+
+def run_server(port: int = 8000, error_mode: str = None) -> None:
     """Run the test server on localhost."""
     from http.server import HTTPServer
     server_address = ('localhost', port)
-    
+
     # Set error mode before starting server
     MastermindTestServer.error_mode = error_mode
-    
+
     httpd = HTTPServer(server_address, MastermindTestServer)
     print(f"Starting test server on http://localhost:{port}")
     print(f"Error mode: {error_mode if error_mode else 'None'}")
-    
+
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("\nShutting down server...")
         httpd.server_close()
 
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--error', choices=['connection', 'timeout', 'server_error', 'corrupt_json'], 
-                       help='Set error mode for testing')
+    parser.add_argument(
+        '--error',
+        choices=['connection', 'timeout', 'server_error', 'corrupt_json'],
+        help='Set error mode for testing'
+    )
+
     args = parser.parse_args()
     run_server(error_mode=args.error)

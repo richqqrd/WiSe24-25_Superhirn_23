@@ -50,9 +50,10 @@ translations = {
         "game_started": "Game started.",
         "available_colors": "Available colors and their codes:",
         "give_feedback": "Give feedback for the guess:",
-        "feedback_instructions": f"8: Black (correct color in correct position){os.linesep}"
-                                 f"7: White (correct color in wrong position){os.linesep}"
-                                 f" Enter feedback (e.g. 887 for two black, one white):",
+        "feedback_instructions":
+            f"8: Black (correct color in correct position){os.linesep}"
+            f"7: White (correct color in wrong position){os.linesep}"
+            f" Enter feedback (e.g. 887 for two black, one white):",
         "secret_code": "Secret Code",
         "game_title": "Super Mastermind",
         "round": "Round",
@@ -86,8 +87,10 @@ translations = {
         "settings_format": "{} positions, {} colors, {} attempts",
         "invalid_configuration": "Invalid configuration. "
         "Please check your input values.",
-        "game_won": f"Congratulations! You've won the game!{os.linesep}Return to main menu in 3 seconds...",
-        "game_lost": f"Game Over! You've reached the maximum number of attempts.{os.linesep}Return to main menu in 3 seconds...",
+        "game_won": f"Congratulations! You've won the game!{os.linesep}"
+                    f"Return to main menu in 3 seconds...",
+        "game_lost": f"Game Over! You've reached the maximum number of attempts."
+                     f"{os.linesep}"f"Return to main menu in 3 seconds...",
         "menu_hint": "Type 'menu' to open the game menu",
         "computer_online_guesser": "Let the computer guess (online)"
     },
@@ -117,9 +120,12 @@ translations = {
         "game_started": "Spiel gestartet.",
         "available_colors": "Verfügbare Farben und ihre Codes:",
         "give_feedback": "Gib Feedback für den Tipp:",
-        "feedback_instructions": f"8: Schwarz (richtige Farbe an richtiger Position){os.linesep}"
-                                 f"7: Weiß (richtige Farbe an falscher Position){os.linesep}"
-                                 f"Gib Feedback ein (z.B. 887 für zwei Schwarz, ein Weiß):",
+        "feedback_instructions": f"8: Schwarz (richtige Farbe an richtiger Position)"
+                                 f"{os.linesep}"
+                                 f"7: Weiß (richtige Farbe an falscher Position)"
+                                 f"{os.linesep}"
+                                 f"Gib Feedback ein "
+                                 f"(z.B. 887 für zwei Schwarz, ein Weiß):",
         "secret_code": "Geheimer Code",
         "game_title": "Super Superhirn",
         "round": "Runde",
@@ -153,8 +159,10 @@ translations = {
         "settings_format": "{} Positionen, {} Farben, {} Versuche",
         "invalid_configuration": "Ungültige Konfiguration."
         " Bitte überprüfen Sie Ihre Eingaben",
-        "game_won": f"Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!{os.linesep}Kehre in 3 Sekunden zum Hauptmenü zurück...",
-        "game_lost": f"Spiel vorbei, sie haben Verloren!{os.linesep}Kehre in 3 Sekunden zum Hauptmenü zurück... "
+        "game_won": f"Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!{os.linesep}"
+                    f"Kehre in 3 Sekunden zum Hauptmenü zurück...",
+        "game_lost": f"Spiel vorbei, sie haben Verloren!{os.linesep}"
+                     f"Kehre in 3 Sekunden zum Hauptmenü zurück... "
         "Sie haben die maximale Anzahl an Versuchen erreicht.",
         "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen",
         "computer_online_guesser": "Lass den Computer raten (online)"
@@ -185,9 +193,12 @@ translations = {
         "game_started": "Jeu démarré.",
         "available_colors": "Couleurs disponibles et leurs codes:",
         "give_feedback": "Donnez un retour pour la supposition:",
-        "feedback_instructions": f"8: Noir (couleur correcte à la bonne position){os.linesep}"
-                                 f"7: Blanc (couleur correcte à la mauvaise position{os.linesep}"
-                                 f"Entrez le retour (par exemple 887 pour deux noirs, un blanc):",
+        "feedback_instructions": f"8: Noir (couleur correcte à la bonne position)"
+                                 f"{os.linesep}"
+                                 f"7: Blanc (couleur correcte à la mauvaise position"
+                                 f"{os.linesep}"
+                                 f"Entrez le retour (par exemple 887 pour deux noirs,"
+                                 f"un blanc):",
         "secret_code": "Code Secret",
         "game_title": "Super Super cerveau",
         "round": "Tour",
@@ -219,8 +230,11 @@ translations = {
         "settings_label": "Paramètres:",
         "settings_format": "{} positions, {} couleurs, {} tentatives",
         "invalid_configuration": "Configuration invalide. ",
-        "game_won": f"Félicitations! Vous avez gagné la partie!{os.linesep}Retour au menu principal dans 3 secondes...",
-        "game_lost": f"Partie terminée! Vous avez atteint le nombre maximum de tentatives.{os.linesep}Retour au menu principal dans 3 secondes...",
+        "game_won": f"Félicitations! Vous avez gagné la partie!{os.linesep}"
+                    f"Retour au menu principal dans 3 secondes...",
+        "game_lost": f"Partie terminée! Vous avez atteint le nombre maximum "
+                     f"de tentatives.{os.linesep}"
+                     f"Retour au menu principal dans 3 secondes...",
         "menu_hint": "Tapez 'menu' pour ouvrir le menu du jeu",
         "computer_online_guesser": "TODO"
 

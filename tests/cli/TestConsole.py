@@ -405,5 +405,6 @@ class TestConsole(unittest.TestCase):
 
         self.assertEqual(config["colors"], [])
 
+
 if __name__ == "__main__":
     unittest.main()

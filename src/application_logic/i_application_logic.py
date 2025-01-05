@@ -2,6 +2,8 @@
 
 from abc import ABC, abstractmethod
 
+from src.business_logic.game_state import GameState
+
 
 class IApplicationLogic(ABC):
     """Interface for application logic layer.
@@ -124,7 +126,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def get_game_state(self) -> "GameState":
+    def get_game_state(self: "IApplicationLogic") -> GameState:
         """Get the current game state.
 
         Returns:
@@ -133,7 +135,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def get_positions(self) -> int:
+    def get_positions(self: "IApplicationLogic") -> int:
         """Get number of code positions.
 
         Returns:
@@ -142,7 +144,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def get_colors(self) -> int:
+    def get_colors(self: "IApplicationLogic") -> int:
         """Get number of available colors.
 
         Returns:
@@ -151,7 +153,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def get_available_menu_actions(self) -> list:
+    def get_available_menu_actions(self: "IApplicationLogic") -> list:
         """Get list of available menu actions.
 
         Returns:
@@ -182,7 +184,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def can_start_game(self, next_action: str) -> bool:
+    def can_start_game(self: "IApplicationLogic", next_action: str) -> bool:
         """Check if a game can be started with the given action.
 
         Args:
@@ -194,7 +196,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def is_game_over(self, action: str) -> bool:
+    def is_game_over(self: "IApplicationLogic", action: str) -> bool:
         """Check if the given action indicates game over.
 
         Args:
@@ -206,7 +208,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def get_current_game_action(self) -> str:
+    def get_current_game_action(self: "IApplicationLogic") -> str:
         """Get the current game action based on game state.
 
         Returns:
@@ -215,7 +217,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def handle_computer_guess(self) -> str:
+    def handle_computer_guess(self: str) -> str:
         """Handle computer making a guess.
 
         Triggers the computer guesser to make its next move.
@@ -226,7 +228,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def handle_code_input(self, code_input: str) -> str:
+    def handle_code_input(self: str, code_input: str) -> str:
         """Handle and validate secret code input.
 
         Args:
@@ -238,7 +240,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def handle_server_connection(self, ip: str, port: int) -> str:
+    def handle_server_connection(self: str, ip: str, port: str) -> str:
         """Handle online game server connection.
 
         Args:
@@ -251,7 +253,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def change_language(self) -> str:
+    def change_language(self: str) -> str:
         """Handle language change request.
 
         Returns:
@@ -260,7 +262,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def end_game(self) -> str:
+    def end_game(self: str) -> str:
         """Handle game end request.
 
         Returns:
@@ -269,7 +271,7 @@ class IApplicationLogic(ABC):
         pass
 
     @abstractmethod
-    def confirm_save_game(self) -> str:
+    def confirm_save_game(self: str) -> str:
         """Handle save game confirmation request.
 
         Returns:

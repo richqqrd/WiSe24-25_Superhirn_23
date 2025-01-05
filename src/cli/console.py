@@ -136,10 +136,10 @@ class Console:
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
-        
+
         time.sleep(3)
         self.game_renderer.clear_screen()
-        
+
     def render_game_state(self: "Console") -> None:
         """Render current game state.
 
@@ -221,7 +221,7 @@ class Console:
         elif next_action == "back_to_menu":
             self.game_renderer.clear_screen()  #
             return "back_to_menu"
-        
+
         elif next_action == "end_game":
             self.end_game()
             return "back_to_menu"
@@ -239,6 +239,11 @@ class Console:
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:
+        """Handle game mode selection.
+
+        Displays game mode menu, collects configuration parameters,
+        and starts the game loop with the selected mode.
+        """
         while True:  # Schleife für Wiederholung bei ungültiger Eingabe
             self.game_renderer.clear_screen()
             self.menu_renderer.display_game_mode_menu()
@@ -248,7 +253,7 @@ class Console:
 
             if next_action == "back_to_menu":
                 return  # Nur bei expliziter Auswahl zurück zum Hauptmenü
-                
+
             if next_action == "invalid_mode":
                 continue  # Bei ungültiger Eingabe Menü erneut anzeigen
 

@@ -92,4 +92,4 @@ class NetworkService(INetworkService):
             return response  # Return am Ende
         except Exception as e:
             logging.error(f"Failed to make move: {e}")
-            return f"error:unexpected_error"
+            return "error:unexpected_error"
