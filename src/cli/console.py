@@ -136,7 +136,7 @@ class Console:
             self.menu_renderer.display_game_lost()
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
-            self.application_logic.reset_game_state()
+            self.application_logic.business_logic.reset_game_state()
 
         time.sleep(3)
         self.game_renderer.clear_screen()
