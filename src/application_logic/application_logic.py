@@ -1,14 +1,10 @@
 """Application logic module for game flow control."""
-from typing import TYPE_CHECKING
 
 from src.business_logic.i_business_logic import IBusinessLogic
 from src.application_logic.i_application_logic import IApplicationLogic
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 from src.business_logic.guesser.player_guesser import PlayerGuesser
-
-
-
 
 
 class ApplicationLogic(IApplicationLogic):
@@ -283,7 +279,8 @@ class ApplicationLogic(IApplicationLogic):
         except FileNotFoundError:
             return "error"
 
-    def process_game_action(self: "ApplicationLogic", action: str, user_input: str = None) -> str:
+    def process_game_action(self: "ApplicationLogic",
+                            action: str, user_input: str = None) -> str:
         """Process the next game action."""
         action_handlers = {
             "need_guess_input": self._handle_guess_action,
@@ -292,46 +289,47 @@ class ApplicationLogic(IApplicationLogic):
             "wait_for_computer_guess": self._handle_computer_guess_action,
             "need_server_connection": self._handle_server_connection_action
         }
-    
+
         if action in action_handlers:
             return action_handlers[action](user_input)
         return "error"
 
-    def _handle_guess_action(self, user_input: str) -> str:
+    def _handle_guess_action(self: "ApplicationLogic", user_input: str) -> str:
         """Handle guess input action."""
         if user_input == "menu":
             return "show_menu"
         return self.handle_guess_input(user_input)
 
-    def _handle_code_action(self, user_input: str) -> str:
+    def _handle_code_action(self: "ApplicationLogic", user_input: str) -> str:
         """Handle code input action."""
         if user_input == "menu":
             return "show_menu"
         return self.handle_code_input(user_input)
 
-    def _handle_feedback_action(self, user_input: str) -> str:
+    def _handle_feedback_action(self: "ApplicationLogic", user_input: str) -> str:
         """Handle feedback input action."""
         if user_input == "menu":
             return "show_menu"
         return self.handle_feedback_input(user_input)
 
-    def _handle_computer_guess_action(self, _: str) -> str:
+    def _handle_computer_guess_action(self: "ApplicationLogic") -> str:
         """Handle computer guess action."""
         result = self.handle_computer_guess()
         return self._process_computer_guess_result(result)
 
-    def _handle_server_connection_action(self, user_input: str) -> str:
+    def _handle_server_connection_action(self: "ApplicationLogic",
+                                         user_input: str) -> str:
         """Handle server connection action."""
         if user_input == "menu":
             return "show_menu"
-        
+
         try:
             ip, port = user_input.split(":")
             return self.handle_server_connection(ip, int(port))
         except ValueError:
             return "need_server_connection"
 
-    def _process_computer_guess_result(self, result: str) -> str:
+    def _process_computer_guess_result(self: "ApplicationLogic", result: str) -> str:
         """Process result from computer guess."""
         if result in ["connection_error", "timeout_error"]:
             return "need_server_connection"
