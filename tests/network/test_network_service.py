@@ -78,7 +78,7 @@ class TestNetworkService(unittest.TestCase):
         with self.assertLogs(level="ERROR") as log:
             result = self.service.make_move(self.test_value)
 
-        self.assertIsNone(result)
+        self.assertEqual(result, "error:unexpected_error")
         self.assertIn("Failed to make move", log.output[0])
 
     def test_make_move_no_game(self):

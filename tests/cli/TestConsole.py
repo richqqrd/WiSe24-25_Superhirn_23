@@ -46,25 +46,61 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
-    def test_run_resume_game(self, mock_input, mock_menu, mock_clear):
-        mock_input.side_effect = ["resume_game", "end_game"]
-        self.mock_logic.handle.side_effect = ["resume_game", "end_game"]
+    def test_run_load_game(self, mock_input, mock_menu, mock_clear):
+        mock_input.side_effect = ["load_game", "end_game"]
+        self.mock_logic.handle.side_effect = ["load_game", "end_game"]
         self.mock_logic.load_game.return_value = "next_action"
 
         with patch.object(self.console, 'start_game_loop') as mock_start_game_loop:
             self.console.run()
             mock_start_game_loop.assert_called_once_with("next_action")
 
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_choose_mode(self, mock_input, mock_menu, mock_clear):
+        mock_input.side_effect = ["choose_mode", "end_game"]
+        self.mock_logic.handle.side_effect = ["choose_mode", "end_game"]
+
+        with patch.object(self.console, 'handle_game_mode_choice') as mock_handle_game_mode_choice:
+            self.console.run()
+            mock_handle_game_mode_choice.assert_called_once()
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_choose_language(self, mock_input, mock_menu, mock_clear):
+        mock_input.side_effect = ["choose_language", "end_game"]
+        self.mock_logic.handle.side_effect = ["choose_language", "end_game"]
+
+        with patch.object(self.console, 'handle_language_change') as mock_handle_language_change:
+            self.console.run()
+            mock_handle_language_change.assert_called_once()
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_save_game(self, mock_input, mock_menu, mock_clear):
+        mock_input.side_effect = ["save_game", "end_game"]
+        self.mock_logic.handle.side_effect = ["save_game", "end_game"]
+
+        with patch.object(self.console.application_logic, 'save_game') as mock_save_game, \
+                patch.object(self.console.menu_renderer, 'display_save_game') as mock_display_save_game:
+            self.console.run()
+            mock_save_game.assert_called_once()
+            mock_display_save_game.assert_called_once()
+
     # @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
     # @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
     # @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
-    # def test_run_end_game(self, mock_input, mock_menu, mock_clear):
-    #     mock_input.side_effect = ["end_game", "end_game"]
-    #     self.mock_logic.handle.side_effect = ["end_game", "end_game"]
+    # def test_run_resume_game(self, mock_input, mock_menu, mock_clear):
+    #     mock_input.side_effect = ["resume_game", "end_game"]
+    #     self.mock_logic.handle.side_effect = ["resume_game", "end_game"]
+    #     self.mock_logic.load_game.return_value = "next_action"
     #
-    #     with patch.object(self.console, 'end_game') as mock_end_game:
+    #     with patch.object(self.console, 'start_game_loop') as mock_start_game_loop:
     #         self.console.run()
-    #         mock_end_game.assert_called_once()
+    #         mock_start_game_loop.assert_called_once_with("next_action")
 
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_languages")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_language_input")
@@ -97,22 +133,13 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
     def test_handle_ingame_menu(self, mock_display_menu, mock_handle_input):
-        # Mock the available actions
         self.mock_logic.get_available_menu_actions.return_value = ["save_game", "end_game"]
-
-        # Mock user input
         mock_handle_input.side_effect = ["save_game", "end_game"]
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.side_effect = ["save_game", "end_game"]
-
-        # Mock the get_current_game_action method
         self.mock_logic.get_current_game_action.return_value = "game_over"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["save_game", "end_game"])
         mock_handle_input.assert_called()
         self.mock_logic.handle_menu_action.assert_called_with("save_game")
@@ -123,28 +150,15 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
     def test_handle_ingame_menu_save_warning(self, mock_display_menu, mock_handle_input, mock_display_warning, mock_handle_warning_input):
-        # Mock the available actions
         self.mock_logic.get_available_menu_actions.return_value = ["save_game", "end_game"]
-
-        # Mock user input
         mock_handle_input.side_effect = ["save_game", "end_game"]
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.side_effect = ["confirm_save", "end_game"]
-
-        # Mock the handle_save_warning_input method
         mock_handle_warning_input.return_value = True
-
-        # Mock the confirm_save_game method
         self.mock_logic.confirm_save_game.return_value = "save_game"
-
-        # Mock the get_current_game_action method
         self.mock_logic.get_current_game_action.return_value = "game_over"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["save_game", "end_game"])
         mock_handle_input.assert_called()
         self.mock_logic.handle_menu_action.assert_called_with("save_game")
@@ -158,25 +172,14 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
     def test_handle_ingame_menu_save_warning_decline(self, mock_display_menu, mock_handle_input, mock_display_warning, mock_handle_warning_input):
-        # Mock the available actions
         self.mock_logic.get_available_menu_actions.return_value = ["save_game", "end_game"]
-
-        # Mock user input
         mock_handle_input.side_effect = ["save_game", "end_game"]
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.side_effect = ["confirm_save", "end_game"]
-
-        # Mock the handle_save_warning_input method to return False (decline save)
         mock_handle_warning_input.return_value = False
-
-        # Mock the get_current_game_action method
         self.mock_logic.get_current_game_action.return_value = "continue_game"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["save_game", "end_game"])
         mock_handle_input.assert_called()
         self.mock_logic.handle_menu_action.assert_called_with("save_game")
@@ -188,22 +191,13 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
     def test_handle_ingame_menu_load_game(self, mock_display_menu, mock_handle_input, mock_display_load_game):
-        # Mock the available actions
         self.mock_logic.get_available_menu_actions.return_value = ["load_game"]
-
-        # Mock user input
         mock_handle_input.return_value = "load_game"
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.return_value = "load_game"
-
-        # Mock the get_current_game_action method
         self.mock_logic.get_current_game_action.return_value = "game_over"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["load_game"])
         mock_handle_input.assert_called_once()
         self.mock_logic.handle_menu_action.assert_called_with("load_game")
@@ -214,46 +208,29 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
     def test_handle_ingame_menu_end_game(self, mock_display_menu, mock_handle_input, mock_end_game):
-        # Mock the available actions
         self.mock_logic.get_available_menu_actions.return_value = ["end_game"]
-
-        # Mock user input
         mock_handle_input.return_value = "end_game"
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.return_value = "end_game"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["end_game"])
         mock_handle_input.assert_called_once()
         self.mock_logic.handle_menu_action.assert_called_with("end_game")
         mock_end_game.assert_called_once()
-        self.assertEqual(next_action, "game_over")
+        self.assertEqual(next_action, "back_to_menu")
 
     @patch("src.cli.console.Console.handle_language_change")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_ingame_menu")
-    def test_handle_ingame_menu_choose_language(self, mock_display_menu, mock_handle_input,
-                                                mock_handle_language_change):
-        # Mock the available actions
+    def test_handle_ingame_menu_choose_language(self, mock_display_menu, mock_handle_input, mock_handle_language_change):
         self.mock_logic.get_available_menu_actions.return_value = ["choose_language"]
-
-        # Mock user input
         mock_handle_input.return_value = "choose_language"
-
-        # Mock the handle_menu_action method
         self.mock_logic.handle_menu_action.return_value = "choose_language"
-
-        # Mock the get_current_game_action method
         self.mock_logic.get_current_game_action.return_value = "choose_language"
 
-        # Call the method
         next_action = self.console.handle_ingame_menu()
 
-        # Verify the calls and the result
         mock_display_menu.assert_called_once_with(["choose_language"])
         mock_handle_input.assert_called_once()
         self.mock_logic.handle_menu_action.assert_called_with("choose_language")
@@ -358,17 +335,15 @@ class TestConsole(unittest.TestCase):
         mock_handle_ip_input.assert_called_once()
         mock_handle_port_input.assert_called_once()
         self.assertEqual(result, "127.0.0.1:8080")
+
     def test_get_user_input_default_case(self):
         result = self.console.get_user_input("unknown_action")
         self.assertEqual(result, "")
 
-
     @patch("src.cli.console.Console.collect_game_configuration")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_invalid_configuration")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_game_mode_input")
-    def test_handle_game_mode_choice_invalid_configuration(self, mock_handle_game_mode_input,
-                                                       mock_display_invalid_configuration,
-                                                       mock_collect_game_configuration):
+    def test_handle_game_mode_choice_invalid_configuration(self, mock_handle_game_mode_input, mock_display_invalid_configuration, mock_collect_game_configuration):
         self.mock_logic.get_required_action.return_value = "need_configuration"
         self.mock_logic.configure_game.side_effect = ["invalid_configuration", "start_game"]
         mock_collect_game_configuration.return_value = {"config_key": "config_value"}
@@ -385,16 +360,13 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_colors_input")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_max_attempts_input")
     def test_collect_game_configuration(self, mock_handle_max_attempts_input, mock_handle_colors_input, mock_handle_positions_input, mock_handle_player_name_input):
-        # Mock user inputs
         mock_handle_player_name_input.return_value = "TestPlayer"
         mock_handle_positions_input.return_value = 4
         mock_handle_colors_input.return_value = ["red", "blue", "green", "yellow"]
         mock_handle_max_attempts_input.return_value = 10
 
-        # Call the method
         config = self.console.collect_game_configuration()
 
-        # Verify the result
         self.assertEqual(config, {
             "player_name": "TestPlayer",
             "positions": 4,
@@ -432,7 +404,6 @@ class TestConsole(unittest.TestCase):
         config = self.console.collect_game_configuration()
 
         self.assertEqual(config["colors"], [])
-
 
 if __name__ == "__main__":
     unittest.main()
