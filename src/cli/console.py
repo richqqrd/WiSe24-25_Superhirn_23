@@ -132,8 +132,12 @@ class Console:
 
         if next_action == "game_won":
             self.menu_renderer.display_game_won()
+            self.application_logic.business_logic.reset_game_state()
+
         elif next_action == "game_lost":
             self.menu_renderer.display_game_lost()
+            self.application_logic.business_logic.reset_game_state()
+
         elif next_action == "cheating_detected":
             self.menu_renderer.display_cheating_warning()
             self.application_logic.business_logic.reset_game_state()
