@@ -401,3 +401,10 @@ class BusinessLogic(IBusinessLogic):
             )
             return "wait_for_computer_guess"
         return "error"
+    
+    def reset_game_state(self: "BusinessLogic") -> None:
+        """Reset the game state."""
+        self.game_state = None
+        self.computer_guesser = None 
+        self.computer_coder = None
+        self.player_guesser = None
