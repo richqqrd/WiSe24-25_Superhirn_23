@@ -84,9 +84,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
             self.print_response(response)
 
     def test_invalid_json_via_post(self):
-        """
-        Test sending invalid JSON via POST.
-        """
+        """Test sending invalid JSON via POST."""
         invalid_json = {
             "gameid": 0,
             "gamerid": "player1",
@@ -95,9 +93,11 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
             "value": "",
         }
         with self.assertLogs(level="ERROR"):
-            with self.assertRaises(requests.exceptions.HTTPError):
-                response = self.handler.send_json_via_post(invalid_json)
-                self.print_response(response)
+            response = self.handler.send_json_via_post(invalid_json)
+            self.assertEqual(
+                response,
+                {"error": "HTTP Fehler: 400"}  # Prüfe auf Error-Dictionary
+            )
 
 
 if __name__ == "__main__":

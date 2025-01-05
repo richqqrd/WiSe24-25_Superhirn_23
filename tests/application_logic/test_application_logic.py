@@ -713,5 +713,7 @@ class TestApplicationLogic(unittest.TestCase):
         result = self.app_logic.handle_menu_action("5")  # Invalid choice
         self.assertEqual(result, "need_guess_input")
 
+
+
 if __name__ == "__main__":
     unittest.main()

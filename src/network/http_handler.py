@@ -2,6 +2,9 @@
 
 import os
 from typing import Dict, Any
+
+import requests
+
 from src.network.http_client import HttpClient
 from src.network.json_validator import JsonValidator
 
@@ -72,6 +75,9 @@ class HttpHandler:
             "value": "",
         }
         response = self.send_json_via_post(json_data)
+
+        if isinstance(response, dict) and "error" in response:
+            raise requests.exceptions.HTTPError(response["error"])
         return response["gameid"]
 
     def make_move(
