@@ -1,10 +1,14 @@
 """Application logic module for game flow control."""
+from typing import TYPE_CHECKING
 
-from src.application_logic.i_application_logic import IApplicationLogic
 from src.business_logic.i_business_logic import IBusinessLogic
+from src.application_logic.i_application_logic import IApplicationLogic
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 from src.business_logic.guesser.player_guesser import PlayerGuesser
+
+
+
 
 
 class ApplicationLogic(IApplicationLogic):
@@ -279,59 +283,61 @@ class ApplicationLogic(IApplicationLogic):
         except FileNotFoundError:
             return "error"
 
-    def process_game_action(
-        self: "ApplicationLogic", action: str, user_input: str = None
-    ) -> str:
-        """Process the next game action based on user input.
-
-        Args:
-            action: Current game action
-            user_input: User input to process
-
-        Returns:
-            str: Result of the game action processing
-        """
-        if action == "need_guess_input":
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_guess_input(user_input)
-
-        elif action == "need_code_input":
-            if not self.business_logic.game_state:
-                return self.handle_code_input(user_input)
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_code_input(user_input)
-
-        elif action == "need_feedback_input":
-            if user_input == "menu":
-                return "show_menu"
-            return self.handle_feedback_input(user_input)
-
-        elif action == "wait_for_computer_guess":
-            result = self.handle_computer_guess()
-
-            if result == "connection_error":
-                return "need_server_connection"  # Try reconnecting
-            elif result == "server_error":
-                return "error"  # Show server error
-            elif result == "timeout_error":
-                return "need_server_connection"  # Try again
-            elif result.startswith("network_error:"):
-                return "error"  # Show specific error
-
-            return result
-
-        elif action == "need_server_connection":
-            if user_input == "menu":
-                return "show_menu"
-            try:
-                ip, port = user_input.split(":")
-                return self.handle_server_connection(ip, int(port))
-            except ValueError:
-                return "need_server_connection"
-
+    def process_game_action(self: "ApplicationLogic", action: str, user_input: str = None) -> str:
+        """Process the next game action."""
+        action_handlers = {
+            "need_guess_input": self._handle_guess_action,
+            "need_code_input": self._handle_code_action,
+            "need_feedback_input": self._handle_feedback_action,
+            "wait_for_computer_guess": self._handle_computer_guess_action,
+            "need_server_connection": self._handle_server_connection_action
+        }
+    
+        if action in action_handlers:
+            return action_handlers[action](user_input)
         return "error"
+
+    def _handle_guess_action(self, user_input: str) -> str:
+        """Handle guess input action."""
+        if user_input == "menu":
+            return "show_menu"
+        return self.handle_guess_input(user_input)
+
+    def _handle_code_action(self, user_input: str) -> str:
+        """Handle code input action."""
+        if user_input == "menu":
+            return "show_menu"
+        return self.handle_code_input(user_input)
+
+    def _handle_feedback_action(self, user_input: str) -> str:
+        """Handle feedback input action."""
+        if user_input == "menu":
+            return "show_menu"
+        return self.handle_feedback_input(user_input)
+
+    def _handle_computer_guess_action(self, _: str) -> str:
+        """Handle computer guess action."""
+        result = self.handle_computer_guess()
+        return self._process_computer_guess_result(result)
+
+    def _handle_server_connection_action(self, user_input: str) -> str:
+        """Handle server connection action."""
+        if user_input == "menu":
+            return "show_menu"
+        
+        try:
+            ip, port = user_input.split(":")
+            return self.handle_server_connection(ip, int(port))
+        except ValueError:
+            return "need_server_connection"
+
+    def _process_computer_guess_result(self, result: str) -> str:
+        """Process result from computer guess."""
+        if result in ["connection_error", "timeout_error"]:
+            return "need_server_connection"
+        elif result in ["server_error"] or result.startswith("network_error:"):
+            return "error"
+        return result
 
     def handle_menu_action(self: "ApplicationLogic", menu_choice: str) -> str:
         """Handle main menu selection.
