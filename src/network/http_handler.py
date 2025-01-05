@@ -108,4 +108,6 @@ class HttpHandler:
             "value": value,
         }
         response = self.send_json_via_post(json_data)
+        if isinstance(response, dict) and "error" in response:
+            raise requests.exceptions.HTTPError(response["error"])
         return response["value"]
