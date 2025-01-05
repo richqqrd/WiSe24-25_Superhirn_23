@@ -243,5 +243,33 @@ class TestBusinessLogic(unittest.TestCase):
 
         # Verify game_state was not created
         self.assertIsNone(self.game_logic.game_state)
+
+    def test_make_computer_guess_network(self):
+        """Test computer guess with network service."""
+        # Setup
+        self.game_logic.configure_game("TestPlayer", 4, 6, 10)
+        self.game_logic.startgame("coder")
+        self.game_logic.set_secret_code([ColorCode(1)] * 4)
+        self.game_logic.network_service = Mock()
+
+        # Test successful network guess
+        self.game_logic.network_service.make_move.return_value = "8877"
+        result = self.game_logic.make_computer_guess()
+        self.assertIn(result, ["need_feedback_input", "game_over", "wait_for_computer_guess"])
+
+        # Test different network errors
+        error_tests = [
+            ({"error": "connection_failed"}, "connection_error"),
+            ({"error": "server_error"}, "server_error"),
+            ({"error": "timeout"}, "timeout_error"),
+            ({"error": "unknown"}, "network_error:unknown"),
+            (None, "error")
+        ]
+
+        for error_response, expected_result in error_tests:
+            self.game_logic.network_service.make_move.return_value = error_response
+            result = self.game_logic.make_computer_guess()
+            self.assertEqual(result, expected_result)
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, DEFAULT
 from src.cli.console import Console
 from src.application_logic.i_application_logic import IApplicationLogic
 
@@ -43,17 +43,6 @@ class TestConsole(unittest.TestCase):
             mock_save_game.assert_called_once()
             mock_display_save_game.assert_called_once()
 
-    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
-    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
-    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
-    def test_run_load_game(self, mock_input, mock_menu, mock_clear):
-        mock_input.side_effect = ["load_game", "end_game"]
-        self.mock_logic.handle.side_effect = ["load_game", "end_game"]
-        self.mock_logic.load_game.return_value = "next_action"
-
-        with patch.object(self.console, 'start_game_loop') as mock_start_game_loop:
-            self.console.run()
-            mock_start_game_loop.assert_called_once_with("next_action")
 
     @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
@@ -404,6 +393,93 @@ class TestConsole(unittest.TestCase):
         config = self.console.collect_game_configuration()
 
         self.assertEqual(config["colors"], [])
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_load_game(self, mock_input, mock_menu, mock_clear):
+        """Test load game path in run method."""
+        # Setup
+        mock_input.side_effect = ["load_game", "end_game"]
+        self.mock_logic.handle.side_effect = ["load_game", "end_game"]
+        self.mock_logic.load_game.side_effect = ["need_guess_input"]
+        
+        # Execute
+        with patch.object(self.console, 'start_game_loop') as mock_start_game_loop:
+            self.console.run()
+            
+            # Verify
+            mock_start_game_loop.assert_called_once_with("need_guess_input")
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_complete(self, mock_input, mock_menu, mock_clear):
+        """Test complete run method with all possible actions."""
+        # Setup
+        mock_input.side_effect = [
+            "1",  # choose_mode
+            "2",  # choose_language
+            "3",  # save_game
+            "4"  # end_game
+        ]
+
+        self.mock_logic.handle.side_effect = [
+            "choose_mode",
+            "choose_language",
+            "save_game",
+            "end_game"
+        ]
+
+        self.mock_logic.get_available_menu_actions.return_value = [
+            "save_game", "change_language", "end_game"
+        ]
+
+        # Execute
+        with patch.multiple(self.console,
+                            handle_game_mode_choice=DEFAULT,
+                            handle_language_change=DEFAULT) as mocks:
+            self.console.run()
+
+            # Verify calls
+            mocks["handle_game_mode_choice"].assert_called_once()
+            mocks["handle_language_change"].assert_called_once()
+            self.mock_logic.save_game.assert_called_once()
+            self.assertFalse(self.console.is_game_active)
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_invalid_action(self, mock_input, mock_menu, mock_clear):
+        """Test run method with invalid action."""
+        mock_input.side_effect = ["invalid", "end_game"]
+        self.mock_logic.handle.side_effect = ["invalid", "end_game"]
+        
+        self.console.run()
+        
+        mock_menu.assert_called()
+        self.assertFalse(self.console.is_game_active)
+
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
+    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
+    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
+    def test_run_save_load_game(self, mock_input, mock_menu, mock_clear):
+        """Test run method with save and load game."""
+        # Setup
+        mock_input.side_effect = ["save_game", "load_game", "end_game"]  # Änderung hier
+        self.mock_logic.handle.side_effect = ["save_game", "load_game", "end_game"]  # Und hier
+        self.mock_logic.get_available_menu_actions.return_value = ["save_game", "load_game"]
+        self.mock_logic.load_game.return_value = "need_guess_input"
+
+        # Execute
+        with patch.object(self.console, 'start_game_loop') as mock_start_game_loop:
+            self.console.run()
+
+            # Verify
+            self.mock_logic.save_game.assert_called_once()
+            self.mock_logic.load_game.assert_called_once()
+            mock_start_game_loop.assert_called_once_with("need_guess_input")
+            self.assertFalse(self.console.is_game_active)
 
 
 if __name__ == "__main__":
