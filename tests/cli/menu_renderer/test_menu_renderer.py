@@ -344,8 +344,7 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("3. End Game", output)
 
     def test_display_ingame_menu_partial_actions(self):
-        """
-        Test the display_ingame_menu method with a partial list of available actions.
+        """Test the display_ingame_menu method with a partial list of available actions.
         """
         self.renderer.display_ingame_menu(["resume_game"])
         output = self.held_output.getvalue().strip()
@@ -355,17 +354,13 @@ class TestMenuRenderer(unittest.TestCase):
         self.assertIn("3. End Game", output)
 
     def test_display_code_input_zero_colors(self):
-        """
-        Test the display_code_input method with zero available colors.
-        """
+        """Test the display_code_input method with zero available colors."""
         self.renderer.display_code_input(0)
         output = self.held_output.getvalue().strip()
         self.assertIn("Available colors and their codes:", output)
 
     def test_display_code_input_max_colors(self):
-        """
-        Test the display_code_input method with the maximum number of available colors.
-        """
+        """Test the display_code_input method with the maximum number of available colors."""
         max_colors = len(ColorCode)
         self.renderer.display_code_input(max_colors)
         output = self.held_output.getvalue().strip()
@@ -374,20 +369,19 @@ class TestMenuRenderer(unittest.TestCase):
             self.assertIn(f"{color.value}: {color}", output)
 
     def test_display_code_input_invalid_color(self):
-        """
-        Test the display_code_input method with an invalid color code.
-        """
+        """Test the display_code_input method with an invalid color code."""
         invalid_color = "invalid"
         with self.assertRaises(ValueError):
             self.renderer.display_code_input(invalid_color)
 
     def test_display_ingame_menu_invalid_type(self):
-        """
-        Test the display_ingame_menu method with an invalid type for available_actions.
+        """Test the display_ingame_menu method with an invalid type
+        for available_actions.
         """
         invalid_actions = "invalid"
         with self.assertRaises(ValueError):
             self.renderer.display_ingame_menu(invalid_actions)
+
 
 if __name__ == "__main__":
     unittest.main()

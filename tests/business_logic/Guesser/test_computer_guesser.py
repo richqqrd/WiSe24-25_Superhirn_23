@@ -26,7 +26,8 @@ class TestComputerGuesser(unittest.TestCase):
     def test_first_guess(self):
         """Test that first guess follows expected pattern."""
         first_guess = self.guesser.make_guess()
-        expected = [ColorCode(1)] * (self.positions // 2) + [ColorCode(2)] * (self.positions - self.positions // 2)
+        expected = ([ColorCode(1)] * (self.positions // 2) + [ColorCode(2)] *
+                    (self.positions - self.positions // 2))
         self.assertEqual(first_guess, expected)
         self.assertFalse(self.guesser.first_guess)
 
@@ -52,7 +53,8 @@ class TestComputerGuesser(unittest.TestCase):
 
     def test_would_give_same_feedback(self):
         """Test feedback comparison logic."""
-        self.guesser.last_guess = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)]
+        self.guesser.last_guess = [ColorCode(1), ColorCode(2), ColorCode(3),
+                                   ColorCode(4)]
         test_code = [ColorCode(1), ColorCode(2), ColorCode(4), ColorCode(3)]
         target_feedback = [
             FeedbackColorCode.BLACK,
@@ -66,7 +68,7 @@ class TestComputerGuesser(unittest.TestCase):
 
     def test_process_feedback_reduces_possibilities(self):
         """Test that feedback processing reduces possible codes."""
-        first_guess = self.guesser.make_guess()
+        # first_guess = self.guesser.make_guess()
         initial_count = len(self.guesser.possible_codes)
 
         feedback = [FeedbackColorCode.BLACK, FeedbackColorCode.WHITE]

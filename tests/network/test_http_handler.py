@@ -1,7 +1,7 @@
 """Test module for HTTPHandler."""
 
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 import requests
 from src.network.http_handler import HttpHandler
 

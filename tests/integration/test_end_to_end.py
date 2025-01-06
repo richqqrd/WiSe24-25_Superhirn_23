@@ -7,7 +7,6 @@ from src.persistence.persistence_manager import PersistenceManager
 from src.business_logic.business_logic import BusinessLogic
 from src.application_logic.application_logic import ApplicationLogic
 from src.cli.console import Console
-from src.util.color_code import ColorCode
 
 
 class TestEndToEnd(unittest.TestCase):
@@ -128,7 +127,7 @@ class TestEndToEnd(unittest.TestCase):
             "1111",  # Guess
             "menu",  # Menu
             "1",
-            "1",# Save
+            "1",  # Save
             "menu",
             "3",
             "11111",

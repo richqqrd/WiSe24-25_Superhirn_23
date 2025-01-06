@@ -42,7 +42,8 @@ class TestHttpClient(unittest.TestCase):
     @patch("requests.Session.post")
     def test_post_connection_error(self, mock_post):
         """Test POST request with connection error."""
-        mock_post.side_effect = requests.exceptions.ConnectionError("Connection refused")
+        mock_post.side_effect = (
+            requests.exceptions.ConnectionError("Connection refused"))
 
         response = self.client.post(self.test_url, self.test_data)
         self.assertEqual(

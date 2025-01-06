@@ -3,10 +3,8 @@ import unittest
 from unittest.mock import Mock, patch
 from src.application_logic.application_logic import ApplicationLogic
 from src.business_logic.business_logic import BusinessLogic
-from src.business_logic.game_turn import GameTurn
 from src.business_logic.guesser.player_guesser import PlayerGuesser
 from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
 from src.persistence.i_persistence_manager import IPersistenceManager
 
 
@@ -62,13 +60,13 @@ class TestApplicationLogic(unittest.TestCase):
     def test_handle_code_input(self):
         """Test code input handling."""
         # Valid input
-        self.assertEqual(self.app_logic.handle_code_input("1234"), "wait_for_computer_guess")
+        self.assertEqual(self.app_logic.handle_code_input("1234"),
+                         "wait_for_computer_guess")
 
         # Invalid input
         self.assertEqual(self.app_logic.handle_code_input("123"), "need_code_input")
         self.assertEqual(self.app_logic.handle_code_input("ABCD"), "need_code_input")
         self.assertEqual(self.app_logic.handle_code_input(""), "need_code_input")
-
 
     def test_handle_guess_input(self):
         """Test guess input handling."""
@@ -100,21 +98,25 @@ class TestApplicationLogic(unittest.TestCase):
 
         result = self.app_logic.handle_feedback_input("12")
         self.assertEqual(result, "need_feedback_input")  # Invalid conversion#
-    
+
     def test_handle_code_input_invalid(self):
         """Test handling of invalid code input."""
         # Invalid inputs
-        self.assertEqual(self.app_logic.handle_code_input("123"), "need_code_input")  # Too short
-        self.assertEqual(self.app_logic.handle_code_input("12345"), "need_code_input")  # Too long
-        self.assertEqual(self.app_logic.handle_code_input("ABCD"), "need_code_input")  # Invalid chars
-        self.assertEqual(self.app_logic.handle_code_input(""), "need_code_input")  # Empty
+        self.assertEqual(self.app_logic.handle_code_input("123"),
+                         "need_code_input")  # Too short
+        self.assertEqual(self.app_logic.handle_code_input("12345"),
+                         "need_code_input")  # Too long
+        self.assertEqual(self.app_logic.handle_code_input("ABCD"),
+                         "need_code_input")  # Invalid chars
+        self.assertEqual(self.app_logic.handle_code_input(""),
+                         "need_code_input")  # Empty
 
-    def test_handle_guess_input(self):
+    def test_handle_guess_input2(self):
         """Test guess input handling."""
         # Configure and start game first
         self.game_logic.configure_game("TestPlayer", 4, 6, 10)
         self.game_logic.startgame("guesser")
-        
+
         # Valid guess
         result = self.app_logic.handle_guess_input("1234")
         self.assertIn(result, ["need_guess_input", "game_over"])
@@ -133,14 +135,18 @@ class TestApplicationLogic(unittest.TestCase):
         self.game_logic.make_computer_guess()
 
         # Partial feedback - game continues
-        self.assertEqual(self.app_logic.handle_feedback_input("78"), "wait_for_computer_guess")
+        self.assertEqual(self.app_logic.handle_feedback_input("78"),
+                         "wait_for_computer_guess")
 
         # All correct feedback - computer wins
-        self.assertEqual(self.app_logic.handle_feedback_input("8888"), "game_lost")
+        self.assertEqual(self.app_logic.handle_feedback_input("8888"),
+                         "game_lost")
 
         # Invalid feedback
-        self.assertEqual(self.app_logic.handle_feedback_input("999"), "need_feedback_input")
-        self.assertEqual(self.app_logic.handle_feedback_input("ABC"), "need_feedback_input")
+        self.assertEqual(self.app_logic.handle_feedback_input("999"),
+                         "need_feedback_input")
+        self.assertEqual(self.app_logic.handle_feedback_input("ABC"),
+                         "need_feedback_input")
 
     def test_handle_computer_guess(self):
         """Test computer guess handling."""
@@ -436,13 +442,16 @@ class TestApplicationLogic(unittest.TestCase):
             # Test successful connection
             mock_network_instance.start_game.return_value = True
             self.assertEqual(
-                self.app_logic.process_game_action("need_server_connection", "localhost:8080"),
-                "need_guess_input"  # Erwartet need_guess_input statt need_server_connection
+                self.app_logic.process_game_action("need_server_connection",
+                                                   "localhost:8080"),
+                "need_guess_input"
+                # Erwartet need_guess_input statt need_server_connection
             )
             # Test failed connection
             mock_network_instance.start_game.return_value = False
             self.assertEqual(
-                self.app_logic.process_game_action("need_server_connection", "localhost:8080"),
+                self.app_logic.process_game_action("need_server_connection",
+                                                   "localhost:8080"),
                 "error"
             )
 
@@ -467,7 +476,7 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertEqual(result, "choose_language")
 
         # Mock ComputerGuesser
-        with patch('src.business_logic.business_logic.ComputerGuesser') as mock_guesser:
+        with patch('src.business_logic.business_logic.ComputerGuesser'):
             # Mock load_game_state
             mock_game_state = Mock()
             mock_game_state.current_guesser = PlayerGuesser()
@@ -611,7 +620,8 @@ class TestApplicationLogic(unittest.TestCase):
         self.assertEqual(result, "save_game")
 
         # Test save failure
-        self.game_logic.save_game_state = Mock(side_effect=FileNotFoundError)  # Änderung hier
+        self.game_logic.save_game_state = Mock(side_effect=FileNotFoundError)
+        # Änderung hier
         result = self.app_logic.confirm_save_game()
         self.assertEqual(result, "error")
 
@@ -712,7 +722,6 @@ class TestApplicationLogic(unittest.TestCase):
         # Use an invalid menu choice that doesn't map to any action
         result = self.app_logic.handle_menu_action("5")  # Invalid choice
         self.assertEqual(result, "need_guess_input")
-
 
 
 if __name__ == "__main__":

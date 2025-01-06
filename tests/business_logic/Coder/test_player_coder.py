@@ -1,7 +1,7 @@
 """Test module for PlayerCoder class."""
 
 import unittest
-from src.business_logic.coder.player_coder import PlayerCoder 
+from src.business_logic.coder.player_coder import PlayerCoder
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
 

@@ -78,7 +78,6 @@ class TestJsonValidator(unittest.TestCase):
         }
         self.assertFalse(self.validator.validate(invalid_json))
 
-
     def test_validate_none_input(self):
         """Test validation with None input."""
         self.assertFalse(self.validator.validate(None))
@@ -160,6 +159,7 @@ class TestJsonValidator(unittest.TestCase):
 
                 self.assertFalse(result)
                 self.assertIn("Validation error: Test validation error", log.output[0])
+
 
 if __name__ == "__main__":
     unittest.main()

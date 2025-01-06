@@ -1,9 +1,8 @@
 """Test module for NetworkService."""
 
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 from src.network.network_service import NetworkService
-from src.network.http_handler import HttpHandler
 
 
 class TestNetworkService(unittest.TestCase):
@@ -64,7 +63,7 @@ class TestNetworkService(unittest.TestCase):
 
         self.assertEqual(result, expected_response)
         mock_make_move.assert_called_once_with(
-            1, self.test_player_id, self.service.positions, 
+            1, self.test_player_id, self.service.positions,
             self.service.colors, self.test_value
         )
 

@@ -8,7 +8,6 @@ from src.business_logic.business_logic import BusinessLogic
 from src.cli.console import Console
 from src.persistence.i_persistence_manager import IPersistenceManager
 from src.persistence.persistence_manager import PersistenceManager
-from src.network.network_service import NetworkService
 from src.util.color_code import ColorCode
 
 

@@ -1,22 +1,20 @@
+"""Description: Mock server for testing the network module."""
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Any, ClassVar
 
 
 class MockServerRequestHandler(BaseHTTPRequestHandler):
-    """
-    Request handler for the test server.
-    """
+    """Request handler for the test server."""
 
     last_game_id: ClassVar[int] = 0
 
     def __init__(self, request: Any, client_address: Any, server: HTTPServer) -> None:
+        """Initialize the request handler."""
         super().__init__(request, client_address, server)
 
     def do_POST(self):
-        """
-        Handle POST requests.
-        """
+        """Handle POST requests."""
         content_length = int(self.headers["Content-Length"])
         post_data = self.rfile.read(content_length)
         response = {}
@@ -59,9 +57,7 @@ class MockServerRequestHandler(BaseHTTPRequestHandler):
 
 
 def run(server_class=HTTPServer, handler_class=MockServerRequestHandler, port=8000):
-    """
-    Run the test server.
-    """
+    """Run the test server."""
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting test server on port {port}...")

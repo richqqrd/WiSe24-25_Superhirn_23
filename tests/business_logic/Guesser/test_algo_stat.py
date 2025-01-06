@@ -1,3 +1,4 @@
+"""Test the performance of the computer guesser algorithm."""
 # import time
 # import unittest
 # from itertools import product
@@ -22,7 +23,8 @@
 #             "games_data": [],
 #         }
 #
-#         all_codes = list(product([ColorCode(i) for i in range(1, colors + 1)], repeat=positions))
+#         all_codes = list(product([ColorCode(i) for i in range(1, colors + 1)],
+#         repeat=positions))
 #         total_time_start = time.time()
 #
 #         print(f"\nTesting {len(all_codes)} possible combinations...")
@@ -58,18 +60,21 @@
 #             game_time = time.time() - game_start_time
 #             stats["total_games"] += 1
 #             stats["total_guesses"] += len(game_data["guesses"])
-#             stats["max_guesses"] = max(stats["max_guesses"], len(game_data["guesses"]))
+#             stats["max_guesses"] = max(stats["max_guesses"],
+#             len(game_data["guesses"]))
 #             stats["games_data"].append(game_data)
 #
 #             # Detailed output for each code
 #             print(
-#                 f"\nCode {stats['total_games']}/{len(all_codes)}: {[c.value for c in test_code]}"
+#                 f"\nCode {stats['total_games']}/{len(all_codes)}:
+#                 {[c.value for c in test_code]}"
 #             )
 #             print(f"Found: {game_data['found']}")
 #             print(f"Attempts: {len(game_data['guesses'])}")
 #             print(f"Time: {game_time:.2f}s")
 #             print(
-#                 f"Average time per guess: {sum(game_data['times']) / len(game_data['times']):.2f}s"
+#                 f"Average time per guess: {sum(game_data['times']) /
+#                 len(game_data['times']):.2f}s"
 #             )
 #
 # if __name__ == "__main__":

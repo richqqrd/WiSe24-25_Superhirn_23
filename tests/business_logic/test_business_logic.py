@@ -1,3 +1,4 @@
+"""Test module for the business_logic class."""
 import unittest
 from unittest.mock import Mock, patch
 
@@ -30,7 +31,8 @@ class TestBusinessLogic(unittest.TestCase):
         self.assertEqual(result, "need_guess_input")
         self.assertIsNotNone(self.game_logic.game_state)
         self.assertIsNotNone(self.game_logic.computer_coder)
-        self.assertEqual(len(self.game_logic.game_state.secret_code), self.game_logic.positions)
+        self.assertEqual(len(self.game_logic.game_state.secret_code),
+                         self.game_logic.positions)
 
     def test_startgame_as_coder(self):
         """Test game initialization when player is coder."""
