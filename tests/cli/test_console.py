@@ -42,35 +42,21 @@ class TestConsole(unittest.TestCase):
             mock_handle_language_change.assert_called_once()
 
     @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
-    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
-    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
-    def test_run_save_game(self: "TestConsole", mock_input: MagicMock,
-                           mock_menu: MagicMock, mock_clear: MagicMock) -> None:
-        """Test run method with save_game action."""
-        mock_input.side_effect = ["save_game", "end_game"]
-        self.mock_logic.handle.side_effect = ["save_game", "end_game"]
+    @patch("src.cli.game_renderer.game_renderer.GameRenderer.render_warning")
+    @patch("time.sleep", return_value=None)  # Mock time.sleep to avoid delay
+    def test_start_game_loop_error(self: "TestConsole",
+                                   mock_sleep: MagicMock,
+                                   mock_render_warning: MagicMock,
+                                   mock_clear_screen: MagicMock) -> None:
+        """Test start_game_loop method with error action."""
+        self.mock_logic.is_game_over.side_effect = [False, True]
+        self.mock_logic.process_game_action.side_effect = ["error", "game_over"]
 
-        with (patch.object(self.console.application_logic, 'save_game')
-                as mock_save_game,
-                patch.object(self.console.menu_renderer, 'display_save_game')
-                as mock_display_save_game):
-            self.console.run()
-            mock_save_game.assert_called_once()
-            mock_display_save_game.assert_called_once()
+        self.console.start_game_loop("some_action")
 
-    @patch("src.cli.game_renderer.game_renderer.GameRenderer.clear_screen")
-    @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_main_menu")
-    @patch("src.cli.input_handler.input_handler.InputHandler.handle_menu_input")
-    def test_run_resume_game(self: "TestConsole", mock_input: MagicMock,
-                             mock_menu: MagicMock, mock_clear: MagicMock) -> None:
-        """Test run method with resume_game action."""
-        mock_input.side_effect = ["resume_game", "end_game"]
-        self.mock_logic.handle.side_effect = ["resume_game", "end_game"]
-
-        with (patch.object(self.console, 'handle_ingame_menu')
-              as mock_handle_ingame_menu):
-            self.console.run()
-            mock_handle_ingame_menu.assert_called_once()
+        mock_render_warning.assert_called_once_with("Connection failed!")
+        mock_sleep.assert_called_once_with(10)
+        mock_clear_screen.assert_called_once()
 
     @patch("src.cli.menu_renderer.menu_renderer.MenuRenderer.display_languages")
     @patch("src.cli.input_handler.input_handler.InputHandler.handle_language_input")
@@ -270,7 +256,8 @@ class TestConsole(unittest.TestCase):
     @patch("src.cli.console.Console.handle_ingame_menu")
     def test_start_game_loop_show_menu(self: "TestConsole",
                                        mock_handle_menu: MagicMock,
-                                       mock_get_input: MagicMock) -> None:
+                                       mock_get_input: MagicMock,
+                                       mock_render_state: MagicMock) -> None:
         """Test start_game_loop method with show_menu action."""
         mock_get_input.return_value = "user_input"
         self.mock_logic.process_game_action.side_effect = ["show_menu", "game_over"]

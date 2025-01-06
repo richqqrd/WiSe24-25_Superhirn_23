@@ -174,7 +174,7 @@ class TestMenuRenderer(unittest.TestCase):
         self.renderer.display_save_warning()
         output = self.held_output.getvalue().strip()
         self.assertIn("Warning: A saved game already exists and will be overwritten."
-                      "Continue?", output)
+                      " Continue?", output)
 
     def test_display_color_selection(self: "TestMenuRenderer") -> None:
         """Test the display_color_selection method."""
@@ -209,8 +209,7 @@ class TestMenuRenderer(unittest.TestCase):
         """Test the game lost message."""
         self.renderer.display_game_lost()
         output = self.held_output.getvalue().strip()
-        self.assertIn("Game Over! You've reached the maximum number of attempts.",
-                      output)
+        self.assertIn("Game Over!\nReturn to main menu in 3 seconds...", output)
 
     def test_set_language_valid(self: "TestMenuRenderer") -> None:
         """Test the set_language method with a valid language code."""

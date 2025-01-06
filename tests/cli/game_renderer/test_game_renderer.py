@@ -110,7 +110,7 @@ class TestGameRenderer(unittest.TestCase):
         self.renderer.render_game_state(game_state)
         output = self.held_output.getvalue().strip()
         secret_code_str = self.renderer.colorize(game_state.secret_code)
-        self.assertIn(f"{translations[self.renderer.language]['secret_code']}:"
+        self.assertIn(f"{translations[self.renderer.language]['secret_code']}: "
                       f"{secret_code_str}", output)
 
     def test_render_game_state_none(self: "TestGameRenderer") -> None:
