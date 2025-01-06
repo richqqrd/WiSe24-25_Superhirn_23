@@ -1,4 +1,5 @@
 """Module for handling user input in the game."""
+import os
 
 from src.util.translations import translations
 
@@ -174,8 +175,8 @@ class InputHandler:
         """
         while True:
             user_input = self.handle_user_input(
-                f"\n1. {translations[self.language]['yes']}\n"
-                f"2. {translations[self.language]['no']}\n"
+                f"{os.linesep}1. {translations[self.language]['yes']}{os.linesep}"
+                f"2. {translations[self.language]['no']}{os.linesep}"
             ).strip()
             if user_input == "1":  # Yes
                 return True

@@ -1,4 +1,5 @@
 """Module for rendering game menus."""
+import os
 
 from src.util.color_code import ColorCode
 from src.util.translations import translations
@@ -173,7 +174,7 @@ class MenuRenderer:
         if not isinstance(available_colors, int):
             raise ValueError("available_colors must be an integer")
 
-        print(f"\n{translations[self.language]['available_colors']}")
+        print(f"{os.linesep}{translations[self.language]['available_colors']}")
         for color in list(ColorCode)[:available_colors]:
             print(f"{color.value}: {color}")
 
@@ -182,7 +183,7 @@ class MenuRenderer:
 
         Shows all available colors and their corresponding codes.
         """
-        print(f"\n{translations[self.language]['available_colors']}")
+        print(f"{os.linesep}{translations[self.language]['available_colors']}")
         for color in ColorCode:
             print(f"{color.value} : {color}")
 
@@ -191,7 +192,7 @@ class MenuRenderer:
 
         Shows instructions for providing feedback using black/white pins.
         """
-        print(f"\n{translations[self.language]['give_feedback']}")
+        print(f"{os.linesep}{translations[self.language]['give_feedback']}")
         print(translations[self.language]["feedback_instructions"])
 
     def display_server_connection(self: "MenuRenderer") -> None:
@@ -199,7 +200,7 @@ class MenuRenderer:
 
         Shows translated prompts for server IP and port input.
         """
-        print(f"\n{translations[self.language]['enter_server_ip']}")
+        print(f"{os.linesep}{translations[self.language]['enter_server_ip']}")
         print(f"{translations[self.language]['enter_server_port']}")
 
     def display_cheating_warning(self: "MenuRenderer") -> None:
@@ -251,10 +252,10 @@ class MenuRenderer:
         Shows all available colors with their codes and values,
         followed by color input prompt.
         """
-        print(f"\n{translations[self.language]['available_colors']}")
+        print(f"{os.linesep}{translations[self.language]['available_colors']}")
         for color in ColorCode:
             print(f"{color.value} : {color}")
-        print(f"\n{translations[self.language]['enter_colors']}")
+        print(f"{os.linesep}{translations[self.language]['enter_colors']}")
 
     def display_feedback_instructions(self: "MenuRenderer") -> None:
         """Display instructions for providing feedback.
@@ -262,14 +263,14 @@ class MenuRenderer:
         Shows translated instructions for how to input feedback
         using black and white pins.
         """
-        print(f"\n{translations[self.language]['feedback_instructions']}")
+        print(f"{os.linesep}{translations[self.language]['feedback_instructions']}")
 
     def display_invalid_configuration(self: "MenuRenderer") -> None:
         """Display invalid configuration error message.
 
         Shows translated error message when game settings are invalid.
         """
-        print(f"\n{translations[self.language]['invalid_configuration']}")
+        print(f"{os.linesep}{translations[self.language]['invalid_configuration']}")
 
     def display_game_won(self: "MenuRenderer") -> None:
         """Display game won message.

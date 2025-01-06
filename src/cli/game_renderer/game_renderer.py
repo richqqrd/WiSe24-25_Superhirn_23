@@ -83,12 +83,12 @@ class GameRenderer:
         if game_state is None:
             return
 
-        print("\n" + "=" * 40)
+        print("{os.linesep}" + "=" * 40)
         print(f"{translations[self.language]['game_title'].center(40)}")
         print("=" * 40)
 
         print(
-            f"\n{translations[self.language]['player_label']} {game_state.player_name}"
+            f"{os.linesep}{translations[self.language]['player_label']} {game_state.player_name}"
         )
         print(
             f"{translations[self.language]['settings_label']} "
@@ -96,14 +96,14 @@ class GameRenderer:
                 game_state.positions, game_state.colors, game_state.max_rounds
             )
         )
-        print("\n" + "-" * 40)
+        print("{os.linesep}" + "-" * 40)
 
         if game_state.secret_code is not None and isinstance(
             game_state.current_guesser, ComputerGuesser
         ):
             secret_code_str = self.colorize(game_state.secret_code)
             print(
-                f"\n{translations[self.language]['secret_code']}:  {secret_code_str}"
+                f"{os.linesep}{translations[self.language]['secret_code']}:  {secret_code_str}"
             )
 
         round_width = 8
@@ -111,7 +111,7 @@ class GameRenderer:
         guess_width = 15
 
         print(
-            f"\n{translations[self.language]['round']:^{round_width}} | "
+            f"{os.linesep}{translations[self.language]['round']:^{round_width}} | "
             + f"{translations[self.language]['feedback']:^{feedback_width}} | "
             + f"{translations[self.language]['guess']:^{guess_width}}"
         )
@@ -124,7 +124,7 @@ class GameRenderer:
             guess_str = self.colorize(turn.guesses, width=guess_width)
             print(f"{round_num:^{round_width}} | {feedback_str} | {guess_str}")
             print("-" * (round_width + feedback_width + guess_width + 4))
-        print(f"\n{translations[self.language]['menu_hint']}")
+        print(f"{os.linesep}{translations[self.language]['menu_hint']}")
 
     def render_message(self: "GameRenderer", message: str) -> None:
         """Render a centered message with decorative borders.
@@ -132,7 +132,7 @@ class GameRenderer:
         Args:
             message: The message text to display
         """
-        print("\n" + "-" * 40)
+        print("{os.linesep}" + "-" * 40)
         print(f"{message.center(40)}")
         print("-" * 40)
 
@@ -142,7 +142,7 @@ class GameRenderer:
         Args:
             warning: The warning text to display
         """
-        print("\n" + "!" * 40)
+        print("{os.linesep}" + "!" * 40)
         print(f"WARNING: {warning.center(30)}")
-        print("!" * 40 + "\n")
+        print("!" * 40 + "{os.linesep}")
         print("Going back to main menu in 10 seconds...")
