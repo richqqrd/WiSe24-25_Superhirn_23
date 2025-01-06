@@ -45,3 +45,16 @@ pytest tests/
 coverage run -m pytest tests/
 coverage report
 ```
+
+## Dokumentation
+
+Die vollständige API-Dokumentation ist verfügbar unter:
+
+- [Application Logic](docs/application_logic/index.html)
+- [Business Logic](docs/business_logic/index.html)
+- [CLI Interface](docs/cli/index.html)
+- [Network](docs/network/index.html)
+- [Persistence](docs/persistence/index.html)
+- [Utilities](docs/util/index.html)
+
+Oder unter: https://your-username.gitlab.io/your-repo-name/

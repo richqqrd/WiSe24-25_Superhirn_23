@@ -42,10 +42,24 @@ generate_docs:
   stage: docs
   script:
     - pip install pdoc3  
-    - pdoc --html src/application_logic src/business_logic src/cli src/network src/persistence src/util -o docs
+    - pdoc --html src/* -o docs
   artifacts:
     paths:
-      - docs/ 
+      - docs/
+  tags:
+    - linux
+    - python
+
+pages:
+  stage: docs
+  script:
+    - pip install pdoc3
+    - pdoc --html src/* -o public
+  artifacts:
+    paths:
+      - public/
+  only:
+    - main
   tags:
     - linux
     - python
