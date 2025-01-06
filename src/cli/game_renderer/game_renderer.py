@@ -83,7 +83,7 @@ class GameRenderer:
         if game_state is None:
             return
 
-        print("{os.linesep}" + "=" * 40)
+        print(f"{os.linesep}" + "=" * 40)
         print(f"{translations[self.language]['game_title'].center(40)}")
         print("=" * 40)
 
@@ -96,7 +96,7 @@ class GameRenderer:
                 game_state.positions, game_state.colors, game_state.max_rounds
             )
         )
-        print("{os.linesep}" + "-" * 40)
+        print(f"{os.linesep}" + "-" * 40)
 
         if game_state.secret_code is not None and isinstance(
             game_state.current_guesser, ComputerGuesser
@@ -132,7 +132,7 @@ class GameRenderer:
         Args:
             message: The message text to display
         """
-        print("{os.linesep}" + "-" * 40)
+        print(f"{os.linesep}" + "-" * 40)
         print(f"{message.center(40)}")
         print("-" * 40)
 
@@ -142,7 +142,7 @@ class GameRenderer:
         Args:
             warning: The warning text to display
         """
-        print("{os.linesep}" + "!" * 40)
+        print(f"{os.linesep}" + "!" * 40)
         print(f"WARNING: {warning.center(30)}")
-        print("!" * 40 + "{os.linesep}")
+        print("!" * 40 + f"{os.linesep}")
         print("Going back to main menu in 10 seconds...")
