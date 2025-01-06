@@ -70,12 +70,18 @@ class BusinessLogic(IBusinessLogic):
         """
         self.current_mode = role
         if role == "guesser":
+            self.player_guesser = PlayerGuesser()
+            self.computer_coder = ComputerCoder(self.positions, self.colors)
             return self.start_as_guesser()
         elif role == "coder":
+            self.player_coder = PlayerCoder()
+            self.computer_guesser = ComputerGuesser(self.positions, self.colors)
             return self.start_as_coder()
         elif role == "online_guesser":
+            self.player_guesser = PlayerGuesser()
             return "need_server_connection"
         elif role == "online_computer_guesser":
+            self.computer_guesser = ComputerGuesser(self.positions, self.colors)
             return "need_server_connection"
         return "invalid_role"
 
@@ -302,8 +308,7 @@ class BusinessLogic(IBusinessLogic):
         self.positions = positions
         self.colors = colors
         self.max_round = max_attempts
-        self.computer_guesser = ComputerGuesser(positions, colors)
-        self.computer_coder = ComputerCoder(positions, colors)
+
 
     def has_saved_game(self: "BusinessLogic") -> bool:
         """Check if saved game exists through persistence layer.
@@ -407,3 +412,4 @@ class BusinessLogic(IBusinessLogic):
         self.computer_guesser = None
         self.computer_coder = None
         self.player_guesser = None
+        self.player_coder = None

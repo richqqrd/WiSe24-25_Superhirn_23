@@ -142,7 +142,7 @@ class Console:
             self.menu_renderer.display_cheating_warning()
             self.application_logic.business_logic.reset_game_state()
 
-        time.sleep(3)
+        time.sleep(10)
         self.game_renderer.clear_screen()
 
     def render_game_state(self: "Console") -> None:
@@ -243,7 +243,8 @@ class Console:
         """
         self.game_renderer.clear_screen()
         self.menu_renderer.display_end_game()
-        time.sleep(2)  # Kurze Pause
+        self.application_logic.business_logic.reset_game_state()
+        time.sleep(2) 
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:
