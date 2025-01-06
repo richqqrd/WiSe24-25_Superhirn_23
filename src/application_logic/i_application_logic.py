@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from src.business_logic.game_state import GameState
+from src.business_logic.game_state import GameState # noqa
 
 
 class IApplicationLogic(ABC):

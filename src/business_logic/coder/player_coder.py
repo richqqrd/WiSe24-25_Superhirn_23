@@ -2,9 +2,9 @@
 
 from typing import List
 
-from src.business_logic.coder.i_coder import ICoder
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from src.business_logic.coder.i_coder import ICoder # noqa
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 
 class PlayerCoder(ICoder):

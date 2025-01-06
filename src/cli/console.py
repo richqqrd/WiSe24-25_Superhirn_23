@@ -1,10 +1,10 @@
 """Module for console-based user interface."""
 import time
 
-from src.application_logic.i_application_logic import IApplicationLogic
-from src.cli.game_renderer.game_renderer import GameRenderer
-from src.cli.input_handler.input_handler import InputHandler
-from src.cli.menu_renderer.menu_renderer import MenuRenderer
+from src.application_logic.i_application_logic import IApplicationLogic # noqa
+from src.cli.game_renderer.game_renderer import GameRenderer # noqa
+from src.cli.input_handler.input_handler import InputHandler # noqa
+from src.cli.menu_renderer.menu_renderer import MenuRenderer # noqa
 
 
 class Console:
@@ -228,7 +228,7 @@ class Console:
 
         elif next_action == "back_to_menu":
             self.game_renderer.clear_screen()
-            self.application_logic.business_logic.reset_game_state() 
+            self.application_logic.business_logic.reset_game_state()
             return "back_to_menu"
 
         elif next_action == "end_game":
@@ -245,7 +245,7 @@ class Console:
         self.game_renderer.clear_screen()
         self.menu_renderer.display_end_game()
         self.application_logic.business_logic.reset_game_state()
-        time.sleep(2) 
+        time.sleep(2)
         self.is_game_active = False
 
     def handle_game_mode_choice(self: "Console") -> None:

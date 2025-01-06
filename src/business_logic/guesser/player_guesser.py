@@ -2,9 +2,9 @@
 
 from typing import List
 
-from src.business_logic.guesser.i_guesser import IGuesser
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from src.business_logic.guesser.i_guesser import IGuesser # noqa
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 
 class PlayerGuesser(IGuesser):

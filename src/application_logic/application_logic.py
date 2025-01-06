@@ -1,6 +1,6 @@
 """Application logic module for game flow control."""
 
-from src.business_logic.i_business_logic import IBusinessLogic
+from src.business_logic.i_business_logic import IBusinessLogic # noqa
 from src.application_logic.i_application_logic import IApplicationLogic
 from src.util.color_code import ColorCode
 from src.util.feedback_color_code import FeedbackColorCode
@@ -220,13 +220,13 @@ class ApplicationLogic(IApplicationLogic):
     def handle(self: "ApplicationLogic", menu_choice: str) -> str:
         """Handle main menu selection."""
         available_actions = self.get_available_menu_actions()
-        
+
         # Build menu map based on available actions
         menu_map = {
             "1": "choose_mode",      # Start Game
             "2": "choose_language",  # Change Language
         }
-        
+
         # Add resume_game option if available
         if "resume_game" in available_actions:
             menu_map.update({
@@ -235,7 +235,7 @@ class ApplicationLogic(IApplicationLogic):
             })
         else:
             menu_map["3"] = "end_game"  # End Game wenn kein Resume verfügbar
-            
+
         action = menu_map.get(menu_choice)
         return action if action else "invalid"
 
@@ -285,7 +285,7 @@ class ApplicationLogic(IApplicationLogic):
             "need_guess_input": self._handle_guess_action,
             "need_code_input": self._handle_code_action,
             "need_feedback_input": self._handle_feedback_action,
-            "wait_for_computer_guess": lambda _:self._handle_computer_guess_action(),
+            "wait_for_computer_guess": lambda _: self._handle_computer_guess_action(),
             "need_server_connection": self._handle_server_connection_action
         }
 

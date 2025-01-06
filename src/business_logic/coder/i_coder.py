@@ -2,8 +2,8 @@
 
 from abc import ABC, abstractmethod
 from typing import List
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 
 class ICoder(ABC):
@@ -28,8 +28,8 @@ class ICoder(ABC):
         pass
 
     @abstractmethod
-    def give_feedback(self: "ICoder", guess: List[ColorCode]
-    ) -> List[FeedbackColorCode]:
+    def give_feedback(self: "ICoder", guess:
+                      List[ColorCode]) -> List[FeedbackColorCode]:
         """Provide feedback for a guess.
 
         Args:

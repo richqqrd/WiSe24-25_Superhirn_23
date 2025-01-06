@@ -1,9 +1,9 @@
 """Interface module for game logic layer."""
 
 from abc import ABC, abstractmethod
-from typing import List
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from typing import List # noqa
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 
 class IBusinessLogic(ABC):
