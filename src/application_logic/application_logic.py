@@ -219,26 +219,25 @@ class ApplicationLogic(IApplicationLogic):
 
     def handle(self: "ApplicationLogic", menu_choice: str) -> str:
         """Handle main menu selection."""
-        # Build menu map based on available actions
         available_actions = self.get_available_menu_actions()
-
-        # Basic menu map
+        
+        # Build menu map based on available actions
         menu_map = {
             "1": "choose_mode",      # Start Game
             "2": "choose_language",  # Change Language
-            "3": "end_game"         # End Game
         }
-
-        # Add resume_game if available
-        if "load_game" in available_actions:
-            menu_map = {
-                "1": "choose_mode",
-                "2": "choose_language",
-                "3": "load_game",
-                "4": "end_game"
-            }
-
-        return menu_map.get(menu_choice, "invalid")
+        
+        # Add resume_game option if available
+        if "resume_game" in available_actions:
+            menu_map.update({
+                "3": "load_game",    # Resume Game
+                "4": "end_game"      # End Game
+            })
+        else:
+            menu_map["3"] = "end_game"  # End Game wenn kein Resume verfügbar
+            
+        action = menu_map.get(menu_choice)
+        return action if action else "invalid"
 
     def handle_server_connection(self: "ApplicationLogic", ip: str, port: int) -> str:
         """Handle server connection for online mode.
@@ -353,18 +352,14 @@ class ApplicationLogic(IApplicationLogic):
         if "save_game" in available_actions:
             menu_items.append(("1", "save_game"))
             menu_items.append(("2", "change_language"))
-            if "load_game" in available_actions:
-                menu_items.append(("3", "load_game"))
-                menu_items.append(("4", "back_to_menu"))
-                menu_items.append(("5", "end_game"))
-            else:
-                menu_items.append(("3", "back_to_menu"))
-                menu_items.append(("4", "end_game"))
+            if "resume_game" in available_actions:
+                menu_items.append(("3", "resume_game"))
+            menu_items.append(("4", "back_to_menu"))
+            menu_items.append(("5", "end_game"))
         else:
             menu_items.append(("1", "change_language"))
             menu_items.append(("2", "back_to_menu"))
             menu_items.append(("3", "end_game"))
-
         # Konvertiere zu Dictionary für Lookup
         menu_map = dict(menu_items)
         action = menu_map.get(menu_choice)
@@ -490,7 +485,7 @@ class ApplicationLogic(IApplicationLogic):
         # Im Hauptmenü: Zeige resume_game wenn Spielstand existiert
         if not self.business_logic.game_state:
             if self.business_logic.has_saved_game():
-                actions.append("load_game")
+                actions.append("resume_game")
             return actions
 
         is_offline_guesser = (
@@ -500,7 +495,7 @@ class ApplicationLogic(IApplicationLogic):
         if is_offline_guesser:
             actions.append("save_game")
             if self.business_logic.has_saved_game():
-                actions.append("load_game")
+                actions.append("resume_game")
 
         return actions
 
