@@ -1,12 +1,13 @@
-# tests/cli/input_handler/test_input_handler.py
+"""Test cases for InputHandler class."""
 import unittest
 from unittest.mock import patch
 from src.cli.input_handler.input_handler import InputHandler
 
 
 class TestInputHandler(unittest.TestCase):
+    """Test cases for the InputHandler class."""
 
-    def test_handle_user_input(self):
+    def test_handle_user_input(self: "TestInputHandler") -> None:
         """Test handle_user_input method."""
         prefix = "prefix"
         test_input = "Matthias"
@@ -17,7 +18,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_menu_input(self):
+    def test_handle_menu_input(self: "TestInputHandler") -> None:
         """Test handle_menu_input method."""
         test_input = "1"
 
@@ -27,7 +28,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_game_mode_input(self):
+    def test_handle_game_mode_input(self: "TestInputHandler") -> None:
         """Test handle_game_mode_input method."""
         test_input = "1"
 
@@ -37,7 +38,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_language_input_valid(self):
+    def test_handle_language_input_valid(self: "TestInputHandler") -> None:
         """Test handle_language_input method with valid input."""
         test_input = "1"
 
@@ -47,7 +48,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(user_input, "en")
 
-    def test_handle_language_input_invalid_index(self):
+    def test_handle_language_input_invalid_index(self: "TestInputHandler") -> None:
         """Test handle_language_input method with invalid index input."""
         test_input = "99"
 
@@ -57,7 +58,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(user_input, "en")
 
-    def test_handle_language_input_invalid_value(self):
+    def test_handle_language_input_invalid_value(self: "TestInputHandler") -> None:
         """Test handle_language_input method with invalid value input."""
         test_input = "invalid"
 
@@ -67,7 +68,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(user_input, "en")
 
-    def test_handle_code_input(self):
+    def test_handle_code_input(self: "TestInputHandler") -> None:
         """Test handle_code_input method."""
         test_input = "12345"
 
@@ -77,7 +78,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_guess_input(self):
+    def test_handle_guess_input(self: "TestInputHandler") -> None:
         """Test handle_guess_input method."""
         test_input = "12345"
 
@@ -87,7 +88,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_feedback_input(self):
+    def test_handle_feedback_input(self: "TestInputHandler") -> None:
         """Test handle_feedback_input method."""
         test_input = "887"
 
@@ -97,7 +98,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_ip_input(self):
+    def test_handle_ip_input(self: "TestInputHandler") -> None:
         """Test handle_ip_input method."""
         test_input = "192.168.0.1"
 
@@ -107,7 +108,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_port_input(self):
+    def test_handle_port_input(self: "TestInputHandler") -> None:
         """Test handle_port_input method."""
         test_input = "8080"
 
@@ -117,7 +118,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_player_name_input(self):
+    def test_handle_player_name_input(self: "TestInputHandler") -> None:
         """Test handle_player_name_input method."""
         test_input = "Player1"
 
@@ -127,7 +128,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_positions_input(self):
+    def test_handle_positions_input(self: "TestInputHandler") -> None:
         """Test handle_positions_input method."""
         test_input = "4"
 
@@ -137,7 +138,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_colors_input(self):
+    def test_handle_colors_input(self: "TestInputHandler") -> None:
         """Test handle_colors_input method."""
         test_input = "6"
 
@@ -147,7 +148,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_max_attempts_input(self):
+    def test_handle_max_attempts_input(self: "TestInputHandler") -> None:
         """Test handle_max_attempts_input method."""
         test_input = "10"
 
@@ -157,7 +158,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_save_warning_input_yes(self):
+    def test_handle_save_warning_input_yes(self: "TestInputHandler") -> None:
         """Test handle_save_warning_input method for 'yes'."""
         test_input = "1"
 
@@ -167,7 +168,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertTrue(user_input)
 
-    def test_handle_save_warning_input_no(self):
+    def test_handle_save_warning_input_no(self: "TestInputHandler") -> None:
         """Test handle_save_warning_input method for 'no'."""
         test_input = "2"
 
@@ -177,7 +178,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertFalse(user_input)
 
-    def test_set_language(self):
+    def test_set_language(self: "TestInputHandler") -> None:
         """Test set_language method."""
         input_handler = InputHandler()
         input_handler.set_language("de")
@@ -186,7 +187,7 @@ class TestInputHandler(unittest.TestCase):
         input_handler.set_language("invalid")
         self.assertEqual(input_handler.language, "de")  # Should remain unchanged
 
-    def test_handle_user_input_empty(self):
+    def test_handle_user_input_empty(self: "TestInputHandler") -> None:
         """Test handle_user_input method with empty input."""
         prefix = "prefix"
         test_input = ""
@@ -197,7 +198,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_user_input_whitespace(self):
+    def test_handle_user_input_whitespace(self: "TestInputHandler") -> None:
         """Test handle_user_input method with whitespace input."""
         prefix = "prefix"
         test_input = "   "
@@ -208,7 +209,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_code_input_invalid_characters(self):
+    def test_handle_code_input_invalid_characters(self: "TestInputHandler") -> None:
         """Test handle_code_input method with invalid characters."""
         test_input = "abcde"
 
@@ -218,7 +219,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_code_input_special_characters(self):
+    def test_handle_code_input_special_characters(self: "TestInputHandler") -> None:
         """Test handle_code_input method with special characters."""
         test_input = "!@#$%"
 
@@ -228,7 +229,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_code_input_long_input(self):
+    def test_handle_code_input_long_input(self: "TestInputHandler") -> None:
         """Test handle_code_input method with long input."""
         test_input = "1234567890"
 
@@ -238,7 +239,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(test_input, user_input)
 
-    def test_handle_language_input_empty(self):
+    def test_handle_language_input_empty(self: "TestInputHandler") -> None:
         """Test handle_language_input method with empty input."""
         test_input = ""
 
@@ -248,7 +249,7 @@ class TestInputHandler(unittest.TestCase):
 
         self.assertEqual(user_input, "en")
 
-    def test_handle_language_input_whitespace(self):
+    def test_handle_language_input_whitespace(self: "TestInputHandler") -> None:
         """Test handle_language_input method with whitespace input."""
         test_input = "   "
 
@@ -257,6 +258,7 @@ class TestInputHandler(unittest.TestCase):
             user_input = input_handler.handle_language_input("en")
 
         self.assertEqual(user_input, "en")
+
 
 if __name__ == "__main__":
     unittest.main()
