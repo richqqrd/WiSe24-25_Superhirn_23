@@ -131,15 +131,19 @@ class BusinessLogic(IBusinessLogic):
             [f == FeedbackColorCode.BLACK for f in feedback_list]
         ):
             if isinstance(self.game_state.current_guesser, PlayerGuesser):
-                return "game_won"
+                return "game_won"  # Mensch gewinnt als Rater
+            elif self.network_service:
+                return "game_won"  # Computer gewinnt online als Rater
             else:
-                return "game_lost"
+                return "game_lost"  # Computer verliert offline als Rater
 
         if len(self.game_state.get_turns()) >= self.max_round:
             if isinstance(self.game_state.current_guesser, PlayerGuesser):
-                return "game_lost"
+                return "game_lost"  # Mensch verliert als Rater
+            elif self.network_service:
+                return "game_lost"  # Computer verliert online als Rater  
             else:
-                return "game_won"
+                return "game_won"  # Computer gewinnt offline als Rater
 
         if isinstance(self.game_state.current_guesser, PlayerGuesser):
             return "need_guess_input"
@@ -413,3 +417,4 @@ class BusinessLogic(IBusinessLogic):
         self.computer_coder = None
         self.player_guesser = None
         self.player_coder = None
+        self.network_service = None

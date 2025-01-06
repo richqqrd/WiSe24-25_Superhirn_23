@@ -89,7 +89,7 @@ translations = {
         "Please check your input values.",
         "game_won": f"Congratulations! You've won the game!{os.linesep}"
                     f"Return to main menu in 3 seconds...",
-        "game_lost": f"Game Over! You've reached the maximum number of attempts."
+        "game_lost": f"Game Over!"
                      f"{os.linesep}"f"Return to main menu in 3 seconds...",
         "menu_hint": "Type 'menu' to open the game menu",
         "computer_online_guesser": "Let the computer guess (online)"
@@ -162,8 +162,7 @@ translations = {
         "game_won": f"Herzlichen Glückwunsch! Sie haben das Spiel gewonnen!{os.linesep}"
                     f"Kehre in 3 Sekunden zum Hauptmenü zurück...",
         "game_lost": f"Spiel vorbei, sie haben Verloren!{os.linesep}"
-                     f"Kehre in 3 Sekunden zum Hauptmenü zurück... "
-        "Sie haben die maximale Anzahl an Versuchen erreicht.",
+                     f"Kehre in 3 Sekunden zum Hauptmenü zurück... ",
         "menu_hint": "Tippe 'menu' um das Spielmenü zu öffnen",
         "computer_online_guesser": "Lass den Computer raten (online)"
             },
@@ -232,8 +231,7 @@ translations = {
         "invalid_configuration": "Configuration invalide. ",
         "game_won": f"Félicitations! Vous avez gagné la partie!{os.linesep}"
                     f"Retour au menu principal dans 3 secondes...",
-        "game_lost": f"Partie terminée! Vous avez atteint le nombre maximum "
-                     f"de tentatives.{os.linesep}"
+        "game_lost": f"Partie terminée!{os.linesep}"
                      f"Retour au menu principal dans 3 secondes...",
         "menu_hint": "Tapez 'menu' pour ouvrir le menu du jeu",
         "computer_online_guesser": "TODO"
@@ -300,7 +298,7 @@ translations = {
         "settings_format": "{} 위치, {} 색상, {} 시도",
         "invalid_configuration": "잘못된 구성입니다. ",
         "game_won": f"축하합니다! 게임에서 승리했습니다!{os.linesep}3초 후 메인 메뉴로 돌아갑니다...",
-        "game_lost": f"게임 오버! 최대 시도 횟수에 도달했습니다.{os.linesep}3초 후 메인 메뉴로 돌아갑니다...",
+        "game_lost": f"게임 오버!{os.linesep}3초 후 메인 메뉴로 돌아갑니다...",
         "menu_hint": "게임 메뉴를 열려면 'menu'를 입력하세요",
         "computer_online_guesser": "TODO"
     },
