@@ -142,7 +142,7 @@ class Console:
             self.menu_renderer.display_cheating_warning()
             self.application_logic.business_logic.reset_game_state()
 
-        time.sleep(10)
+        time.sleep(3)
         self.game_renderer.clear_screen()
 
     def render_game_state(self: "Console") -> None:
