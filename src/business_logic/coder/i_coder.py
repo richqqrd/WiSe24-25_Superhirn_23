@@ -28,7 +28,8 @@ class ICoder(ABC):
         pass
 
     @abstractmethod
-    def give_feedback(self: "ICoder") -> List[FeedbackColorCode]:
+    def give_feedback(self: "ICoder", guess: List[ColorCode]
+    ) -> List[FeedbackColorCode]:
         """Provide feedback for a guess.
 
         Args:
