@@ -34,7 +34,7 @@ class TestEndToEnd(unittest.TestCase):
             "1",  # Confirm save with "Yes"
             "5666",  # Another guess
             "menu",
-            "5"#Open menu again
+            "5"  # Open menu again
             ]
 
         # Run game flow
@@ -67,8 +67,7 @@ class TestEndToEnd(unittest.TestCase):
         # Run game flow
         console.handle_game_mode_choice()  # This starts the game loop internally
 
-
-        #Cleanup
+        # Cleanup
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
 

@@ -240,7 +240,6 @@ class TestBusinessLogic(unittest.TestCase):
         # Verify persistence manager was called
         self.game_logic.persistence_manager.has_saved_game.assert_called()
 
-
     def test_make_computer_guess_network(self: "TestBusinessLogic") -> None:
         """Test computer guess with network service."""
         # Setup
