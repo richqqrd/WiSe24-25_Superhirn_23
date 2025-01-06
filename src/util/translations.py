@@ -71,8 +71,8 @@ translations = {
         "connection_failed": "Connection failed!",
         "cheating_warning": "CHEATING DETECTED!",
         "pick_player_name": "Pick a player name",
-        "pick_positions": "Pick with how many positions you want to play",
-        "pick_colors": "Pick how many colors you want to play with",
+        "pick_positions": "Pick with how many positions you want to play (1-9)",
+        "pick_colors": "Pick how many colors you want to play with (1-8)",
         "pick_max_attempts": "Pick the maximum number of attempts",
         "enter_player_name": "Enter player name: ",
         "enter_positions": "Enter number of positions: ",
@@ -143,8 +143,8 @@ translations = {
         "connection_failed": "Verbindung fehlgeschlagen!",
         "cheating_warning": "BETRUG ERKANNT!",
         "pick_player_name": "Wähle einen Spielernamen",
-        "pick_positions": "Wähle mit wie vielen Positionen du spielen möchtest",
-        "pick_colors": "Wähle mit wie vielen Farben du spielen möchtest",
+        "pick_positions": "Wähle mit wie vielen Positionen du spielen möchtest (1-9)",
+        "pick_colors": "Wähle mit wie vielen Farben du spielen möchtest (1-8)",
         "pick_max_attempts": "Wähle die maximale Anzahl an Versuchen",
         "enter_player_name": "Geben Sie den Spielernamen ein: ",
         "enter_positions": "Geben Sie die Anzahl der Positionen ein: ",
@@ -215,8 +215,8 @@ translations = {
         "connection_failed": "Échec de la connexion!",
         "cheating_warning": "TRICHERIE DÉTECTÉE!",
         "pick_player_name": "Choisissez un nom de joueur",
-        "pick_positions": "Choisissez avec combien de positions vous voulez jouer",
-        "pick_colors": "Choisissez avec combien de couleurs vous voulez jouer",
+        "pick_positions": "Choisissez avec combien de positions vous voulez jouer (1-9)", # noqa
+        "pick_colors": "Choisissez avec combien de couleurs vous voulez jouer (1-8)",
         "pick_max_attempts": "Choisissez le nombre maximum de tentatives",
         "enter_player_name": "Entrez le nom du joueur: ",
         "enter_positions": "Entrez le nombre de positions: ",
@@ -234,7 +234,7 @@ translations = {
         "game_lost": f"Partie terminée!{os.linesep}"
                      f"Retour au menu principal dans 3 secondes...",
         "menu_hint": "Tapez 'menu' pour ouvrir le menu du jeu",
-        "computer_online_guesser": "TODO"
+        "computer_online_guesser": "Laissez l'ordinateur deviner (en ligne)"
 
     },
     "ko": {
@@ -283,8 +283,8 @@ translations = {
         "connection_failed": "연결 실패!",
         "cheating_warning": "사기 감지됨!",
         "pick_player_name": "플레이어 이름을 선택하세요",
-        "pick_positions": "플레이할 위치 수를 선택하세요",
-        "pick_colors": "플레이할 색상 수를 선택하세요",
+        "pick_positions": "플레이할 위치 수를 선택하세요 (1-9)",
+        "pick_colors": "플레이할 색상 수를 선택하세요 (1-8)",
         "pick_max_attempts": "최대 시도 횟수를 선택하세요",
         "enter_player_name": "플레이어 이름을 입력하세요: ",
         "enter_positions": "위치 수를 입력하세요: ",
@@ -300,6 +300,6 @@ translations = {
         "game_won": f"축하합니다! 게임에서 승리했습니다!{os.linesep}3초 후 메인 메뉴로 돌아갑니다...",
         "game_lost": f"게임 오버!{os.linesep}3초 후 메인 메뉴로 돌아갑니다...",
         "menu_hint": "게임 메뉴를 열려면 'menu'를 입력하세요",
-        "computer_online_guesser": "TODO"
+        "computer_online_guesser": "컴퓨터에 추측하게 하기 (온라인)"
     },
 }
