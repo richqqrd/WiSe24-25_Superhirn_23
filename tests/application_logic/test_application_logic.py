@@ -588,14 +588,13 @@ class TestApplicationLogic(unittest.TestCase):
 
     def test_get_available_menu_actions(self: "TestApplicationLogic") -> None:
         """Test getting available menu actions."""
-        # Setup game state with player guesser
         self.game_logic.configure_game("TestPlayer", 4, 6, 10)
         self.game_logic.startgame("guesser")
 
         # Test player guesser menu
         actions = self.app_logic.get_available_menu_actions()
         self.assertIn("save_game", actions)
-        self.assertIn("load_game", actions)
+        self.assertIn("resume_game", actions)  # Änderung hier: load_game -> resume_game
         self.assertIn("change_language", actions)
         self.assertIn("end_game", actions)
 

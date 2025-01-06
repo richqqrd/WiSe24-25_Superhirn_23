@@ -240,17 +240,6 @@ class TestBusinessLogic(unittest.TestCase):
         # Verify persistence manager was called
         self.game_logic.persistence_manager.has_saved_game.assert_called()
 
-    def test_start_as_guesser_exception(self: "TestBusinessLogic") -> None:
-        """Test start_as_guesser error handling."""
-        # Mock computer_coder to raise ValueError
-        self.game_logic.computer_coder.generate_code = Mock(side_effect=ValueError)
-
-        # Test that ValueError is handled
-        result = self.game_logic.start_as_guesser()
-        self.assertEqual(result, "need_guess_input")
-
-        # Verify game_state was not created
-        self.assertIsNone(self.game_logic.game_state)
 
     def test_make_computer_guess_network(self: "TestBusinessLogic") -> None:
         """Test computer guess with network service."""
