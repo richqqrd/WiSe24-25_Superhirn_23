@@ -34,7 +34,7 @@ class TestEndToEnd(unittest.TestCase):
             "1",  # Confirm save with "Yes"
             "5666",  # Another guess
             "menu",
-            "5"# Open menu again
+            "5"#Open menu again
             ]
 
         # Run game flow
@@ -68,7 +68,7 @@ class TestEndToEnd(unittest.TestCase):
         console.handle_game_mode_choice()  # This starts the game loop internally
 
 
-        # Cleanup
+        #Cleanup
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
 
@@ -92,7 +92,6 @@ class TestEndToEnd(unittest.TestCase):
         ]
 
         console.handle_game_mode_choice()
-
 
     def test_complete_game_flow_with_save_and_load(self: "TestEndToEnd") -> None:
         """Test game flow with save/load functionality."""
@@ -122,7 +121,6 @@ class TestEndToEnd(unittest.TestCase):
         ]
 
         console.handle_game_mode_choice()
-
 
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
