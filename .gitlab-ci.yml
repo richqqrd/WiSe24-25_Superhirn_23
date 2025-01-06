@@ -6,6 +6,8 @@ default:
 stages:
   - lint
   - test
+  - docs 
+
 
 flake8:
   stage: lint
@@ -32,6 +34,18 @@ run_tests:
       - coverage.xml        
     reports:
       junit: test-reports/report.xml 
+  tags:
+    - linux
+    - python
+
+generate_docs:
+  stage: docs
+  script:
+    - pip install pdoc3  
+    - pdoc --html src/application_logic src/business_logic src/cli src/network src/persistence src/util -o docs
+  artifacts:
+    paths:
+      - docs/ 
   tags:
     - linux
     - python
