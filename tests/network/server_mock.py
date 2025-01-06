@@ -1,10 +1,11 @@
 """Description: Mock server for testing the network module."""
 import json
+import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import ClassVar, Union, TYPE_CHECKING, Tuple
 
 if TYPE_CHECKING:
-    import socket
+    pass
 
 
 class MockServerRequestHandler(BaseHTTPRequestHandler):
@@ -13,7 +14,7 @@ class MockServerRequestHandler(BaseHTTPRequestHandler):
     last_game_id: ClassVar[int] = 0
 
     def __init__(self: "MockServerRequestHandler",
-                 request: Union[socket, tuple[bytes, socket]],
+                 request: Union[socket.socket, tuple[bytes, socket.socket]],
                  client_address: Tuple[str, int], server: HTTPServer) -> None:
         """Initialize the request handler."""
         super().__init__(request, client_address, server)
