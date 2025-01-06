@@ -13,7 +13,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
     """Test cases for HttpHandler with a test server."""
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls: "TestHTTPHandlerWithServer") -> None:
         """Set up the test server and HTTPHandler instance."""
         cls.server = HTTPServer(("localhost", 0), MockServerRequestHandler)
         cls.server_port = cls.server.server_address[1]
@@ -25,20 +25,20 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         cls.handler = HttpHandler("localhost", cls.server_port)
 
     @classmethod
-    def tearDownClass(cls):
+    def tearDownClass(cls: "TestHTTPHandlerWithServer") -> None:
         """Tear down the test server."""
         cls.server.shutdown()
         cls.server.server_close()
         cls.server_thread.join()
 
-    def print_response(self, response):
+    def print_response(self: "TestHTTPHandlerWithServer", response: dict) -> None:
         """Print the response for debugging purposes."""
         print()
         print()
         print(f"Response: {response}")
         print()
 
-    def test_start_new_game_success(self):
+    def test_start_new_game_success(self: "TestHTTPHandlerWithServer") -> None:
         """Test starting a new game successfully."""
         response = self.handler.start_new_game("player1", 5, 8)
         self.print_response(response)
@@ -46,7 +46,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         self.assertIsInstance(response, int)
         self.assertGreater(response, 0)
 
-    def test_start_new_game_invalid_params(self):
+    def test_start_new_game_invalid_params(self: "TestHTTPHandlerWithServer") -> None:
         """Test starting a new game with invalid parameters."""
         with self.assertRaises(requests.exceptions.HTTPError):
             response = self.handler.start_new_game(
@@ -54,7 +54,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
             )  # Invalid positions and colors
             self.print_response(response)
 
-    def test_make_move_success(self):
+    def test_make_move_success(self: "TestHTTPHandlerWithServer") -> None:
         """Test making a move successfully."""
         # only the value is changed in the response of a successful move
         initial_value = "1234"
@@ -64,7 +64,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
         self.assertNotEqual(response, initial_value)
         self.assertEqual(response, "7788")  # Der TestServer gibt immer "7788" zurück
 
-    def test_make_move_invalid_params(self):
+    def test_make_move_invalid_params(self: "TestHTTPHandlerWithServer") -> None:
         """Test making a move with invalid parameters."""
         with self.assertRaises(requests.exceptions.HTTPError):
             response = self.handler.make_move(
@@ -72,7 +72,7 @@ class TestHTTPHandlerWithServer(unittest.TestCase):
             )  # Invalid positions and colors
             self.print_response(response)
 
-    def test_invalid_json_via_post(self):
+    def test_invalid_json_via_post(self: "TestHTTPHandlerWithServer") -> None:
         """Test sending invalid JSON via POST."""
         invalid_json = {
             "gameid": 0,

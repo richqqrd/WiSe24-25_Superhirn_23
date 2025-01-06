@@ -1,18 +1,18 @@
-"""Test module for HTTPHandler."""
-
+"""Test cases for HTTPHandler class."""
 import unittest
 from unittest.mock import patch
 import requests
 from src.network.http_handler import HttpHandler
+from src.network.http_handler import JsonValidator, HttpClient
 
 
 class TestHTTPHandler(unittest.TestCase):
     """Test cases for HTTPHandler class."""
 
-    def setUp(self):
+    def setUp(self: "TestHTTPHandler") -> None:
         """Set up test fixtures before each test method."""
-        self.handler = HttpHandler("127.0.0.1", 8000)
-        self.valid_json = {
+        self.handler: HttpHandler = HttpHandler("127.0.0.1", 8000)
+        self.valid_json: dict = {
             "gameid": 0,
             "gamerid": "player1",
             "positions": 5,
@@ -20,7 +20,7 @@ class TestHTTPHandler(unittest.TestCase):
             "value": "",
         }
 
-    def test_init(self):
+    def test_init(self: "TestHTTPHandler") -> None:
         """Test initialization of HTTPHandler."""
         self.assertEqual(self.handler.base_url, "http://127.0.0.1:8000")
         self.assertIsNotNone(self.handler.http_client)
@@ -28,7 +28,9 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_send_json_via_post_success(self, mock_validator, mock_post):
+    def test_send_json_via_post_success(self: "TestHTTPHandler",
+                                        mock_validator: JsonValidator,
+                                        mock_post: HttpClient) -> None:
         """Test successful JSON POST request."""
         mock_validator.return_value.validate.return_value = True
         mock_post.return_value = self.valid_json
@@ -40,7 +42,9 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_send_json_via_post_invalid_json(self, mock_validator, mock_post):
+    def test_send_json_via_post_invalid_json(self: "TestHTTPHandler",
+                                             mock_validator: JsonValidator,
+                                             mock_post: HttpClient) -> None:
         """Test POST request with invalid JSON."""
         mock_validator.return_value.validate.return_value = False
 
@@ -51,7 +55,9 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_send_json_via_post_http_error(self, mock_validator, mock_post):
+    def test_send_json_via_post_http_error(self: "TestHTTPHandler",
+                                           mock_validator: JsonValidator,
+                                           mock_post: HttpClient) -> None:
         """Test POST request with HTTP error."""
         mock_validator.return_value.validate.return_value = True
         mock_post.side_effect = requests.exceptions.HTTPError("404 Error")
@@ -61,12 +67,13 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_start_new_game_success(self, mock_validator, mock_post):
+    def test_start_new_game_success(self: "TestHTTPHandler",
+                                    mock_validator: JsonValidator,
+                                    mock_post: HttpClient) -> None:
         """Test successful game start."""
         mock_validator.return_value.validate.return_value = True
-        # Das Mock-Response sollte den erwarteten gameid Wert haben
-        mock_response = {
-            "gameid": 1,  # Server setzt neue game_id
+        mock_response: dict = {
+            "gameid": 1,
             "gamerid": "player1",
             "positions": 5,
             "colors": 8,
@@ -77,9 +84,8 @@ class TestHTTPHandler(unittest.TestCase):
         game_id = self.handler.start_new_game("player1", 5, 8)
 
         self.assertEqual(game_id, 1)
-        # Verifiziere den korrekten POST-Request
-        expected_request = {
-            "gameid": 0,  # Initial request hat game_id = 0
+        expected_request: dict = {
+            "gameid": 0,
             "gamerid": "player1",
             "positions": 5,
             "colors": 8,
@@ -89,7 +95,9 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_start_new_game_error(self, mock_validator, mock_post):
+    def test_start_new_game_error(self: "TestHTTPHandler",
+                                  mock_validator: JsonValidator,
+                                  mock_post: HttpClient) -> None:
         """Test game start with error."""
         mock_validator.return_value.validate.return_value = True
         mock_post.side_effect = requests.exceptions.HTTPError("500 Error")
@@ -99,7 +107,8 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_make_move_success(self, mock_validator, mock_post):
+    def test_make_move_success(self: "TestHTTPHandler", mock_validator: JsonValidator,
+                               mock_post: HttpClient) -> None:
         """Test successful move."""
         mock_validator.return_value.validate.return_value = True
         mock_post.return_value = {**self.valid_json, "value": "7788"}
@@ -111,7 +120,8 @@ class TestHTTPHandler(unittest.TestCase):
 
     @patch("src.network.http_handler.HttpClient.post")
     @patch("src.network.http_handler.JsonValidator")
-    def test_make_move_error(self, mock_validator, mock_post):
+    def test_make_move_error(self: "TestHTTPHandler", mock_validator: JsonValidator,
+                             mock_post: HttpClient) -> None:
         """Test move with error."""
         mock_validator.return_value.validate.return_value = True
         mock_post.side_effect = requests.exceptions.HTTPError("500 Error")

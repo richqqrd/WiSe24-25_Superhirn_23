@@ -9,19 +9,19 @@ from src.util.feedback_color_code import FeedbackColorCode
 class TestComputerCoder(unittest.TestCase):
     """Test cases for ComputerCoder class."""
 
-    def setUp(self):
+    def setUp(self: "TestComputerCoder") -> None:
         """Set up test fixtures before each test method."""
         self.positions = 4
         self.colors = 6
         self.coder = ComputerCoder(self.positions, self.colors)
 
-    def test_initialization(self):
+    def test_initialization(self: "TestComputerCoder") -> None:
         """Test initialization of ComputerCoder."""
         self.assertEqual(self.coder.positions, self.positions)
         self.assertEqual(self.coder.colors, self.colors)
         self.assertEqual(self.coder.secret_code, [])
 
-    def test_generate_code(self):
+    def test_generate_code(self: "TestComputerCoder") -> None:
         """Test code generation."""
         code = self.coder.generate_code()
 
@@ -33,7 +33,7 @@ class TestComputerCoder(unittest.TestCase):
             self.assertIsInstance(color, ColorCode)
             self.assertTrue(1 <= color.value <= self.colors)
 
-    def test_give_feedback_all_correct(self):
+    def test_give_feedback_all_correct(self: "TestComputerCoder") -> None:
         """Test feedback for completely correct guess."""
         secret = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)]
         self.coder.secret_code = secret
@@ -43,7 +43,7 @@ class TestComputerCoder(unittest.TestCase):
         self.assertEqual(len(feedback), self.positions)
         self.assertTrue(all(f == FeedbackColorCode.BLACK for f in feedback))
 
-    def test_give_feedback_all_wrong(self):
+    def test_give_feedback_all_wrong(self: "TestComputerCoder") -> None:
         """Test feedback for completely wrong guess."""
         self.coder.secret_code = [ColorCode(1)] * self.positions
         guess = [ColorCode(2)] * self.positions
@@ -52,7 +52,7 @@ class TestComputerCoder(unittest.TestCase):
 
         self.assertEqual(len(feedback), 0)
 
-    def test_give_feedback_mixed(self):
+    def test_give_feedback_mixed(self: "TestComputerCoder") -> None:
         """Test feedback for partially correct guess."""
         self.coder.secret_code = [
             ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)
@@ -67,7 +67,7 @@ class TestComputerCoder(unittest.TestCase):
         self.assertEqual(black_count, 1)  # Position 1 correct
         self.assertEqual(white_count, 2)  # Colors 2,3 in wrong positions
 
-    def test_give_feedback_wrong_length(self):
+    def test_give_feedback_wrong_length(self: "TestComputerCoder") -> None:
         """Test feedback for guess with wrong length."""
         self.coder.secret_code = [ColorCode(1)] * self.positions
         guess = [ColorCode(1)]  # Too short
@@ -75,13 +75,13 @@ class TestComputerCoder(unittest.TestCase):
         feedback = self.coder.give_feedback(guess)
         self.assertEqual(len(feedback), 0)
 
-    def test_secret_code_property(self):
+    def test_secret_code_property(self: "TestComputerCoder") -> None:
         """Test secret code getter/setter."""
         test_code = [ColorCode(1), ColorCode(2), ColorCode(3), ColorCode(4)]
         self.coder.secret_code = test_code
         self.assertEqual(self.coder.secret_code, test_code)
 
-    def test_multiple_code_generation(self):
+    def test_multiple_code_generation(self: "TestComputerCoder") -> None:
         """Test multiple code generations."""
         codes = set()
         for _ in range(10):

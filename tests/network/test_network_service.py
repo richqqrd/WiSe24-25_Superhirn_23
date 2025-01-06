@@ -1,6 +1,7 @@
 """Test module for NetworkService."""
 
 import unittest
+from unittest.mock import MagicMock
 from unittest.mock import patch
 from src.network.network_service import NetworkService
 
@@ -8,7 +9,7 @@ from src.network.network_service import NetworkService
 class TestNetworkService(unittest.TestCase):
     """Test cases for NetworkService."""
 
-    def setUp(self):
+    def setUp(self: "TestNetworkService") -> None:
         """Set up test fixtures before each test method."""
         self.service = NetworkService("localhost", 8000)
         self.test_player_id = "player1"
@@ -16,7 +17,7 @@ class TestNetworkService(unittest.TestCase):
         self.service.positions = 4
         self.service.colors = 6
 
-    def test_init(self):
+    def test_init(self: "TestNetworkService") -> None:
         """Test initialization of NetworkService."""
         self.assertIsNotNone(self.service.http_handler)
         self.assertIsNone(self.service.current_game_id)
@@ -25,7 +26,8 @@ class TestNetworkService(unittest.TestCase):
         self.assertEqual(self.service.colors, 6)
 
     @patch("src.network.http_handler.HttpHandler.start_new_game")
-    def test_start_game_success(self, mock_start_game):
+    def test_start_game_success(self: "TestNetworkService",
+                                mock_start_game: "MagicMock") -> None:
         """Test successful game start."""
         mock_start_game.return_value = 1
 
@@ -39,7 +41,8 @@ class TestNetworkService(unittest.TestCase):
         )
 
     @patch("src.network.http_handler.HttpHandler.start_new_game")
-    def test_start_game_failure(self, mock_start_game):
+    def test_start_game_failure(self: "TestNetworkService",
+                                mock_start_game: "MagicMock") -> None:
         """Test failed game start."""
         mock_start_game.side_effect = Exception("Connection error")
 
@@ -52,7 +55,8 @@ class TestNetworkService(unittest.TestCase):
         self.assertIn("Failed to start game", log.output[0])
 
     @patch("src.network.http_handler.HttpHandler.make_move")
-    def test_make_move_success(self, mock_make_move):
+    def test_make_move_success(self: "TestNetworkService",
+                               mock_make_move: "MagicMock") -> None:
         """Test successful move."""
         expected_response = "7788"
         mock_make_move.return_value = expected_response
@@ -68,7 +72,8 @@ class TestNetworkService(unittest.TestCase):
         )
 
     @patch("src.network.http_handler.HttpHandler.make_move")
-    def test_make_move_failure(self, mock_make_move):
+    def test_make_move_failure(self: "TestNetworkService",
+                               mock_make_move: "MagicMock") -> None:
         """Test failed move."""
         mock_make_move.side_effect = Exception("Connection error")
         self.service.current_game_id = 1
@@ -80,13 +85,13 @@ class TestNetworkService(unittest.TestCase):
         self.assertEqual(result, "error:unexpected_error")
         self.assertIn("Failed to make move", log.output[0])
 
-    def test_make_move_no_game(self):
+    def test_make_move_no_game(self: "TestNetworkService") -> None:
         """Test move without active game."""
         self.service.current_game_id = None
         with self.assertRaises(ValueError):
             self.service.make_move(self.test_value)
 
-    def test_make_move_no_player(self):
+    def test_make_move_no_player(self: "TestNetworkService") -> None:
         """Test move without player ID."""
         self.service.current_game_id = 1
         self.service.current_player_id = None

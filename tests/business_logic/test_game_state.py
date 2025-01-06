@@ -11,7 +11,7 @@ from src.business_logic.guesser.computer_guesser import ComputerGuesser
 class TestGameState(unittest.TestCase):
     """Test suite for the GameState class."""
 
-    def setUp(self):
+    def setUp(self: "TestGameState") -> None:
         """Set up test fixtures before each test method."""
         self.positions = 4
         self.colors = 6
@@ -33,7 +33,7 @@ class TestGameState(unittest.TestCase):
             current_guesser=self.player_guesser
         )
 
-    def test_initialization(self):
+    def test_initialization(self: "TestGameState") -> None:
         """Test initialization of GameState."""
         self.assertEqual(self.game_state.secret_code, self.secret_code)
         self.assertEqual(self.game_state.max_rounds, self.max_rounds)
@@ -43,20 +43,22 @@ class TestGameState(unittest.TestCase):
         self.assertEqual(self.game_state.current_guesser, self.player_guesser)
         self.assertEqual(self.game_state.turns, [])
 
-    def test_add_turn(self):
+    def test_add_turn(self: "TestGameState") -> None:
         """Test adding a turn."""
         turn = GameTurn(
-            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],  # 4 Positionen
+            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],
+            # 4 Positionen
             feedback=[]
         )
         self.game_state.add_turn(turn)
         self.assertEqual(len(self.game_state.turns), 1)
         self.assertEqual(self.game_state.turns[0], turn)
 
-    def test_add_turn_max_rounds(self):
+    def test_add_turn_max_rounds(self: "TestGameState") -> None:
         """Test adding turn when max rounds reached."""
         turn = GameTurn(
-            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],  # 4 Positionen
+            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],
+            # 4 Positionen
             feedback=[]
         )
         for _ in range(self.max_rounds):
@@ -65,7 +67,7 @@ class TestGameState(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.game_state.add_turn(turn)
 
-    def test_add_turn_invalid_positions(self):
+    def test_add_turn_invalid_positions(self: "TestGameState") -> None:
         """Test adding turn with wrong number of positions."""
         turn = GameTurn(
             guesses=[ColorCode.RED],  # Only one position
@@ -74,25 +76,27 @@ class TestGameState(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.game_state.add_turn(turn)
 
-    def test_get_secret_code(self):
+    def test_get_secret_code(self: "TestGameState") -> None:
         """Test getting secret code."""
         self.assertEqual(self.game_state.get_secret_code(), self.secret_code)
 
-    def test_get_turns(self):
+    def test_get_turns(self: "TestGameState") -> None:
         """Test getting turns list."""
         turn1 = GameTurn(
-            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],  # 4 Positionen
+            guesses=[ColorCode.RED, ColorCode.BLUE, ColorCode.GREEN, ColorCode.YELLOW],
+            # 4 Positionen
             feedback=[]
         )
         turn2 = GameTurn(
-            guesses=[ColorCode.GREEN, ColorCode.YELLOW, ColorCode.RED, ColorCode.BLUE],  # 4 Positionen
+            guesses=[ColorCode.GREEN, ColorCode.YELLOW, ColorCode.RED, ColorCode.BLUE],
+            # 4 Positionen
             feedback=[]
         )
         self.game_state.add_turn(turn1)
         self.game_state.add_turn(turn2)
         self.assertEqual(self.game_state.get_turns(), [turn1, turn2])
 
-    def test_initialization_with_computer_guesser(self):
+    def test_initialization_with_computer_guesser(self: "TestGameState") -> None:
         """Test initialization with computer guesser."""
         computer_guesser = ComputerGuesser(self.positions, self.colors)
         game_state = GameState(
@@ -105,7 +109,7 @@ class TestGameState(unittest.TestCase):
         )
         self.assertEqual(game_state.current_guesser, computer_guesser)
 
-    def test_repr(self):
+    def test_repr(self: "TestGameState") -> None:
         """Test string representation."""
         expected = (
             f"GameState(secret_code={self.secret_code}, "

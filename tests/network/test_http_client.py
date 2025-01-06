@@ -1,7 +1,7 @@
 """Test module for HttpClient."""
 
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock
 import requests
 from src.network.http_client import HttpClient
 
@@ -9,20 +9,20 @@ from src.network.http_client import HttpClient
 class TestHttpClient(unittest.TestCase):
     """Test cases for HttpClient class."""
 
-    def setUp(self):
+    def setUp(self: "TestHttpClient") -> None:
         """Set up test fixtures before each test method."""
         self.base_url = "http://test.com"
         self.client = HttpClient(self.base_url)
         self.test_url = "endpoint"
         self.test_data = {"key": "value"}
 
-    def test_init(self):
+    def test_init(self: "TestHttpClient") -> None:
         """Test initialization of HttpClient."""
         self.assertEqual(self.client.base_url, self.base_url)
         self.assertIsNotNone(self.client.session)
 
     @patch("requests.Session.post")
-    def test_post_success(self, mock_post):
+    def test_post_success(self: "TestHttpClient", mock_post: MagicMock) -> None:
         """Test successful POST request."""
         mock_response = Mock()
         mock_response.status_code = 200
@@ -40,7 +40,8 @@ class TestHttpClient(unittest.TestCase):
         )
 
     @patch("requests.Session.post")
-    def test_post_connection_error(self, mock_post):
+    def test_post_connection_error(self: "TestHttpClient",
+                                   mock_post: MagicMock) -> None:
         """Test POST request with connection error."""
         mock_post.side_effect = (
             requests.exceptions.ConnectionError("Connection refused"))
@@ -52,7 +53,7 @@ class TestHttpClient(unittest.TestCase):
         )
 
     @patch("requests.Session.post")
-    def test_post_timeout_error(self, mock_post):
+    def test_post_timeout_error(self: "TestHttpClient", mock_post: MagicMock) -> None:
         """Test POST request with timeout."""
         mock_post.side_effect = requests.exceptions.Timeout("Request timed out")
 
@@ -63,7 +64,8 @@ class TestHttpClient(unittest.TestCase):
         )
 
     @patch("requests.Session.post")
-    def test_post_invalid_json_response(self, mock_post):
+    def test_post_invalid_json_response(self: "TestHttpClient",
+                                        mock_post: MagicMock) -> None:
         """Test POST request with invalid JSON response."""
         mock_response = Mock()
         mock_response.status_code = 200
@@ -77,7 +79,7 @@ class TestHttpClient(unittest.TestCase):
         )
 
     @patch("requests.Session.post")
-    def test_post_empty_response(self, mock_post):
+    def test_post_empty_response(self: "TestHttpClient", mock_post: MagicMock) -> None:
         """Test POST request with empty response."""
         mock_response = Mock()
         mock_response.status_code = 200

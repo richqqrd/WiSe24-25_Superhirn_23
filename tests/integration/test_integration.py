@@ -14,7 +14,7 @@ from src.util.color_code import ColorCode
 class TestIntegration(unittest.TestCase):
     """Integration test suite."""
 
-    def test_business_application_integration(self):
+    def test_business_application_integration(self: "TestIntegration") -> None:
         """Test BusinessLogic and ApplicationLogic integration."""
         # Setup
         mock_persistence_manager = Mock(spec=IPersistenceManager)
@@ -29,7 +29,7 @@ class TestIntegration(unittest.TestCase):
         result = app_logic.process_game_action("need_guess_input", "1234")
         self.assertIn(result, ["need_guess_input", "game_over"])
 
-    def test_network_business_integration(self):
+    def test_network_business_integration(self: "TestIntegration") -> None:
         """Test NetworkService and BusinessLogic integration."""
         mock_persistence_manager = Mock(spec=IPersistenceManager)
         business_logic = BusinessLogic(mock_persistence_manager)
@@ -40,7 +40,7 @@ class TestIntegration(unittest.TestCase):
         result = business_logic.make_guess([ColorCode(1)] * 4)
         self.assertIn(result, ["need_guess_input", "error"])
 
-    def test_persistence_business_integration(self):
+    def test_persistence_business_integration(self: "TestIntegration") -> None:
         """Test PersistenceManager and BusinessLogic integration."""
         persistence_manager = PersistenceManager()  # Real persistence manager
         business_logic = BusinessLogic(persistence_manager)
@@ -78,7 +78,7 @@ class TestIntegration(unittest.TestCase):
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
 
-    def test_cli_application_integration(self):
+    def test_cli_application_integration(self: "TestIntegration") -> None:
         """Test basic CLI and ApplicationLogic integration."""
         # Setup
         mock_persistence_manager = Mock(spec=IPersistenceManager)

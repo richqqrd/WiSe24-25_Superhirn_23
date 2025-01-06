@@ -12,7 +12,7 @@ from src.cli.console import Console
 class TestEndToEnd(unittest.TestCase):
     """End-to-end test suite."""
 
-    def test_complete_game_flow_as_guesser(self):
+    def test_complete_game_flow_as_guesser(self: "TestEndToEnd") -> None:
         """Test complete game flow from start to finish as guesser."""
         # Setup real components
         persistence_manager = PersistenceManager()
@@ -50,7 +50,7 @@ class TestEndToEnd(unittest.TestCase):
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
 
-    def test_complete_game_flow_as_coder(self):
+    def test_complete_game_flow_as_coder(self: "TestEndToEnd") -> None:
         """Test complete game flow from start to finish as coder."""
         # Setup real components
         persistence_manager = PersistenceManager()
@@ -83,7 +83,7 @@ class TestEndToEnd(unittest.TestCase):
         if os.path.exists(os.path.join(persistence_manager.save_dir, "game_state.pkl")):
             os.remove(os.path.join(persistence_manager.save_dir, "game_state.pkl"))
 
-    def test_complete_game_flow_with_win(self):
+    def test_complete_game_flow_with_win(self: "TestEndToEnd") -> None:
         """Test complete game flow ending with player win."""
         persistence_manager = PersistenceManager()
         business_logic = BusinessLogic(persistence_manager)
@@ -109,7 +109,7 @@ class TestEndToEnd(unittest.TestCase):
 
         self.assertTrue(app_logic.is_game_over("game_won"))
 
-    def test_complete_game_flow_with_save_and_load(self):
+    def test_complete_game_flow_with_save_and_load(self: "TestEndToEnd") -> None:
         """Test game flow with save/load functionality."""
         persistence_manager = PersistenceManager()
         business_logic = BusinessLogic(persistence_manager)
