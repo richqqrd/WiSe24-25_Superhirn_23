@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>business_logic.i_business_logic API documentation</title>
+<meta name="description" content="Interface module for game logic layer.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>business_logic.i_business_logic</code></h1>
+</header>
+<section id="section-intro">
+<p>Interface module for game logic layer.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="business_logic.i_business_logic.IBusinessLogic"><code class="flex name class">
+<span>class <span class="ident">IBusinessLogic</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IBusinessLogic(ABC):
+    &#34;&#34;&#34;Interface for game logic layer.
+
+    This interface defines the contract for the game logic implementation,
+    handling core game mechanics like:
+        - Game configuration
+        - Game state management
+        - Turn processing
+        - Move validation
+        - Win/loss conditions
+    &#34;&#34;&#34;
+
+    @abstractmethod
+    def configure_game(
+        self: &#34;IBusinessLogic&#34;,
+        player_name: str,
+        positions: int,
+        colors: int,
+        max_attempts: int,
+    ) -&gt; None:
+        &#34;&#34;&#34;Configure the game with initial settings.
+
+        Args:
+            player_name: Name of the player
+            positions: Number of positions in the code
+            colors: Number of available colors
+            max_attempts: Maximum number of allowed attempts
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def startgame(self: &#34;IBusinessLogic&#34;, role: str) -&gt; str:
+        &#34;&#34;&#34;Start a new game with the given role.
+
+        Args:
+            role: Player&#39;s role (&#39;guesser&#39;, &#39;coder&#39;, or &#39;online_guesser&#39;)
+
+        Returns:
+            str: Next required action
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def set_feedback(
+        self: &#34;IBusinessLogic&#34;, feedback_list: List[FeedbackColorCode]
+    ) -&gt; str:
+        &#34;&#34;&#34;Sets feedback for the current turn.
+
+        Args:
+            feedback_list: List of feedback pins
+
+        Returns:
+            str: Next game state
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_game_state(self: &#34;IBusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Returns current game state.
+
+        Returns:
+            GameState: Current state of the game
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def make_computer_guess(self: &#34;IBusinessLogic&#34;) -&gt; List[ColorCode]:
+        &#34;&#34;&#34;Let computer make a guess.
+
+        Returns:
+            List[ColorCode]: Computer&#39;s guess
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def set_secret_code(self: &#34;IBusinessLogic&#34;, code_list: List[ColorCode]) -&gt; None:
+        &#34;&#34;&#34;Set the secret code for the game.
+
+        Args:
+            code_list: List of color codes forming the secret code
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def make_guess(self: &#34;IBusinessLogic&#34;, guess_list: List[ColorCode]) -&gt; str:
+        &#34;&#34;&#34;Process a player&#39;s guess.
+
+        Args:
+            guess_list: List of color codes representing the guess
+
+        Returns:
+            str: Result of the guess
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def save_game_state(self: &#34;IBusinessLogic&#34;) -&gt; None:
+        &#34;&#34;&#34;Save current game state to persistent storage.
+
+        Saves all relevant game information to allow resuming later.
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def load_game_state(self: &#34;IBusinessLogic&#34;) -&gt; None:
+        &#34;&#34;&#34;Load a previously saved game state.
+
+        Restores the game to the state it was in when saved.
+
+        Raises:
+            FileNotFoundError: If no saved game state exists
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def has_saved_game(self: &#34;IBusinessLogic&#34;) -&gt; bool:
+        &#34;&#34;&#34;Check if a saved game exists.
+
+        Returns:
+            bool: True if a saved game exists, False otherwise
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def is_game_over(
+        self: &#34;IBusinessLogic&#34;, feedback_list: List[FeedbackColorCode]
+    ) -&gt; str:
+        &#34;&#34;&#34;Check if the game is over based on feedback.
+
+        Args:
+            feedback_list: List of feedback pins from last guess
+
+        Returns:
+            str: Game state (&#34;game_won&#34;, &#34;game_lost&#34;, or current game state)
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<div class="desc"><p>Interface for game logic layer.</p>
+<p>This interface defines the contract for the game logic implementation,
+handling core game mechanics like:
+- Game configuration
+- Game state management
+- Turn processing
+- Move validation
+- Win/loss conditions</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="business_logic.i_business_logic.IBusinessLogic.configure_game"><code class="name flex">
+<span>def <span class="ident">configure_game</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>player_name: str,<br>positions: int,<br>colors: int,<br>max_attempts: int) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def configure_game(
+    self: &#34;IBusinessLogic&#34;,
+    player_name: str,
+    positions: int,
+    colors: int,
+    max_attempts: int,
+) -&gt; None:
+    &#34;&#34;&#34;Configure the game with initial settings.
+
+    Args:
+        player_name: Name of the player
+        positions: Number of positions in the code
+        colors: Number of available colors
+        max_attempts: Maximum number of allowed attempts
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Configure the game with initial settings.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>player_name</code></strong></dt>
+<dd>Name of the player</dd>
+<dt><strong><code>positions</code></strong></dt>
+<dd>Number of positions in the code</dd>
+<dt><strong><code>colors</code></strong></dt>
+<dd>Number of available colors</dd>
+<dt><strong><code>max_attempts</code></strong></dt>
+<dd>Maximum number of allowed attempts</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.get_game_state"><code class="name flex">
+<span>def <span class="ident">get_game_state</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_game_state(self: &#34;IBusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Returns current game state.
+
+    Returns:
+        GameState: Current state of the game
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Returns current game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>GameState</code></dt>
+<dd>Current state of the game</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.has_saved_game"><code class="name flex">
+<span>def <span class="ident">has_saved_game</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def has_saved_game(self: &#34;IBusinessLogic&#34;) -&gt; bool:
+    &#34;&#34;&#34;Check if a saved game exists.
+
+    Returns:
+        bool: True if a saved game exists, False otherwise
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Check if a saved game exists.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if a saved game exists, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.is_game_over"><code class="name flex">
+<span>def <span class="ident">is_game_over</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>feedback_list: List[src.util.feedback_color_code.FeedbackColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def is_game_over(
+    self: &#34;IBusinessLogic&#34;, feedback_list: List[FeedbackColorCode]
+) -&gt; str:
+    &#34;&#34;&#34;Check if the game is over based on feedback.
+
+    Args:
+        feedback_list: List of feedback pins from last guess
+
+    Returns:
+        str: Game state (&#34;game_won&#34;, &#34;game_lost&#34;, or current game state)
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Check if the game is over based on feedback.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback_list</code></strong></dt>
+<dd>List of feedback pins from last guess</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Game state ("game_won", "game_lost", or current game state)</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.load_game_state"><code class="name flex">
+<span>def <span class="ident">load_game_state</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def load_game_state(self: &#34;IBusinessLogic&#34;) -&gt; None:
+    &#34;&#34;&#34;Load a previously saved game state.
+
+    Restores the game to the state it was in when saved.
+
+    Raises:
+        FileNotFoundError: If no saved game state exists
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Load a previously saved game state.</p>
+<p>Restores the game to the state it was in when saved.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>FileNotFoundError</code></dt>
+<dd>If no saved game state exists</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.make_computer_guess"><code class="name flex">
+<span>def <span class="ident">make_computer_guess</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>) ‑> List[src.util.color_code.ColorCode]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def make_computer_guess(self: &#34;IBusinessLogic&#34;) -&gt; List[ColorCode]:
+    &#34;&#34;&#34;Let computer make a guess.
+
+    Returns:
+        List[ColorCode]: Computer&#39;s guess
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Let computer make a guess.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[ColorCode]</code></dt>
+<dd>Computer's guess</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.make_guess"><code class="name flex">
+<span>def <span class="ident">make_guess</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>guess_list: List[src.util.color_code.ColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def make_guess(self: &#34;IBusinessLogic&#34;, guess_list: List[ColorCode]) -&gt; str:
+    &#34;&#34;&#34;Process a player&#39;s guess.
+
+    Args:
+        guess_list: List of color codes representing the guess
+
+    Returns:
+        str: Result of the guess
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Process a player's guess.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>guess_list</code></strong></dt>
+<dd>List of color codes representing the guess</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the guess</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.save_game_state"><code class="name flex">
+<span>def <span class="ident">save_game_state</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def save_game_state(self: &#34;IBusinessLogic&#34;) -&gt; None:
+    &#34;&#34;&#34;Save current game state to persistent storage.
+
+    Saves all relevant game information to allow resuming later.
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Save current game state to persistent storage.</p>
+<p>Saves all relevant game information to allow resuming later.</p></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.set_feedback"><code class="name flex">
+<span>def <span class="ident">set_feedback</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>feedback_list: List[src.util.feedback_color_code.FeedbackColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def set_feedback(
+    self: &#34;IBusinessLogic&#34;, feedback_list: List[FeedbackColorCode]
+) -&gt; str:
+    &#34;&#34;&#34;Sets feedback for the current turn.
+
+    Args:
+        feedback_list: List of feedback pins
+
+    Returns:
+        str: Next game state
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Sets feedback for the current turn.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback_list</code></strong></dt>
+<dd>List of feedback pins</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next game state</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.set_secret_code"><code class="name flex">
+<span>def <span class="ident">set_secret_code</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>code_list: List[src.util.color_code.ColorCode]) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def set_secret_code(self: &#34;IBusinessLogic&#34;, code_list: List[ColorCode]) -&gt; None:
+    &#34;&#34;&#34;Set the secret code for the game.
+
+    Args:
+        code_list: List of color codes forming the secret code
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Set the secret code for the game.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>code_list</code></strong></dt>
+<dd>List of color codes forming the secret code</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.i_business_logic.IBusinessLogic.startgame"><code class="name flex">
+<span>def <span class="ident">startgame</span></span>(<span>self: <a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a>,<br>role: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def startgame(self: &#34;IBusinessLogic&#34;, role: str) -&gt; str:
+    &#34;&#34;&#34;Start a new game with the given role.
+
+    Args:
+        role: Player&#39;s role (&#39;guesser&#39;, &#39;coder&#39;, or &#39;online_guesser&#39;)
+
+    Returns:
+        str: Next required action
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Start a new game with the given role.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>role</code></strong></dt>
+<dd>Player's role ('guesser', 'coder', or 'online_guesser')</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next required action</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="business_logic" href="index.html">business_logic</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="business_logic.i_business_logic.IBusinessLogic" href="#business_logic.i_business_logic.IBusinessLogic">IBusinessLogic</a></code></h4>
+<ul class="two-column">
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.configure_game" href="#business_logic.i_business_logic.IBusinessLogic.configure_game">configure_game</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.get_game_state" href="#business_logic.i_business_logic.IBusinessLogic.get_game_state">get_game_state</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.has_saved_game" href="#business_logic.i_business_logic.IBusinessLogic.has_saved_game">has_saved_game</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.is_game_over" href="#business_logic.i_business_logic.IBusinessLogic.is_game_over">is_game_over</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.load_game_state" href="#business_logic.i_business_logic.IBusinessLogic.load_game_state">load_game_state</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.make_computer_guess" href="#business_logic.i_business_logic.IBusinessLogic.make_computer_guess">make_computer_guess</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.make_guess" href="#business_logic.i_business_logic.IBusinessLogic.make_guess">make_guess</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.save_game_state" href="#business_logic.i_business_logic.IBusinessLogic.save_game_state">save_game_state</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.set_feedback" href="#business_logic.i_business_logic.IBusinessLogic.set_feedback">set_feedback</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.set_secret_code" href="#business_logic.i_business_logic.IBusinessLogic.set_secret_code">set_secret_code</a></code></li>
+<li><code><a title="business_logic.i_business_logic.IBusinessLogic.startgame" href="#business_logic.i_business_logic.IBusinessLogic.startgame">startgame</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

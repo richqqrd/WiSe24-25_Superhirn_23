@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>business_logic.business_logic API documentation</title>
+<meta name="description" content="Module for core business logic implementation.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>business_logic.business_logic</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for core business logic implementation.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="business_logic.business_logic.BusinessLogic"><code class="flex name class">
+<span>class <span class="ident">BusinessLogic</span></span>
+<span>(</span><span>persistence_manager: src.persistence.i_persistence_manager.IPersistenceManager)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BusinessLogic(IBusinessLogic):
+    &#34;&#34;&#34;Core game business implementation.
+
+    This class implements the game mechanics including:
+        - Game state management
+        - Player/Computer moves
+        - Win/loss conditions
+        - network gameplay
+        - Game persistence
+
+    Attributes:
+        player_guesser: Player instance for guessing role
+        player_coder: Player instance for coding role
+        computer_guesser: Computer instance for guessing role
+        computer_coder: Computer instance for coding role
+        network_service: Service for online gameplay
+        game_state: Current state of the game
+        max_round: Maximum number of rounds allowed
+        player_name: Name of the player
+        colors: Number of available colors
+        positions: Number of positions in the code
+        persistence_manager: Manager for saving/loading games
+    &#34;&#34;&#34;
+
+    def __init__(self: &#34;BusinessLogic&#34;, persistence_manager: IPersistenceManager) \
+            -&gt; None:
+        &#34;&#34;&#34;Initialize business_logic with persistence manager.
+
+        Args:
+            persistence_manager: Manager for saving/loading game states
+        &#34;&#34;&#34;
+        self.player_guesser = PlayerGuesser()
+        self.player_coder = PlayerCoder()
+        self.computer_guesser = None
+        self.computer_coder = None
+        self.network_service = None
+        self.game_state = None
+        self.max_round = 12
+        self.player_name = &#34;player1&#34;
+        self.colors = 8
+        self.positions = 5
+        self.persistence_manager = persistence_manager
+        self.current_mode = None
+
+    def startgame(self: &#34;BusinessLogic&#34;, role: str) -&gt; str:
+        &#34;&#34;&#34;Start a new game with the given role.
+
+        Args:
+            role: Role of the player (&#39;guesser&#39;, &#39;coder&#39;, &#39;online_guesser&#39;,
+            &#39;online_computer_guesser&#39;)
+
+        Returns:
+            str: Result status of starting the game
+        &#34;&#34;&#34;
+        self.current_mode = role
+        if role == &#34;guesser&#34;:
+            self.player_guesser = PlayerGuesser()
+            self.computer_coder = ComputerCoder(self.positions, self.colors)
+            return self.start_as_guesser()
+        elif role == &#34;coder&#34;:
+            self.player_coder = PlayerCoder()
+            self.computer_guesser = ComputerGuesser(self.positions, self.colors)
+            return self.start_as_coder()
+        elif role == &#34;online_guesser&#34;:
+            self.player_guesser = PlayerGuesser()
+            return &#34;need_server_connection&#34;
+        elif role == &#34;online_computer_guesser&#34;:
+            self.computer_guesser = ComputerGuesser(self.positions, self.colors)
+            return &#34;need_server_connection&#34;
+        return &#34;invalid_role&#34;
+
+    def make_guess(self: &#34;BusinessLogic&#34;, guess_list: List[ColorCode]) -&gt; str:
+        &#34;&#34;&#34;Make a guess in the current game.
+
+        Args:
+            guess_list: List of ColorCode objects representing the guess
+
+        Returns:
+            str: Result status of the guess
+        &#34;&#34;&#34;
+        if not guess_list or len(guess_list) != self.positions:
+            return &#34;need_guess_input&#34;
+        self.player_guesser.set_guess(guess_list)
+        guess = self.player_guesser.make_guess()
+        turn = GameTurn(guess_list, [])
+        self.game_state.add_turn(turn)
+
+        if self.network_service:
+            guess_str = &#34;&#34;.join(str(color.value) for color in guess_list)
+            feedback_str = self.network_service.make_move(guess_str)
+            if feedback_str is None:
+                return &#34;error&#34;
+            feedback_list = [
+                FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+                for c in feedback_str
+            ]
+            turn.feedback = feedback_list
+            return self.is_game_over(feedback_list)
+        else:
+            feedback = self.computer_coder.give_feedback(guess)
+            turn.feedback = feedback
+            return self.is_game_over(feedback)
+
+    def is_game_over(self: &#34;BusinessLogic&#34;, feedback_list: List[FeedbackColorCode]) \
+            -&gt; str:
+        &#34;&#34;&#34;Check if the game is over based on the feedback.
+
+        Args:
+            feedback_list: List of feedback colors
+
+        Returns:
+            str: Result status of the game
+        &#34;&#34;&#34;
+        if len(feedback_list) == self.positions and all(
+            [f == FeedbackColorCode.BLACK for f in feedback_list]
+        ):
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                return &#34;game_won&#34;  # Mensch gewinnt als Rater
+            elif self.network_service:
+                return &#34;game_won&#34;  # Computer gewinnt online als Rater
+            else:
+                return &#34;game_lost&#34;  # Computer verliert offline als Rater
+
+        if len(self.game_state.get_turns()) &gt;= self.max_round:
+            if isinstance(self.game_state.current_guesser, PlayerGuesser):
+                return &#34;game_lost&#34;  # Mensch verliert als Rater
+            elif self.network_service:
+                return &#34;game_lost&#34;  # Computer verliert online als Rater
+            else:
+                return &#34;game_won&#34;  # Computer gewinnt offline als Rater
+
+        if isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return &#34;need_guess_input&#34;
+        else:
+            return &#34;wait_for_computer_guess&#34;
+
+    def set_feedback(self: &#34;BusinessLogic&#34;, feedback_list: List[FeedbackColorCode]) \
+            -&gt; str:
+        &#34;&#34;&#34;Set feedback for the current turn.
+
+        Args:
+            feedback_list: List of feedback colors
+
+        Returns:
+            str: Result status of the feedback
+        &#34;&#34;&#34;
+        try:
+            current_turn = self.game_state.get_turns()[-1]
+            current_turn.feedback = feedback_list
+
+            if isinstance(self.game_state.current_guesser, ComputerGuesser):
+                self.game_state.current_guesser.process_feedback(feedback_list)
+
+            return self.is_game_over(feedback_list)
+        except (IndexError, ValueError):
+            return &#34;need_feedback_input&#34;
+
+    def set_secret_code(self: &#34;BusinessLogic&#34;, code_list: List[ColorCode]) -&gt; str:
+        &#34;&#34;&#34;Set the secret code for the game.
+
+        Args:
+            code_list: List of ColorCode objects representing the secret code
+
+        Returns:
+            str: Result status of setting the secret code
+        &#34;&#34;&#34;
+        try:
+            if not code_list:  # Ungültige Eingabe
+                return &#34;need_code_input&#34;
+
+            self.game_state = GameState(
+                code_list,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.computer_guesser,
+            )
+            return &#34;wait_for_computer_guess&#34;
+        except ValueError:
+            return &#34;need_code_input&#34;
+
+    def make_computer_guess(self: &#34;BusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Make a computer guess in the current game.
+
+        Returns:
+            str: Result status of the computer guess
+        &#34;&#34;&#34;
+        try:
+            guess = self.computer_guesser.make_guess()
+            turn = GameTurn(guess, [])
+            self.game_state.add_turn(turn)
+
+            if self.network_service:
+                guess_str = &#34;&#34;.join(str(color.value) for color in guess)
+                feedback_str = self.network_service.make_move(guess_str)
+
+                if isinstance(feedback_str, dict) and &#34;error&#34; in feedback_str:
+                    error_type = feedback_str[&#34;error&#34;]
+                    if error_type == &#34;connection_failed&#34;:
+                        return &#34;connection_error&#34;
+                    elif error_type == &#34;server_error&#34;:
+                        return &#34;server_error&#34;
+                    elif error_type == &#34;timeout&#34;:
+                        return &#34;timeout_error&#34;
+                    return f&#34;network_error:{error_type}&#34;
+
+                if feedback_str is None:
+                    return &#34;error&#34;
+
+                feedback_list = [
+                    FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+                    for c in feedback_str
+                ]
+                turn.feedback = feedback_list
+
+                self.computer_guesser.process_feedback(feedback_list)
+                return self.is_game_over(feedback_list)
+            return &#34;need_feedback_input&#34;
+        except ValueError as e:
+            if str(e) == &#34;CHEATING_DETECTED&#34;:
+                return &#34;cheating_detected&#34;
+            return &#34;error&#34;
+
+    def get_game_state(self: &#34;BusinessLogic&#34;) -&gt; GameState:
+        &#34;&#34;&#34;Get the current game state.
+
+        Returns:
+            GameState: Current game state
+        &#34;&#34;&#34;
+        return self.game_state
+
+    def save_game_state(self: &#34;BusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Save the current game state through persistence layer.
+
+        Returns:
+            str: Save operation result status
+        &#34;&#34;&#34;
+        self.persistence_manager.save_game_state(self.game_state)
+        return &#34;game_saved&#34;
+
+    def load_game_state(self: &#34;BusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Load a previously saved game state through persistence layer.
+
+        Returns:
+            str: Load operation result status
+        &#34;&#34;&#34;
+        self.game_state = self.persistence_manager.load_game_state()
+
+        # Only allow loading if player was guesser
+        if not isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return &#34;error&#34;
+
+        # Initialize computer components
+        self.computer_coder = ComputerCoder(
+            self.game_state.positions, self.game_state.colors
+        )
+
+        # Store loaded game state properties
+        self.positions = self.game_state.positions
+        self.colors = self.game_state.colors
+        self.player_name = self.game_state.player_name
+        self.max_round = self.game_state.max_rounds
+
+        # Create and restore player guesser
+        self.player_guesser = PlayerGuesser()
+        self.game_state.current_guesser = self.player_guesser
+
+        # Restore computer coder state
+        self.computer_coder.secret_code = self.game_state.secret_code
+
+        # Replay turns to restore game state
+        for turn in self.game_state.get_turns():
+            feedback = self.computer_coder.give_feedback(turn.guesses)
+            turn.feedback = feedback
+            self.player_guesser.set_guess(turn.guesses)
+
+        return &#34;game_loaded&#34;
+
+    def configure_game(
+        self: &#34;BusinessLogic&#34;,
+        player_name: str,
+        positions: int,
+        colors: int,
+        max_attempts: int,
+    ) -&gt; None:
+        &#34;&#34;&#34;Configure game settings.
+
+        Args:
+            player_name: Name of the player
+            positions: Number of code positions
+            colors: Number of available colors
+            max_attempts: Maximum allowed attempts
+        &#34;&#34;&#34;
+        self.player_name = player_name
+        self.positions = positions
+        self.colors = colors
+        self.max_round = max_attempts
+
+    def has_saved_game(self: &#34;BusinessLogic&#34;) -&gt; bool:
+        &#34;&#34;&#34;Check if saved game exists through persistence layer.
+
+        Returns:
+            bool: True if saved game exists, False otherwise
+        &#34;&#34;&#34;
+        return self.persistence_manager.has_saved_game()
+
+    def start_as_coder(self: &#34;BusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Start a new game with player as code maker.
+
+        Private helper method called by startgame().
+
+        Returns:
+            str: &#34;need_code_input&#34; to request secret code from player
+        &#34;&#34;&#34;
+        return &#34;need_code_input&#34;
+
+    def start_as_guesser(self: &#34;BusinessLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Start a new game with player as code guesser.
+
+        Private helper method called by startgame().
+        Creates new game state with computer generated secret code.
+
+        Returns:
+            str: &#34;need_guess_input&#34; to request first guess from player
+
+        Raises:
+            ValueError: If game configuration is invalid
+        &#34;&#34;&#34;
+        try:
+            secret_code = self.computer_coder.generate_code()
+            self.game_state = GameState(
+                secret_code,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
+            )
+            return &#34;need_guess_input&#34;
+        except ValueError:
+            return &#34;need_guess_input&#34;
+
+    def start_as_online_guesser(
+        self: &#34;BusinessLogic&#34;, server_ip: str, server_port: int
+    ) -&gt; str:
+        &#34;&#34;&#34;Start game as online guesser.
+
+        Args:
+            server_ip: IP address of the game server
+            server_port: Port number of the game server
+
+        Returns:
+            str: &#34;need_server_connection&#34; if successful, &#34;error&#34; otherwise
+        &#34;&#34;&#34;
+        self.network_service = NetworkService(server_ip, server_port)
+        self.network_service.configure(self.positions, self.colors)
+        if self.network_service.start_game(self.player_name):
+            self.game_state = GameState(
+                None,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.player_guesser,
+            )
+            return &#34;need_guess_input&#34;
+        return &#34;error&#34;
+
+    def start_as_online_computer_guesser(
+        self: &#34;BusinessLogic&#34;, server_ip: str, server_port: int
+    ) -&gt; str:
+        &#34;&#34;&#34;Start game online game as the computer as guesser.
+
+        Args:
+            server_ip: IP address of the game server
+            server_port: Port number of the game server
+
+        Returns:
+            str: &#34;need_server_connection&#34; if successful, &#34;error&#34; otherwise
+        &#34;&#34;&#34;
+        self.network_service = NetworkService(server_ip, server_port)
+        self.network_service.configure(self.positions, self.colors)
+        if self.network_service.start_game(self.player_name):
+            self.game_state = GameState(
+                None,
+                self.max_round,
+                self.positions,
+                self.colors,
+                self.player_name,
+                self.computer_guesser,
+            )
+            return &#34;wait_for_computer_guess&#34;
+        return &#34;error&#34;
+
+    def reset_game_state(self: &#34;BusinessLogic&#34;) -&gt; None:
+        &#34;&#34;&#34;Reset the game state.&#34;&#34;&#34;
+        self.game_state = None
+        self.computer_guesser = None
+        self.computer_coder = None
+        self.player_guesser = None
+        self.player_coder = None
+        self.network_service = None</code></pre>
+</details>
+<div class="desc"><p>Core game business implementation.</p>
+<p>This class implements the game mechanics including:
+- Game state management
+- Player/Computer moves
+- Win/loss conditions
+- network gameplay
+- Game persistence</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>player_guesser</code></strong></dt>
+<dd>Player instance for guessing role</dd>
+<dt><strong><code>player_coder</code></strong></dt>
+<dd>Player instance for coding role</dd>
+<dt><strong><code>computer_guesser</code></strong></dt>
+<dd>Computer instance for guessing role</dd>
+<dt><strong><code>computer_coder</code></strong></dt>
+<dd>Computer instance for coding role</dd>
+<dt><strong><code>network_service</code></strong></dt>
+<dd>Service for online gameplay</dd>
+<dt><strong><code>game_state</code></strong></dt>
+<dd>Current state of the game</dd>
+<dt><strong><code>max_round</code></strong></dt>
+<dd>Maximum number of rounds allowed</dd>
+<dt><strong><code>player_name</code></strong></dt>
+<dd>Name of the player</dd>
+<dt><strong><code>colors</code></strong></dt>
+<dd>Number of available colors</dd>
+<dt><strong><code>positions</code></strong></dt>
+<dd>Number of positions in the code</dd>
+<dt><strong><code>persistence_manager</code></strong></dt>
+<dd>Manager for saving/loading games</dd>
+</dl>
+<p>Initialize business_logic with persistence manager.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>persistence_manager</code></strong></dt>
+<dd>Manager for saving/loading game states</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>src.business_logic.i_business_logic.IBusinessLogic</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="business_logic.business_logic.BusinessLogic.configure_game"><code class="name flex">
+<span>def <span class="ident">configure_game</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>player_name: str,<br>positions: int,<br>colors: int,<br>max_attempts: int) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def configure_game(
+    self: &#34;BusinessLogic&#34;,
+    player_name: str,
+    positions: int,
+    colors: int,
+    max_attempts: int,
+) -&gt; None:
+    &#34;&#34;&#34;Configure game settings.
+
+    Args:
+        player_name: Name of the player
+        positions: Number of code positions
+        colors: Number of available colors
+        max_attempts: Maximum allowed attempts
+    &#34;&#34;&#34;
+    self.player_name = player_name
+    self.positions = positions
+    self.colors = colors
+    self.max_round = max_attempts</code></pre>
+</details>
+<div class="desc"><p>Configure game settings.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>player_name</code></strong></dt>
+<dd>Name of the player</dd>
+<dt><strong><code>positions</code></strong></dt>
+<dd>Number of code positions</dd>
+<dt><strong><code>colors</code></strong></dt>
+<dd>Number of available colors</dd>
+<dt><strong><code>max_attempts</code></strong></dt>
+<dd>Maximum allowed attempts</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.get_game_state"><code class="name flex">
+<span>def <span class="ident">get_game_state</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> src.business_logic.game_state.GameState</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_game_state(self: &#34;BusinessLogic&#34;) -&gt; GameState:
+    &#34;&#34;&#34;Get the current game state.
+
+    Returns:
+        GameState: Current game state
+    &#34;&#34;&#34;
+    return self.game_state</code></pre>
+</details>
+<div class="desc"><p>Get the current game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>GameState</code></dt>
+<dd>Current game state</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.has_saved_game"><code class="name flex">
+<span>def <span class="ident">has_saved_game</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def has_saved_game(self: &#34;BusinessLogic&#34;) -&gt; bool:
+    &#34;&#34;&#34;Check if saved game exists through persistence layer.
+
+    Returns:
+        bool: True if saved game exists, False otherwise
+    &#34;&#34;&#34;
+    return self.persistence_manager.has_saved_game()</code></pre>
+</details>
+<div class="desc"><p>Check if saved game exists through persistence layer.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if saved game exists, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.is_game_over"><code class="name flex">
+<span>def <span class="ident">is_game_over</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>feedback_list: List[src.util.feedback_color_code.FeedbackColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_game_over(self: &#34;BusinessLogic&#34;, feedback_list: List[FeedbackColorCode]) \
+        -&gt; str:
+    &#34;&#34;&#34;Check if the game is over based on the feedback.
+
+    Args:
+        feedback_list: List of feedback colors
+
+    Returns:
+        str: Result status of the game
+    &#34;&#34;&#34;
+    if len(feedback_list) == self.positions and all(
+        [f == FeedbackColorCode.BLACK for f in feedback_list]
+    ):
+        if isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return &#34;game_won&#34;  # Mensch gewinnt als Rater
+        elif self.network_service:
+            return &#34;game_won&#34;  # Computer gewinnt online als Rater
+        else:
+            return &#34;game_lost&#34;  # Computer verliert offline als Rater
+
+    if len(self.game_state.get_turns()) &gt;= self.max_round:
+        if isinstance(self.game_state.current_guesser, PlayerGuesser):
+            return &#34;game_lost&#34;  # Mensch verliert als Rater
+        elif self.network_service:
+            return &#34;game_lost&#34;  # Computer verliert online als Rater
+        else:
+            return &#34;game_won&#34;  # Computer gewinnt offline als Rater
+
+    if isinstance(self.game_state.current_guesser, PlayerGuesser):
+        return &#34;need_guess_input&#34;
+    else:
+        return &#34;wait_for_computer_guess&#34;</code></pre>
+</details>
+<div class="desc"><p>Check if the game is over based on the feedback.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback_list</code></strong></dt>
+<dd>List of feedback colors</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of the game</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.load_game_state"><code class="name flex">
+<span>def <span class="ident">load_game_state</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_game_state(self: &#34;BusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Load a previously saved game state through persistence layer.
+
+    Returns:
+        str: Load operation result status
+    &#34;&#34;&#34;
+    self.game_state = self.persistence_manager.load_game_state()
+
+    # Only allow loading if player was guesser
+    if not isinstance(self.game_state.current_guesser, PlayerGuesser):
+        return &#34;error&#34;
+
+    # Initialize computer components
+    self.computer_coder = ComputerCoder(
+        self.game_state.positions, self.game_state.colors
+    )
+
+    # Store loaded game state properties
+    self.positions = self.game_state.positions
+    self.colors = self.game_state.colors
+    self.player_name = self.game_state.player_name
+    self.max_round = self.game_state.max_rounds
+
+    # Create and restore player guesser
+    self.player_guesser = PlayerGuesser()
+    self.game_state.current_guesser = self.player_guesser
+
+    # Restore computer coder state
+    self.computer_coder.secret_code = self.game_state.secret_code
+
+    # Replay turns to restore game state
+    for turn in self.game_state.get_turns():
+        feedback = self.computer_coder.give_feedback(turn.guesses)
+        turn.feedback = feedback
+        self.player_guesser.set_guess(turn.guesses)
+
+    return &#34;game_loaded&#34;</code></pre>
+</details>
+<div class="desc"><p>Load a previously saved game state through persistence layer.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Load operation result status</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.make_computer_guess"><code class="name flex">
+<span>def <span class="ident">make_computer_guess</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_computer_guess(self: &#34;BusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Make a computer guess in the current game.
+
+    Returns:
+        str: Result status of the computer guess
+    &#34;&#34;&#34;
+    try:
+        guess = self.computer_guesser.make_guess()
+        turn = GameTurn(guess, [])
+        self.game_state.add_turn(turn)
+
+        if self.network_service:
+            guess_str = &#34;&#34;.join(str(color.value) for color in guess)
+            feedback_str = self.network_service.make_move(guess_str)
+
+            if isinstance(feedback_str, dict) and &#34;error&#34; in feedback_str:
+                error_type = feedback_str[&#34;error&#34;]
+                if error_type == &#34;connection_failed&#34;:
+                    return &#34;connection_error&#34;
+                elif error_type == &#34;server_error&#34;:
+                    return &#34;server_error&#34;
+                elif error_type == &#34;timeout&#34;:
+                    return &#34;timeout_error&#34;
+                return f&#34;network_error:{error_type}&#34;
+
+            if feedback_str is None:
+                return &#34;error&#34;
+
+            feedback_list = [
+                FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+                for c in feedback_str
+            ]
+            turn.feedback = feedback_list
+
+            self.computer_guesser.process_feedback(feedback_list)
+            return self.is_game_over(feedback_list)
+        return &#34;need_feedback_input&#34;
+    except ValueError as e:
+        if str(e) == &#34;CHEATING_DETECTED&#34;:
+            return &#34;cheating_detected&#34;
+        return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Make a computer guess in the current game.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of the computer guess</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.make_guess"><code class="name flex">
+<span>def <span class="ident">make_guess</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>guess_list: List[src.util.color_code.ColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_guess(self: &#34;BusinessLogic&#34;, guess_list: List[ColorCode]) -&gt; str:
+    &#34;&#34;&#34;Make a guess in the current game.
+
+    Args:
+        guess_list: List of ColorCode objects representing the guess
+
+    Returns:
+        str: Result status of the guess
+    &#34;&#34;&#34;
+    if not guess_list or len(guess_list) != self.positions:
+        return &#34;need_guess_input&#34;
+    self.player_guesser.set_guess(guess_list)
+    guess = self.player_guesser.make_guess()
+    turn = GameTurn(guess_list, [])
+    self.game_state.add_turn(turn)
+
+    if self.network_service:
+        guess_str = &#34;&#34;.join(str(color.value) for color in guess_list)
+        feedback_str = self.network_service.make_move(guess_str)
+        if feedback_str is None:
+            return &#34;error&#34;
+        feedback_list = [
+            FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+            for c in feedback_str
+        ]
+        turn.feedback = feedback_list
+        return self.is_game_over(feedback_list)
+    else:
+        feedback = self.computer_coder.give_feedback(guess)
+        turn.feedback = feedback
+        return self.is_game_over(feedback)</code></pre>
+</details>
+<div class="desc"><p>Make a guess in the current game.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>guess_list</code></strong></dt>
+<dd>List of ColorCode objects representing the guess</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of the guess</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.reset_game_state"><code class="name flex">
+<span>def <span class="ident">reset_game_state</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_game_state(self: &#34;BusinessLogic&#34;) -&gt; None:
+    &#34;&#34;&#34;Reset the game state.&#34;&#34;&#34;
+    self.game_state = None
+    self.computer_guesser = None
+    self.computer_coder = None
+    self.player_guesser = None
+    self.player_coder = None
+    self.network_service = None</code></pre>
+</details>
+<div class="desc"><p>Reset the game state.</p></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.save_game_state"><code class="name flex">
+<span>def <span class="ident">save_game_state</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_game_state(self: &#34;BusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Save the current game state through persistence layer.
+
+    Returns:
+        str: Save operation result status
+    &#34;&#34;&#34;
+    self.persistence_manager.save_game_state(self.game_state)
+    return &#34;game_saved&#34;</code></pre>
+</details>
+<div class="desc"><p>Save the current game state through persistence layer.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Save operation result status</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.set_feedback"><code class="name flex">
+<span>def <span class="ident">set_feedback</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>feedback_list: List[src.util.feedback_color_code.FeedbackColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_feedback(self: &#34;BusinessLogic&#34;, feedback_list: List[FeedbackColorCode]) \
+        -&gt; str:
+    &#34;&#34;&#34;Set feedback for the current turn.
+
+    Args:
+        feedback_list: List of feedback colors
+
+    Returns:
+        str: Result status of the feedback
+    &#34;&#34;&#34;
+    try:
+        current_turn = self.game_state.get_turns()[-1]
+        current_turn.feedback = feedback_list
+
+        if isinstance(self.game_state.current_guesser, ComputerGuesser):
+            self.game_state.current_guesser.process_feedback(feedback_list)
+
+        return self.is_game_over(feedback_list)
+    except (IndexError, ValueError):
+        return &#34;need_feedback_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Set feedback for the current turn.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback_list</code></strong></dt>
+<dd>List of feedback colors</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of the feedback</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.set_secret_code"><code class="name flex">
+<span>def <span class="ident">set_secret_code</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>code_list: List[src.util.color_code.ColorCode]) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_secret_code(self: &#34;BusinessLogic&#34;, code_list: List[ColorCode]) -&gt; str:
+    &#34;&#34;&#34;Set the secret code for the game.
+
+    Args:
+        code_list: List of ColorCode objects representing the secret code
+
+    Returns:
+        str: Result status of setting the secret code
+    &#34;&#34;&#34;
+    try:
+        if not code_list:  # Ungültige Eingabe
+            return &#34;need_code_input&#34;
+
+        self.game_state = GameState(
+            code_list,
+            self.max_round,
+            self.positions,
+            self.colors,
+            self.player_name,
+            self.computer_guesser,
+        )
+        return &#34;wait_for_computer_guess&#34;
+    except ValueError:
+        return &#34;need_code_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Set the secret code for the game.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>code_list</code></strong></dt>
+<dd>List of ColorCode objects representing the secret code</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of setting the secret code</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.start_as_coder"><code class="name flex">
+<span>def <span class="ident">start_as_coder</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_as_coder(self: &#34;BusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Start a new game with player as code maker.
+
+    Private helper method called by startgame().
+
+    Returns:
+        str: &#34;need_code_input&#34; to request secret code from player
+    &#34;&#34;&#34;
+    return &#34;need_code_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Start a new game with player as code maker.</p>
+<p>Private helper method called by startgame().</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"need_code_input" to request secret code from player</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.start_as_guesser"><code class="name flex">
+<span>def <span class="ident">start_as_guesser</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_as_guesser(self: &#34;BusinessLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Start a new game with player as code guesser.
+
+    Private helper method called by startgame().
+    Creates new game state with computer generated secret code.
+
+    Returns:
+        str: &#34;need_guess_input&#34; to request first guess from player
+
+    Raises:
+        ValueError: If game configuration is invalid
+    &#34;&#34;&#34;
+    try:
+        secret_code = self.computer_coder.generate_code()
+        self.game_state = GameState(
+            secret_code,
+            self.max_round,
+            self.positions,
+            self.colors,
+            self.player_name,
+            self.player_guesser,
+        )
+        return &#34;need_guess_input&#34;
+    except ValueError:
+        return &#34;need_guess_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Start a new game with player as code guesser.</p>
+<p>Private helper method called by startgame().
+Creates new game state with computer generated secret code.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"need_guess_input" to request first guess from player</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If game configuration is invalid</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.start_as_online_computer_guesser"><code class="name flex">
+<span>def <span class="ident">start_as_online_computer_guesser</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>server_ip: str,<br>server_port: int) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_as_online_computer_guesser(
+    self: &#34;BusinessLogic&#34;, server_ip: str, server_port: int
+) -&gt; str:
+    &#34;&#34;&#34;Start game online game as the computer as guesser.
+
+    Args:
+        server_ip: IP address of the game server
+        server_port: Port number of the game server
+
+    Returns:
+        str: &#34;need_server_connection&#34; if successful, &#34;error&#34; otherwise
+    &#34;&#34;&#34;
+    self.network_service = NetworkService(server_ip, server_port)
+    self.network_service.configure(self.positions, self.colors)
+    if self.network_service.start_game(self.player_name):
+        self.game_state = GameState(
+            None,
+            self.max_round,
+            self.positions,
+            self.colors,
+            self.player_name,
+            self.computer_guesser,
+        )
+        return &#34;wait_for_computer_guess&#34;
+    return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Start game online game as the computer as guesser.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>server_ip</code></strong></dt>
+<dd>IP address of the game server</dd>
+<dt><strong><code>server_port</code></strong></dt>
+<dd>Port number of the game server</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"need_server_connection" if successful, "error" otherwise</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.start_as_online_guesser"><code class="name flex">
+<span>def <span class="ident">start_as_online_guesser</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>server_ip: str,<br>server_port: int) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_as_online_guesser(
+    self: &#34;BusinessLogic&#34;, server_ip: str, server_port: int
+) -&gt; str:
+    &#34;&#34;&#34;Start game as online guesser.
+
+    Args:
+        server_ip: IP address of the game server
+        server_port: Port number of the game server
+
+    Returns:
+        str: &#34;need_server_connection&#34; if successful, &#34;error&#34; otherwise
+    &#34;&#34;&#34;
+    self.network_service = NetworkService(server_ip, server_port)
+    self.network_service.configure(self.positions, self.colors)
+    if self.network_service.start_game(self.player_name):
+        self.game_state = GameState(
+            None,
+            self.max_round,
+            self.positions,
+            self.colors,
+            self.player_name,
+            self.player_guesser,
+        )
+        return &#34;need_guess_input&#34;
+    return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Start game as online guesser.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>server_ip</code></strong></dt>
+<dd>IP address of the game server</dd>
+<dt><strong><code>server_port</code></strong></dt>
+<dd>Port number of the game server</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"need_server_connection" if successful, "error" otherwise</dd>
+</dl></div>
+</dd>
+<dt id="business_logic.business_logic.BusinessLogic.startgame"><code class="name flex">
+<span>def <span class="ident">startgame</span></span>(<span>self: <a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a>,<br>role: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def startgame(self: &#34;BusinessLogic&#34;, role: str) -&gt; str:
+    &#34;&#34;&#34;Start a new game with the given role.
+
+    Args:
+        role: Role of the player (&#39;guesser&#39;, &#39;coder&#39;, &#39;online_guesser&#39;,
+        &#39;online_computer_guesser&#39;)
+
+    Returns:
+        str: Result status of starting the game
+    &#34;&#34;&#34;
+    self.current_mode = role
+    if role == &#34;guesser&#34;:
+        self.player_guesser = PlayerGuesser()
+        self.computer_coder = ComputerCoder(self.positions, self.colors)
+        return self.start_as_guesser()
+    elif role == &#34;coder&#34;:
+        self.player_coder = PlayerCoder()
+        self.computer_guesser = ComputerGuesser(self.positions, self.colors)
+        return self.start_as_coder()
+    elif role == &#34;online_guesser&#34;:
+        self.player_guesser = PlayerGuesser()
+        return &#34;need_server_connection&#34;
+    elif role == &#34;online_computer_guesser&#34;:
+        self.computer_guesser = ComputerGuesser(self.positions, self.colors)
+        return &#34;need_server_connection&#34;
+    return &#34;invalid_role&#34;</code></pre>
+</details>
+<div class="desc"><p>Start a new game with the given role.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>role</code></strong></dt>
+<dd>Role of the player ('guesser', 'coder', 'online_guesser',</dd>
+</dl>
+<p>'online_computer_guesser')</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result status of starting the game</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="business_logic" href="index.html">business_logic</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="business_logic.business_logic.BusinessLogic" href="#business_logic.business_logic.BusinessLogic">BusinessLogic</a></code></h4>
+<ul class="">
+<li><code><a title="business_logic.business_logic.BusinessLogic.configure_game" href="#business_logic.business_logic.BusinessLogic.configure_game">configure_game</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.get_game_state" href="#business_logic.business_logic.BusinessLogic.get_game_state">get_game_state</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.has_saved_game" href="#business_logic.business_logic.BusinessLogic.has_saved_game">has_saved_game</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.is_game_over" href="#business_logic.business_logic.BusinessLogic.is_game_over">is_game_over</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.load_game_state" href="#business_logic.business_logic.BusinessLogic.load_game_state">load_game_state</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.make_computer_guess" href="#business_logic.business_logic.BusinessLogic.make_computer_guess">make_computer_guess</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.make_guess" href="#business_logic.business_logic.BusinessLogic.make_guess">make_guess</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.reset_game_state" href="#business_logic.business_logic.BusinessLogic.reset_game_state">reset_game_state</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.save_game_state" href="#business_logic.business_logic.BusinessLogic.save_game_state">save_game_state</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.set_feedback" href="#business_logic.business_logic.BusinessLogic.set_feedback">set_feedback</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.set_secret_code" href="#business_logic.business_logic.BusinessLogic.set_secret_code">set_secret_code</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.start_as_coder" href="#business_logic.business_logic.BusinessLogic.start_as_coder">start_as_coder</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.start_as_guesser" href="#business_logic.business_logic.BusinessLogic.start_as_guesser">start_as_guesser</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.start_as_online_computer_guesser" href="#business_logic.business_logic.BusinessLogic.start_as_online_computer_guesser">start_as_online_computer_guesser</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.start_as_online_guesser" href="#business_logic.business_logic.BusinessLogic.start_as_online_guesser">start_as_online_guesser</a></code></li>
+<li><code><a title="business_logic.business_logic.BusinessLogic.startgame" href="#business_logic.business_logic.BusinessLogic.startgame">startgame</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

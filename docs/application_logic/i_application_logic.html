@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>application_logic.i_application_logic API documentation</title>
+<meta name="description" content="Interface module for application logic layer.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>application_logic.i_application_logic</code></h1>
+</header>
+<section id="section-intro">
+<p>Interface module for application logic layer.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="application_logic.i_application_logic.IApplicationLogic"><code class="flex name class">
+<span>class <span class="ident">IApplicationLogic</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IApplicationLogic(ABC):
+    &#34;&#34;&#34;Interface for application logic layer.
+
+    This interface defines the contract for application logic implementations,
+    coordinating game flow and rules between UI and game logic layers.
+    &#34;&#34;&#34;
+
+    @abstractmethod
+    def handle(self: &#34;IApplicationLogic&#34;, command: str) -&gt; str:
+        &#34;&#34;&#34;Handle general command input.
+
+        Args:
+            command: User command to process
+
+        Returns:
+            str: Next action to take
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_game_configuration(
+        self: &#34;IApplicationLogic&#34;,
+        player_name: str,
+        positions: str,
+        colors: str,
+        max_attempts: str,
+    ) -&gt; str:
+        &#34;&#34;&#34;Handle game configuration input validation.
+
+        Args:
+            player_name: Name of the player
+            positions: Number of code positions
+            colors: Number of available colors
+            max_attempts: Maximum allowed attempts
+
+        Returns:
+            str: Configuration result status
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def process_game_action(
+        self: &#34;IApplicationLogic&#34;, action: str, user_input: str = None
+    ) -&gt; str:
+        &#34;&#34;&#34;Process game actions and determine next state.
+
+        Args:
+            action: Current game action
+            user_input: Optional user input for the action
+
+        Returns:
+            str: Next game state
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_guess_input(self: &#34;IApplicationLogic&#34;, guess_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle and validate player guess input.
+
+        Args:
+            guess_input: Player&#39;s code guess
+
+        Returns:
+            str: Result of processing the guess
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_feedback_input(self: &#34;IApplicationLogic&#34;, feedback: str) -&gt; str:
+        &#34;&#34;&#34;Handle and validate feedback input.
+
+        Args:
+            feedback: Feedback for last guess
+
+        Returns:
+            str: Result of processing the feedback
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_menu_action(self: &#34;IApplicationLogic&#34;, menu_choice: str) -&gt; str:
+        &#34;&#34;&#34;Handle menu actions.
+
+        Args:
+            menu_choice: Menu action to process
+
+        Returns:
+            str: Result of processing the menu action
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_required_action(self: &#34;IApplicationLogic&#34;, game_mode: str) -&gt; str:
+        &#34;&#34;&#34;Get the next required action for a game mode.
+
+        Args:
+            game_mode: Current game mode
+
+        Returns:
+            str: Next required action for the game mode
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def configure_game(self: &#34;IApplicationLogic&#34;, game_mode: str, config: dict) -&gt; str:
+        &#34;&#34;&#34;Configure a new game with the given mode and settings.
+
+        Args:
+            game_mode: Type of game to configure (&#39;guesser&#39;, &#39;coder&#39;, &#39;online&#39;)
+            config: Dictionary containing game configuration parameters:
+                - player_name: Name of the player
+                - positions: Number of code positions
+                - colors: Number of available colors
+                - max_attempts: Maximum allowed attempts
+
+        Returns:
+            str: Configuration result status
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_game_state(self: &#34;IApplicationLogic&#34;) -&gt; GameState:
+        &#34;&#34;&#34;Get the current game state.
+
+        Returns:
+            GameState: Current state of the game
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_positions(self: &#34;IApplicationLogic&#34;) -&gt; int:
+        &#34;&#34;&#34;Get number of code positions.
+
+        Returns:
+            int: Number of positions in the code
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_colors(self: &#34;IApplicationLogic&#34;) -&gt; int:
+        &#34;&#34;&#34;Get number of available colors.
+
+        Returns:
+            int: Number of available colors
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_available_menu_actions(self: &#34;IApplicationLogic&#34;) -&gt; list:
+        &#34;&#34;&#34;Get list of available menu actions.
+
+        Returns:
+            list: List of available menu actions
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def save_game(self: &#34;IApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Save the current game state.
+
+        Saves the current game state using the persistence manager.
+
+        Returns:
+            str: Save operation result status
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def load_game(self: &#34;IApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Load a previously saved game state.
+
+        Loads a saved game state using the persistence manager.
+
+        Returns:
+            str: Load operation result status (&#39;error&#39; if no save exists)
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def can_start_game(self: &#34;IApplicationLogic&#34;, next_action: str) -&gt; bool:
+        &#34;&#34;&#34;Check if a game can be started with the given action.
+
+        Args:
+            next_action: Action to check
+
+        Returns:
+            bool: True if game can be started, False otherwise
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def is_game_over(self: &#34;IApplicationLogic&#34;, action: str) -&gt; bool:
+        &#34;&#34;&#34;Check if the given action indicates game over.
+
+        Args:
+            action: Action to check
+
+        Returns:
+            bool: True if game is over, False otherwise
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def get_current_game_action(self: &#34;IApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Get the current game action based on game state.
+
+        Returns:
+            str: Current action needed (&#34;need_guess_input&#34; or &#34;need_feedback_input&#34;)
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_computer_guess(self: str) -&gt; str:
+        &#34;&#34;&#34;Handle computer making a guess.
+
+        Triggers the computer guesser to make its next move.
+
+        Returns:
+            str: Next game state after computer&#39;s guess
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_code_input(self: str, code_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle and validate secret code input.
+
+        Args:
+            code_input: Secret code entered by player
+
+        Returns:
+            str: Result of processing the code input
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def handle_server_connection(self: str, ip: str, port: str) -&gt; str:
+        &#34;&#34;&#34;Handle online game server connection.
+
+        Args:
+            ip: Server IP address
+            port: Server port number
+
+        Returns:
+            str: Connection result status
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def change_language(self: str) -&gt; str:
+        &#34;&#34;&#34;Handle language change request.
+
+        Returns:
+            str: &#34;choose_language&#34; to trigger language selection
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def end_game(self: str) -&gt; str:
+        &#34;&#34;&#34;Handle game end request.
+
+        Returns:
+            str: &#34;end_game&#34; to trigger game ending
+        &#34;&#34;&#34;
+        pass
+
+    @abstractmethod
+    def confirm_save_game(self: str) -&gt; str:
+        &#34;&#34;&#34;Handle save game confirmation request.
+
+        Returns:
+            str: Next action after save game confirmation
+        &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+<div class="desc"><p>Interface for application logic layer.</p>
+<p>This interface defines the contract for application logic implementations,
+coordinating game flow and rules between UI and game logic layers.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="application_logic.i_application_logic.IApplicationLogic.can_start_game"><code class="name flex">
+<span>def <span class="ident">can_start_game</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>next_action: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def can_start_game(self: &#34;IApplicationLogic&#34;, next_action: str) -&gt; bool:
+    &#34;&#34;&#34;Check if a game can be started with the given action.
+
+    Args:
+        next_action: Action to check
+
+    Returns:
+        bool: True if game can be started, False otherwise
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Check if a game can be started with the given action.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>next_action</code></strong></dt>
+<dd>Action to check</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if game can be started, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.change_language"><code class="name flex">
+<span>def <span class="ident">change_language</span></span>(<span>self: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def change_language(self: str) -&gt; str:
+    &#34;&#34;&#34;Handle language change request.
+
+    Returns:
+        str: &#34;choose_language&#34; to trigger language selection
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle language change request.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"choose_language" to trigger language selection</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.configure_game"><code class="name flex">
+<span>def <span class="ident">configure_game</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>game_mode: str,<br>config: dict) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def configure_game(self: &#34;IApplicationLogic&#34;, game_mode: str, config: dict) -&gt; str:
+    &#34;&#34;&#34;Configure a new game with the given mode and settings.
+
+    Args:
+        game_mode: Type of game to configure (&#39;guesser&#39;, &#39;coder&#39;, &#39;online&#39;)
+        config: Dictionary containing game configuration parameters:
+            - player_name: Name of the player
+            - positions: Number of code positions
+            - colors: Number of available colors
+            - max_attempts: Maximum allowed attempts
+
+    Returns:
+        str: Configuration result status
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Configure a new game with the given mode and settings.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_mode</code></strong></dt>
+<dd>Type of game to configure ('guesser', 'coder', 'online')</dd>
+<dt><strong><code>config</code></strong></dt>
+<dd>Dictionary containing game configuration parameters:
+- player_name: Name of the player
+- positions: Number of code positions
+- colors: Number of available colors
+- max_attempts: Maximum allowed attempts</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Configuration result status</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.confirm_save_game"><code class="name flex">
+<span>def <span class="ident">confirm_save_game</span></span>(<span>self: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def confirm_save_game(self: str) -&gt; str:
+    &#34;&#34;&#34;Handle save game confirmation request.
+
+    Returns:
+        str: Next action after save game confirmation
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle save game confirmation request.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next action after save game confirmation</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.end_game"><code class="name flex">
+<span>def <span class="ident">end_game</span></span>(<span>self: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def end_game(self: str) -&gt; str:
+    &#34;&#34;&#34;Handle game end request.
+
+    Returns:
+        str: &#34;end_game&#34; to trigger game ending
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle game end request.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>"end_game" to trigger game ending</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_available_menu_actions"><code class="name flex">
+<span>def <span class="ident">get_available_menu_actions</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_available_menu_actions(self: &#34;IApplicationLogic&#34;) -&gt; list:
+    &#34;&#34;&#34;Get list of available menu actions.
+
+    Returns:
+        list: List of available menu actions
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get list of available menu actions.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>List of available menu actions</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_colors"><code class="name flex">
+<span>def <span class="ident">get_colors</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_colors(self: &#34;IApplicationLogic&#34;) -&gt; int:
+    &#34;&#34;&#34;Get number of available colors.
+
+    Returns:
+        int: Number of available colors
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get number of available colors.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>Number of available colors</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_current_game_action"><code class="name flex">
+<span>def <span class="ident">get_current_game_action</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_current_game_action(self: &#34;IApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Get the current game action based on game state.
+
+    Returns:
+        str: Current action needed (&#34;need_guess_input&#34; or &#34;need_feedback_input&#34;)
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get the current game action based on game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Current action needed ("need_guess_input" or "need_feedback_input")</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_game_state"><code class="name flex">
+<span>def <span class="ident">get_game_state</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> src.business_logic.game_state.GameState</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_game_state(self: &#34;IApplicationLogic&#34;) -&gt; GameState:
+    &#34;&#34;&#34;Get the current game state.
+
+    Returns:
+        GameState: Current state of the game
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get the current game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>GameState</code></dt>
+<dd>Current state of the game</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_positions"><code class="name flex">
+<span>def <span class="ident">get_positions</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_positions(self: &#34;IApplicationLogic&#34;) -&gt; int:
+    &#34;&#34;&#34;Get number of code positions.
+
+    Returns:
+        int: Number of positions in the code
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get number of code positions.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>Number of positions in the code</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.get_required_action"><code class="name flex">
+<span>def <span class="ident">get_required_action</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>game_mode: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def get_required_action(self: &#34;IApplicationLogic&#34;, game_mode: str) -&gt; str:
+    &#34;&#34;&#34;Get the next required action for a game mode.
+
+    Args:
+        game_mode: Current game mode
+
+    Returns:
+        str: Next required action for the game mode
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Get the next required action for a game mode.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_mode</code></strong></dt>
+<dd>Current game mode</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next required action for the game mode</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle"><code class="name flex">
+<span>def <span class="ident">handle</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>command: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle(self: &#34;IApplicationLogic&#34;, command: str) -&gt; str:
+    &#34;&#34;&#34;Handle general command input.
+
+    Args:
+        command: User command to process
+
+    Returns:
+        str: Next action to take
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle general command input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>command</code></strong></dt>
+<dd>User command to process</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next action to take</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_code_input"><code class="name flex">
+<span>def <span class="ident">handle_code_input</span></span>(<span>self: str, code_input: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_code_input(self: str, code_input: str) -&gt; str:
+    &#34;&#34;&#34;Handle and validate secret code input.
+
+    Args:
+        code_input: Secret code entered by player
+
+    Returns:
+        str: Result of processing the code input
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle and validate secret code input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>code_input</code></strong></dt>
+<dd>Secret code entered by player</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of processing the code input</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_computer_guess"><code class="name flex">
+<span>def <span class="ident">handle_computer_guess</span></span>(<span>self: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_computer_guess(self: str) -&gt; str:
+    &#34;&#34;&#34;Handle computer making a guess.
+
+    Triggers the computer guesser to make its next move.
+
+    Returns:
+        str: Next game state after computer&#39;s guess
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle computer making a guess.</p>
+<p>Triggers the computer guesser to make its next move.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next game state after computer's guess</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_feedback_input"><code class="name flex">
+<span>def <span class="ident">handle_feedback_input</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>feedback: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_feedback_input(self: &#34;IApplicationLogic&#34;, feedback: str) -&gt; str:
+    &#34;&#34;&#34;Handle and validate feedback input.
+
+    Args:
+        feedback: Feedback for last guess
+
+    Returns:
+        str: Result of processing the feedback
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle and validate feedback input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback</code></strong></dt>
+<dd>Feedback for last guess</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of processing the feedback</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_game_configuration"><code class="name flex">
+<span>def <span class="ident">handle_game_configuration</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>player_name: str,<br>positions: str,<br>colors: str,<br>max_attempts: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_game_configuration(
+    self: &#34;IApplicationLogic&#34;,
+    player_name: str,
+    positions: str,
+    colors: str,
+    max_attempts: str,
+) -&gt; str:
+    &#34;&#34;&#34;Handle game configuration input validation.
+
+    Args:
+        player_name: Name of the player
+        positions: Number of code positions
+        colors: Number of available colors
+        max_attempts: Maximum allowed attempts
+
+    Returns:
+        str: Configuration result status
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle game configuration input validation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>player_name</code></strong></dt>
+<dd>Name of the player</dd>
+<dt><strong><code>positions</code></strong></dt>
+<dd>Number of code positions</dd>
+<dt><strong><code>colors</code></strong></dt>
+<dd>Number of available colors</dd>
+<dt><strong><code>max_attempts</code></strong></dt>
+<dd>Maximum allowed attempts</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Configuration result status</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_guess_input"><code class="name flex">
+<span>def <span class="ident">handle_guess_input</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>guess_input: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_guess_input(self: &#34;IApplicationLogic&#34;, guess_input: str) -&gt; str:
+    &#34;&#34;&#34;Handle and validate player guess input.
+
+    Args:
+        guess_input: Player&#39;s code guess
+
+    Returns:
+        str: Result of processing the guess
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle and validate player guess input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>guess_input</code></strong></dt>
+<dd>Player's code guess</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of processing the guess</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_menu_action"><code class="name flex">
+<span>def <span class="ident">handle_menu_action</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>menu_choice: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_menu_action(self: &#34;IApplicationLogic&#34;, menu_choice: str) -&gt; str:
+    &#34;&#34;&#34;Handle menu actions.
+
+    Args:
+        menu_choice: Menu action to process
+
+    Returns:
+        str: Result of processing the menu action
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle menu actions.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>menu_choice</code></strong></dt>
+<dd>Menu action to process</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of processing the menu action</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.handle_server_connection"><code class="name flex">
+<span>def <span class="ident">handle_server_connection</span></span>(<span>self: str, ip: str, port: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def handle_server_connection(self: str, ip: str, port: str) -&gt; str:
+    &#34;&#34;&#34;Handle online game server connection.
+
+    Args:
+        ip: Server IP address
+        port: Server port number
+
+    Returns:
+        str: Connection result status
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Handle online game server connection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ip</code></strong></dt>
+<dd>Server IP address</dd>
+<dt><strong><code>port</code></strong></dt>
+<dd>Server port number</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Connection result status</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.is_game_over"><code class="name flex">
+<span>def <span class="ident">is_game_over</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>action: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def is_game_over(self: &#34;IApplicationLogic&#34;, action: str) -&gt; bool:
+    &#34;&#34;&#34;Check if the given action indicates game over.
+
+    Args:
+        action: Action to check
+
+    Returns:
+        bool: True if game is over, False otherwise
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Check if the given action indicates game over.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong></dt>
+<dd>Action to check</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if game is over, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.load_game"><code class="name flex">
+<span>def <span class="ident">load_game</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def load_game(self: &#34;IApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Load a previously saved game state.
+
+    Loads a saved game state using the persistence manager.
+
+    Returns:
+        str: Load operation result status (&#39;error&#39; if no save exists)
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Load a previously saved game state.</p>
+<p>Loads a saved game state using the persistence manager.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Load operation result status ('error' if no save exists)</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.process_game_action"><code class="name flex">
+<span>def <span class="ident">process_game_action</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>,<br>action: str,<br>user_input: str = None) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def process_game_action(
+    self: &#34;IApplicationLogic&#34;, action: str, user_input: str = None
+) -&gt; str:
+    &#34;&#34;&#34;Process game actions and determine next state.
+
+    Args:
+        action: Current game action
+        user_input: Optional user input for the action
+
+    Returns:
+        str: Next game state
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Process game actions and determine next state.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong></dt>
+<dd>Current game action</dd>
+<dt><strong><code>user_input</code></strong></dt>
+<dd>Optional user input for the action</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next game state</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.i_application_logic.IApplicationLogic.save_game"><code class="name flex">
+<span>def <span class="ident">save_game</span></span>(<span>self: <a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def save_game(self: &#34;IApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Save the current game state.
+
+    Saves the current game state using the persistence manager.
+
+    Returns:
+        str: Save operation result status
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<div class="desc"><p>Save the current game state.</p>
+<p>Saves the current game state using the persistence manager.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Save operation result status</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="application_logic" href="index.html">application_logic</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="application_logic.i_application_logic.IApplicationLogic" href="#application_logic.i_application_logic.IApplicationLogic">IApplicationLogic</a></code></h4>
+<ul class="">
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.can_start_game" href="#application_logic.i_application_logic.IApplicationLogic.can_start_game">can_start_game</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.change_language" href="#application_logic.i_application_logic.IApplicationLogic.change_language">change_language</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.configure_game" href="#application_logic.i_application_logic.IApplicationLogic.configure_game">configure_game</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.confirm_save_game" href="#application_logic.i_application_logic.IApplicationLogic.confirm_save_game">confirm_save_game</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.end_game" href="#application_logic.i_application_logic.IApplicationLogic.end_game">end_game</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_available_menu_actions" href="#application_logic.i_application_logic.IApplicationLogic.get_available_menu_actions">get_available_menu_actions</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_colors" href="#application_logic.i_application_logic.IApplicationLogic.get_colors">get_colors</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_current_game_action" href="#application_logic.i_application_logic.IApplicationLogic.get_current_game_action">get_current_game_action</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_game_state" href="#application_logic.i_application_logic.IApplicationLogic.get_game_state">get_game_state</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_positions" href="#application_logic.i_application_logic.IApplicationLogic.get_positions">get_positions</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.get_required_action" href="#application_logic.i_application_logic.IApplicationLogic.get_required_action">get_required_action</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle" href="#application_logic.i_application_logic.IApplicationLogic.handle">handle</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_code_input" href="#application_logic.i_application_logic.IApplicationLogic.handle_code_input">handle_code_input</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_computer_guess" href="#application_logic.i_application_logic.IApplicationLogic.handle_computer_guess">handle_computer_guess</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_feedback_input" href="#application_logic.i_application_logic.IApplicationLogic.handle_feedback_input">handle_feedback_input</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_game_configuration" href="#application_logic.i_application_logic.IApplicationLogic.handle_game_configuration">handle_game_configuration</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_guess_input" href="#application_logic.i_application_logic.IApplicationLogic.handle_guess_input">handle_guess_input</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_menu_action" href="#application_logic.i_application_logic.IApplicationLogic.handle_menu_action">handle_menu_action</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.handle_server_connection" href="#application_logic.i_application_logic.IApplicationLogic.handle_server_connection">handle_server_connection</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.is_game_over" href="#application_logic.i_application_logic.IApplicationLogic.is_game_over">is_game_over</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.load_game" href="#application_logic.i_application_logic.IApplicationLogic.load_game">load_game</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.process_game_action" href="#application_logic.i_application_logic.IApplicationLogic.process_game_action">process_game_action</a></code></li>
+<li><code><a title="application_logic.i_application_logic.IApplicationLogic.save_game" href="#application_logic.i_application_logic.IApplicationLogic.save_game">save_game</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

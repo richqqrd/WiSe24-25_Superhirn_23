@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>application_logic.application_logic API documentation</title>
+<meta name="description" content="Application logic module for game flow control.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>application_logic.application_logic</code></h1>
+</header>
+<section id="section-intro">
+<p>Application logic module for game flow control.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="application_logic.application_logic.ApplicationLogic"><code class="flex name class">
+<span>class <span class="ident">ApplicationLogic</span></span>
+<span>(</span><span>business_logic: src.business_logic.i_business_logic.IBusinessLogic)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ApplicationLogic(IApplicationLogic):
+    &#34;&#34;&#34;Application logic implementation controlling game flow.
+
+    This class coordinates between UI and game logic layers, handling:
+        - Command interpretation
+        - Input validation
+        - Game configuration
+        - State transitions
+
+    Attributes:
+        business_logic: Core game logic implementation
+        commands: Dictionary mapping menu commands to handler functions
+    &#34;&#34;&#34;
+
+    def __init__(self: &#34;ApplicationLogic&#34;, business_logic: IBusinessLogic) -&gt; None:
+        &#34;&#34;&#34;Initialize application logic with game logic dependency.
+
+        Args:
+            business_logic: Core game logic implementation
+        &#34;&#34;&#34;
+        self.business_logic = business_logic
+
+        # Basic commands that are always available
+        self.commands = {
+            &#34;1&#34;: lambda: &#34;choose_mode&#34;,      # Start Game
+            &#34;2&#34;: lambda: &#34;choose_language&#34;,  # Change Language
+            &#34;3&#34;: lambda: &#34;end_game&#34;         # End Game
+        }
+
+        # Add resume_game command only if saved game exists
+        if self.business_logic.has_saved_game():
+            self.commands = {
+                &#34;1&#34;: lambda: &#34;choose_mode&#34;,
+                &#34;2&#34;: lambda: &#34;choose_language&#34;,
+                &#34;3&#34;: lambda: &#34;load_game&#34;,
+                &#34;4&#34;: lambda: &#34;end_game&#34;
+            }
+
+    def handle_game_configuration(
+        self: &#34;ApplicationLogic&#34;,
+        player_name: str,
+        positions: str,
+        colors: str,
+        max_attempts: str,
+    ) -&gt; str:
+        &#34;&#34;&#34;Configure game settings based on user input.
+
+        Args:
+            player_name: Name of the player
+            positions: Number of positions in the code
+            colors: Number of colors available
+            max_attempts: Maximum number of attempts allowed
+
+        Returns:
+            str: Result of the configuration attempt
+        &#34;&#34;&#34;
+        if not player_name or len(player_name.strip()) == 0:
+            return &#34;invalid_configuration&#34;
+
+        try:
+            pos = int(positions)
+            col = int(colors)
+            att = int(max_attempts)
+
+            if not (1 &lt;= pos &lt;= 9):
+                return &#34;invalid_configuration&#34;
+            if not (1 &lt;= col &lt;= 8):
+                return &#34;invalid_configuration&#34;
+            if att &lt; 0:
+                return &#34;invalid_configuration&#34;
+
+            return self.business_logic.configure_game(player_name, pos, col, att)
+        except ValueError:
+            return &#34;invalid_configuration&#34;
+
+    def _is_valid_feedback(self: &#34;ApplicationLogic&#34;, feedback: str) -&gt; bool:
+        &#34;&#34;&#34;Validate feedback string format.
+
+        Args:
+            feedback: Feedback string to validate
+
+        Returns:
+            bool: True if feedback format is valid
+        &#34;&#34;&#34;
+        try:
+            if feedback is None:
+                return False
+            if len(feedback) &gt; self.business_logic.positions:
+                return False
+            if feedback == &#34;&#34; or all(c in &#34;78&#34; for c in feedback):
+                return True
+            return False
+        except Exception:
+            return False
+
+    def handle_feedback_input(self: &#34;ApplicationLogic&#34;, feedback: str) -&gt; str:
+        &#34;&#34;&#34;Handle feedback input from the user.
+
+        Args:
+            feedback: Feedback string to process
+
+        Returns:
+            str: Result of the feedback input
+        &#34;&#34;&#34;
+        if not self._is_valid_feedback(feedback):
+            return &#34;need_feedback_input&#34;
+        try:
+            feedback_list = [
+                FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+                for c in feedback
+            ]
+            return self.business_logic.set_feedback(feedback_list)
+        except ValueError:
+            return &#34;need_feedback_input&#34;
+
+    def get_game_state(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Get the current game state.
+
+        Returns:
+            str: Current game state
+        &#34;&#34;&#34;
+        return self.business_logic.get_game_state()
+
+    def handle_computer_guess(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Handle computer guess in online mode.
+
+        Returns:
+            str: Result of the computer guess
+        &#34;&#34;&#34;
+        return self.business_logic.make_computer_guess()
+
+    def _is_valid_code(self: &#34;ApplicationLogic&#34;, code: str) -&gt; bool:
+        &#34;&#34;&#34;Validate if a code string meets game requirements.
+
+        Checks if:
+        - Code is not empty
+        - Code length matches required positions
+        - All digits are within valid color range
+
+        Args:
+            code: The code string to validate
+
+        Returns:
+            bool: True if code is valid, False otherwise
+        &#34;&#34;&#34;
+        if not code or len(code) != self.business_logic.positions:
+            return False
+        try:
+            return all(1 &lt;= int(c) &lt;= self.business_logic.colors for c in code)
+        except ValueError:
+            return False
+
+    def _convert_to_color_code(self: &#34;ApplicationLogic&#34;, number: int) -&gt; ColorCode:
+        &#34;&#34;&#34;Convert a number to its corresponding ColorCode enum value.
+
+        Args:
+            number: Integer value (1-8) to convert to ColorCode
+
+        Returns:
+            ColorCode: Corresponding ColorCode enum value
+
+        Raises:
+            ValueError: If no ColorCode exists for the given number
+
+        Examples:
+            1 -&gt; ColorCode.RED
+            2 -&gt; ColorCode.GREEN
+            etc.
+        &#34;&#34;&#34;
+        for color in ColorCode:
+            if color.value == number:
+                return color
+        raise ValueError(f&#34;No ColorCode found for number {number}&#34;)
+
+    def handle_code_input(self: &#34;ApplicationLogic&#34;, code_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle code input from the user.
+
+        Args:
+            code_input: Code input string to process
+
+        Returns:
+            str: Result of the code input
+        &#34;&#34;&#34;
+        if not self._is_valid_code(code_input):
+            return &#34;need_code_input&#34;
+        try:
+            code_list = [self._convert_to_color_code(int(c)) for c in code_input]
+            return self.business_logic.set_secret_code(code_list)
+        except ValueError:
+            return &#34;need_code_input&#34;
+
+    def handle_guess_input(self: &#34;ApplicationLogic&#34;, guess_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle guess input from the user.
+
+        Args:
+            guess_input: Guess input string to process
+
+        Returns:
+            str: Result of the guess input
+        &#34;&#34;&#34;
+        if not self._is_valid_code(guess_input):
+            return &#34;need_guess_input&#34;
+        try:
+            guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
+            if not guess_list:
+                return &#34;need_guess_input&#34;
+            return self.business_logic.make_guess(guess_list)
+        except ValueError:
+            return &#34;need_guess_input&#34;
+
+    def handle(self: &#34;ApplicationLogic&#34;, menu_choice: str) -&gt; str:
+        &#34;&#34;&#34;Handle main menu selection.&#34;&#34;&#34;
+        available_actions = self.get_available_menu_actions()
+
+        # Build menu map based on available actions
+        menu_map = {
+            &#34;1&#34;: &#34;choose_mode&#34;,      # Start Game
+            &#34;2&#34;: &#34;choose_language&#34;,  # Change Language
+        }
+
+        # Add resume_game option if available
+        if &#34;resume_game&#34; in available_actions:
+            menu_map.update({
+                &#34;3&#34;: &#34;load_game&#34;,    # Resume Game
+                &#34;4&#34;: &#34;end_game&#34;      # End Game
+            })
+        else:
+            menu_map[&#34;3&#34;] = &#34;end_game&#34;  # End Game wenn kein Resume verfügbar
+
+        action = menu_map.get(menu_choice)
+        return action if action else &#34;invalid&#34;
+
+    def handle_server_connection(self: &#34;ApplicationLogic&#34;, ip: str, port: int) -&gt; str:
+        &#34;&#34;&#34;Handle server connection for online mode.
+
+        Args:
+            ip: IP address of the server
+            port: Port number of the server
+
+        Returns:
+            str: Result of the server connection attempt
+        &#34;&#34;&#34;
+        if self.business_logic.current_mode == &#34;online_computer_guesser&#34;:
+            return self.business_logic.start_as_online_computer_guesser(ip, port)
+        return self.business_logic.start_as_online_guesser(ip, port)
+
+    def change_language(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Change the game language.
+
+        Returns:
+            str: Result of the language change attempt
+        &#34;&#34;&#34;
+        return &#34;choose_language&#34;
+
+    def end_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;End the current game session.&#34;&#34;&#34;
+        return &#34;end_game&#34;
+
+    def save_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Save the current game state.&#34;&#34;&#34;
+        self.business_logic.save_game_state()
+        return self.get_current_game_action()
+
+    def load_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Load the saved game state.&#34;&#34;&#34;
+        try:
+            self.business_logic.load_game_state()
+            return self.get_current_game_action()
+        except FileNotFoundError:
+            return &#34;error&#34;
+
+    def process_game_action(self: &#34;ApplicationLogic&#34;,
+                            action: str, user_input: str = None) -&gt; str:
+        &#34;&#34;&#34;Process the next game action.&#34;&#34;&#34;
+        action_handlers = {
+            &#34;need_guess_input&#34;: self._handle_guess_action,
+            &#34;need_code_input&#34;: self._handle_code_action,
+            &#34;need_feedback_input&#34;: self._handle_feedback_action,
+            &#34;wait_for_computer_guess&#34;: lambda _: self._handle_computer_guess_action(),
+            &#34;need_server_connection&#34;: self._handle_server_connection_action
+        }
+
+        if action in action_handlers:
+            return action_handlers[action](user_input)
+        return &#34;error&#34;
+
+    def _handle_guess_action(self: &#34;ApplicationLogic&#34;, user_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle guess input action.&#34;&#34;&#34;
+        if user_input == &#34;menu&#34;:
+            return &#34;show_menu&#34;
+        return self.handle_guess_input(user_input)
+
+    def _handle_code_action(self: &#34;ApplicationLogic&#34;, user_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle code input action.&#34;&#34;&#34;
+        if user_input == &#34;menu&#34;:
+            return &#34;show_menu&#34;
+        return self.handle_code_input(user_input)
+
+    def _handle_feedback_action(self: &#34;ApplicationLogic&#34;, user_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle feedback input action.&#34;&#34;&#34;
+        if user_input == &#34;menu&#34;:
+            return &#34;show_menu&#34;
+        return self.handle_feedback_input(user_input)
+
+    def _handle_computer_guess_action(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Handle computer guess action.&#34;&#34;&#34;
+        result = self.handle_computer_guess()
+        return self._process_computer_guess_result(result)
+
+    def _handle_server_connection_action(self: &#34;ApplicationLogic&#34;,
+                                         user_input: str) -&gt; str:
+        &#34;&#34;&#34;Handle server connection action.&#34;&#34;&#34;
+        if user_input == &#34;menu&#34;:
+            return &#34;show_menu&#34;
+
+        try:
+            ip, port = user_input.split(&#34;:&#34;)
+            return self.handle_server_connection(ip, int(port))
+        except ValueError:
+            return &#34;need_server_connection&#34;
+
+    def _process_computer_guess_result(self: &#34;ApplicationLogic&#34;, result: str) -&gt; str:
+        &#34;&#34;&#34;Process result from computer guess.&#34;&#34;&#34;
+        if result in [&#34;connection_error&#34;, &#34;timeout_error&#34;]:
+            return &#34;need_server_connection&#34;
+        elif result in [&#34;server_error&#34;] or result.startswith(&#34;network_error:&#34;):
+            return &#34;error&#34;
+        return result
+
+    def handle_menu_action(self: &#34;ApplicationLogic&#34;, menu_choice: str) -&gt; str:
+        &#34;&#34;&#34;Handle main menu selection.
+
+        Args:
+            menu_choice: User input for menu selection
+
+        Returns:
+            str: Result of the menu action processing
+        &#34;&#34;&#34;
+        available_actions = self.get_available_menu_actions()
+
+        # Baue Menu-Map dynamisch basierend auf verfügbaren Aktionen
+        menu_items = []
+        if &#34;save_game&#34; in available_actions:
+            menu_items.append((&#34;1&#34;, &#34;save_game&#34;))
+            menu_items.append((&#34;2&#34;, &#34;change_language&#34;))
+            if &#34;resume_game&#34; in available_actions:
+                menu_items.append((&#34;3&#34;, &#34;resume_game&#34;))
+            menu_items.append((&#34;4&#34;, &#34;back_to_menu&#34;))
+            menu_items.append((&#34;5&#34;, &#34;end_game&#34;))
+        else:
+            menu_items.append((&#34;1&#34;, &#34;change_language&#34;))
+            menu_items.append((&#34;2&#34;, &#34;back_to_menu&#34;))
+            menu_items.append((&#34;3&#34;, &#34;end_game&#34;))
+        # Konvertiere zu Dictionary für Lookup
+        menu_map = dict(menu_items)
+        action = menu_map.get(menu_choice)
+
+        if not action:
+            return self.get_current_game_action()
+
+        # Handle spezifische Aktionen
+        if action == &#34;save_game&#34;:
+            if self.business_logic.has_saved_game():
+                return &#34;confirm_save&#34;
+            self.business_logic.save_game_state()
+            return &#34;save_game&#34;
+        elif action == &#34;load_game&#34;:
+            return self.load_game()
+        elif action == &#34;change_language&#34;:
+            return &#34;choose_language&#34;
+        elif action == &#34;back_to_menu&#34;:
+            return &#34;back_to_menu&#34;
+        elif action == &#34;end_game&#34;:
+            return &#34;end_game&#34;
+
+        return self.get_current_game_action()
+
+    def get_required_action(self: &#34;ApplicationLogic&#34;, game_mode: str) -&gt; str:
+        &#34;&#34;&#34;Get the required action based on the selected game mode.
+
+        Args:
+            game_mode: Selected game mode
+
+        Returns:
+            str: Required action based on the game mode
+        &#34;&#34;&#34;
+        if game_mode not in [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;]:
+            return &#34;invalid_mode&#34;
+
+        if game_mode == &#34;5&#34;:
+            return &#34;back_to_menu&#34;
+
+        return &#34;need_configuration&#34;
+
+    def configure_game(self: &#34;ApplicationLogic&#34;, game_mode: str, config: dict) -&gt; str:
+        &#34;&#34;&#34;Configure the game based on user input.
+
+        Args:
+            game_mode: Selected game mode
+            config: Game configuration settings
+
+        Returns:
+            str: Result of the game configuration attempt
+        &#34;&#34;&#34;
+        config_result = self.handle_game_configuration(
+            config[&#34;player_name&#34;],
+            config[&#34;positions&#34;],
+            config[&#34;colors&#34;],
+            config[&#34;max_attempts&#34;],
+        )
+
+        if config_result == &#34;invalid_configuration&#34;:
+            return config_result
+
+        if game_mode == &#34;1&#34;:
+            return self.business_logic.startgame(&#34;guesser&#34;)
+
+        elif game_mode == &#34;2&#34;:
+            return self.business_logic.startgame(&#34;coder&#34;)
+
+        elif game_mode == &#34;3&#34;:
+            return self.business_logic.startgame(&#34;online_guesser&#34;)
+
+        elif game_mode == &#34;4&#34;:
+            return self.business_logic.startgame(&#34;online_computer_guesser&#34;)
+
+        return &#34;invalid_mode&#34;
+
+    def can_start_game(self: &#34;ApplicationLogic&#34;, next_action: str) -&gt; bool:
+        &#34;&#34;&#34;Check if the game can be started based on the next action.
+
+        Args:
+            next_action: Next action to check
+
+        Returns:
+            bool: True if the game can be started, False otherwise
+        &#34;&#34;&#34;
+        return next_action not in [
+            &#34;invalid_mode&#34;,
+            &#34;invalid_configuration&#34;,
+            &#34;back_to_menu&#34;,
+        ]
+
+    def is_game_over(self: &#34;ApplicationLogic&#34;, action: str) -&gt; bool:
+        &#34;&#34;&#34;Check if the game is over based on the current action.
+
+        Args:
+            action: Current game action
+
+        Returns:
+            bool: True if the game is over, False otherwise
+        &#34;&#34;&#34;
+        return action in [&#34;game_won&#34;, &#34;game_lost&#34;, &#34;error&#34;, &#34;cheating_detected&#34;]
+
+    def get_current_game_action(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Get the current game action based on the game state.
+
+        Returns:
+            str: Current game action
+        &#34;&#34;&#34;
+        game_state = self.business_logic.get_game_state()
+        if isinstance(game_state.current_guesser, PlayerGuesser):
+            return &#34;need_guess_input&#34;
+        else:
+            return &#34;need_feedback_input&#34;
+
+    def get_available_menu_actions(self: &#34;ApplicationLogic&#34;) -&gt; list[str]:
+        &#34;&#34;&#34;Get the available menu actions based on the current game state.
+
+        Returns:
+            list[str]: List of available menu actions
+        &#34;&#34;&#34;
+        # Erst prüfen ob game_state existiert
+        actions = [&#34;change_language&#34;, &#34;end_game&#34;]
+
+        # Im Hauptmenü: Zeige resume_game wenn Spielstand existiert
+        if not self.business_logic.game_state:
+            if self.business_logic.has_saved_game():
+                actions.append(&#34;resume_game&#34;)
+            return actions
+
+        is_offline_guesser = (
+            isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser)
+            and not self.business_logic.network_service
+        )
+        if is_offline_guesser:
+            actions.append(&#34;save_game&#34;)
+            if self.business_logic.has_saved_game():
+                actions.append(&#34;resume_game&#34;)
+
+        return actions
+
+    def confirm_save_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+        &#34;&#34;&#34;Confirm the save game action.
+
+        Returns:
+            str: Result of the save game confirmation
+        &#34;&#34;&#34;
+        try:
+            self.business_logic.save_game_state()
+            return &#34;save_game&#34;
+        except FileNotFoundError:
+            return &#34;error&#34;
+
+    def get_positions(self: &#34;ApplicationLogic&#34;) -&gt; int:
+        &#34;&#34;&#34;Get the number of positions in the code.
+
+        Returns:
+            int: Number of positions in the code
+        &#34;&#34;&#34;
+        game_state = self.business_logic.get_game_state()
+        if game_state:
+            return game_state.positions
+        return self.business_logic.positions
+
+    def get_colors(self: &#34;ApplicationLogic&#34;) -&gt; int:
+        &#34;&#34;&#34;Get the number of colors available.
+
+        Returns:
+            int: Number of colors available
+        &#34;&#34;&#34;
+        game_state = self.business_logic.get_game_state()
+        if game_state:
+            return game_state.colors
+        return self.business_logic.colors</code></pre>
+</details>
+<div class="desc"><p>Application logic implementation controlling game flow.</p>
+<p>This class coordinates between UI and game logic layers, handling:
+- Command interpretation
+- Input validation
+- Game configuration
+- State transitions</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>business_logic</code></strong></dt>
+<dd>Core game logic implementation</dd>
+<dt><strong><code>commands</code></strong></dt>
+<dd>Dictionary mapping menu commands to handler functions</dd>
+</dl>
+<p>Initialize application logic with game logic dependency.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>business_logic</code></strong></dt>
+<dd>Core game logic implementation</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>src.application_logic.i_application_logic.IApplicationLogic</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="application_logic.application_logic.ApplicationLogic.can_start_game"><code class="name flex">
+<span>def <span class="ident">can_start_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>next_action: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_start_game(self: &#34;ApplicationLogic&#34;, next_action: str) -&gt; bool:
+    &#34;&#34;&#34;Check if the game can be started based on the next action.
+
+    Args:
+        next_action: Next action to check
+
+    Returns:
+        bool: True if the game can be started, False otherwise
+    &#34;&#34;&#34;
+    return next_action not in [
+        &#34;invalid_mode&#34;,
+        &#34;invalid_configuration&#34;,
+        &#34;back_to_menu&#34;,
+    ]</code></pre>
+</details>
+<div class="desc"><p>Check if the game can be started based on the next action.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>next_action</code></strong></dt>
+<dd>Next action to check</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the game can be started, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.change_language"><code class="name flex">
+<span>def <span class="ident">change_language</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_language(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Change the game language.
+
+    Returns:
+        str: Result of the language change attempt
+    &#34;&#34;&#34;
+    return &#34;choose_language&#34;</code></pre>
+</details>
+<div class="desc"><p>Change the game language.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the language change attempt</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.configure_game"><code class="name flex">
+<span>def <span class="ident">configure_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>game_mode: str,<br>config: dict) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def configure_game(self: &#34;ApplicationLogic&#34;, game_mode: str, config: dict) -&gt; str:
+    &#34;&#34;&#34;Configure the game based on user input.
+
+    Args:
+        game_mode: Selected game mode
+        config: Game configuration settings
+
+    Returns:
+        str: Result of the game configuration attempt
+    &#34;&#34;&#34;
+    config_result = self.handle_game_configuration(
+        config[&#34;player_name&#34;],
+        config[&#34;positions&#34;],
+        config[&#34;colors&#34;],
+        config[&#34;max_attempts&#34;],
+    )
+
+    if config_result == &#34;invalid_configuration&#34;:
+        return config_result
+
+    if game_mode == &#34;1&#34;:
+        return self.business_logic.startgame(&#34;guesser&#34;)
+
+    elif game_mode == &#34;2&#34;:
+        return self.business_logic.startgame(&#34;coder&#34;)
+
+    elif game_mode == &#34;3&#34;:
+        return self.business_logic.startgame(&#34;online_guesser&#34;)
+
+    elif game_mode == &#34;4&#34;:
+        return self.business_logic.startgame(&#34;online_computer_guesser&#34;)
+
+    return &#34;invalid_mode&#34;</code></pre>
+</details>
+<div class="desc"><p>Configure the game based on user input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_mode</code></strong></dt>
+<dd>Selected game mode</dd>
+<dt><strong><code>config</code></strong></dt>
+<dd>Game configuration settings</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the game configuration attempt</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.confirm_save_game"><code class="name flex">
+<span>def <span class="ident">confirm_save_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def confirm_save_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Confirm the save game action.
+
+    Returns:
+        str: Result of the save game confirmation
+    &#34;&#34;&#34;
+    try:
+        self.business_logic.save_game_state()
+        return &#34;save_game&#34;
+    except FileNotFoundError:
+        return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Confirm the save game action.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the save game confirmation</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.end_game"><code class="name flex">
+<span>def <span class="ident">end_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def end_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;End the current game session.&#34;&#34;&#34;
+    return &#34;end_game&#34;</code></pre>
+</details>
+<div class="desc"><p>End the current game session.</p></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_available_menu_actions"><code class="name flex">
+<span>def <span class="ident">get_available_menu_actions</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_available_menu_actions(self: &#34;ApplicationLogic&#34;) -&gt; list[str]:
+    &#34;&#34;&#34;Get the available menu actions based on the current game state.
+
+    Returns:
+        list[str]: List of available menu actions
+    &#34;&#34;&#34;
+    # Erst prüfen ob game_state existiert
+    actions = [&#34;change_language&#34;, &#34;end_game&#34;]
+
+    # Im Hauptmenü: Zeige resume_game wenn Spielstand existiert
+    if not self.business_logic.game_state:
+        if self.business_logic.has_saved_game():
+            actions.append(&#34;resume_game&#34;)
+        return actions
+
+    is_offline_guesser = (
+        isinstance(self.business_logic.game_state.current_guesser, PlayerGuesser)
+        and not self.business_logic.network_service
+    )
+    if is_offline_guesser:
+        actions.append(&#34;save_game&#34;)
+        if self.business_logic.has_saved_game():
+            actions.append(&#34;resume_game&#34;)
+
+    return actions</code></pre>
+</details>
+<div class="desc"><p>Get the available menu actions based on the current game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>List of available menu actions</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_colors"><code class="name flex">
+<span>def <span class="ident">get_colors</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_colors(self: &#34;ApplicationLogic&#34;) -&gt; int:
+    &#34;&#34;&#34;Get the number of colors available.
+
+    Returns:
+        int: Number of colors available
+    &#34;&#34;&#34;
+    game_state = self.business_logic.get_game_state()
+    if game_state:
+        return game_state.colors
+    return self.business_logic.colors</code></pre>
+</details>
+<div class="desc"><p>Get the number of colors available.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>Number of colors available</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_current_game_action"><code class="name flex">
+<span>def <span class="ident">get_current_game_action</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_current_game_action(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Get the current game action based on the game state.
+
+    Returns:
+        str: Current game action
+    &#34;&#34;&#34;
+    game_state = self.business_logic.get_game_state()
+    if isinstance(game_state.current_guesser, PlayerGuesser):
+        return &#34;need_guess_input&#34;
+    else:
+        return &#34;need_feedback_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Get the current game action based on the game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Current game action</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_game_state"><code class="name flex">
+<span>def <span class="ident">get_game_state</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_game_state(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Get the current game state.
+
+    Returns:
+        str: Current game state
+    &#34;&#34;&#34;
+    return self.business_logic.get_game_state()</code></pre>
+</details>
+<div class="desc"><p>Get the current game state.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Current game state</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_positions"><code class="name flex">
+<span>def <span class="ident">get_positions</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_positions(self: &#34;ApplicationLogic&#34;) -&gt; int:
+    &#34;&#34;&#34;Get the number of positions in the code.
+
+    Returns:
+        int: Number of positions in the code
+    &#34;&#34;&#34;
+    game_state = self.business_logic.get_game_state()
+    if game_state:
+        return game_state.positions
+    return self.business_logic.positions</code></pre>
+</details>
+<div class="desc"><p>Get the number of positions in the code.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>Number of positions in the code</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.get_required_action"><code class="name flex">
+<span>def <span class="ident">get_required_action</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>game_mode: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_required_action(self: &#34;ApplicationLogic&#34;, game_mode: str) -&gt; str:
+    &#34;&#34;&#34;Get the required action based on the selected game mode.
+
+    Args:
+        game_mode: Selected game mode
+
+    Returns:
+        str: Required action based on the game mode
+    &#34;&#34;&#34;
+    if game_mode not in [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;]:
+        return &#34;invalid_mode&#34;
+
+    if game_mode == &#34;5&#34;:
+        return &#34;back_to_menu&#34;
+
+    return &#34;need_configuration&#34;</code></pre>
+</details>
+<div class="desc"><p>Get the required action based on the selected game mode.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>game_mode</code></strong></dt>
+<dd>Selected game mode</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Required action based on the game mode</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle"><code class="name flex">
+<span>def <span class="ident">handle</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>menu_choice: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle(self: &#34;ApplicationLogic&#34;, menu_choice: str) -&gt; str:
+    &#34;&#34;&#34;Handle main menu selection.&#34;&#34;&#34;
+    available_actions = self.get_available_menu_actions()
+
+    # Build menu map based on available actions
+    menu_map = {
+        &#34;1&#34;: &#34;choose_mode&#34;,      # Start Game
+        &#34;2&#34;: &#34;choose_language&#34;,  # Change Language
+    }
+
+    # Add resume_game option if available
+    if &#34;resume_game&#34; in available_actions:
+        menu_map.update({
+            &#34;3&#34;: &#34;load_game&#34;,    # Resume Game
+            &#34;4&#34;: &#34;end_game&#34;      # End Game
+        })
+    else:
+        menu_map[&#34;3&#34;] = &#34;end_game&#34;  # End Game wenn kein Resume verfügbar
+
+    action = menu_map.get(menu_choice)
+    return action if action else &#34;invalid&#34;</code></pre>
+</details>
+<div class="desc"><p>Handle main menu selection.</p></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_code_input"><code class="name flex">
+<span>def <span class="ident">handle_code_input</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>code_input: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_code_input(self: &#34;ApplicationLogic&#34;, code_input: str) -&gt; str:
+    &#34;&#34;&#34;Handle code input from the user.
+
+    Args:
+        code_input: Code input string to process
+
+    Returns:
+        str: Result of the code input
+    &#34;&#34;&#34;
+    if not self._is_valid_code(code_input):
+        return &#34;need_code_input&#34;
+    try:
+        code_list = [self._convert_to_color_code(int(c)) for c in code_input]
+        return self.business_logic.set_secret_code(code_list)
+    except ValueError:
+        return &#34;need_code_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Handle code input from the user.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>code_input</code></strong></dt>
+<dd>Code input string to process</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the code input</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_computer_guess"><code class="name flex">
+<span>def <span class="ident">handle_computer_guess</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_computer_guess(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Handle computer guess in online mode.
+
+    Returns:
+        str: Result of the computer guess
+    &#34;&#34;&#34;
+    return self.business_logic.make_computer_guess()</code></pre>
+</details>
+<div class="desc"><p>Handle computer guess in online mode.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the computer guess</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_feedback_input"><code class="name flex">
+<span>def <span class="ident">handle_feedback_input</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>feedback: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_feedback_input(self: &#34;ApplicationLogic&#34;, feedback: str) -&gt; str:
+    &#34;&#34;&#34;Handle feedback input from the user.
+
+    Args:
+        feedback: Feedback string to process
+
+    Returns:
+        str: Result of the feedback input
+    &#34;&#34;&#34;
+    if not self._is_valid_feedback(feedback):
+        return &#34;need_feedback_input&#34;
+    try:
+        feedback_list = [
+            FeedbackColorCode.BLACK if c == &#34;8&#34; else FeedbackColorCode.WHITE
+            for c in feedback
+        ]
+        return self.business_logic.set_feedback(feedback_list)
+    except ValueError:
+        return &#34;need_feedback_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Handle feedback input from the user.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>feedback</code></strong></dt>
+<dd>Feedback string to process</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the feedback input</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_game_configuration"><code class="name flex">
+<span>def <span class="ident">handle_game_configuration</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>player_name: str,<br>positions: str,<br>colors: str,<br>max_attempts: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_game_configuration(
+    self: &#34;ApplicationLogic&#34;,
+    player_name: str,
+    positions: str,
+    colors: str,
+    max_attempts: str,
+) -&gt; str:
+    &#34;&#34;&#34;Configure game settings based on user input.
+
+    Args:
+        player_name: Name of the player
+        positions: Number of positions in the code
+        colors: Number of colors available
+        max_attempts: Maximum number of attempts allowed
+
+    Returns:
+        str: Result of the configuration attempt
+    &#34;&#34;&#34;
+    if not player_name or len(player_name.strip()) == 0:
+        return &#34;invalid_configuration&#34;
+
+    try:
+        pos = int(positions)
+        col = int(colors)
+        att = int(max_attempts)
+
+        if not (1 &lt;= pos &lt;= 9):
+            return &#34;invalid_configuration&#34;
+        if not (1 &lt;= col &lt;= 8):
+            return &#34;invalid_configuration&#34;
+        if att &lt; 0:
+            return &#34;invalid_configuration&#34;
+
+        return self.business_logic.configure_game(player_name, pos, col, att)
+    except ValueError:
+        return &#34;invalid_configuration&#34;</code></pre>
+</details>
+<div class="desc"><p>Configure game settings based on user input.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>player_name</code></strong></dt>
+<dd>Name of the player</dd>
+<dt><strong><code>positions</code></strong></dt>
+<dd>Number of positions in the code</dd>
+<dt><strong><code>colors</code></strong></dt>
+<dd>Number of colors available</dd>
+<dt><strong><code>max_attempts</code></strong></dt>
+<dd>Maximum number of attempts allowed</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the configuration attempt</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_guess_input"><code class="name flex">
+<span>def <span class="ident">handle_guess_input</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>guess_input: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_guess_input(self: &#34;ApplicationLogic&#34;, guess_input: str) -&gt; str:
+    &#34;&#34;&#34;Handle guess input from the user.
+
+    Args:
+        guess_input: Guess input string to process
+
+    Returns:
+        str: Result of the guess input
+    &#34;&#34;&#34;
+    if not self._is_valid_code(guess_input):
+        return &#34;need_guess_input&#34;
+    try:
+        guess_list = [self._convert_to_color_code(int(g)) for g in guess_input]
+        if not guess_list:
+            return &#34;need_guess_input&#34;
+        return self.business_logic.make_guess(guess_list)
+    except ValueError:
+        return &#34;need_guess_input&#34;</code></pre>
+</details>
+<div class="desc"><p>Handle guess input from the user.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>guess_input</code></strong></dt>
+<dd>Guess input string to process</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the guess input</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_menu_action"><code class="name flex">
+<span>def <span class="ident">handle_menu_action</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>menu_choice: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_menu_action(self: &#34;ApplicationLogic&#34;, menu_choice: str) -&gt; str:
+    &#34;&#34;&#34;Handle main menu selection.
+
+    Args:
+        menu_choice: User input for menu selection
+
+    Returns:
+        str: Result of the menu action processing
+    &#34;&#34;&#34;
+    available_actions = self.get_available_menu_actions()
+
+    # Baue Menu-Map dynamisch basierend auf verfügbaren Aktionen
+    menu_items = []
+    if &#34;save_game&#34; in available_actions:
+        menu_items.append((&#34;1&#34;, &#34;save_game&#34;))
+        menu_items.append((&#34;2&#34;, &#34;change_language&#34;))
+        if &#34;resume_game&#34; in available_actions:
+            menu_items.append((&#34;3&#34;, &#34;resume_game&#34;))
+        menu_items.append((&#34;4&#34;, &#34;back_to_menu&#34;))
+        menu_items.append((&#34;5&#34;, &#34;end_game&#34;))
+    else:
+        menu_items.append((&#34;1&#34;, &#34;change_language&#34;))
+        menu_items.append((&#34;2&#34;, &#34;back_to_menu&#34;))
+        menu_items.append((&#34;3&#34;, &#34;end_game&#34;))
+    # Konvertiere zu Dictionary für Lookup
+    menu_map = dict(menu_items)
+    action = menu_map.get(menu_choice)
+
+    if not action:
+        return self.get_current_game_action()
+
+    # Handle spezifische Aktionen
+    if action == &#34;save_game&#34;:
+        if self.business_logic.has_saved_game():
+            return &#34;confirm_save&#34;
+        self.business_logic.save_game_state()
+        return &#34;save_game&#34;
+    elif action == &#34;load_game&#34;:
+        return self.load_game()
+    elif action == &#34;change_language&#34;:
+        return &#34;choose_language&#34;
+    elif action == &#34;back_to_menu&#34;:
+        return &#34;back_to_menu&#34;
+    elif action == &#34;end_game&#34;:
+        return &#34;end_game&#34;
+
+    return self.get_current_game_action()</code></pre>
+</details>
+<div class="desc"><p>Handle main menu selection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>menu_choice</code></strong></dt>
+<dd>User input for menu selection</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the menu action processing</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.handle_server_connection"><code class="name flex">
+<span>def <span class="ident">handle_server_connection</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>ip: str,<br>port: int) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_server_connection(self: &#34;ApplicationLogic&#34;, ip: str, port: int) -&gt; str:
+    &#34;&#34;&#34;Handle server connection for online mode.
+
+    Args:
+        ip: IP address of the server
+        port: Port number of the server
+
+    Returns:
+        str: Result of the server connection attempt
+    &#34;&#34;&#34;
+    if self.business_logic.current_mode == &#34;online_computer_guesser&#34;:
+        return self.business_logic.start_as_online_computer_guesser(ip, port)
+    return self.business_logic.start_as_online_guesser(ip, port)</code></pre>
+</details>
+<div class="desc"><p>Handle server connection for online mode.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ip</code></strong></dt>
+<dd>IP address of the server</dd>
+<dt><strong><code>port</code></strong></dt>
+<dd>Port number of the server</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Result of the server connection attempt</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.is_game_over"><code class="name flex">
+<span>def <span class="ident">is_game_over</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>action: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_game_over(self: &#34;ApplicationLogic&#34;, action: str) -&gt; bool:
+    &#34;&#34;&#34;Check if the game is over based on the current action.
+
+    Args:
+        action: Current game action
+
+    Returns:
+        bool: True if the game is over, False otherwise
+    &#34;&#34;&#34;
+    return action in [&#34;game_won&#34;, &#34;game_lost&#34;, &#34;error&#34;, &#34;cheating_detected&#34;]</code></pre>
+</details>
+<div class="desc"><p>Check if the game is over based on the current action.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong></dt>
+<dd>Current game action</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the game is over, False otherwise</dd>
+</dl></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.load_game"><code class="name flex">
+<span>def <span class="ident">load_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Load the saved game state.&#34;&#34;&#34;
+    try:
+        self.business_logic.load_game_state()
+        return self.get_current_game_action()
+    except FileNotFoundError:
+        return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Load the saved game state.</p></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.process_game_action"><code class="name flex">
+<span>def <span class="ident">process_game_action</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>,<br>action: str,<br>user_input: str = None) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def process_game_action(self: &#34;ApplicationLogic&#34;,
+                        action: str, user_input: str = None) -&gt; str:
+    &#34;&#34;&#34;Process the next game action.&#34;&#34;&#34;
+    action_handlers = {
+        &#34;need_guess_input&#34;: self._handle_guess_action,
+        &#34;need_code_input&#34;: self._handle_code_action,
+        &#34;need_feedback_input&#34;: self._handle_feedback_action,
+        &#34;wait_for_computer_guess&#34;: lambda _: self._handle_computer_guess_action(),
+        &#34;need_server_connection&#34;: self._handle_server_connection_action
+    }
+
+    if action in action_handlers:
+        return action_handlers[action](user_input)
+    return &#34;error&#34;</code></pre>
+</details>
+<div class="desc"><p>Process the next game action.</p></div>
+</dd>
+<dt id="application_logic.application_logic.ApplicationLogic.save_game"><code class="name flex">
+<span>def <span class="ident">save_game</span></span>(<span>self: <a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_game(self: &#34;ApplicationLogic&#34;) -&gt; str:
+    &#34;&#34;&#34;Save the current game state.&#34;&#34;&#34;
+    self.business_logic.save_game_state()
+    return self.get_current_game_action()</code></pre>
+</details>
+<div class="desc"><p>Save the current game state.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="application_logic" href="index.html">application_logic</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="application_logic.application_logic.ApplicationLogic" href="#application_logic.application_logic.ApplicationLogic">ApplicationLogic</a></code></h4>
+<ul class="">
+<li><code><a title="application_logic.application_logic.ApplicationLogic.can_start_game" href="#application_logic.application_logic.ApplicationLogic.can_start_game">can_start_game</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.change_language" href="#application_logic.application_logic.ApplicationLogic.change_language">change_language</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.configure_game" href="#application_logic.application_logic.ApplicationLogic.configure_game">configure_game</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.confirm_save_game" href="#application_logic.application_logic.ApplicationLogic.confirm_save_game">confirm_save_game</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.end_game" href="#application_logic.application_logic.ApplicationLogic.end_game">end_game</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_available_menu_actions" href="#application_logic.application_logic.ApplicationLogic.get_available_menu_actions">get_available_menu_actions</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_colors" href="#application_logic.application_logic.ApplicationLogic.get_colors">get_colors</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_current_game_action" href="#application_logic.application_logic.ApplicationLogic.get_current_game_action">get_current_game_action</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_game_state" href="#application_logic.application_logic.ApplicationLogic.get_game_state">get_game_state</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_positions" href="#application_logic.application_logic.ApplicationLogic.get_positions">get_positions</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.get_required_action" href="#application_logic.application_logic.ApplicationLogic.get_required_action">get_required_action</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle" href="#application_logic.application_logic.ApplicationLogic.handle">handle</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_code_input" href="#application_logic.application_logic.ApplicationLogic.handle_code_input">handle_code_input</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_computer_guess" href="#application_logic.application_logic.ApplicationLogic.handle_computer_guess">handle_computer_guess</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_feedback_input" href="#application_logic.application_logic.ApplicationLogic.handle_feedback_input">handle_feedback_input</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_game_configuration" href="#application_logic.application_logic.ApplicationLogic.handle_game_configuration">handle_game_configuration</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_guess_input" href="#application_logic.application_logic.ApplicationLogic.handle_guess_input">handle_guess_input</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_menu_action" href="#application_logic.application_logic.ApplicationLogic.handle_menu_action">handle_menu_action</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.handle_server_connection" href="#application_logic.application_logic.ApplicationLogic.handle_server_connection">handle_server_connection</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.is_game_over" href="#application_logic.application_logic.ApplicationLogic.is_game_over">is_game_over</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.load_game" href="#application_logic.application_logic.ApplicationLogic.load_game">load_game</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.process_game_action" href="#application_logic.application_logic.ApplicationLogic.process_game_action">process_game_action</a></code></li>
+<li><code><a title="application_logic.application_logic.ApplicationLogic.save_game" href="#application_logic.application_logic.ApplicationLogic.save_game">save_game</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

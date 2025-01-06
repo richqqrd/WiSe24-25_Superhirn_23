@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>test_server API documentation</title>
+<meta name="description" content="Test server for Mastermind game.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>test_server</code></h1>
+</header>
+<section id="section-intro">
+<p>Test server for Mastermind game.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="test_server.run_server"><code class="name flex">
+<span>def <span class="ident">run_server</span></span>(<span>port: int = 8000, error_mode: str = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_server(port: int = 8000, error_mode: str = None) -&gt; None:
+    &#34;&#34;&#34;Run the test server on localhost.&#34;&#34;&#34;
+    from http.server import HTTPServer
+    server_address = (&#39;localhost&#39;, port)
+
+    # Set error mode before starting server
+    MastermindTestServer.error_mode = error_mode
+
+    httpd = HTTPServer(server_address, MastermindTestServer)
+    print(f&#34;Starting test server on http://localhost:{port}&#34;)
+    print(f&#34;Error mode: {error_mode if error_mode else &#39;None&#39;}&#34;)
+
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print(&#34;\nShutting down server...&#34;)
+        httpd.server_close()</code></pre>
+</details>
+<div class="desc"><p>Run the test server on localhost.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="test_server.MastermindTestServer"><code class="flex name class">
+<span>class <span class="ident">MastermindTestServer</span></span>
+<span>(</span><span>request, client_address, server)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MastermindTestServer(BaseHTTPRequestHandler):
+    &#34;&#34;&#34;Test server for Mastermind game.&#34;&#34;&#34;
+
+    # Store active games
+    games: Dict[int, Dict[str, Any]] = {}
+    next_game_id = 1
+    error_mode = None  # Mögliche Werte: None, &#34;connection&#34;, &#34;timeout&#34;, &#34;server_error&#34;
+
+    def _send_response(self: &#34;MastermindTestServer&#34;, status_code: int,
+                       response_data: Dict[str, Any]) -&gt; None:
+        self.send_response(status_code)
+        self.send_header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+        self.end_headers()
+        self.wfile.write(json.dumps(response_data).encode(&#39;utf-8&#39;))
+
+    def _validate_request(self: &#34;MastermindTestServer&#34;, data: Dict[str, Any]) -&gt; bool:
+        &#34;&#34;&#34;Validate request against schema.&#34;&#34;&#34;
+        required_fields = [&#39;gameid&#39;, &#39;gamerid&#39;, &#39;positions&#39;, &#39;colors&#39;, &#39;value&#39;]
+        if not all(field in data for field in required_fields):
+            return False
+
+        if not isinstance(data[&#39;gameid&#39;], int):
+            return False
+        if not isinstance(data[&#39;gamerid&#39;], str):
+            return False
+        if not (1 &lt;= data[&#39;positions&#39;] &lt;= 8):
+            return False
+        if not (1 &lt;= data[&#39;colors&#39;] &lt;= 8):
+            return False
+        if not isinstance(data[&#39;value&#39;], str):
+            return False
+
+        return True
+
+    def _calculate_feedback(self: &#34;MastermindTestServer&#34;, guess: str, code: str) -&gt; str:
+        &#34;&#34;&#34;Calculate feedback for a guess.&#34;&#34;&#34;
+        feedback = []
+        temp_guess = list(guess)
+        temp_code = list(code)
+
+        # Check for exact matches (black pins)
+        for i in range(len(temp_code)):
+            if temp_guess[i] == temp_code[i]:
+                feedback.append(&#39;8&#39;)  # Black pin
+                temp_code[i] = &#39;X&#39;
+                temp_guess[i] = &#39;Y&#39;
+
+        # Check for color matches (white pins)
+        for i in range(len(temp_guess)):
+            if temp_guess[i] != &#39;Y&#39; and temp_guess[i] in temp_code:
+                feedback.append(&#39;7&#39;)  # White pin
+                temp_code[temp_code.index(temp_guess[i])] = &#39;X&#39;
+
+        return &#39;&#39;.join(feedback)
+
+    def do_POST(self: &#34;MastermindTestServer&#34;) -&gt; None:
+        &#34;&#34;&#34;Handle POST requests.&#34;&#34;&#34;
+        # Simuliere verschiedene Fehler basierend auf error_mode
+        if self.error_mode == &#34;connection&#34;:
+            self._send_response(503, {&#34;error&#34;: &#34;Service Unavailable&#34;})
+            return
+        elif self.error_mode == &#34;timeout&#34;:
+            time.sleep(11)  # Länger als Standard-Timeout
+            return
+        elif self.error_mode == &#34;server_error&#34;:
+            self._send_response(500, {&#34;error&#34;: &#34;Internal Server Error&#34;})
+            return
+        elif self.error_mode == &#34;corrupt_json&#34;:
+            # Sende korrupten JSON Response
+            self.send_response(200)
+            self.send_header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+            self.end_headers()
+            self.wfile.write(b&#39;{corrupted&#34;json:data&#34;&#34;&#39;)
+            return
+
+        content_length = int(self.headers[&#39;Content-Length&#39;])
+        post_data = self.rfile.read(content_length)
+
+        try:
+            data = json.loads(post_data.decode(&#39;utf-8&#39;))
+
+            if not self._validate_request(data):
+                self._send_response(400, {&#34;error&#34;: &#34;Invalid request format&#34;})
+                return
+
+            # New game request (gameid = 0)
+            if data[&#39;gameid&#39;] == 0:
+                game_id = self.next_game_id
+                self.next_game_id += 1
+
+                # Generate secret code based on positions and colors
+                secret_code = &#39;&#39;.join(
+                    str(random.randint(1, data[&#39;colors&#39;]))
+                    for _ in range(data[&#39;positions&#39;])
+                )
+
+                # Store new game data
+                self.games[game_id] = {
+                    &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+                    &#39;positions&#39;: data[&#39;positions&#39;],
+                    &#39;colors&#39;: data[&#39;colors&#39;],
+                    &#39;secret_code&#39;: secret_code
+                }
+
+                response = {
+                    &#39;gameid&#39;: game_id,
+                    &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+                    &#39;positions&#39;: data[&#39;positions&#39;],
+                    &#39;colors&#39;: data[&#39;colors&#39;],
+                    &#39;value&#39;: &#39;&#39;
+                }
+                print(f&#34;New game started with secret code: {secret_code}&#34;)
+                self._send_response(200, response)
+                return
+
+            # Handle guess for existing game
+            game_id = data[&#39;gameid&#39;]
+            if game_id not in self.games:
+                self._send_response(404, {&#34;error&#34;: &#34;Game not found&#34;})
+                return
+
+            game = self.games[game_id]
+            if data[&#39;gamerid&#39;] != game[&#39;gamerid&#39;]:
+                self._send_response(403, {&#34;error&#34;: &#34;Invalid player&#34;})
+                return
+
+            # Calculate feedback for guess
+            guess = data[&#39;value&#39;]
+            feedback = self._calculate_feedback(guess, game[&#39;secret_code&#39;])
+
+            response = {
+                &#39;gameid&#39;: game_id,
+                &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+                &#39;positions&#39;: game[&#39;positions&#39;],
+                &#39;colors&#39;: game[&#39;colors&#39;],
+                &#39;value&#39;: feedback
+            }
+            self._send_response(200, response)
+
+        except json.JSONDecodeError:
+            self._send_response(400, {&#34;error&#34;: &#34;Invalid JSON&#34;})
+        except Exception as e:
+            self._send_response(500, {&#34;error&#34;: str(e)})</code></pre>
+</details>
+<div class="desc"><p>Test server for Mastermind game.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>http.server.BaseHTTPRequestHandler</li>
+<li>socketserver.StreamRequestHandler</li>
+<li>socketserver.BaseRequestHandler</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="test_server.MastermindTestServer.error_mode"><code class="name">var <span class="ident">error_mode</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="test_server.MastermindTestServer.games"><code class="name">var <span class="ident">games</span> : Dict[int, Dict[str, Any]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="test_server.MastermindTestServer.next_game_id"><code class="name">var <span class="ident">next_game_id</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="test_server.MastermindTestServer.do_POST"><code class="name flex">
+<span>def <span class="ident">do_POST</span></span>(<span>self: <a title="test_server.MastermindTestServer" href="#test_server.MastermindTestServer">MastermindTestServer</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def do_POST(self: &#34;MastermindTestServer&#34;) -&gt; None:
+    &#34;&#34;&#34;Handle POST requests.&#34;&#34;&#34;
+    # Simuliere verschiedene Fehler basierend auf error_mode
+    if self.error_mode == &#34;connection&#34;:
+        self._send_response(503, {&#34;error&#34;: &#34;Service Unavailable&#34;})
+        return
+    elif self.error_mode == &#34;timeout&#34;:
+        time.sleep(11)  # Länger als Standard-Timeout
+        return
+    elif self.error_mode == &#34;server_error&#34;:
+        self._send_response(500, {&#34;error&#34;: &#34;Internal Server Error&#34;})
+        return
+    elif self.error_mode == &#34;corrupt_json&#34;:
+        # Sende korrupten JSON Response
+        self.send_response(200)
+        self.send_header(&#39;Content-Type&#39;, &#39;application/json&#39;)
+        self.end_headers()
+        self.wfile.write(b&#39;{corrupted&#34;json:data&#34;&#34;&#39;)
+        return
+
+    content_length = int(self.headers[&#39;Content-Length&#39;])
+    post_data = self.rfile.read(content_length)
+
+    try:
+        data = json.loads(post_data.decode(&#39;utf-8&#39;))
+
+        if not self._validate_request(data):
+            self._send_response(400, {&#34;error&#34;: &#34;Invalid request format&#34;})
+            return
+
+        # New game request (gameid = 0)
+        if data[&#39;gameid&#39;] == 0:
+            game_id = self.next_game_id
+            self.next_game_id += 1
+
+            # Generate secret code based on positions and colors
+            secret_code = &#39;&#39;.join(
+                str(random.randint(1, data[&#39;colors&#39;]))
+                for _ in range(data[&#39;positions&#39;])
+            )
+
+            # Store new game data
+            self.games[game_id] = {
+                &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+                &#39;positions&#39;: data[&#39;positions&#39;],
+                &#39;colors&#39;: data[&#39;colors&#39;],
+                &#39;secret_code&#39;: secret_code
+            }
+
+            response = {
+                &#39;gameid&#39;: game_id,
+                &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+                &#39;positions&#39;: data[&#39;positions&#39;],
+                &#39;colors&#39;: data[&#39;colors&#39;],
+                &#39;value&#39;: &#39;&#39;
+            }
+            print(f&#34;New game started with secret code: {secret_code}&#34;)
+            self._send_response(200, response)
+            return
+
+        # Handle guess for existing game
+        game_id = data[&#39;gameid&#39;]
+        if game_id not in self.games:
+            self._send_response(404, {&#34;error&#34;: &#34;Game not found&#34;})
+            return
+
+        game = self.games[game_id]
+        if data[&#39;gamerid&#39;] != game[&#39;gamerid&#39;]:
+            self._send_response(403, {&#34;error&#34;: &#34;Invalid player&#34;})
+            return
+
+        # Calculate feedback for guess
+        guess = data[&#39;value&#39;]
+        feedback = self._calculate_feedback(guess, game[&#39;secret_code&#39;])
+
+        response = {
+            &#39;gameid&#39;: game_id,
+            &#39;gamerid&#39;: data[&#39;gamerid&#39;],
+            &#39;positions&#39;: game[&#39;positions&#39;],
+            &#39;colors&#39;: game[&#39;colors&#39;],
+            &#39;value&#39;: feedback
+        }
+        self._send_response(200, response)
+
+    except json.JSONDecodeError:
+        self._send_response(400, {&#34;error&#34;: &#34;Invalid JSON&#34;})
+    except Exception as e:
+        self._send_response(500, {&#34;error&#34;: str(e)})</code></pre>
+</details>
+<div class="desc"><p>Handle POST requests.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="test_server.run_server" href="#test_server.run_server">run_server</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="test_server.MastermindTestServer" href="#test_server.MastermindTestServer">MastermindTestServer</a></code></h4>
+<ul class="">
+<li><code><a title="test_server.MastermindTestServer.do_POST" href="#test_server.MastermindTestServer.do_POST">do_POST</a></code></li>
+<li><code><a title="test_server.MastermindTestServer.error_mode" href="#test_server.MastermindTestServer.error_mode">error_mode</a></code></li>
+<li><code><a title="test_server.MastermindTestServer.games" href="#test_server.MastermindTestServer.games">games</a></code></li>
+<li><code><a title="test_server.MastermindTestServer.next_game_id" href="#test_server.MastermindTestServer.next_game_id">next_game_id</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

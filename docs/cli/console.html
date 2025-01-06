@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>cli.console API documentation</title>
+<meta name="description" content="Module for console-based user interface.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cli.console</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for console-based user interface.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="cli.console.Console"><code class="flex name class">
+<span>class <span class="ident">Console</span></span>
+<span>(</span><span>application_logic: src.application_logic.i_application_logic.IApplicationLogic)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Console:
+    &#34;&#34;&#34;Main console interface controller.
+
+    This class coordinates all user interface components and handles
+    the main game loop.
+
+    Attributes:
+        application_logic: application logic layer interface
+        menu_renderer: Renderer for menus
+        game_renderer: Renderer for game states
+        input_handler: Handler for user input
+        is_game_active: Flag indicating if game is running
+    &#34;&#34;&#34;
+
+    def __init__(self: &#34;Console&#34;, application_logic: IApplicationLogic) -&gt; None:
+        &#34;&#34;&#34;Initialize console interface.
+
+        Args:
+            application_logic: Business logic layer interface
+        &#34;&#34;&#34;
+        self.application_logic = application_logic
+        self.menu_renderer = MenuRenderer()
+        self.game_renderer = GameRenderer()
+        self.input_handler = InputHandler()
+        self.is_game_active = True
+
+    def run(self: &#34;Console&#34;) -&gt; None:
+        &#34;&#34;&#34;Run the main application loop.
+
+        Handles main menu navigation and delegates to appropriate handlers.
+        &#34;&#34;&#34;
+        while self.is_game_active:
+            self.game_renderer.clear_screen()
+            available_actions = self.application_logic.get_available_menu_actions()
+            self.menu_renderer.display_main_menu(available_actions)
+            user_input = self.input_handler.handle_menu_input()
+            action = self.application_logic.handle(user_input)
+
+            if action == &#34;choose_mode&#34;:
+                self.handle_game_mode_choice()
+            elif action == &#34;choose_language&#34;:
+                self.handle_language_change()
+            elif action == &#34;end_game&#34;:
+                self.end_game()
+            elif action == &#34;save_game&#34;:
+                self.application_logic.save_game()
+                self.menu_renderer.display_save_game()
+            elif action == &#34;load_game&#34;:
+                next_action = self.application_logic.load_game()
+                if next_action != &#34;error&#34;:
+                    self.start_game_loop(next_action)
+
+    def handle_language_change(self: &#34;Console&#34;) -&gt; None:
+        &#34;&#34;&#34;Handle language selection and update.
+
+        Displays language options and updates all UI components
+        with selected language.
+        &#34;&#34;&#34;
+        self.menu_renderer.display_languages()
+        language = self.input_handler.handle_language_input(
+            self.menu_renderer.language
+        )
+        self.update_language(language)
+
+    def update_language(self: &#34;Console&#34;, language: str) -&gt; None:
+        &#34;&#34;&#34;Update language for all UI components.
+
+        Args:
+            language: New language code to set
+        &#34;&#34;&#34;
+        self.menu_renderer.set_language(language)
+        self.game_renderer.set_language(language)
+        self.input_handler.set_language(language)
+
+    def start_game_loop(self: &#34;Console&#34;, next_action: str) -&gt; None:
+        &#34;&#34;&#34;Control the main game loop.
+
+        Handles game state rendering and user input processing
+        until game is over.
+
+        Args:
+            next_action: Initial game action to process
+        &#34;&#34;&#34;
+        while not self.application_logic.is_game_over(next_action):
+
+            if next_action in [
+                &#34;need_guess_input&#34;,
+                &#34;need_feedback_input&#34;,
+                &#34;need_code_input&#34;,
+                &#34;wait_for_computer_guess&#34;,
+            ]:
+                self.render_game_state()
+
+            user_input = self.get_user_input(next_action)
+            next_action = self.application_logic.process_game_action(
+                next_action, user_input
+            )
+
+            if next_action == &#34;error&#34;:
+                self.game_renderer.render_warning(&#34;Connection failed!&#34;)
+                time.sleep(10)  # Show error for 2 seconds
+                self.game_renderer.clear_screen()
+                return  # Return to main menu
+
+            if next_action == &#34;show_menu&#34;:
+                next_action = self.handle_ingame_menu()
+            if next_action == &#34;back_to_menu&#34;:
+                self.game_renderer.clear_screen()
+                return
+
+        self.handle_game_end(next_action)
+
+    def handle_game_end(self: &#34;Console&#34;, next_action: str) -&gt; None:
+        &#34;&#34;&#34;Handle end of game states.
+
+        Displays final game state and appropriate end message based on:
+        - Game won
+        - Game lost
+        - Cheating detected
+        Then ends the game session.
+        &#34;&#34;&#34;
+        self.game_renderer.render_game_state(self.application_logic.get_game_state())
+
+        if next_action == &#34;game_won&#34;:
+            self.menu_renderer.display_game_won()
+            self.application_logic.business_logic.reset_game_state()
+
+        elif next_action == &#34;game_lost&#34;:
+            self.menu_renderer.display_game_lost()
+            self.application_logic.business_logic.reset_game_state()
+
+        elif next_action == &#34;cheating_detected&#34;:
+            self.menu_renderer.display_cheating_warning()
+            self.application_logic.business_logic.reset_game_state()
+
+        time.sleep(3)
+        self.game_renderer.clear_screen()
+
+    def render_game_state(self: &#34;Console&#34;) -&gt; None:
+        &#34;&#34;&#34;Render current game state.
+
+        Displays the current game state using the game renderer,
+        including board layout, guesses, and feedback.
+        &#34;&#34;&#34;
+        self.game_renderer.render_game_state(self.application_logic.get_game_state())
+
+    def get_user_input(self: &#34;Console&#34;, action: str) -&gt; str:
+        &#34;&#34;&#34;Get appropriate user input based on the current game action.
+
+        Args:
+            action: The current game action that requires user input
+
+        Returns:
+            str: The user input appropriate for the action
+
+        Actions handled:
+            - need_guess_input: Get guess from player
+            - need_code_input: Get secret code from player
+            - need_feedback_input: Get feedback from player
+            - need_server_connection: Get server connection details
+        &#34;&#34;&#34;
+        if action == &#34;need_guess_input&#34;:
+            positions = self.application_logic.get_positions()
+            return self.input_handler.handle_guess_input(positions)
+
+        elif action == &#34;need_code_input&#34;:
+            positions = self.application_logic.get_positions()
+            colors = self.application_logic.get_colors()
+            self.menu_renderer.display_code_input(colors)
+            user_input = self.input_handler.handle_code_input(positions)
+            if user_input == &#34;menu&#34;:
+                return &#34;need_code_input&#34;
+            return user_input
+
+        elif action == &#34;need_feedback_input&#34;:
+            positions = self.application_logic.get_positions()
+            self.menu_renderer.display_feedback_instructions()
+            return self.input_handler.handle_feedback_input(positions)
+
+        elif action == &#34;need_server_connection&#34;:
+            ip = self.input_handler.handle_ip_input()
+            port = self.input_handler.handle_port_input()
+            return f&#34;{ip}:{port}&#34;
+
+        return &#34;&#34;
+
+    def handle_ingame_menu(self: &#34;Console&#34;) -&gt; str:
+        &#34;&#34;&#34;Handle the in-game menu interactions.
+
+        Displays menu options, processes user input and handles menu actions like:
+        - Save game
+        - Load game
+        - Change language
+        - End game
+
+        Returns:
+            str: Next game action to process
+        &#34;&#34;&#34;
+        available_actions = self.application_logic.get_available_menu_actions()
+        self.menu_renderer.display_ingame_menu(available_actions)
+        user_input = self.input_handler.handle_menu_input()
+        next_action = self.application_logic.handle_menu_action(user_input)
+
+        if next_action == &#34;confirm_save&#34;:
+            self.menu_renderer.display_save_warning()
+            if self.input_handler.handle_save_warning_input():
+                next_action = self.application_logic.confirm_save_game()
+            else:
+                return self.application_logic.get_current_game_action()
+
+        if next_action == &#34;save_game&#34;:
+            self.menu_renderer.display_save_game()
+
+        elif next_action == &#34;load_game&#34;:
+            self.menu_renderer.display_load_game()
+
+        elif next_action == &#34;choose_language&#34;:
+            self.handle_language_change()
+
+        elif next_action == &#34;back_to_menu&#34;:
+            self.game_renderer.clear_screen()
+            self.application_logic.business_logic.reset_game_state()
+            return &#34;back_to_menu&#34;
+
+        elif next_action == &#34;end_game&#34;:
+            self.end_game()
+            return &#34;back_to_menu&#34;
+
+        return self.application_logic.get_current_game_action()
+
+    def end_game(self: &#34;Console&#34;) -&gt; None:
+        &#34;&#34;&#34;End the current game session.
+
+        Displays game end message and sets game inactive.
+        &#34;&#34;&#34;
+        self.game_renderer.clear_screen()
+        self.menu_renderer.display_end_game()
+        self.application_logic.business_logic.reset_game_state()
+        time.sleep(2)
+        self.is_game_active = False
+
+    def handle_game_mode_choice(self: &#34;Console&#34;) -&gt; None:
+        &#34;&#34;&#34;Handle game mode selection.
+
+        Displays game mode menu, collects configuration parameters,
+        and starts the game loop with the selected mode.
+        &#34;&#34;&#34;
+        while True:  # Schleife für Wiederholung bei ungültiger Eingabe
+            self.game_renderer.clear_screen()
+            self.menu_renderer.display_game_mode_menu()
+            game_mode = self.input_handler.handle_game_mode_input()
+
+            next_action = self.application_logic.get_required_action(game_mode)
+
+            if next_action == &#34;back_to_menu&#34;:
+                return  # Nur bei expliziter Auswahl zurück zum Hauptmenü
+
+            if next_action == &#34;invalid_mode&#34;:
+                continue  # Bei ungültiger Eingabe Menü erneut anzeigen
+
+            while next_action == &#34;need_configuration&#34;:
+                config = self.collect_game_configuration()
+                next_action = self.application_logic.configure_game(game_mode, config)
+
+                if next_action == &#34;invalid_configuration&#34;:
+                    self.menu_renderer.display_invalid_configuration()
+                    next_action = &#34;need_configuration&#34;
+
+            if self.application_logic.can_start_game(next_action):
+                self.start_game_loop(next_action)
+                return
+
+    def collect_game_configuration(self: &#34;Console&#34;) -&gt; dict:
+        &#34;&#34;&#34;Collect game configuration from user input.
+
+        Prompts for and collects:
+        - Player name
+        - Number of positions
+        - Number of colors
+        - Maximum attempts
+
+        Returns:
+            dict: Game configuration parameters
+        &#34;&#34;&#34;
+        self.menu_renderer.display_player_name_input()
+        player_name = self.input_handler.handle_player_name_input()
+        self.game_renderer.clear_screen()
+
+        self.menu_renderer.display_positions_input()
+        positions = self.input_handler.handle_positions_input()
+        self.game_renderer.clear_screen()
+
+        self.menu_renderer.display_code_input(8)
+        self.menu_renderer.display_colors_input()
+        colors = self.input_handler.handle_colors_input()
+        self.game_renderer.clear_screen()
+
+        self.menu_renderer.display_max_attempts_input()
+        max_attempts = self.input_handler.handle_max_attempts_input()
+        self.game_renderer.clear_screen()
+
+        return {
+            &#34;player_name&#34;: player_name,
+            &#34;positions&#34;: positions,
+            &#34;colors&#34;: colors,
+            &#34;max_attempts&#34;: max_attempts,
+        }</code></pre>
+</details>
+<div class="desc"><p>Main console interface controller.</p>
+<p>This class coordinates all user interface components and handles
+the main game loop.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>application_logic</code></strong></dt>
+<dd>application logic layer interface</dd>
+<dt><strong><code>menu_renderer</code></strong></dt>
+<dd>Renderer for menus</dd>
+<dt><strong><code>game_renderer</code></strong></dt>
+<dd>Renderer for game states</dd>
+<dt><strong><code>input_handler</code></strong></dt>
+<dd>Handler for user input</dd>
+<dt><strong><code>is_game_active</code></strong></dt>
+<dd>Flag indicating if game is running</dd>
+</dl>
+<p>Initialize console interface.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>application_logic</code></strong></dt>
+<dd>Business logic layer interface</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="cli.console.Console.collect_game_configuration"><code class="name flex">
+<span>def <span class="ident">collect_game_configuration</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def collect_game_configuration(self: &#34;Console&#34;) -&gt; dict:
+    &#34;&#34;&#34;Collect game configuration from user input.
+
+    Prompts for and collects:
+    - Player name
+    - Number of positions
+    - Number of colors
+    - Maximum attempts
+
+    Returns:
+        dict: Game configuration parameters
+    &#34;&#34;&#34;
+    self.menu_renderer.display_player_name_input()
+    player_name = self.input_handler.handle_player_name_input()
+    self.game_renderer.clear_screen()
+
+    self.menu_renderer.display_positions_input()
+    positions = self.input_handler.handle_positions_input()
+    self.game_renderer.clear_screen()
+
+    self.menu_renderer.display_code_input(8)
+    self.menu_renderer.display_colors_input()
+    colors = self.input_handler.handle_colors_input()
+    self.game_renderer.clear_screen()
+
+    self.menu_renderer.display_max_attempts_input()
+    max_attempts = self.input_handler.handle_max_attempts_input()
+    self.game_renderer.clear_screen()
+
+    return {
+        &#34;player_name&#34;: player_name,
+        &#34;positions&#34;: positions,
+        &#34;colors&#34;: colors,
+        &#34;max_attempts&#34;: max_attempts,
+    }</code></pre>
+</details>
+<div class="desc"><p>Collect game configuration from user input.</p>
+<p>Prompts for and collects:
+- Player name
+- Number of positions
+- Number of colors
+- Maximum attempts</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Game configuration parameters</dd>
+</dl></div>
+</dd>
+<dt id="cli.console.Console.end_game"><code class="name flex">
+<span>def <span class="ident">end_game</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def end_game(self: &#34;Console&#34;) -&gt; None:
+    &#34;&#34;&#34;End the current game session.
+
+    Displays game end message and sets game inactive.
+    &#34;&#34;&#34;
+    self.game_renderer.clear_screen()
+    self.menu_renderer.display_end_game()
+    self.application_logic.business_logic.reset_game_state()
+    time.sleep(2)
+    self.is_game_active = False</code></pre>
+</details>
+<div class="desc"><p>End the current game session.</p>
+<p>Displays game end message and sets game inactive.</p></div>
+</dd>
+<dt id="cli.console.Console.get_user_input"><code class="name flex">
+<span>def <span class="ident">get_user_input</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>,<br>action: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_user_input(self: &#34;Console&#34;, action: str) -&gt; str:
+    &#34;&#34;&#34;Get appropriate user input based on the current game action.
+
+    Args:
+        action: The current game action that requires user input
+
+    Returns:
+        str: The user input appropriate for the action
+
+    Actions handled:
+        - need_guess_input: Get guess from player
+        - need_code_input: Get secret code from player
+        - need_feedback_input: Get feedback from player
+        - need_server_connection: Get server connection details
+    &#34;&#34;&#34;
+    if action == &#34;need_guess_input&#34;:
+        positions = self.application_logic.get_positions()
+        return self.input_handler.handle_guess_input(positions)
+
+    elif action == &#34;need_code_input&#34;:
+        positions = self.application_logic.get_positions()
+        colors = self.application_logic.get_colors()
+        self.menu_renderer.display_code_input(colors)
+        user_input = self.input_handler.handle_code_input(positions)
+        if user_input == &#34;menu&#34;:
+            return &#34;need_code_input&#34;
+        return user_input
+
+    elif action == &#34;need_feedback_input&#34;:
+        positions = self.application_logic.get_positions()
+        self.menu_renderer.display_feedback_instructions()
+        return self.input_handler.handle_feedback_input(positions)
+
+    elif action == &#34;need_server_connection&#34;:
+        ip = self.input_handler.handle_ip_input()
+        port = self.input_handler.handle_port_input()
+        return f&#34;{ip}:{port}&#34;
+
+    return &#34;&#34;</code></pre>
+</details>
+<div class="desc"><p>Get appropriate user input based on the current game action.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>action</code></strong></dt>
+<dd>The current game action that requires user input</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The user input appropriate for the action</dd>
+</dl>
+<p>Actions handled:
+- need_guess_input: Get guess from player
+- need_code_input: Get secret code from player
+- need_feedback_input: Get feedback from player
+- need_server_connection: Get server connection details</p></div>
+</dd>
+<dt id="cli.console.Console.handle_game_end"><code class="name flex">
+<span>def <span class="ident">handle_game_end</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>,<br>next_action: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_game_end(self: &#34;Console&#34;, next_action: str) -&gt; None:
+    &#34;&#34;&#34;Handle end of game states.
+
+    Displays final game state and appropriate end message based on:
+    - Game won
+    - Game lost
+    - Cheating detected
+    Then ends the game session.
+    &#34;&#34;&#34;
+    self.game_renderer.render_game_state(self.application_logic.get_game_state())
+
+    if next_action == &#34;game_won&#34;:
+        self.menu_renderer.display_game_won()
+        self.application_logic.business_logic.reset_game_state()
+
+    elif next_action == &#34;game_lost&#34;:
+        self.menu_renderer.display_game_lost()
+        self.application_logic.business_logic.reset_game_state()
+
+    elif next_action == &#34;cheating_detected&#34;:
+        self.menu_renderer.display_cheating_warning()
+        self.application_logic.business_logic.reset_game_state()
+
+    time.sleep(3)
+    self.game_renderer.clear_screen()</code></pre>
+</details>
+<div class="desc"><p>Handle end of game states.</p>
+<p>Displays final game state and appropriate end message based on:
+- Game won
+- Game lost
+- Cheating detected
+Then ends the game session.</p></div>
+</dd>
+<dt id="cli.console.Console.handle_game_mode_choice"><code class="name flex">
+<span>def <span class="ident">handle_game_mode_choice</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_game_mode_choice(self: &#34;Console&#34;) -&gt; None:
+    &#34;&#34;&#34;Handle game mode selection.
+
+    Displays game mode menu, collects configuration parameters,
+    and starts the game loop with the selected mode.
+    &#34;&#34;&#34;
+    while True:  # Schleife für Wiederholung bei ungültiger Eingabe
+        self.game_renderer.clear_screen()
+        self.menu_renderer.display_game_mode_menu()
+        game_mode = self.input_handler.handle_game_mode_input()
+
+        next_action = self.application_logic.get_required_action(game_mode)
+
+        if next_action == &#34;back_to_menu&#34;:
+            return  # Nur bei expliziter Auswahl zurück zum Hauptmenü
+
+        if next_action == &#34;invalid_mode&#34;:
+            continue  # Bei ungültiger Eingabe Menü erneut anzeigen
+
+        while next_action == &#34;need_configuration&#34;:
+            config = self.collect_game_configuration()
+            next_action = self.application_logic.configure_game(game_mode, config)
+
+            if next_action == &#34;invalid_configuration&#34;:
+                self.menu_renderer.display_invalid_configuration()
+                next_action = &#34;need_configuration&#34;
+
+        if self.application_logic.can_start_game(next_action):
+            self.start_game_loop(next_action)
+            return</code></pre>
+</details>
+<div class="desc"><p>Handle game mode selection.</p>
+<p>Displays game mode menu, collects configuration parameters,
+and starts the game loop with the selected mode.</p></div>
+</dd>
+<dt id="cli.console.Console.handle_ingame_menu"><code class="name flex">
+<span>def <span class="ident">handle_ingame_menu</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_ingame_menu(self: &#34;Console&#34;) -&gt; str:
+    &#34;&#34;&#34;Handle the in-game menu interactions.
+
+    Displays menu options, processes user input and handles menu actions like:
+    - Save game
+    - Load game
+    - Change language
+    - End game
+
+    Returns:
+        str: Next game action to process
+    &#34;&#34;&#34;
+    available_actions = self.application_logic.get_available_menu_actions()
+    self.menu_renderer.display_ingame_menu(available_actions)
+    user_input = self.input_handler.handle_menu_input()
+    next_action = self.application_logic.handle_menu_action(user_input)
+
+    if next_action == &#34;confirm_save&#34;:
+        self.menu_renderer.display_save_warning()
+        if self.input_handler.handle_save_warning_input():
+            next_action = self.application_logic.confirm_save_game()
+        else:
+            return self.application_logic.get_current_game_action()
+
+    if next_action == &#34;save_game&#34;:
+        self.menu_renderer.display_save_game()
+
+    elif next_action == &#34;load_game&#34;:
+        self.menu_renderer.display_load_game()
+
+    elif next_action == &#34;choose_language&#34;:
+        self.handle_language_change()
+
+    elif next_action == &#34;back_to_menu&#34;:
+        self.game_renderer.clear_screen()
+        self.application_logic.business_logic.reset_game_state()
+        return &#34;back_to_menu&#34;
+
+    elif next_action == &#34;end_game&#34;:
+        self.end_game()
+        return &#34;back_to_menu&#34;
+
+    return self.application_logic.get_current_game_action()</code></pre>
+</details>
+<div class="desc"><p>Handle the in-game menu interactions.</p>
+<p>Displays menu options, processes user input and handles menu actions like:
+- Save game
+- Load game
+- Change language
+- End game</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Next game action to process</dd>
+</dl></div>
+</dd>
+<dt id="cli.console.Console.handle_language_change"><code class="name flex">
+<span>def <span class="ident">handle_language_change</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_language_change(self: &#34;Console&#34;) -&gt; None:
+    &#34;&#34;&#34;Handle language selection and update.
+
+    Displays language options and updates all UI components
+    with selected language.
+    &#34;&#34;&#34;
+    self.menu_renderer.display_languages()
+    language = self.input_handler.handle_language_input(
+        self.menu_renderer.language
+    )
+    self.update_language(language)</code></pre>
+</details>
+<div class="desc"><p>Handle language selection and update.</p>
+<p>Displays language options and updates all UI components
+with selected language.</p></div>
+</dd>
+<dt id="cli.console.Console.render_game_state"><code class="name flex">
+<span>def <span class="ident">render_game_state</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render_game_state(self: &#34;Console&#34;) -&gt; None:
+    &#34;&#34;&#34;Render current game state.
+
+    Displays the current game state using the game renderer,
+    including board layout, guesses, and feedback.
+    &#34;&#34;&#34;
+    self.game_renderer.render_game_state(self.application_logic.get_game_state())</code></pre>
+</details>
+<div class="desc"><p>Render current game state.</p>
+<p>Displays the current game state using the game renderer,
+including board layout, guesses, and feedback.</p></div>
+</dd>
+<dt id="cli.console.Console.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self: &#34;Console&#34;) -&gt; None:
+    &#34;&#34;&#34;Run the main application loop.
+
+    Handles main menu navigation and delegates to appropriate handlers.
+    &#34;&#34;&#34;
+    while self.is_game_active:
+        self.game_renderer.clear_screen()
+        available_actions = self.application_logic.get_available_menu_actions()
+        self.menu_renderer.display_main_menu(available_actions)
+        user_input = self.input_handler.handle_menu_input()
+        action = self.application_logic.handle(user_input)
+
+        if action == &#34;choose_mode&#34;:
+            self.handle_game_mode_choice()
+        elif action == &#34;choose_language&#34;:
+            self.handle_language_change()
+        elif action == &#34;end_game&#34;:
+            self.end_game()
+        elif action == &#34;save_game&#34;:
+            self.application_logic.save_game()
+            self.menu_renderer.display_save_game()
+        elif action == &#34;load_game&#34;:
+            next_action = self.application_logic.load_game()
+            if next_action != &#34;error&#34;:
+                self.start_game_loop(next_action)</code></pre>
+</details>
+<div class="desc"><p>Run the main application loop.</p>
+<p>Handles main menu navigation and delegates to appropriate handlers.</p></div>
+</dd>
+<dt id="cli.console.Console.start_game_loop"><code class="name flex">
+<span>def <span class="ident">start_game_loop</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>,<br>next_action: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_game_loop(self: &#34;Console&#34;, next_action: str) -&gt; None:
+    &#34;&#34;&#34;Control the main game loop.
+
+    Handles game state rendering and user input processing
+    until game is over.
+
+    Args:
+        next_action: Initial game action to process
+    &#34;&#34;&#34;
+    while not self.application_logic.is_game_over(next_action):
+
+        if next_action in [
+            &#34;need_guess_input&#34;,
+            &#34;need_feedback_input&#34;,
+            &#34;need_code_input&#34;,
+            &#34;wait_for_computer_guess&#34;,
+        ]:
+            self.render_game_state()
+
+        user_input = self.get_user_input(next_action)
+        next_action = self.application_logic.process_game_action(
+            next_action, user_input
+        )
+
+        if next_action == &#34;error&#34;:
+            self.game_renderer.render_warning(&#34;Connection failed!&#34;)
+            time.sleep(10)  # Show error for 2 seconds
+            self.game_renderer.clear_screen()
+            return  # Return to main menu
+
+        if next_action == &#34;show_menu&#34;:
+            next_action = self.handle_ingame_menu()
+        if next_action == &#34;back_to_menu&#34;:
+            self.game_renderer.clear_screen()
+            return
+
+    self.handle_game_end(next_action)</code></pre>
+</details>
+<div class="desc"><p>Control the main game loop.</p>
+<p>Handles game state rendering and user input processing
+until game is over.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>next_action</code></strong></dt>
+<dd>Initial game action to process</dd>
+</dl></div>
+</dd>
+<dt id="cli.console.Console.update_language"><code class="name flex">
+<span>def <span class="ident">update_language</span></span>(<span>self: <a title="cli.console.Console" href="#cli.console.Console">Console</a>,<br>language: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_language(self: &#34;Console&#34;, language: str) -&gt; None:
+    &#34;&#34;&#34;Update language for all UI components.
+
+    Args:
+        language: New language code to set
+    &#34;&#34;&#34;
+    self.menu_renderer.set_language(language)
+    self.game_renderer.set_language(language)
+    self.input_handler.set_language(language)</code></pre>
+</details>
+<div class="desc"><p>Update language for all UI components.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>language</code></strong></dt>
+<dd>New language code to set</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cli" href="index.html">cli</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="cli.console.Console" href="#cli.console.Console">Console</a></code></h4>
+<ul class="">
+<li><code><a title="cli.console.Console.collect_game_configuration" href="#cli.console.Console.collect_game_configuration">collect_game_configuration</a></code></li>
+<li><code><a title="cli.console.Console.end_game" href="#cli.console.Console.end_game">end_game</a></code></li>
+<li><code><a title="cli.console.Console.get_user_input" href="#cli.console.Console.get_user_input">get_user_input</a></code></li>
+<li><code><a title="cli.console.Console.handle_game_end" href="#cli.console.Console.handle_game_end">handle_game_end</a></code></li>
+<li><code><a title="cli.console.Console.handle_game_mode_choice" href="#cli.console.Console.handle_game_mode_choice">handle_game_mode_choice</a></code></li>
+<li><code><a title="cli.console.Console.handle_ingame_menu" href="#cli.console.Console.handle_ingame_menu">handle_ingame_menu</a></code></li>
+<li><code><a title="cli.console.Console.handle_language_change" href="#cli.console.Console.handle_language_change">handle_language_change</a></code></li>
+<li><code><a title="cli.console.Console.render_game_state" href="#cli.console.Console.render_game_state">render_game_state</a></code></li>
+<li><code><a title="cli.console.Console.run" href="#cli.console.Console.run">run</a></code></li>
+<li><code><a title="cli.console.Console.start_game_loop" href="#cli.console.Console.start_game_loop">start_game_loop</a></code></li>
+<li><code><a title="cli.console.Console.update_language" href="#cli.console.Console.update_language">update_language</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
