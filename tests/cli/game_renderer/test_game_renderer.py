@@ -1,3 +1,5 @@
+"""Test cases for the GameRenderer class."""
+
 import unittest
 from io import StringIO
 import sys
@@ -12,24 +14,25 @@ from src.util.translations import translations
 
 
 class TestGameRenderer(unittest.TestCase):
+    """Test cases for the GameRenderer class."""
 
-    def setUp(self):
+    def setUp(self: "TestGameRenderer") -> None:
         """Set up the test environment by redirecting stdout."""
         self.renderer = GameRenderer()
         self.held_output = StringIO()
         sys.stdout = self.held_output
 
-    def tearDown(self):
+    def tearDown(self: "TestGameRenderer") -> None:
         """Restore stdout after the test."""
         sys.stdout = sys.__stdout__
 
-    def test_clear_screen(self):
+    def test_clear_screen(self: "TestGameRenderer") -> None:
         """Test the clear_screen method to ensure it clears the console."""
         self.renderer.clear_screen()
         output = self.held_output.getvalue().strip()
         self.assertIn(output, ["", "\x1b[2J\x1b[H"])  # Check if the screen is cleared
 
-    def test_colorize(self):
+    def test_colorize(self: "TestGameRenderer") -> None:
         """Test the colorize method to ensure it correctly applies ANSI codes."""
         pins = [ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE]
         colored_output = self.renderer.colorize(pins)
@@ -40,16 +43,17 @@ class TestGameRenderer(unittest.TestCase):
         )
         self.assertEqual(colored_output, expected_output)
 
-    def test_colorize_empty_pins(self):
-        """Test the colorize method to ensure it returns correct padding for empty pins."""
+    def test_colorize_empty_pins(self: "TestGameRenderer") -> None:
+        """Test the colorize method with an empty list of pins."""
         colored_output = self.renderer.colorize([])
         expected_output = " " * 15  # Default width is 15
         self.assertEqual(colored_output, expected_output)
 
-    def test_render_game_state(self):
-        """Test the render_game_state method to ensure it correctly renders the game state."""
+    def test_render_game_state(self: "TestGameRenderer") -> None:
+        """Test the render_game_state method."""
         game_state = GameState(
-            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE, ColorCode.YELLOW],
+            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE,
+                         ColorCode.YELLOW],
             positions=4,
             colors=6,
             max_rounds=12,
@@ -91,10 +95,11 @@ class TestGameRenderer(unittest.TestCase):
             output,
         )
 
-    def test_render_game_state_with_secret_code(self):
-        """Test the render_game_state method to ensure it correctly prints the secret code."""
+    def test_render_game_state_with_secret_code(self: "TestGameRenderer") -> None:
+        """Test the render_game_state method with a secret code."""
         game_state = GameState(
-            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE, ColorCode.YELLOW],
+            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE,
+                         ColorCode.YELLOW],
             positions=4,
             colors=6,
             max_rounds=12,
@@ -105,27 +110,28 @@ class TestGameRenderer(unittest.TestCase):
         self.renderer.render_game_state(game_state)
         output = self.held_output.getvalue().strip()
         secret_code_str = self.renderer.colorize(game_state.secret_code)
-        self.assertIn(f"{translations[self.renderer.language]['secret_code']}:  {secret_code_str}", output)
+        self.assertIn(f"{translations[self.renderer.language]['secret_code']}:"
+                      f"{secret_code_str}", output)
 
-    def test_render_game_state_none(self):
-        """Test the render_game_state method to ensure it returns early when game_state is None."""
+    def test_render_game_state_none(self: "TestGameRenderer") -> None:
+        """Test the render_game_state method with a None game state."""
         self.renderer.render_game_state(None)
         output = self.held_output.getvalue().strip()
         self.assertEqual(output, "")  # No output should be produced
 
-    def test_render_message(self):
+    def test_render_message(self: "TestGameRenderer") -> None:
         """Test the render_message method to ensure it correctly renders a message."""
         self.renderer.render_message("Test Message")
         output = self.held_output.getvalue().strip()
         self.assertIn("Test Message", output)
 
-    def test_render_warning(self):
+    def test_render_warning(self: "TestGameRenderer") -> None:
         """Test the render_warning method to ensure it correctly renders a warning."""
         self.renderer.render_warning("Test Warning")
         output = self.held_output.getvalue().strip()
         self.assertIn("WARNING:          Test Warning         ", output)
 
-    def test_set_language(self):
+    def test_set_language(self: "TestGameRenderer") -> None:
         """Test the set_language method to ensure it sets the language correctly."""
         renderer = GameRenderer()
 
@@ -137,22 +143,25 @@ class TestGameRenderer(unittest.TestCase):
         renderer.set_language("invalid_language")
         self.assertEqual(renderer.language, "de")  # Language should remain unchanged
 
-    def test_set_language_invalid(self):
+    def test_set_language_invalid(self: "TestGameRenderer") -> None:
         """Test setting an invalid language code."""
         self.renderer.set_language("invalid")
         self.assertEqual(self.renderer.language, "en")  # Should remain unchanged
 
-    def test_render_message_long(self):
+    def test_render_message_long(self: "TestGameRenderer") -> None:
         """Test rendering a long message."""
-        long_message = "This is a very long message that should be tested to see how it is handled by the renderer."
+        long_message = ("This is a very long message that should be tested"
+                        "to see how it is handled by the renderer.")
         self.renderer.render_message(long_message)
         output = self.held_output.getvalue().strip()
-        self.assertIn(long_message[:40], output)  # Check if part of the long message is in the output
+        # Check if part of the long message is in the output
+        self.assertIn(long_message[:40], output)
 
-    def test_render_game_state_special_characters(self):
+    def test_render_game_state_special_characters(self: "TestGameRenderer") -> None:
         """Test rendering a game state with special characters in the player name."""
         game_state = GameState(
-            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE, ColorCode.YELLOW],
+            secret_code=[ColorCode.RED, ColorCode.GREEN, ColorCode.BLUE,
+                         ColorCode.YELLOW],
             positions=4,
             colors=6,
             max_rounds=12,
