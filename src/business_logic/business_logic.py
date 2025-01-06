@@ -1,17 +1,17 @@
 """Module for core business logic implementation."""
 
 from typing import List
-from src.business_logic.coder.computer_coder import ComputerCoder
-from src.business_logic.coder.player_coder import PlayerCoder
-from src.business_logic.game_state import GameState
-from src.business_logic.game_turn import GameTurn
-from src.business_logic.guesser.computer_guesser import ComputerGuesser
-from src.business_logic.guesser.player_guesser import PlayerGuesser
-from src.business_logic.i_business_logic import IBusinessLogic
-from src.network.network_service import NetworkService
-from src.persistence.i_persistence_manager import IPersistenceManager
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from src.business_logic.coder.computer_coder import ComputerCoder # noqa
+from src.business_logic.coder.player_coder import PlayerCoder # noqa
+from src.business_logic.game_state import GameState # noqa
+from src.business_logic.game_turn import GameTurn # noqa
+from src.business_logic.guesser.computer_guesser import ComputerGuesser # noqa
+from src.business_logic.guesser.player_guesser import PlayerGuesser # noqa
+from src.business_logic.i_business_logic import IBusinessLogic # noqa
+from src.network.network_service import NetworkService # noqa
+from src.persistence.i_persistence_manager import IPersistenceManager # noqa
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 
 class BusinessLogic(IBusinessLogic):
@@ -141,7 +141,7 @@ class BusinessLogic(IBusinessLogic):
             if isinstance(self.game_state.current_guesser, PlayerGuesser):
                 return "game_lost"  # Mensch verliert als Rater
             elif self.network_service:
-                return "game_lost"  # Computer verliert online als Rater  
+                return "game_lost"  # Computer verliert online als Rater
             else:
                 return "game_won"  # Computer gewinnt offline als Rater
 
@@ -312,7 +312,6 @@ class BusinessLogic(IBusinessLogic):
         self.positions = positions
         self.colors = colors
         self.max_round = max_attempts
-
 
     def has_saved_game(self: "BusinessLogic") -> bool:
         """Check if saved game exists through persistence layer.

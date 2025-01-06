@@ -14,10 +14,10 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.cli.console import Console
-from src.application_logic.application_logic import ApplicationLogic
-from src.business_logic.business_logic import BusinessLogic
-from src.persistence.persistence_manager import PersistenceManager
+from src.cli.console import Console # noqa
+from src.application_logic.application_logic import ApplicationLogic # noqa
+from src.business_logic.business_logic import BusinessLogic # noqa
+from src.persistence.persistence_manager import PersistenceManager # noqa
 
 
 def main() -> None:

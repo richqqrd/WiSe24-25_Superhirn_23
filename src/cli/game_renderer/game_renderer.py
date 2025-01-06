@@ -3,10 +3,10 @@
 import os
 from typing import List, Union
 
-from src.business_logic.game_state import GameState
-from src.business_logic.guesser.computer_guesser import ComputerGuesser
-from src.util.color_code import ColorCode
-from src.util.feedback_color_code import FeedbackColorCode
+from src.business_logic.game_state import GameState # noqa
+from src.business_logic.guesser.computer_guesser import ComputerGuesser # noqa
+from src.util.color_code import ColorCode # noqa
+from src.util.feedback_color_code import FeedbackColorCode # noqa
 
 from src.util.translations import translations
 
@@ -88,7 +88,8 @@ class GameRenderer:
         print("=" * 40)
 
         print(
-            f"{os.linesep}{translations[self.language]['player_label']} {game_state.player_name}"
+            f"{os.linesep}{translations[self.language]['player_label']}"
+            f"{game_state.player_name}"
         )
         print(
             f"{translations[self.language]['settings_label']} "
@@ -103,7 +104,8 @@ class GameRenderer:
         ):
             secret_code_str = self.colorize(game_state.secret_code)
             print(
-                f"{os.linesep}{translations[self.language]['secret_code']}:  {secret_code_str}"
+                f"{os.linesep}{translations[self.language]['secret_code']}: "
+                f"{secret_code_str}"
             )
 
         round_width = 8

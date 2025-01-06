@@ -2,10 +2,7 @@
 import json
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import ClassVar, Union, TYPE_CHECKING, Tuple
-
-if TYPE_CHECKING:
-    pass
+from typing import ClassVar, Union, Tuple
 
 
 class MockServerRequestHandler(BaseHTTPRequestHandler):
