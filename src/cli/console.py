@@ -227,7 +227,8 @@ class Console:
             self.handle_language_change()
 
         elif next_action == "back_to_menu":
-            self.game_renderer.clear_screen()  #
+            self.game_renderer.clear_screen()
+            self.application_logic.business_logic.reset_game_state() 
             return "back_to_menu"
 
         elif next_action == "end_game":
