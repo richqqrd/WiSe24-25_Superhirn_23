@@ -69,8 +69,5 @@ coverage report
 
 ## Dokumentation
 ```bash
-# Install pdoc3
-pip install pdoc3
-
 # Generate local documentation
-pdoc --html src/* -o docs
+pdoc --html src -o docs
